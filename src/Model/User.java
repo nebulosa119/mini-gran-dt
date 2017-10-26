@@ -5,8 +5,8 @@ import java.util.HashMap;
 public class User extends Account {
     private HashMap<Integer, Team> teams;
 
-    public User(String name, int dni, String passwd) {
-        super(name, dni, passwd);
+    public User(String name, int dni) {
+        super(name, dni);
         this.teams = new HashMap<>();
     }
 

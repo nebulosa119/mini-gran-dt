@@ -10,24 +10,20 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LogInWindow extends JFrame{
-    private JButton loginButton;
-    private JPanel panelMain;
-    private JTextField nombreField;
-    private JTextField passwdField;
-    private JButton createButton;
-    private JTextField idField;
-    private JTextArea welcomeField;
+public class LogInWindow {
+    private JTextField dniTextField;
+    private JTextField userNameTextField;
+    private JTextArea welcomText;
+    private JButton logInButton;
+    private JPanel mainPanel;
 
     public LogInWindow() {
-        idField.setVisible(false);
-        loginButton.addActionListener(new AttemptLogIn());
-        createButton.addActionListener(new CreateAccount());
+        logInButton.addActionListener(new LogInWindow.AttemptLogIn());
     }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("LogIn Menu");
-        frame.setContentPane(new LogInWindow().panelMain);
+        frame.setContentPane(new LogInWindow().mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(true);
@@ -46,21 +42,6 @@ public class LogInWindow extends JFrame{
             }
         }
     }
-    private class CreateAccount implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent a) {
-            loginButton.setVisible(false);
-            idField.setVisible(true);
-            User user = new User(nombreField.getText(),Integer.parseInt(idField.getText()), passwdField.getText());
-            try {
-                AccountsMananger.addUser(user);
-                System.out.println("hasta ca si");
-                login(AccountsMananger.getAccount(nombreField.getText()));
-            } catch (ExistentNameException | IdAlreadyUsedException e) {
-                JOptionPane.showMessageDialog(null, "El nombre o el Id ya existen");
-            }
-        }
-    }
 
     private void login(Account c){
         this.dispose(); // error aca, no logro hascer que desaparesca
@@ -71,4 +52,6 @@ public class LogInWindow extends JFrame{
         else
             new AdminWindow();
     }
+}
+
 }
