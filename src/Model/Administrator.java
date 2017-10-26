@@ -1,8 +1,7 @@
 package Model;
 
-
-import src.Model.Account;
-import src.Model.Tournament;
+import Model.Account;
+import Model.Tournament;
 
 import java.util.List;
 
