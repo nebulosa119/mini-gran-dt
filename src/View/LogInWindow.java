@@ -6,9 +6,13 @@ import src.Model.User;
 import src.Model.exceptions.ExistentNameException;
 import src.Model.exceptions.IdAlreadyUsedException;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class LogInWindow {
     private JTextField dniTextField;
@@ -23,7 +27,20 @@ public class LogInWindow {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("LogIn Menu");
+<<<<<<< Updated upstream:src/View/LogInWindow.java
         frame.setContentPane(new LogInWindow().mainPanel);
+=======
+
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("Background.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        frame.setContentPane(new JLabel(new ImageIcon(img)));
+
+        frame.setContentPane(new LogInWindow().panelMain);
+>>>>>>> Stashed changes:src/Tester/LogInWindow.java
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(true);
