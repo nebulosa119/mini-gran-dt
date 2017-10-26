@@ -1,16 +1,16 @@
-package clases;
+package src.Model;
 
-public abstract class Identificable {
-    protected String nombre;
+public abstract class Identifiable {
+    protected String name;
     protected int id;
 
-    public Identificable(String nombre, int id) {
+    public Identifiable(String name, int id) {
         this.id = id;
-        this.nombre = nombre;
+        this.name = name;
     }
 
-    public String getNombre() {
-        return new String(nombre);
+    public String getName() {
+        return new String(name);
     }
 
     public int getId() {
@@ -18,16 +18,16 @@ public abstract class Identificable {
     }
 
     // son iguales si tienen el mismo id y son instancia de la misma clase
-    // mismo nombre no importa(por ahora)
+    // mismo name no importa(por ahora)
     @Override
     public boolean equals(Object o) {
         if (this == o)
             return true;
-        if (!(o instanceof Identificable))
+        if (!(o instanceof Identifiable))
             return false;
 
-        Identificable identificable = (Identificable) o;
-            return this.id == identificable.id;
+        Identifiable identifiable = (Identifiable) o;
+            return this.id == identifiable.id;
     }
 
     @Override

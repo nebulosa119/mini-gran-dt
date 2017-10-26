@@ -1,10 +1,10 @@
-package Tester;
+package src.View;
 
-import clases.Accounts;
-import clases.Cuenta;
-import clases.Usuario;
-import clases.exceptions.IdAlreadyUsedException;
-import clases.exceptions.NombreExistenteException;
+import src.Controller.AccountsMananger;
+import src.Model.Account;
+import src.Model.User;
+import src.Model.exceptions.ExistentNameException;
+import src.Model.exceptions.IdAlreadyUsedException;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -39,8 +39,8 @@ public class LogInWindow extends JFrame{
     private class AttemptLogIn implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent a) {
-            if (Accounts.correctInfo(nombreField.getText(), passwdField.getText())){
-                login(Accounts.getCuenta(nombreField.getText()));
+            if (AccountsMananger.correctInfo(nombreField.getText(), passwdField.getText())){
+                login(AccountsMananger.getAccount(nombreField.getText()));
             }else {
                 JOptionPane.showMessageDialog(null, "Incorrect Info");
             }
@@ -51,22 +51,22 @@ public class LogInWindow extends JFrame{
         public void actionPerformed(ActionEvent a) {
             loginButton.setVisible(false);
             idField.setVisible(true);
-            Usuario usuario = new Usuario(nombreField.getText(),Integer.parseInt(idField.getText()), passwdField.getText());
+            User user = new User(nombreField.getText(),Integer.parseInt(idField.getText()), passwdField.getText());
             try {
-                Accounts.addUsuario(usuario);
+                AccountsMananger.addUser(user);
                 System.out.println("hasta ca si");
-                login(Accounts.getCuenta(nombreField.getText()));
-            } catch (NombreExistenteException | IdAlreadyUsedException e) {
+                login(AccountsMananger.getAccount(nombreField.getText()));
+            } catch (ExistentNameException | IdAlreadyUsedException e) {
                 JOptionPane.showMessageDialog(null, "El nombre o el Id ya existen");
             }
         }
     }
 
-    private void login(Cuenta c){
+    private void login(Account c){
         this.dispose(); // error aca, no logro hascer que desaparesca
         setVisible(false);
         System.out.println("hasta ca si");
-        if (c instanceof Usuario)
+        if (c instanceof User)
             new UserWindow();
         else
             new AdminWindow();
