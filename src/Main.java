@@ -24,7 +24,16 @@ public class Main {
         AccountsMananger administrators = new AccountsMananger(aux);
 
         LogInWindow login = new LogInWindow();
-        Controller aux = new UserController()
+        String name = login.getName();
+
+        Account account = users.getAccount(name);
+        if (account == null){
+            account = new User(name, login.getId());
+            users.add(account);
+        }
+
+        UserWindow view = new UserWindow();
+        Controller controller = new UserController(account,view);
 
     }
 

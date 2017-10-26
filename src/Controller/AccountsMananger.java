@@ -14,17 +14,9 @@ public class AccountsMananger<T extends  Account> {
         this.accounts = accounts;
     }
 
-    private void add(T c) throws ExistentNameException, IdAlreadyUsedException {
+    public void add(T c) {
         if (accounts == null)
             accounts = new Vector<>();
-        for (Account aux : accounts) {
-            if (aux.getName().equals(c.getName())){
-                throw new ExistentNameException();
-            }
-            if (aux.getId() == c.getId()){
-                throw new IdAlreadyUsedException();
-            }
-        }
         accounts.add(c);
     }
 

@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class LogInWindow {
+public class LogInWindow extends View {
     private JTextField dniTextField;
     private JTextField userNameTextField;
     private JTextArea welcomText;
