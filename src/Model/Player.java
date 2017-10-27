@@ -4,17 +4,18 @@ package Model;
 // por ende a la hora de subir los datos, todos los jugadores seran capaces de recibir
 // cualquier atributo.
 public class Player extends Identifiable {
+
     private int ranking;
     private int price;
 
-    public Player(String name, int dni, Integer ranking, int price) {
-        super(name, dni);// dni para diferencair entre names
+    public Player(String name, Integer ranking, int price) {
+        super(name);// dni para diferencair entre names
         this.ranking = ranking;
         this.price = price;
     }
 
     public Player(String name, int dni) {
-        this(name, dni, 0, 0);
+        this(name, 0, 0);
     }
 
     public Integer getRanking() {

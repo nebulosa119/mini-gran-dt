@@ -1,13 +1,14 @@
 package Model;
 
-import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class User extends Account {
-    private HashMap<String, Team> teams; // String para reconocer el tournament por el nombre
+    private Map<String, Team> teams; // String para reconocer el tournament por el nombre
 
     public User(String name) {
         super(name);
-        this.teams = new HashMap<>();
+        this.teams = new TreeMap<String, Team>();
     }
 
     // si no se contiene al torneo, se lo agrega, caso contrario se pisa el equipo
@@ -15,6 +16,14 @@ public class User extends Account {
         if (tournamentName == null)
             throw new NullPointerException("Id del torneo debe ser >= 0");
         teams.put(tournamentName, e);
+    }
+
+    public Tournament getTournament(String name) {
+        for(Tournament t : tournaments) {
+            if(t.getName().compareTo(name) == 0)
+                return t;
+        }
+        return null;
     }
 
     @Override

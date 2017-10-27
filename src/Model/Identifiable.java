@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.Comparator;
+
 public abstract class Identifiable {
     protected String name;
 
@@ -10,7 +12,6 @@ public abstract class Identifiable {
     public String getName() {
         return new String(name);
     }
-
 
     // son iguales si tienen el mismo id y son instancia de la misma clase
     // mismo name no importa(por ahora)
