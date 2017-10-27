@@ -9,16 +9,20 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.URL;
 import java.util.Vector;
 
 public class Main {
     public static void main(String[] args){
+        // agarrando el path de los archivos
+        /*URL sourcePath = Main.class.getResource("Main.class");
+        String filesPath = sourcePath.toString()*/
         // cargando usuers
-        Vector<Account> aux = (Vector<Account>)readObjectFromFile("users.temp");
+        Vector<Account> aux = (Vector<Account>)readObjectFromFile(fie);
         AccountsMananger users = new AccountsMananger(aux);
 
         // cargando admins
-        aux = (Vector<Account>)readObjectFromFile("users.temp");
+        aux = (Vector<Account>)readObjectFromFile("admins.temp");
         AccountsMananger administrators = new AccountsMananger(aux);
 
         LogInWindow login = new LogInWindow();
