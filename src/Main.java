@@ -1,4 +1,5 @@
 import Controller.AccountsMananger;
+import Controller.Types;
 import Model.Administrator;
 import Model.User;
 import View.Login;
@@ -14,7 +15,7 @@ public class Main {
         AccountsMananger<Administrator> admins = new AccountsMananger<Administrator>();
         admins.loadAdmins();
 
-        LoginWindow.start();
+        LoginWindow.main();
         String username = Login.getUserName;
         String type = Login.getType();// con un selecionador tipo de paises
 
@@ -22,19 +23,19 @@ public class Main {
 
         if (users.contains(username)){
             User user = (User)users.getAccount(username);
-            UserWindow.start(user);
+            UserWindow.main(user);
         }else if(admins.contains(username)){
-            Administrator admin = (Administrator) users.getAccount(username);
-            AdminWindow.start(admin);
+            Administrator admin = (Administrator) admins.getAccount(username);
+            AdminWindow.main(admin);
         }else{
-            if (type.equals("Admin")){
+            if (type.equals(Types.USER.name)){
                 User user = new User(username);
                 users.add(user);
-                UserWindow.start(user);}
+                UserWindow.main(user);}
             else {
                 Administrator admin = new Administrator(username);
                 admins.add(admin);
-                AdminWindow.start(admin);}
+                AdminWindow.main(admin);}
         }
     }
 }

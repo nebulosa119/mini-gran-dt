@@ -8,11 +8,11 @@ public class AccountsMananger <T extends Account>{
     private Vector<T> accounts;
 
     public void loadUsers() {
-        accounts = (Vector<T>)FileMananger.readObjectFromFile(Files.USERS.fileName);
+        accounts = (Vector<T>)FileMananger.readObjectFromFile(Controller.Types.USERS.fileName);
     }
 
     public void loadAdmins() {
-        accounts = (Vector<T>)FileMananger.readObjectFromFile(Files.ADMIN.fileName);
+        accounts = (Vector<T>)FileMananger.readObjectFromFile(Controller.Types.ADMIN.fileName);
     }
 
     public boolean contains(String username) {
