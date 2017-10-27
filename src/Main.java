@@ -1,11 +1,9 @@
-package src;
-
-import src.Controller.AccountsMananger;
-import src.Controller.Controller;
-import src.Controller.UserController;
-import src.Model.Account;
-import src.Model.User;
-import src.View.LogInWindow;
+import Controller.AccountsMananger;
+import Controller.Controller;
+import Controller.UserController;
+import Model.Account;
+import Model.User;
+import View.LogInWindow;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

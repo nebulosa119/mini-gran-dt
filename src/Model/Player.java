@@ -1,4 +1,4 @@
-package src.Model;
+package Model;
 
 // los jugadores no tendran una posicion fija, pueden variar a lo largo del tornero
 // por ende a la hora de subir los datos, todos los jugadores seran capaces de recibir

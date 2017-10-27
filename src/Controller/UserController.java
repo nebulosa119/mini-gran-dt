@@ -1,8 +1,8 @@
-package src.Controller;
+package Controller;
 
-import src.Model.Team;
-import src.Model.User;
-import src.View.View;
+import Model.Team;
+import Model.User;
+import View.View;
 
 import java.util.Vector;
 
@@ -13,6 +13,6 @@ public class UserController extends Controller {
     }
 
     public Vector getInscribedTournaments(){
-        model.
+
     }
 }

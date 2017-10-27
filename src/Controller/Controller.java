@@ -1,7 +1,7 @@
-package src.Controller;
+package Controller;
 
-import src.Model.Account;
-import src.View.View;
+import Model.Account;
+import View.View;
 
 public abstract class Controller {
     protected Account model;

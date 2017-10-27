@@ -1,10 +1,10 @@
-package src.View;
+package View;
 
-import src.Controller.AccountsMananger;
-import src.Model.Account;
-import src.Model.User;
-import src.Model.exceptions.ExistentNameException;
-import src.Model.exceptions.IdAlreadyUsedException;
+import Controller.AccountsMananger;
+import Model.Account;
+import Model.User;
+import Model.exceptions.ExistentNameException;
+import Model.exceptions.IdAlreadyUsedException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -27,20 +27,17 @@ public class LogInWindow extends View {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("LogIn Menu");
-<<<<<<< Updated upstream:src/View/LogInWindow.java
-        frame.setContentPane(new LogInWindow().mainPanel);
-=======
 
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File("Background.jpg"));
+            img = ImageIO.read(new File("background.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
         frame.setContentPane(new JLabel(new ImageIcon(img)));
 
-        frame.setContentPane(new LogInWindow().panelMain);
->>>>>>> Stashed changes:src/Tester/LogInWindow.java
+        frame.setContentPane(new LogInWindow().mainPanel);
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(true);

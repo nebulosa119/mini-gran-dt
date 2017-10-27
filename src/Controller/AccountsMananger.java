@@ -1,9 +1,9 @@
-package src.Controller;
+package Controller;
 
-import src.Model.Account;
-import src.Model.User;
-import src.Model.exceptions.ExistentNameException;
-import src.Model.exceptions.IdAlreadyUsedException;
+import Model.Account;
+import Model.User;
+import Model.exceptions.ExistentNameException;
+import Model.exceptions.IdAlreadyUsedException;
 
 import java.util.Vector;
 

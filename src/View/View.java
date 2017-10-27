@@ -1,4 +1,4 @@
-package src.View;
+package View;
 
 public abstract class View {
 }
