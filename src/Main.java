@@ -21,6 +21,8 @@ public class Main {
 
         LogInWindow.exit();
 
+        /////////////////////////////////////////////
+        /// esto quedó horrible, hay que cambiarlo
         if (users.contains(username)){
             User user = (User)users.getAccount(username);
             UserWindow.main(user);
@@ -37,5 +39,6 @@ public class Main {
                 admins.add(admin);
                 AdminWindow.main(admin);}
         }
+        ////////////////////////////////////////
     }
 }
