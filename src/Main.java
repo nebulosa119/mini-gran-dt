@@ -8,10 +8,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        AccountsMananger users = new AccountsMananger();
+        AccountsMananger<User> users = new AccountsMananger<User>();
         users.loadUsers();
 
-        AccountsMananger admins = new AccountsMananger();
+        AccountsMananger<Administrator> admins = new AccountsMananger<Administrator>();
         admins.loadAdmins();
 
         LoginWindow.start();
