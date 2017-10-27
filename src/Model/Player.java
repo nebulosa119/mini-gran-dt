@@ -7,6 +7,7 @@ public class Player extends Identifiable {
 
     private int ranking;
     private int price;
+    private Properties properties;
 
     public Player(String name, Integer ranking, int price) {
         super(name);// dni para diferencair entre names
@@ -18,21 +19,6 @@ public class Player extends Identifiable {
         this(name, 0, 0);
     }
 
-    public Integer getRanking() {
-        return new Integer(ranking);
-    }
-
-    public int getPrice() {
-        return new Integer(price);
-    }
-
-    public void setRanking(Integer ranking) {
-        this.ranking = ranking;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
 
     @Override
     public boolean equals(Object o) {

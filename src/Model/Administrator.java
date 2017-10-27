@@ -12,4 +12,5 @@ public class Administrator extends Account{
         super(name);
     }
 
+    public void refresh(vector , string tpurnamnt);
 }

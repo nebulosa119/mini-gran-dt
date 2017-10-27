@@ -4,11 +4,13 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class User extends Account {
+    protected int puntaje;
     private Map<String, Team> teams; // String para reconocer el tournament por el nombre
 
     public User(String name) {
         super(name);
         this.teams = new TreeMap<String, Team>();
+        puntaje = 0;
     }
 
     // si no se contiene al torneo, se lo agrega, caso contrario se pisa el equipo

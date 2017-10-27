@@ -27,7 +27,7 @@ public class Main {
 
         if (users.contains(username)){
             User user = (User)users.getAccount(username);
-            UserWindow.main(user);
+            UserWindow.main(user);// <- deberia tener/llamar metodo refresh()
         }else if(admins.contains(username)){
             Administrator admin = (Administrator) admins.getAccount(username);
             AdminWindow.main(admin);
