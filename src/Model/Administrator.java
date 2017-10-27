@@ -1,13 +1,15 @@
 package Model;
 
-import java.util.Vector;
+import Model.Account;
+import Model.Tournament;
+
+import java.util.List;
 
 public class Administrator extends Account{
-    private Vector<Tournament> tournaments;
+    private List<Tournament> tournaments;
 
-    public Administrator(String name) {
-        super(name);
-        this.tournaments = new Vector<>();
+    public Administrator(String name, int id) {
+        super(name, id);
     }
 
 }
