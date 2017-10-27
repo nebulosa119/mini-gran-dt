@@ -6,10 +6,8 @@ public class Team extends Identifiable {
     private int maxPlayers;// maximma cantidad de jugadores incluyendo suplentes
     private HashMap<Integer,Player> players;
 
-    private static int IDCounter = 0;
-
     public Team(String name, int maxPlayers) {
-        super(name,IDCounter++);
+        super(name);
         if (maxPlayers < 1){
             throw new IllegalArgumentException("Cantidad de players debe ser mayor a 1");
         }

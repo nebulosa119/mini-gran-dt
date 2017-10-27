@@ -2,10 +2,8 @@ package Model;
 
 public abstract class Identifiable {
     protected String name;
-    protected int id;
 
-    public Identifiable(String name, int id) {
-        this.id = id;
+    public Identifiable(String name) {
         this.name = name;
     }
 
@@ -13,9 +11,6 @@ public abstract class Identifiable {
         return new String(name);
     }
 
-    public int getId() {
-        return new Integer(id);
-    }
 
     // son iguales si tienen el mismo id y son instancia de la misma clase
     // mismo name no importa(por ahora)
@@ -27,13 +22,13 @@ public abstract class Identifiable {
             return false;
 
         Identifiable identifiable = (Identifiable) o;
-            return this.id == identifiable.id;
+            return this.name.equals(identifiable.name);
     }
 
     @Override
     public int hashCode() {
         int result = 7;
-        result = 31 * result + id;
+        result = 31 * result + name.hashCode();
         return result;
     }
 }

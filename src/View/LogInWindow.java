@@ -49,23 +49,23 @@ public class LogInWindow extends View {
     private class AttemptLogIn implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent a) {
-            if (AccountsMananger.correctInfo(nombreField.getText(), passwdField.getText())){
-                login(AccountsMananger.getAccount(nombreField.getText()));
+            if (AccountsMananger.correctInfo(userNameTextField.getText())){
+                //login(AccountsMananger.getAccount(nombreField.getText()));
             }else {
                 JOptionPane.showMessageDialog(null, "Incorrect Info");
             }
         }
     }
+//
+//    private void login(Account c){
+//        this.dispose(); // error aca, no logro hascer que desaparesca
+//        setVisible(false);
+//        System.out.println("hasta ca si");
+//        if (c instanceof User)
+//            new UserWindow();
+//        else
+//            new AdminWindow();
+//    }
 
-    private void login(Account c){
-        this.dispose(); // error aca, no logro hascer que desaparesca
-        setVisible(false);
-        System.out.println("hasta ca si");
-        if (c instanceof User)
-            new UserWindow();
-        else
-            new AdminWindow();
-    }
-}
 
 }

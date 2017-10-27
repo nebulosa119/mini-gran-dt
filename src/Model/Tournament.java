@@ -8,15 +8,11 @@ public class Tournament extends Identifiable {
     //private HashMap<Date,> por simplificaicon no vamos a llevar(por ahora) registro de las fechas, eso
     // se opcupara el adiministrador en su pagina web.....
 
-    private static int IDCounter = 0;
-
-    public Tournament(String name, int id) {
-        super(name, id);
+    public Tournament(String name) {
+        super(name);
+        this.teams = new Vector<>();
     }
 
-    public Tournament(String name){
-        super(name,IDCounter++);
-    }
 
     @Override
     public boolean equals(Object o) {

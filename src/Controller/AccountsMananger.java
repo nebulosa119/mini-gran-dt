@@ -28,12 +28,12 @@ public class AccountsMananger<T extends  Account> {
         return null;
     }
 
-    public boolean correctInfo(String name, int id){
+    public boolean correctInfo(String name){
         if (accounts == null){
             accounts = new Vector<>();
         }else {
             for (Account aux: accounts) {
-                if (aux.getName().equals(name) && aux.getId() == id)
+                if (aux.getName().equals(name))
                     return true;
             }
         }

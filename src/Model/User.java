@@ -3,18 +3,18 @@ package Model;
 import java.util.HashMap;
 
 public class User extends Account {
-    private HashMap<Integer, Team> teams;
+    private HashMap<String, Team> teams; // String para reconocer el tournament por el nombre
 
-    public User(String name, int dni) {
-        super(name, dni);
+    public User(String name) {
+        super(name);
         this.teams = new HashMap<>();
     }
 
     // si no se contiene al torneo, se lo agrega, caso contrario se pisa el equipo
-    public void addTeam(int idTournament, Team e){
-        if (idTournament < 0)
-            throw new IllegalArgumentException("Id del torneo debe ser >= 0");
-        teams.put(idTournament, e);
+    public void addTeam(String tournamentName, Team e){
+        if (tournamentName == null)
+            throw new NullPointerException("Id del torneo debe ser >= 0");
+        teams.put(tournamentName, e);
     }
 
     @Override
