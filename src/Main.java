@@ -18,6 +18,8 @@ public class Main {
         String username = Login.getUserName;
         String type = Login.getType();// con un selecionador tipo de paises
 
+        LogInWindow.exit();
+
         if (users.contains(username)){
             User user = (User)users.getAccount(username);
             UserWindow.start(user);
