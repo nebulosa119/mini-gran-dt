@@ -9,16 +9,10 @@ public class Player extends Identifiable {
     private int price;
     private Properties properties;
 
-    public Player(String name, Integer ranking, int price) {
-        super(name);// dni para diferencair entre names
-        this.ranking = ranking;
-        this.price = price;
+    public Player(String name) {
+        super(name);
+        properties = new Properties();
     }
-
-    public Player(String name, int dni) {
-        this(name, 0, 0);
-    }
-
 
     @Override
     public boolean equals(Object o) {

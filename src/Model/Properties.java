@@ -1,6 +1,6 @@
 package Model;
 
-import java.util.Vector;
+import Model.exceptions.PropValues;
 
 public class Properties {
     private int  normal_goals_scored;
@@ -10,6 +10,26 @@ public class Properties {
     private int yellow_cards;
     private int red_cards;
     private int goals_against;
+
+    public Properties() {
+        this.normal_goals_scored = 0;
+        this.goals_scored_by_penalty_kick = 0;
+        this.penalty_catched = 0;
+        this.goals_scored_goalkeeper = 0;
+        this.yellow_cards = 0;
+        this.red_cards = 0;
+        this.goals_against = 0;
+    }
+
+    public Properties(int normal_goals_scored, int goals_scored_by_penalty_kick, int penalty_catched, int goals_scored_goalkeeper, int yellow_cards, int red_cards, int goals_against) {
+        this.normal_goals_scored = normal_goals_scored;
+        this.goals_scored_by_penalty_kick = goals_scored_by_penalty_kick;
+        this.penalty_catched = penalty_catched;
+        this.goals_scored_goalkeeper = goals_scored_goalkeeper;
+        this.yellow_cards = yellow_cards;
+        this.red_cards = red_cards;
+        this.goals_against = goals_against;
+    }
 
     public void refresh(Properties p){
         this.normal_goals_scored            += p.normal_goals_scored;
@@ -23,29 +43,22 @@ public class Properties {
 
     public int calculateRanking() {
         int resp=0;
-        resp += normal_goals_scored * PropValues.normal_goals_scored.value;
-        resp += goals_scored_by_penalty_kick * PropValues.normal_goals_scored.value;
-        resp += penalty_catched * PropValues.normal_goals_scored.value;
-        resp += goals_scored_goalkeeper * PropValues.normal_goals_scored.value;
-        resp += yellow_cards * PropValues.normal_goals_scored.value;
-        resp += red_cards * PropValues.normal_goals_scored.value;
-        resp += goals_against * PropValues.normal_goals_scored.value;
+        resp += normal_goals_scored             * PropValues.normal_goals_scored.getpValue();
+        resp += goals_scored_by_penalty_kick    * PropValues.goals_scored_by_penalty_kick.getpValue();
+        resp += penalty_catched                 * PropValues.penalty_catched.getpValue();
+        resp += goals_scored_goalkeeper         * PropValues.goals_scored_goalkeeper.getpValue();
+        resp += yellow_cards                    * PropValues.yellow_cards.getpValue();
+        resp += red_cards                       * PropValues.red_cards.getpValue();
+        resp += goals_against                   * PropValues.goals_against.getpValue();
         return resp;
-
     }
-    private enum PropValues{
-        normal_goals_scored(20),
-        goals_scored_by_penalty_kick(10),
-        penalty_catched(20),
-        goals_scored_goalkeeper(60),
-        yellow_cards(-5),
-        red_cards(-10),
-        goals_against(-20);
 
-        int value;
-
-        PropertiesValues(int value) {
-            this.value = value;
-        }
+    public int calculatePrice() {
+        int resp = 0;
+        resp += normal_goals_scored         * 100 * PropValues.normal_goals_scored.getUPricePerCent();
+        resp += goals_scored_by_penalty_kick* 100 * PropValues.goals_scored_by_penalty_kick.getUPricePerCent();
+        resp += penalty_catched             * 100 * PropValues.penalty_catched.getUPricePerCent();
+        resp += goals_scored_goalkeeper     * 100 * PropValues.goals_scored_goalkeeper.getUPricePerCent();
+        return resp;
     }
 }
