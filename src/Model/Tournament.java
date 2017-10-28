@@ -3,6 +3,7 @@ package Model;
 import java.util.Vector;
 
 public class Tournament extends Identifiable {
+
     private Vector<Team> teams;
     // para llevar registro de los jugadores
     //private HashMap<Date,> por simplificaicon no vamos a llevar(por ahora) registro de las fechas, eso
@@ -13,6 +14,13 @@ public class Tournament extends Identifiable {
         this.teams = new Vector<>();
     }
 
+    public void refreshTeamPosition(Properties p, Team t, int pos) {
+        for(Team team: teams) {
+            if(team.equals(t)) {
+                team.refreshPlayer(p, pos);
+            }
+        }
+    }
 
     @Override
     public boolean equals(Object o) {

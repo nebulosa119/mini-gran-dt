@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class User extends Account {
+
     protected int puntaje;
     private Map<String, Team> teams; // String para reconocer el tournament por el nombre
 
@@ -20,6 +21,7 @@ public class User extends Account {
         teams.put(tournamentName, e);
     }
 
+    /**Este metodo no deberia ir a administrator?*/
     public Tournament getTournament(String name) {
         for(Tournament t : tournaments) {
             if(t.getName().compareTo(name) == 0)

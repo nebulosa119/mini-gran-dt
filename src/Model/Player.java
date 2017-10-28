@@ -14,6 +14,10 @@ public class Player extends Identifiable {
         properties = new Properties();
     }
 
+    public void refresh(Properties p) {
+        properties.refresh(p);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)

@@ -1,7 +1,8 @@
 package Model;
 
 public class Properties {
-    private int  normal_goals_scored;
+
+    private int normal_goals_scored;
     private int goals_scored_by_penalty_kick;
     private int penalty_catched;
     private int goals_scored_goalkeeper;

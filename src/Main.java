@@ -20,7 +20,7 @@ public class Main {
 
         LoginWindow login = new LoginWindow();
         login.main();
-        String username = login.getUserName; // login deberia chequear que haya info
+        String username = login.getUserName(); // login deberia chequear que haya info
         Types type = login.getType();// con un selecionador tipo de paises
         // recibo el username, no verificar si existe o no
         login.exit();

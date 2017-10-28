@@ -1,8 +1,10 @@
 package Model;
 
 import java.util.HashMap;
+import java.util.Vector;
 
 public class Team extends Identifiable {
+
     private int maxPlayers;// maximma cantidad de jugadores incluyendo suplentes
     private HashMap<Integer,Player> players;
 
@@ -29,6 +31,10 @@ public class Team extends Identifiable {
 
     public void remove(int position){
         players.remove(position);
+    }
+
+    public void refreshPlayer(Properties p, int pos) {
+        players.get(pos).refresh(p);
     }
 
     @Override
