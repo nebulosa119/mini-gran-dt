@@ -16,7 +16,7 @@ public class LoginWindow extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
 
         primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.getIcons().add(new Image("assets/icon.png"));
+        primaryStage.getIcons().add(new Image("resources/icon.png"));
         primaryStage.setTitle("Mini Gran DT");
 
 

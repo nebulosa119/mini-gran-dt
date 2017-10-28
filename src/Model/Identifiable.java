@@ -13,8 +13,7 @@ public abstract class Identifiable {
         return new String(name);
     }
 
-    // son iguales si tienen el mismo id y son instancia de la misma clase
-    // mismo name no importa(por ahora)
+    // son iguales si tienen el mismo nombre y son instancia de la misma clase
     @Override
     public boolean equals(Object o) {
         if (this == o)
