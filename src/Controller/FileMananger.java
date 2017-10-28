@@ -34,6 +34,34 @@ public class FileMananger {
         }
         return resp;
     }
+    public static void serializeObject(Object obj, String fileName) {
+        String resourceDirectory = getResourcesDirectory();
+        try {
+            FileOutputStream fileOut = new FileOutputStream(resourceDirectory+"/"+fileName);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(obj);
+            out.close();
+            fileOut.close();
+            System.out.printf("Serialized "+obj+"to file "+fileName);
+        }catch(IOException i) {
+            i.printStackTrace();
+        }
+    }
+
+    public static Object unserializeObject(String fileName) {
+        String resourceDirectory = getResourcesDirectory();
+        Object obj = null;
+        try {
+            FileInputStream fileIn = new FileInputStream(resourceDirectory + "/"+fileName);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            obj = in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
     //
 //    public static void main(String[] args) {
 //        File resourcesDirectory = new File("src/resources");
