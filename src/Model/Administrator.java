@@ -39,5 +39,10 @@ public class Administrator extends Account{
     }
 
 
+    public ArrayList<Tournament> getTournaments(){
+       return tournaments;
+    }
+
+
 
 }
