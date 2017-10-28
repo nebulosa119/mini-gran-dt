@@ -1,4 +1,4 @@
-package Model.exceptions;
+package Model;
 
 public enum PropValues{
     normal_goals_scored(20,40,0.35),

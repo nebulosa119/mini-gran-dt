@@ -1,7 +1,5 @@
 package Model;
 
-import Model.exceptions.PropValues;
-
 public class Properties {
     private int  normal_goals_scored;
     private int goals_scored_by_penalty_kick;
