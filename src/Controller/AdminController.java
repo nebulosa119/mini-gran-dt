@@ -1,5 +1,6 @@
 package Controller;
 import Model.Administrator;
+
 public class AdminController extends Controller {
 
         private Administrator admin;
