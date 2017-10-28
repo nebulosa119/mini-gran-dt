@@ -7,7 +7,8 @@ import Model.Administrator;
 import Model.User;
 import View.LoginWindow;
 
-
+/*Es importante que antes de cerrar cada ventana se haga un Accounts Mananger.save(),
+* en este momento no esta implementado 100 por ciento pero esta la idea.*/
 public class Main {
 
     public static void main(String[] args) {
@@ -46,5 +47,7 @@ public class Main {
             controller = new AdminController(admin);
         }
         controller.start();
+        users.save();
+        admins.save();
     }
 }
