@@ -10,6 +10,6 @@ public class AdminController extends Controller {
 
         @Override
         public void start() {
-
+        admin.getTournaments();
         }
 }

@@ -20,12 +20,8 @@ public class User extends Account {
         teams.put(tournamentName, e);
     }
 
-    public Tournament getTournament(String name) {
-        for(Tournament t : tournaments) {
-            if(t.getName().compareTo(name) == 0)
-                return t;
-        }
-        return null;
+    public Team getTeamsFromTournament(String name) {
+        return teams.get(name);// que pasa si es null?
     }
 
     @Override
