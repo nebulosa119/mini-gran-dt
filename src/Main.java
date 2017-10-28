@@ -1,8 +1,10 @@
 import Controller.AccountsMananger;
+import Controller.Controller;
 import Controller.Types;
+import Controller.UserController;
+import Controller.AdminController;
 import Model.Administrator;
 import Model.User;
-import View.Login;
 
 
 public class Main {
@@ -22,25 +24,26 @@ public class Main {
         // recibo el username, no verificar si existe o no
         login.exit();
 
-        /////////////////////////////////////////////
-        /// esto quedó horrible, hay que cambiarlo
-
-        if (users.contains(username)){
-            User user = (User)users.getAccount(username);
-            UserWindow.main(user);// <- deberia tener/llamar metodo refresh()
-        }else if(admins.contains(username)){
-            Administrator admin = (Administrator) admins.getAccount(username);
-            AdminWindow.main(admin);
-        }else{
-            if (type.equals(Types.USER)){
-                User user = new User(username);
+        Controller controller;
+        if (type.equals(Types.USER)){// tenias razon agus
+            User user;
+            if (users.contains(username)) {
+                user = (User) users.getAccount(username);
+            }else{
+                user = new User(username);
                 users.add(user);
-                UserWindow.main(user);}
-            else {
-                Administrator admin = new Administrator(username);
+            }
+            controller = new UserController(user);
+        }else{
+            Administrator admin;
+            if (admins.contains(username)) {
+                admin = (Administrator) admins.getAccount(username);
+            }else{
+                admin = new Administrator(username);
                 admins.add(admin);
-                AdminWindow.main(admin);}
+            }
+            controller = new AdminController(admin);
         }
-        ////////////////////////////////////////
+        controller.start();
     }
 }

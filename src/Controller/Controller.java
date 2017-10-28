@@ -8,7 +8,7 @@ import javafx.scene.input.MouseEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable{
+public abstract class Controller implements Initializable{
 
     @FXML
     private Label label;
@@ -22,4 +22,5 @@ public class Controller implements Initializable{
     public void initialize(URL url, ResourceBundle rb){
 
     }
+    public abstract void start();
 }
