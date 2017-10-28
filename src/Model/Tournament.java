@@ -22,6 +22,19 @@ public class Tournament extends Identifiable {
         }
     }
 
+    /**Para cuando se cree el torneo y los equipos*/
+    public void addTeam(Team t) {
+        teams.add(t);
+    }
+
+    public boolean hasTeam(Team t) {
+        for(Team team : teams) {
+            if(t.equals(team))
+                return true;
+        }
+        return false;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
