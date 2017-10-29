@@ -54,6 +54,10 @@ public class Team extends Identifiable {
         return result;
     }
 
+    public Player[] getPlayers() {
+    return (Player[]) players.values().toArray();
+    }
+
     private class PlayerExistsException extends Exception {
         public PlayerExistsException() {
             super("El jugador ya se encuentra en el equipo");

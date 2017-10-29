@@ -22,13 +22,13 @@ public class User extends Account {
     }
 
     /**Este metodo no deberia ir a administrator?*/
-    public Tournament getTournament(String name) {
-        for(Tournament t : tournaments) {
-            if(t.getName().compareTo(name) == 0)
-                return t;
-        }
-        return null;
-    }
+//    public Tournament getTournament(String name) {
+//        for(Tournament t : tournaments) {
+//            if(t.getName().compareTo(name) == 0)
+//                return t;
+//        }
+//        return null;
+//    }
 
     @Override
     public boolean equals(Object o){

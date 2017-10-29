@@ -13,6 +13,11 @@ public class Administrator extends Account{
         super(name);
     }
 
+    /**Metodo para que el controller pueda tener acceso a los torneos y asi poder mostrarlos al admin*/
+    public ArrayList<Tournament> getTournaments() {
+        return tournaments;
+    }
+
     /**Este metodo deberia ser el primero en llamarse cuando desde el front el admin
      * actualiza los jugadores de un equipo en un torneo. Llama metodo refresh en cascada desde la clase torneo
      * Aun me queda la duda de si deberiamos llamar estos metodos desde las clases del model o de otras.*/
@@ -37,12 +42,5 @@ public class Administrator extends Account{
         }
         return false;
     }
-
-
-    public ArrayList<Tournament> getTournaments(){
-       return tournaments;
-    }
-
-
 
 }

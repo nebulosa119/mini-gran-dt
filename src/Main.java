@@ -20,6 +20,7 @@ public class Main {
         admins.loadAdmins();
 
         LoginWindow login = new LoginWindow();
+        LoginWindow.main(new String[]{});
         login.main();
         String username = login.getUserName(); // login deberia chequear que haya info
         Types type = login.getType();// con un selecionador tipo de paises
