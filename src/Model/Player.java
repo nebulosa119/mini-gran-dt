@@ -14,8 +14,8 @@ public class Player extends Identifiable {
         properties = new Properties();
     }
 
-    public void refresh(Properties p) {
-        properties.refresh(p);
+    public void refresh(int index, int property) {
+        properties.refresh(index,property);
     }
 
     @Override

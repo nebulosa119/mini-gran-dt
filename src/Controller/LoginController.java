@@ -1,22 +1,5 @@
 package Controller;
 
-<<<<<<< Updated upstream:src/Controller/TeamController.java
-import Model.Team;
-
-import java.util.Vector;
-
-public class TeamController extends Controller{
-
-    private Team[] teams;
-
-    public TeamController(Team[] teams) {
-        this.teams = teams;
-    }
-
-    @Override
-    public void start() {
-        /**Desde aca se deberian mostrar los jugadores en forma de tabla*/
-=======
 import Model.Administrator;
 import Model.User;
 import View.LoginWindow;
@@ -62,6 +45,5 @@ public class LoginController extends Controller {
         users.save();
         admins.save();
         */
->>>>>>> Stashed changes:src/Controller/LoginController.java
     }
 }

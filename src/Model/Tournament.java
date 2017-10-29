@@ -39,6 +39,8 @@ public class Tournament extends Identifiable {
         return false;
     }
 
+    public Vector<Team> getTeams() { return teams; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)

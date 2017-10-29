@@ -43,4 +43,20 @@ public class Administrator extends Account{
         return false;
     }
 
+
+    public ArrayList<Tournament> getTournaments(){
+       return tournaments;
+    }
+
+    public Tournament getTournament(String tournament) {
+        for (int i=0; i<tournaments.size(); i++) {
+            if (tournament.equals(tournaments.get(i).getName())) {
+                return tournaments.get(i);
+            }
+        }
+        return null;
+    }
+
+
+
 }

@@ -20,24 +20,23 @@ public class Properties {
         this.goals_against = 0;
     }
 
-    public Properties(int normal_goals_scored, int goals_scored_by_penalty_kick, int penalty_catched, int goals_scored_goalkeeper, int yellow_cards, int red_cards, int goals_against) {
-        this.normal_goals_scored = normal_goals_scored;
-        this.goals_scored_by_penalty_kick = goals_scored_by_penalty_kick;
-        this.penalty_catched = penalty_catched;
-        this.goals_scored_goalkeeper = goals_scored_goalkeeper;
-        this.yellow_cards = yellow_cards;
-        this.red_cards = red_cards;
-        this.goals_against = goals_against;
-    }
-
-    public void refresh(Properties p){
-        this.normal_goals_scored            += p.normal_goals_scored;
-        this.goals_scored_by_penalty_kick   += p.goals_scored_by_penalty_kick;
-        this.penalty_catched                += p.penalty_catched;
-        this.goals_scored_goalkeeper        += p.goals_scored_goalkeeper;
-        this.yellow_cards                   += p.yellow_cards;
-        this.red_cards                      += p.red_cards;
-        this.goals_against                  += p.goals_against;
+    public void refresh(int index, int property){
+        switch (index){
+            case 0: this.normal_goals_scored            += property;
+                    break;
+            case 1: this.goals_scored_by_penalty_kick   += property;
+                    break;
+            case 2: this.penalty_catched                += property;
+                    break;
+            case 3: this.goals_scored_goalkeeper        += property;
+                    break;
+            case 4: this.yellow_cards                   += property;
+                    break;
+            case 5: this.red_cards                      += property;
+                    break;
+            case 6: this.goals_against                  += property;
+                    break;
+        }
     }
 
     public int calculateRanking() {
