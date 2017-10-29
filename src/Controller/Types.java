@@ -1,7 +1,7 @@
 package Controller;
 
 public enum Types {
-    USER("users.temp", "Users"), ADMIN("admin.temp","Admin");
+    USER("accounts.temp", "Users"), ADMIN("accounts.temp","Admin");
 
     public String fileName;
     public String name;

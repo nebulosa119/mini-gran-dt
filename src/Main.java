@@ -1,5 +1,7 @@
 import Controller.AccountsMananger;
 import Controller.AdminMananger;
+import Controller.Types;
+import Model.Account;
 import Model.Administrator;
 import Model.User;
 import javafx.application.Application;
@@ -14,6 +16,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     private Stage stage;
+    AccountsMananger accounts;
     private Scene currentScene;
     private String username;
 
@@ -21,6 +24,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         // guardamos el stage para manipularlo desde cualquier parte de la clase
         stage = primaryStage;
+        // guardamos los accoutns para manipularlos desde cualqeuir parte
+        accounts = new AccountsMananger();
+        accounts.loadAccounts();
         // creando login
         Scene loginScene = new Scene(createLogInWindow(), 300, 275);
 
@@ -80,27 +86,32 @@ public class Main extends Application {
     }
 
     private Scene createNextWindow(String username) {
-        Scene sceneToReturn;
-        //cargando informacion de usuarios
-        AccountsMananger users = new AccountsMananger();
-        users.loadUsers();
-        AccountsMananger admins = new AccountsMananger();
-        admins.loadAdmins();
+        Scene returnScene;
         // buscamos cual tiene al usuario
-        if (admins.contains(username)){
-            //creando window para el admin
-            Administrator admin = (Administrator) admins.getAccount(username);
-            AdminMananger adminM = new AdminMananger(admin.getTournaments());
-            sceneToReturn = new Scene(adminM.createVBox(), 600, 600);// crea un vBox con la informacion de los torneos
-        } else if (users.contains(username)){
-            // creando ventana para el usuario
-            User user = (User) users.getAccount(username);
-            UserMananger userM = new UserMananger(user.getTeams());
-            sceneToReturn = new Scene(userM.createVbox());
+        if (!accounts.contains(username)){
+            // si no existe lo creamos como usuario
+            accounts.createAccount(username, Types.USER);
         }
-
+        Account account = accounts.getAccount(username);
+        if (account instanceof Administrator){// esto quedo feo, hay que arreglarlo
+            //creando window para el admin
+            Administrator admin = (Administrator) account;
+            AdminMananger adminM = new AdminMananger(admin.getTournaments());
+            returnScene = new Scene(adminM.createVBox(), 600, 600);// crea un vBox con la informacion de los torneos
+        }else{
+            // creando ventana para el usuario
+            User user = (User) account;
+            UserMananger userM = new UserMananger(user.getTeams());
+            returnScene = new Scene(userM.createVbox(), 600, 600);
+        }
+        return returnScene;
     }
 
+    @Override
+    public void stop() throws Exception {
+        accounts.save();
+        super.stop();
+    }
 
     public static void main(String[] args) {
         launch(args);
