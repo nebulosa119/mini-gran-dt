@@ -21,6 +21,10 @@ public class User extends Account {
         teams.put(tournamentName, e);
     }
 
+    public Map<String, Team> getTeams() {
+        return teams;
+    }
+
     /**Este metodo no deberia ir a administrator?*/
 //    public Tournament getTournament(String name) {
 //        for(Tournament t : tournaments) {

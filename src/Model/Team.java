@@ -1,12 +1,11 @@
 package Model;
 
-import java.util.HashMap;
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class Team extends Identifiable {
 
     private int maxPlayers;// maximma cantidad de jugadores incluyendo suplentes
-    private HashMap<Integer,Player> players;
+    private ArrayList<Player> players;
 
     public Team(String name, int maxPlayers) {
         super(name);
@@ -14,23 +13,19 @@ public class Team extends Identifiable {
             throw new IllegalArgumentException("Cantidad de players debe ser mayor a 1");
         }
         this.maxPlayers = maxPlayers;
-        this.players = new HashMap<Integer,Player>();
+        this.players = new ArrayList<>();
     }
 
-    public void add(Player j, int position) throws CompleteTeamException, OccupiedPositionExcepetion, PlayerExistsException{
-        if (position < 1 || position > maxPlayers)
-            throw new IllegalArgumentException("Posicion ebe ser entre 1 y el maximo de players permitidos.");
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    public void add(Player p) throws CompleteTeamException, PlayerExistsException{
         if (players.size() >= maxPlayers)
             throw new CompleteTeamException();
-        if (players.containsKey(position))
-            throw new OccupiedPositionExcepetion();
-        if (players.containsValue(j))
+        if (players.contains(p))
             throw new PlayerExistsException();
-        players.put(position,j);
-    }
-
-    public void remove(int position){
-        players.remove(position);
+        players.add(p);
     }
 
     public void refreshPlayer(Properties p, int pos) {
@@ -54,11 +49,11 @@ public class Team extends Identifiable {
         return result;
     }
 
-    public Player[] getPlayers() {
+   /* public Player[] getPlayers() {
     return (Player[]) players.values().toArray();
-    }
+    }*/
 
-    private class PlayerExistsException extends Exception {
+    public class PlayerExistsException extends Exception {
         public PlayerExistsException() {
             super("El jugador ya se encuentra en el equipo");
         }
@@ -68,7 +63,7 @@ public class Team extends Identifiable {
             super("La position ya se ecuentra ocupada en este equipo");
         }
     }
-    private class CompleteTeamException extends Exception {
+    public class CompleteTeamException extends Exception {
         public CompleteTeamException() {
             super("El equipo esta completo");
         }

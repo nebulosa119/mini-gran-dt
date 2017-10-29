@@ -1,17 +1,18 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class Tournament extends Identifiable {
 
-    private Vector<Team> teams;
+    private ArrayList<Team> teams;
     // para llevar registro de los jugadores
     //private HashMap<Date,> por simplificaicon no vamos a llevar(por ahora) registro de las fechas, eso
     // se opcupara el adiministrador en su pagina web.....
 
     public Tournament(String name) {
         super(name);
-        this.teams = new Vector<>();
+        this.teams = new ArrayList<Team>();
     }
 
     public void refreshTeamPosition(Properties p, Team t, int pos) {
@@ -20,6 +21,9 @@ public class Tournament extends Identifiable {
                 team.refreshPlayer(p, pos);
             }
         }
+    }
+    public ArrayList<Team> getTeams() {
+        return teams;
     }
 
     /**Para cuando se cree el torneo y los equipos*/
