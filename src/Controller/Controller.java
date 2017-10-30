@@ -27,8 +27,12 @@ public class Controller extends Application {
         // guardamos el stage para manipularlo desde cualquier parte de la clase
         stage = primaryStage;
         // guardamos los accoutns para manipularlos desde cualqeuir parte
-        accounts = new AccountsManager();
-        accounts.loadAccounts();
+        accounts = (AccountsManager) FileManager.unserializeObject(Types.ADMIN.fileName);
+        if (accounts == null) {
+            System.out.println("es vacio");
+            accounts = new AccountsManager();
+        }
+        //accounts.loadAccounts();
         // creando login
         Scene loginScene = new Scene(createLogInWindow(), 300, 275);
 

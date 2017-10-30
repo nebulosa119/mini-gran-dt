@@ -1,6 +1,8 @@
 package Model;
 
-public abstract class Account extends Identifiable {
+import java.io.Serializable;
+
+public abstract class Account extends Identifiable implements Serializable {
 
     public Account(String name) {
         super(name);

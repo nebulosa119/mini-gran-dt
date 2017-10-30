@@ -12,10 +12,10 @@ public class AccountsManager implements Serializable{
     private ArrayList<Account> accounts;
 
     public AccountsManager() {
-        loadAccounts();
-        if(accounts == null){
+        //loadAccounts();
+        //if(accounts == null){
             accounts = new ArrayList<>();
-        }
+        //}
     }
 
     public void loadAccounts() {
@@ -55,4 +55,7 @@ public class AccountsManager implements Serializable{
     }
 
 
+    public ArrayList<Account> getAccounts() {
+        return accounts;
+    }
 }
