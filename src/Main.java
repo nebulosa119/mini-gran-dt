@@ -21,78 +21,10 @@ public class Main {
         //ac.createAccount(new Administrator("juan"));
         //FileManager.writeObjectToFile(ac, Types.USER.fileName);
         Controller.main(new String[]{});
-        /*String[] teamNames = new String[]{
-                "Sonido Caracol",
-                "Lincoln",
-                "Matambre Reloaded",
-                "C.A. Hay Combate",
-                "Tu Marido",
-                "Cerezas Inocentes",
-                "Piraña",
-                "La Vieja Señora",
-                "Asfalten Kayen",
-                "Ultimo Momento",
-                "El Equipo de Carama",
-                "FC Ronvodwhisky",
-                "Tenedor Libre",
-                "Herederos del Ñoqui",
-                "Savio F.C.",
-                "Pato Criollo",
-                "Extra Brutt",
-                "El Mago y su Jauria",
-                "Colectivo San Juan",
-                "El Nono Michelin",
-                "Submarino Amarilo",
-                "Jamaica Bajo Cero",
-                "Los Borbotones",
-                "No Manzana",
-                "Corta el Pasto",
-                "Furia FC",
-                "La Vino Tinto",
-                "Lineo B",
-                "Te lo Juro por las Nenas",
-                "La Nave Fulbo Clu"};
-        String[] menNames = new String[]{
-                "Agustin",
-                "Alejo",
-                "Bruno",
-                "Santino",
-                "Daniel",
-                "Pablo",
-                "Mateo ",
-                "Manuel",
-                "Leo",
-                "Martin ",
-                "Pedro",
-                "Juan",
-                "Martin",
-                "Antonio"
-        };
-        String[] womenNames = new String[]{
-                "Jimena","Milagros","Cristina","Camila","Rosario","Sofía","María","Lucía","Martina","Catalina","Elena","Emilia","Valentina","Paula","Zoe"
-        };
-        String[] surnames = new String[]{
-                "Ponce",
-                "Ledesma",
-                "Castillo",
-                "Vega",
-                "Villalba",
-                "Arias",
-                "Navarro",
-                "Barrios",
-                "Soria",
-                "Alvarado",
-                "Lozano",
-                "James",
-                "Basualdo",
-                "Vedoya",
-                "Momesso",
-                "Osimani",
-                "Dorado",
-                "Gomez",
-                "Noni"
-        };
-
+        /*String[] teamNames = new String[]{"Sonido Caracol", "Lincoln", "Matambre Reloaded", "C.A. Hay Combate", "Tu Marido", "Cerezas Inocentes", "Piraña", "La Vieja Señora", "Asfalten Kayen", "Ultimo Momento", "El Equipo de Carama", "FC Ronvodwhisky", "Tenedor Libre", "Herederos del Ñoqui", "Savio F.C.", "Pato Criollo", "Extra Brutt", "El Mago y su Jauria", "Colectivo San Juan", "El Nono Michelin", "Submarino Amarilo", "Jamaica Bajo Cero", "Los Borbotones", "No Manzana", "Corta el Pasto", "Furia FC", "La Vino Tinto", "Lineo B", "Te lo Juro por las Nenas", "La Nave Fulbo Clu"};
+        String[] menNames = new String[]{"Agustin", "Alejo", "Bruno", "Santino", "Daniel", "Pablo", "Mateo ", "Manuel", "Leo", "Martin ", "Pedro", "Juan", "Martin", "Antonio"};
+        String[] womenNames = new String[]{"Jimena","Milagros","Cristina","Camila","Rosario","Sofía","María","Lucía","Martina","Catalina","Elena","Emilia","Valentina","Paula","Zoe"};
+        String[] surnames = new String[]{"Ponce", "Ledesma", "Castillo", "Vega", "Villalba", "Arias", "Navarro", "Barrios", "Soria", "Alvarado", "Lozano", "James", "Basualdo", "Vedoya", "Momesso", "Osimani", "Dorado", "Gomez", "Noni"};
 
         Tournament t1 = new Tournament("Liga Mayores",7);// 5 2 suplentes
         Tournament t2 = new Tournament("Liga Damas",8);// 7 3 suplentes
@@ -156,10 +88,10 @@ public class Main {
         admin.addTournament(t2);
         admin.addTournament(t3);
 
-        Main.Controller.AccountsManager accountsManager = new Main.Controller.AccountsManager();
+        Controller.AccountsManager accountsManager = new Controller.AccountsManager();
         accountsManager.createAccount(admin);
 
-        Main.Controller.FileManager.serializeObject(accountsManager,"accounts.temp");
+        Controller.FileManager.serializeObject(accountsManager,"accounts.temp");
 */
     }
 }

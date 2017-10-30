@@ -28,13 +28,10 @@ public class AccountsManager implements Serializable{
     }
 
     public Account getAccount(String username) {
-        System.out.println("naja");
         for (Account aux: accounts) {
-            System.out.println("aca");
             if (aux.getName().equals(username));
             return aux;
         }
-        System.out.println("jassadfjkl");
         return null;
     }
 

@@ -4,6 +4,7 @@ import Controller.*;
 import Model.*;
 import View.*;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.org.apache.xpath.internal.SourceTree;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -33,14 +34,13 @@ public class Controller extends Application {
         // guardamos el stage para manipularlo desde cualquier parte de la clase
         stage = primaryStage;
         // guardamos los accoutns para manipularlos desde cualqeuir parte
-        accounts = (AccountsManager) FileManager.readObjectFromFile(Types.ADMIN.fileName);
+        /*accounts = (AccountsManager) FileManager.readObjectFromFile(Types.ADMIN.fileName);
         if (accounts == null) {
             System.out.println("es vacio");
             accounts = new AccountsManager();
-        }
-        System.out.println(accounts.getAccounts());
-        System.out.println(accounts.getAccount("pilo"));
-        System.out.println();
+        }*/
+        accounts = new AccountsManager();
+        accounts.createAccount(new Administrator("juan"));
         //accounts.loadAccounts();
         // creando login
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("View/login.fxml"));
@@ -70,14 +70,14 @@ public class Controller extends Application {
         if(!userTextField.getText().isEmpty()){
             username = userTextField.getText();
             loadView(username);
-            stage.setScene(view.createScene());
+            //stage.setScene(view.createScene());
         }
     }
 
 
     private void loadView(String username) {
-        System.out.println(accounts.contains(username));
-        System.out.println(username);
+        accounts = new AccountsManager();
+        accounts.createAccount(new User("juan"));
          //buscamos cual tiene al usuario
         if (!accounts.contains(username)){
             System.out.println("70");
@@ -85,14 +85,14 @@ public class Controller extends Application {
             accounts.createAccount(username);
             System.out.println("no existe");
         }
-        System.out.println("8");
         Account account = accounts.getAccount(username);
-        System.out.println("4");
         if (account instanceof User){
-            view = new UserView(this);
-            System.out.println("5");
-        }else
-            view = new AdminView(this);
+            //view = new UserView(this);
+            System.out.println("es user");
+        }else {
+            //view = new AdminView(this);
+            System.out.println("es admin");
+        }
     }
     @Override
     public void stop() throws Exception {
