@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class Controller extends Application {
+public class Main extends Application {
     private Stage stage;
     private AccountsManager accounts;
     private Scene currentScene;
@@ -78,7 +78,7 @@ public class Controller extends Application {
         }else{
             // creando ventana para el usuario
             User user = (User) account;
-            Controller.Controller.UserManager userM = new Controller.Controller.UserManager(user.getTeams());
+            Main.Controller.UserManager userM = new Main.Controller.UserManager(user.getTeams());
             returnScene = new Scene(userM.createVbox(), 600, 600);
         }
         return returnScene;
@@ -227,10 +227,10 @@ public class Controller extends Application {
         admin.addTournament(t2);
         admin.addTournament(t3);
 
-        Controller.Controller.AccountsManager accountsManager = new Controller.Controller.AccountsManager();
+        Main.Controller.AccountsManager accountsManager = new Main.Controller.AccountsManager();
         accountsManager.createAccount(admin);
 
-        Controller.Controller.FileManager.serializeObject(accountsManager,"accounts.temp");
+        Main.Controller.FileManager.serializeObject(accountsManager,"accounts.temp");
 
     }
 }
