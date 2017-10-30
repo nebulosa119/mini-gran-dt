@@ -6,6 +6,7 @@ import java.util.TreeMap;
 public class User extends Account {
 
     protected int puntaje;
+
     private Map<String, Team> teams; // String para reconocer el tournament por el nombre
 
     public User(String name) {
