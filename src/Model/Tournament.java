@@ -6,12 +6,14 @@ import java.util.Vector;
 public class Tournament extends Identifiable {
 
     private ArrayList<Team> teams;
+    private int maxPlayers;
     // para llevar registro de los jugadores
     //private HashMap<Date,> por simplificaicon no vamos a llevar(por ahora) registro de las fechas, eso
     // se opcupara el adiministrador en su pagina web.....
 
-    public Tournament(String name) {
+    public Tournament(String name, int maxPlayers) {
         super(name);
+        this.maxPlayers = maxPlayers;
         this.teams = new ArrayList<Team>();
     }
 
@@ -22,6 +24,11 @@ public class Tournament extends Identifiable {
             }
         }
     }
+
+    public int getMaxPlayers() {
+        return maxPlayers;
+    }
+
     public ArrayList<Team> getTeams() {
         return teams;
     }

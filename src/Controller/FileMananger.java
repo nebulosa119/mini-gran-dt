@@ -67,7 +67,7 @@ public class FileMananger {
 //        File resourcesDirectory = new File("src/resources");
 //        String resourceDirectory = resourcesDirectory.getAbsoluteFile().toString();
 //
-//        String respath = resourceDirectory+"/users.temp";
+//        String respath = resourceDirectory+"/accounts.temp";
 //
 //        Vector vec = new Vector();
 //        vec.add(3);

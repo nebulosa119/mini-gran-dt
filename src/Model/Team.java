@@ -4,15 +4,10 @@ import java.util.ArrayList;
 
 public class Team extends Identifiable {
 
-    private int maxPlayers;// maximma cantidad de jugadores incluyendo suplentes
     private ArrayList<Player> players;
 
-    public Team(String name, int maxPlayers) {
+    public Team(String name) {
         super(name);
-        if (maxPlayers < 1){
-            throw new IllegalArgumentException("Cantidad de players debe ser mayor a 1");
-        }
-        this.maxPlayers = maxPlayers;
         this.players = new ArrayList<>();
     }
 
@@ -20,7 +15,7 @@ public class Team extends Identifiable {
         return players;
     }
 
-    public void add(Player p) throws CompleteTeamException, PlayerExistsException{
+    public void add(Player p, int maxPlayers) throws CompleteTeamException, PlayerExistsException{
         if (players.size() >= maxPlayers)
             throw new CompleteTeamException();
         if (players.contains(p))

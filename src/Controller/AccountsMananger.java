@@ -41,6 +41,9 @@ public class AccountsMananger {
             accounts.add(new Administrator(username));
         }
     }
+    public void createAccount(Account account) {
+        accounts.add(account);
+    }
 
 
 }
