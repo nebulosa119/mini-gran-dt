@@ -3,15 +3,21 @@ package Controller;
 import Controller.*;
 import Model.*;
 import View.*;
+import com.jfoenix.controls.JFXTextField;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -34,7 +40,9 @@ public class Controller extends Application {
         }
         //accounts.loadAccounts();
         // creando login
-        Scene loginScene = new Scene(createLogInWindow(), 300, 275);
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("View/login.fxml"));
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        Scene loginScene = new Scene(root);
 
         // logeamos
         primaryStage.setTitle("Mini Gran DT");
@@ -44,33 +52,22 @@ public class Controller extends Application {
 
     }
 
-    public static void main(String[] args) {
-        launch(args);
+
+    @FXML
+    private JFXTextField userTextField;
+
+    @FXML
+    public void handleClose(){
+        System.exit(0);
     }
 
-    private VBox createLogInWindow(){
-
-        TextField wellcomeTextField = new TextField("Welcome to Mini Gran DT");
-        wellcomeTextField.setEditable(false);
-
-        TextField userTextField = new TextField("Username");
-
-        Button loginButton = new Button("LogIn/Create Account");
-        loginButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if(!userTextField.getText().isEmpty()){
-                    username = userTextField.getText();
-                    loadView(username);
-                    stage.setScene(view.createScene());
-                }
-            }
-        });
-
-        VBox vBox = new VBox();
-        vBox.getChildren().addAll(wellcomeTextField,userTextField,loginButton);
-
-        return vBox;
+    @FXML
+    public void handleLogin(){
+        if(!userTextField.getText().isEmpty()){
+            username = userTextField.getText();
+            loadView(username);
+            stage.setScene(view.createScene());
+        }
     }
 
     private void loadView(String username) {
@@ -90,5 +87,9 @@ public class Controller extends Application {
     public void stop() throws Exception {
         accounts.save();
         super.stop();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
