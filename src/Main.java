@@ -16,10 +16,11 @@ import java.util.Collections;
 public class Main {
 
     public static void main(String[] args) throws Team.PlayerExistsException {
-        Controller.main(new String[]{});
+//
         //AccountsManager ac = new AccountsManager();
         //ac.createAccount(new Administrator("juan"));
-        //FileManager.serializeObject(ac, Types.USER.fileName);
+        //FileManager.writeObjectToFile(ac, Types.USER.fileName);
+        Controller.main(new String[]{});
         /*String[] teamNames = new String[]{
                 "Sonido Caracol",
                 "Lincoln",

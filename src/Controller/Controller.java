@@ -33,11 +33,14 @@ public class Controller extends Application {
         // guardamos el stage para manipularlo desde cualquier parte de la clase
         stage = primaryStage;
         // guardamos los accoutns para manipularlos desde cualqeuir parte
-        accounts = (AccountsManager) FileManager.unserializeObject(Types.ADMIN.fileName);
+        accounts = (AccountsManager) FileManager.readObjectFromFile(Types.ADMIN.fileName);
         if (accounts == null) {
             System.out.println("es vacio");
             accounts = new AccountsManager();
         }
+        System.out.println(accounts.getAccounts());
+        System.out.println(accounts.getAccount("pilo"));
+        System.out.println();
         //accounts.loadAccounts();
         // creando login
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("View/login.fxml"));
@@ -58,6 +61,7 @@ public class Controller extends Application {
 
     @FXML
     public void handleClose(){
+        //accounts.save();
         System.exit(0);
     }
 
@@ -70,16 +74,23 @@ public class Controller extends Application {
         }
     }
 
+
     private void loadView(String username) {
-        Scene returnScene;
-        // buscamos cual tiene al usuario
+        System.out.println(accounts.contains(username));
+        System.out.println(username);
+         //buscamos cual tiene al usuario
         if (!accounts.contains(username)){
+            System.out.println("70");
             // si no existe lo creamos como usuario
             accounts.createAccount(username);
+            System.out.println("no existe");
         }
+        System.out.println("8");
         Account account = accounts.getAccount(username);
+        System.out.println("4");
         if (account instanceof User){
             view = new UserView(this);
+            System.out.println("5");
         }else
             view = new AdminView(this);
     }

@@ -9,6 +9,10 @@ public class Administrator extends Account{
 
     private ArrayList<Tournament> tournaments = new ArrayList<Tournament>();
 
+    public Administrator() {
+        super();
+    }
+
     public Administrator(String name) {
         super(name);
     }

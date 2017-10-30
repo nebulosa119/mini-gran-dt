@@ -3,14 +3,19 @@ package Model;
 import java.util.Comparator;
 
 public abstract class Identifiable {
+
     protected String name;
+
+    public Identifiable() { // ver que onda 
+        //this.name = "";
+    }
 
     public Identifiable(String name) {
         this.name = name;
     }
 
     public String getName() {
-        return new String(name);
+        return name;
     }
 
     // son iguales si tienen el mismo nombre y son instancia de la misma clase

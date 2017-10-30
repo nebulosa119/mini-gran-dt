@@ -23,6 +23,7 @@ public class AccountsManager implements Serializable{
     }
 
     public boolean contains(String username) {
+        System.out.println();
         return getAccount(username) != null;
     }
 
@@ -39,11 +40,12 @@ public class AccountsManager implements Serializable{
 
     //pisa lo que haya en los archivos
     public void save(){
-        if (!(accounts == null || accounts.isEmpty())){
-            String fileName = Types.USER.fileName;
-            System.out.println("guardando en "+fileName);
-            FileManager.serializeObject(accounts,fileName);
-        }
+        // (!(accounts == null || accounts.isEmpty())){
+         //   String fileName = Types.USER.fileName;
+           // System.out.println("guardando en "+fileName);
+            //FileManager.serializeObject(accounts,fileName);
+       //
+        //FileManager.serializeObject(this,Types.USER.fileName);
     }
 
     public void createAccount(String username) {
