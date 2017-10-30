@@ -54,8 +54,10 @@ public class TeamController {//  crea la ventana del user
 
         @Override
         public void handle(Event event) {
-            /**Abre la ventana de posicion de jugaodores*/
-
+            /**Abre la ventana de ranking de los jugadores*/
+            Stage aux = getEventStage();
+            RankingsWindow rw = new RankingsWindow();
+            aux.setScene(new Scene(rw));
         }
     };
 
