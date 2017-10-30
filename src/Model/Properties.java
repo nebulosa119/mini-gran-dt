@@ -30,7 +30,7 @@ public class Properties {
         this.goals_against = goals_against;
     }
 
-    public void refresh(Properties p){
+    public void refresh(Properties p) {
         this.normal_goals_scored            += p.normal_goals_scored;
         this.goals_scored_by_penalty_kick   += p.goals_scored_by_penalty_kick;
         this.penalty_catched                += p.penalty_catched;

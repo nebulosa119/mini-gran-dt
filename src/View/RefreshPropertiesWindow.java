@@ -1,5 +1,6 @@
-package Controller;
+package View;
 
+import Model.Administrator;
 import Model.PropValues;
 import Model.Team;
 import Model.Tournament;
@@ -22,16 +23,12 @@ import java.util.ArrayList;
  * A simple table that uses cell factories to enable editing of boolean and
  * String values in the table.
  */
-public class AdminMananger {
+public class RefreshPropertiesWindow {
 
-    private ArrayList<Tournament> tournaments;
+    private Administrator admin;
 
-    public AdminMananger(ArrayList<Tournament> tournaments) {
-        this.tournaments = tournaments;
-    }
-
-    public void setTournaments(ArrayList<Tournament> tournaments) {
-        this.tournaments = tournaments;
+    public RefreshPropertiesWindow(Administrator admin) {
+        this.admin = admin;
     }
 
     private TableView createPlayersTable(Team team){
@@ -79,34 +76,31 @@ public class AdminMananger {
         return tableView;
 
     }
+
     public Accordion createTournamentsView(ArrayList<Tournament> tournaments){
         Accordion tourAccoridion = new Accordion();
 
         for (Tournament tournament: tournaments) {
-            Accordion teamAccoridion = new Accordion();
+            Accordion teamAccordion = new Accordion();
 
             for (Team team:tournament.getTeams()) {
                 TableView table = createPlayersTable(team);
-                teamAccoridion.getPanes().add(new TitledPane(team.getName(),table));
+                teamAccordion.getPanes().add(new TitledPane(team.getName(),table));
             }
-            tourAccoridion.getPanes().add(new TitledPane(tournament.getName(),teamAccoridion));
+            tourAccoridion.getPanes().add(new TitledPane(tournament.getName(),teamAccordion));
         }
         return tourAccoridion;
     }
 
     public VBox createVBox() {
 
-        Accordion tAccordion = createTournamentsView(tournaments);
+        Accordion tAccordion = createTournamentsView(admin.getTournaments());
         tAccordion.setMinSize(100, 100);
 
         VBox vBox = new VBox();
         vBox.getChildren().add(tAccordion);
 
         return vBox;
-    }
-
-    public ArrayList<Tournament> getTournaments() {
-        return tournaments;
     }
 
     private class ConfirmEventHandler<T extends Event> implements EventHandler {
@@ -150,5 +144,4 @@ public class AdminMananger {
             }
         }
     }
-
 }

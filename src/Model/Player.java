@@ -18,7 +18,7 @@ public class Player extends Identifiable {
         properties.refresh(p);
     }
 
-    @Override
+        @Override
     public boolean equals(Object o) {
         if (this == o)
             return true;

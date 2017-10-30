@@ -18,13 +18,15 @@ public class Administrator extends Account{
         return tournaments;
     }
 
+    public void setTournaments(ArrayList<Tournament> tournaments) {this.tournaments=tournaments;}
+
     /**Este metodo deberia ser el primero en llamarse cuando desde el front el admin
      * actualiza los jugadores de un equipo en un torneo. Llama metodo refresh en cascada desde la clase torneo
      * Aun me queda la duda de si deberiamos llamar estos metodos desde las clases del model o de otras.*/
-    public void refreshTeam(String tournamentName, Properties p, Team t, int pos) {
+    public void refreshTeam(String tournamentName, Properties p, Team t, String name) {
         for(Tournament tournament : tournaments) {
             if(tournament.getName().compareTo(tournamentName) == 0) {
-                tournament.refreshTeamPosition(p, t, pos);
+                tournament.refreshTeamName(p, t, name);
             }
         }
     }
@@ -43,4 +45,11 @@ public class Administrator extends Account{
         return false;
     }
 
+    public Tournament getTournament(String name) {
+        for(Tournament t : tournaments) {
+            if(t.getName().compareTo(name) == 0)
+                return t;
+        }
+        return null;
+    }
 }

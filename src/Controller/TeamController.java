@@ -4,7 +4,7 @@ import Model.Team;
 
 import java.util.Vector;
 
-public class TeamController extends Controller{
+public class TeamController {
 
     private Team[] teams;
 
@@ -12,7 +12,6 @@ public class TeamController extends Controller{
         this.teams = teams;
     }
 
-    @Override
     public void start() {
         /**Desde aca se deberian mostrar los jugadores en forma de tabla*/
     }

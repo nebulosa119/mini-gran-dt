@@ -5,7 +5,7 @@ import Model.Tournament;
 
 import java.util.Vector;
 
-public class TournamentController extends Controller{
+public class TournamentController {
 
     private Tournament t;
 
@@ -13,7 +13,6 @@ public class TournamentController extends Controller{
         this.t = t;
     }
 
-    @Override
     public void start() {
         /**Desde aca se muestran los equipos instanciando TeamsController*/
     }
