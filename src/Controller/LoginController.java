@@ -1,15 +1,13 @@
 package Controller;
 
 import Model.Account;
-import Model.Administrator;
-import Model.User;
 import View.LoginWindow;
 
 public class LoginController {
 
-    private AccountsManager accounts;
+    private AccountsMananger accounts;
 
-    public LoginController(AccountsManager accounts) {
+    public LoginController(AccountsMananger accounts) {
         this.accounts = accounts;
     }
 
