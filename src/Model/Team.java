@@ -28,8 +28,11 @@ public class Team extends Identifiable {
         players.add(p);
     }
 
-    public void refreshPlayer(Properties p, int pos) {
-        players.get(pos).refresh(p);
+    public void refreshPlayer(Properties p, String name) {
+        for (Player player : players) {
+            if (player.name.equals(name))
+                player.refresh(p);
+        }
     }
 
     @Override
@@ -49,20 +52,12 @@ public class Team extends Identifiable {
         return result;
     }
 
-   /* public Player[] getPlayers() {
-    return (Player[]) players.values().toArray();
-    }*/
-
     public class PlayerExistsException extends Exception {
         public PlayerExistsException() {
             super("El jugador ya se encuentra en el equipo");
         }
     }
-    private class OccupiedPositionExcepetion extends Exception {
-        public OccupiedPositionExcepetion() {
-            super("La position ya se ecuentra ocupada en este equipo");
-        }
-    }
+
     public class CompleteTeamException extends Exception {
         public CompleteTeamException() {
             super("El equipo esta completo");

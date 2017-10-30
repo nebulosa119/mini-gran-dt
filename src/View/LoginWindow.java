@@ -1,5 +1,6 @@
 package View;
 
+import Controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +10,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class LoginWindow extends Application {
+
+    private LoginController controller;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -24,7 +27,6 @@ public class LoginWindow extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
-
     }
 
 

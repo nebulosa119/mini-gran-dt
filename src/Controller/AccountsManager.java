@@ -6,11 +6,15 @@ import Model.User;
 
 import java.util.Vector;
 
-public class AccountsMananger {
+public class AccountsManager {
     private Vector<Account> accounts;
 
+    public AccountsManager() {
+        accounts = new Vector<Account>();
+    }
+
     public void loadAccounts() {
-        accounts = (Vector<Account>)FileMananger.unserializeObject(Types.USER.fileName);
+        accounts = (Vector<Account>) FileManager.unserializeObject(Types.USER.fileName);
     }
 
     public boolean contains(String username) {
@@ -29,18 +33,16 @@ public class AccountsMananger {
     public void save(){
         if (!(accounts == null || accounts.isEmpty())){
             String fileName = Types.USER.fileName;
-            System.out.println("guardando en "+fileName);
-            FileMananger.serializeObject(accounts,fileName);
+            System.out.println("Saving in "+fileName);
+            FileManager.serializeObject(accounts,fileName);
         }
     }
 
     public void createAccount(String username, Types type) {
         if (Types.USER.equals(type)){
             accounts.add(new User(username));
-        }else {
+        } else {
             accounts.add(new Administrator(username));
         }
     }
-
-
 }

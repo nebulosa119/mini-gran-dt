@@ -1,7 +1,6 @@
 package Model;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 public class Tournament extends Identifiable {
 
@@ -15,15 +14,12 @@ public class Tournament extends Identifiable {
         this.teams = new ArrayList<Team>();
     }
 
-    public void refreshTeamPosition(Properties p, Team t, int pos) {
+    public void refreshTeamName(Properties p, Team t, String name) {
         for(Team team: teams) {
             if(team.equals(t)) {
-                team.refreshPlayer(p, pos);
+                team.refreshPlayer(p, name);
             }
         }
-    }
-    public ArrayList<Team> getTeams() {
-        return teams;
     }
 
     /**Para cuando se cree el torneo y los equipos*/
@@ -39,7 +35,7 @@ public class Tournament extends Identifiable {
         return false;
     }
 
-    public Vector<Team> getTeams() { return teams; }
+    public ArrayList<Team> getTeams() { return teams; }
 
     @Override
     public boolean equals(Object o) {

@@ -1,5 +1,5 @@
-import Controller.AccountsMananger;
-import Controller.AdminMananger;
+import Controller.AccountsManager;
+import Controller.AdminController.AdminController;
 import Controller.Types;
 import Model.Account;
 import Model.Administrator;
@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     private Stage stage;
-    AccountsMananger accounts;
+    AccountsManager accounts;
     private Scene currentScene;
     private String username;
 
@@ -25,7 +25,7 @@ public class Main extends Application {
         // guardamos el stage para manipularlo desde cualquier parte de la clase
         stage = primaryStage;
         // guardamos los accoutns para manipularlos desde cualqeuir parte
-        accounts = new AccountsMananger();
+        accounts = new AccountsManager();
         accounts.loadAccounts();
         // creando login
         Scene loginScene = new Scene(createLogInWindow(), 300, 275);
@@ -56,7 +56,7 @@ public class Main extends Application {
         tournaments.add(t1);
         tournaments.add(t2);
 
-        AdminMananger atdu = new AdminMananger(tournaments);
+        AdminController atdu = new AdminController(tournaments);
         VBox root2 = atdu.createVBox();
         root2.getChildren().add(confrimButton);
         primaryStage.setScene(new Scene(root2, 300, 275));
@@ -96,12 +96,12 @@ public class Main extends Application {
         if (account instanceof Administrator){// esto quedo feo, hay que arreglarlo
             //creando window para el admin
             Administrator admin = (Administrator) account;
-            AdminMananger adminM = new AdminMananger(admin.getTournaments());
+            AdminController adminM = new AdminController(admin.getTournaments());
             returnScene = new Scene(adminM.createVBox(), 600, 600);// crea un vBox con la informacion de los torneos
         }else{
             // creando ventana para el usuario
             User user = (User) account;
-            UserMananger userM = new UserMananger(user.getTeams());
+            UserManager userM = new UserManager(user.getTeams());
             returnScene = new Scene(userM.createVbox(), 600, 600);
         }
         return returnScene;
