@@ -40,6 +40,7 @@ public class Properties {
         this.goals_against                  += p.goals_against;
     }
 
+
     public int calculateRanking() {
         int resp=0;
         resp += normal_goals_scored             * PropValues.normal_goals_scored.getpValue();

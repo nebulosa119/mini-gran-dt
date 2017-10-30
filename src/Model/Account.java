@@ -9,7 +9,6 @@ public abstract class Account extends Identifiable {
     public boolean isUser() {
         return this instanceof User;
     }
-
     public boolean isAdmin() {
         return this instanceof Administrator;
     }

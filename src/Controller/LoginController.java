@@ -1,11 +1,12 @@
 package Controller;
 
 import Model.Account;
+import Model.User;
 import View.LoginWindow;
 
 public class LoginController {
 
-    private Controller.AccountsManager accounts;
+    private AccountsManager accounts;
 
     public LoginController(Controller.AccountsManager accounts) {
         this.accounts = accounts;
@@ -22,9 +23,8 @@ public class LoginController {
         login.exit();
 
         if (!accounts.contains(username))
-            accounts.createAccount(username, type);
+            User newUser = new User();
+            accounts.createAccount(username);// se  crea un usuario
         return accounts.getAccount(username);
-
-        accounts.save();
     }
 }

@@ -7,7 +7,7 @@ import javafx.scene.layout.VBox;
 
 import java.util.Map;
 
-public class UserManager {
+public class UserManager {//  crea la ventana del user
     private Map<String,Team> teams;
 
     public UserManager(Map<String, Team> teams) {
@@ -15,9 +15,9 @@ public class UserManager {
     }
 
     public Parent createVbox() {
+
         VBox vBox = new VBox();
         vBox.getChildren().add(new ButtonBar());
-
         return vBox;
     }
 }

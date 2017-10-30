@@ -11,6 +11,7 @@ public class UserController {
     }
 
     public void start() {
+        //user.getTournament();
 
     }
 }

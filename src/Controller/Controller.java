@@ -51,8 +51,5 @@ public class Controller implements Initializable{
             userC = new UserController((User)account);
             userC.start(); // aca se maneja el create team, modify team, bla bla..
         }
-
-
-
     }
 }

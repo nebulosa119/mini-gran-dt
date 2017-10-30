@@ -13,15 +13,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class Main extends Application {
+public class Controller extends Application {
     private Stage stage;
-    Controller.AccountsManager accounts;
+    private AccountsManager accounts;
     private Scene currentScene;
     private String username;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-/*        // guardamos el stage para manipularlo desde cualquier parte de la clase
+        // guardamos el stage para manipularlo desde cualquier parte de la clase
         stage = primaryStage;
         // guardamos los accoutns para manipularlos desde cualqeuir parte
         accounts = new AccountsManager();
@@ -33,12 +33,13 @@ public class Main extends Application {
         primaryStage.setTitle("Mini Gran DT");
 
         primaryStage.setScene(loginScene);
-        primaryStage.show();*/
+        primaryStage.show();
 
     }
 
 
     private VBox createLogInWindow(){
+
         TextField wellcomeTextField = new TextField("Welcome to Mini Gran DT");
         wellcomeTextField.setEditable(false);
 
@@ -48,8 +49,10 @@ public class Main extends Application {
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Scene nextScene = createNextWindow(userTextField.getText());
-                stage.setScene(nextScene);
+                if(!userTextField.getText().isEmpty()){
+                    Scene nextScene = createNextWindow(userTextField.getText());
+                    stage.setScene(nextScene);
+                }
             }
         });
 
@@ -64,18 +67,18 @@ public class Main extends Application {
         // buscamos cual tiene al usuario
         if (!accounts.contains(username)){
             // si no existe lo creamos como usuario
-            accounts.createAccount(username, Types.USER);
+            accounts.createAccount(username);
         }
         Account account = accounts.getAccount(username);
         if (account instanceof Administrator){// esto quedo feo, hay que arreglarlo
             //creando window para el admin
             Administrator admin = (Administrator) account;
-            AdminMananger adminM = new AdminMananger(admin.getTournaments());
+            AdminManager adminM = new AdminManager(admin.getTournaments());
             returnScene = new Scene(adminM.createVBox(), 600, 600);// crea un vBox con la informacion de los torneos
         }else{
             // creando ventana para el usuario
             User user = (User) account;
-            Controller.UserManager userM = new Controller.UserManager(user.getTeams());
+            Controller.Controller.UserManager userM = new Controller.Controller.UserManager(user.getTeams());
             returnScene = new Scene(userM.createVbox(), 600, 600);
         }
         return returnScene;
@@ -224,10 +227,10 @@ public class Main extends Application {
         admin.addTournament(t2);
         admin.addTournament(t3);
 
-        Controller.AccountsManager accountsManager = new Controller.AccountsManager();
+        Controller.Controller.AccountsManager accountsManager = new Controller.Controller.AccountsManager();
         accountsManager.createAccount(admin);
 
-        Controller.FileManager.serializeObject(accountsManager,"accounts.temp");
+        Controller.Controller.FileManager.serializeObject(accountsManager,"accounts.temp");
 
     }
 }
