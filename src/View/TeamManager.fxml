@@ -17,14 +17,14 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.TeamMananger">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TeamController">
   <children>
       <ButtonBar buttonOrder="" prefHeight="40.0" prefWidth="200.0">
         <buttons>
           <Button fx:id="button" mnemonicParsing="false" text="Team Management" />
-            <Button mnemonicParsing="false" text="Game Rules" />
-            <Button mnemonicParsing="false" text="Player Rankings" textFill="#141212" />
-            <Button mnemonicParsing="false" text="Exit Game" />
+            <Button fx:id="rulesButton" mnemonicParsing="false" text="Game Rules" />
+            <Button fx:id="playerRankingsButton" mnemonicParsing="false" text="Player Rankings" textFill="#141212" />
+            <Button fx:id="exitGameButton" mnemonicParsing="false" text="Exit Game" />
         </buttons>
       </ButtonBar>
     <SplitPane focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
@@ -41,7 +41,7 @@
                         <Font name="DejaVu Serif Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Button layoutX="27.0" layoutY="398.0" mnemonicParsing="false" text="Add Player(flechita abajo)" />
+                  <Button fx:id="addPlayerButton" layoutX="27.0" layoutY="398.0" mnemonicParsing="false" text="Add Player(flechita abajo)" />
                   <ListView layoutX="27.0" layoutY="458.0" prefHeight="270.0" prefWidth="700.0" />
                   <Label layoutX="27.0" layoutY="438.0" text="Current Players">
                      <font>
@@ -66,7 +66,7 @@
                   </AnchorPane>
                   <Separator layoutX="795.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="742.0" />
                   <Pane layoutX="27.0" layoutY="76.0" prefHeight="270.0" prefWidth="700.0" style="-fx-background-color: white;" />
-                  <Button layoutX="370.0" layoutY="398.0" mnemonicParsing="false" text="Remove Player(flechita arriba)" />
+                  <Button fx:id="removePlayerButton" layoutX="370.0" layoutY="398.0" mnemonicParsing="false" text="Remove Player(flechita arriba)" />
                </children>
         </AnchorPane>
       </items>
