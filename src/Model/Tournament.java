@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Vector;
 
 public class Tournament extends Identifiable {
@@ -17,10 +18,10 @@ public class Tournament extends Identifiable {
         this.teams = new ArrayList<Team>();
     }
 
-    public void refreshTeamPosition(Properties p, Team t, int pos) {
+    public void refreshTeam(HashMap<String, Properties> prop, Team t) {
         for(Team team: teams) {
             if(team.equals(t)) {
-                team.refreshPlayer(p, pos);
+                team.refreshPlayers(prop);
             }
         }
     }

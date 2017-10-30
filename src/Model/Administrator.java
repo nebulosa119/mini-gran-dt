@@ -23,13 +23,13 @@ public class Administrator extends Account{
     /**Este metodo deberia ser el primero en llamarse cuando desde el front el admin
      * actualiza los jugadores de un equipo en un torneo. Llama metodo refresh en cascada desde la clase torneo
      * Aun me queda la duda de si deberiamos llamar estos metodos desde las clases del model o de otras.*/
-    public void refreshTeam(String tournamentName, Properties p, Team t, String name) {
+   /* public void refreshTeam(String tournamentName, Properties p, Team t, String name) {
         for(Tournament tournament : tournaments) {
             if(tournament.getName().compareTo(tournamentName) == 0) {
                 tournament.refreshTeamName(p, t, name);
             }
         }
-    }
+    }*/
 
     /**Para cuando el administrador quiera crear un nuevo torneo. Mi idea es que desde el controller se instancie la
      * clase torneo para poder ingresarla directamente*/

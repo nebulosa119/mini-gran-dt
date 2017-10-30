@@ -4,21 +4,22 @@ import Model.Account;
 import Model.Administrator;
 import Model.User;
 
-import java.util.Vector;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.ArrayList;
 
-public class AccountsManager {
-    private Vector<Account> accounts;
+public class AccountsManager implements Serializable{
+    private ArrayList<Account> accounts;
 
     public AccountsManager() {
         loadAccounts();
         if(accounts == null){
-            accounts = new Vector<>();
+            accounts = new ArrayList<>();
         }
-
     }
 
     public void loadAccounts() {
-        accounts = (Vector<Account>) FileManager.unserializeObject(Types.USER.fileName);// no se como se soluciona
+        accounts = (ArrayList<Account>) FileManager.unserializeObject(Types.USER.fileName);// no se como se soluciona
     }
 
     public boolean contains(String username) {
@@ -26,10 +27,13 @@ public class AccountsManager {
     }
 
     public Account getAccount(String username) {
+        System.out.println("naja");
         for (Account aux: accounts) {
+            System.out.println("aca");
             if (aux.getName().equals(username));
             return aux;
         }
+        System.out.println("jassadfjkl");
         return null;
     }
 

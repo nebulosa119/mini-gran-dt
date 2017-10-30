@@ -23,6 +23,7 @@ public class FileManager {
 
     public static Object readObjectFromFile(String file) {
         file = getResourcesDirectory()+"/"+file;
+        System.out.println("reading from "+ file);
         Object resp = null;
         try{
             FileInputStream fis = new FileInputStream(file);
@@ -48,7 +49,7 @@ public class FileManager {
         }
     }
 
-    public static Object unserializeObject(String fileName) {
+    static Object unserializeObject(String fileName) {
         String resourceDirectory = getResourcesDirectory();
         Object obj = null;
         try {
@@ -62,24 +63,5 @@ public class FileManager {
         }
         return obj;
     }
-    //
-//    public static void main(String[] args) {
-//        File resourcesDirectory = new File("src/resources");
-//        String resourceDirectory = resourcesDirectory.getAbsoluteFile().toString();
-//
-//        String respath = resourceDirectory+"/accounts.temp";
-//
-//        Vector vec = new Vector();
-//        vec.add(3);
-//        vec.add(5);
-//        vec.add(5);
-//        vec.add(2345);
-//        String hola = new String("hola asdfa");
-//
-//        writeObjectToFile(vec,respath);
-//
-//        Vector object = (Vector) readObjectFromFile(respath);
-//        System.out.println(object);
-//    }
 
 }

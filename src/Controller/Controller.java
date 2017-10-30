@@ -2,6 +2,7 @@ package Controller;
 
 import Controller.*;
 import Model.*;
+import View.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -39,6 +40,9 @@ public class Controller extends Application {
 
     }
 
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     private VBox createLogInWindow(){
 
@@ -51,7 +55,7 @@ public class Controller extends Application {
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(!userTextField.getText().isEmpty(){
+                if(!userTextField.getText().isEmpty()){
                     username = userTextField.getText();
                     loadView(username);
                     stage.setScene(view.createScene());
@@ -77,5 +81,10 @@ public class Controller extends Application {
             view = new UserView(this);
         }else
             view = new AdminView(this);
+    }
+    @Override
+    public void stop() throws Exception {
+        accounts.save();
+        super.stop();
     }
 }

@@ -1,6 +1,8 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 public class Team extends Identifiable {
 
@@ -23,10 +25,10 @@ public class Team extends Identifiable {
         players.add(p);
     }
 
-    public void refreshPlayer(Properties p, String name) {
+    public void refreshPlayers(HashMap<String, Properties> prop) {
         for (Player player : players) {
-            if (player.name.equals(name))
-                player.refresh(p);
+            Properties p = prop.get(player.getName());
+            player.refresh(p);
         }
     }
 

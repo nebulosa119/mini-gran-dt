@@ -1,4 +1,4 @@
-package Controller.AdminController;
+package Controller;
 
 import Controller.Controller;
 import Model.Administrator;
