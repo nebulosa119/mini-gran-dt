@@ -15,7 +15,7 @@ import java.util.Collections;
 
 public class Main extends Application {
     private Stage stage;
-    AccountsMananger accounts;
+    Controller.AccountsManager accounts;
     private Scene currentScene;
     private String username;
 
@@ -24,7 +24,7 @@ public class Main extends Application {
 /*        // guardamos el stage para manipularlo desde cualquier parte de la clase
         stage = primaryStage;
         // guardamos los accoutns para manipularlos desde cualqeuir parte
-        accounts = new AccountsMananger();
+        accounts = new AccountsManager();
         accounts.loadAccounts();
         // creando login
         Scene loginScene = new Scene(createLogInWindow(), 300, 275);
@@ -75,7 +75,7 @@ public class Main extends Application {
         }else{
             // creando ventana para el usuario
             User user = (User) account;
-            UserMananger userM = new UserMananger(user.getTeams());
+            Controller.UserManager userM = new Controller.UserManager(user.getTeams());
             returnScene = new Scene(userM.createVbox(), 600, 600);
         }
         return returnScene;
@@ -224,10 +224,10 @@ public class Main extends Application {
         admin.addTournament(t2);
         admin.addTournament(t3);
 
-        AccountsMananger accountsMananger = new AccountsMananger();
-        accountsMananger.createAccount(admin);
+        Controller.AccountsManager accountsManager = new Controller.AccountsManager();
+        accountsManager.createAccount(admin);
 
-        FileMananger.serializeObject(accountsMananger,"accounts.temp");
+        Controller.FileManager.serializeObject(accountsManager,"accounts.temp");
 
     }
 }

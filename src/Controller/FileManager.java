@@ -2,7 +2,7 @@ package Controller;
 
 import java.io.*;
 
-public class FileMananger {
+public class FileManager {
 
     public static void writeObjectToFile(Object o, String file) {
         file = getResourcesDirectory()+"/"+file;

@@ -5,9 +5,9 @@ import View.LoginWindow;
 
 public class LoginController {
 
-    private AccountsMananger accounts;
+    private Controller.AccountsManager accounts;
 
-    public LoginController(AccountsMananger accounts) {
+    public LoginController(Controller.AccountsManager accounts) {
         this.accounts = accounts;
     }
 

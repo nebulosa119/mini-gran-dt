@@ -7,10 +7,10 @@ import javafx.scene.layout.VBox;
 
 import java.util.Map;
 
-public class UserMananger {
+public class UserManager {
     private Map<String,Team> teams;
 
-    public UserMananger(Map<String, Team> teams) {
+    public UserManager(Map<String, Team> teams) {
         this.teams = teams;
     }
 
