@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -64,4 +65,8 @@ public class Tournament extends Identifiable {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return name +"{"+ Arrays.toString(teams.toArray()) +"}";
+    }
 }

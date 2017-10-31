@@ -35,4 +35,9 @@ public class Player extends Identifiable {
         result = result * 3; // para diferenciarlo
         return result;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

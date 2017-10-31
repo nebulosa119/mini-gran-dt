@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -47,6 +48,11 @@ public class Team extends Identifiable {
         int result = super.hashCode();
         result = result * 2; // para diferenciarlos
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return name+"{"+Arrays.toString(players.toArray())+'}';
     }
 
     public class PlayerExistsException extends Exception {

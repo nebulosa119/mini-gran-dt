@@ -56,4 +56,11 @@ public class Administrator extends Account{
         }
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "Administrator{" +
+                "name='" + name + Arrays.toString(tournaments.toArray()) +
+                '}';
+    }
 }
