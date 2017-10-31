@@ -24,6 +24,7 @@ import java.util.Collections;
 
 
 public class Controller extends Application {
+
     private Stage stage;
     private View view;
     private AccountsManager accounts;
@@ -94,6 +95,7 @@ public class Controller extends Application {
             System.out.println("es admin");
         }
     }
+
     @Override
     public void stop() throws Exception {
         accounts.save();
