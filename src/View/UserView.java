@@ -26,20 +26,10 @@ public class UserView extends View {
         //respectivos botones
         Button buttonEditTeam = new Button("Edit Your Team");
         buttonEditTeam.setMaxWidth(Double.MAX_VALUE);
-        buttonEditTeam.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                // pido la seleccionEJ larana: copa mayores
-                String selection = listView.getSelectionModel().getSelectedItem();
-                // agarro por separado el torneo y el admin
-                String tourName = getTournamentName(selection);
-                String adminName = getAdminName(selection);
-                // pido el equipo del usuario
-                Team team = controller.getUserTeam(tourName);
-                // creo la escena de pedroV
-                Scene scene = createTeamManagerWindow(controller.getTournament(adminName,tourName), team);
-                controller.setScene(scene);
-            }
+        buttonEditTeam.setOnAction(event -> {
+            // pido la seleccionEJ larana: copa mayores y seteo la ventana
+            String selection = listView.getSelectionModel().getSelectedItem();
+            setNextWindow(selection);
         });
 
         VBox vBox = new VBox();
@@ -80,6 +70,17 @@ public class UserView extends View {
     private String getTournamentName(String bindingName){
         int index = bindingName.indexOf(':');
         return bindingName.substring(index+1);
+    }
+
+    private void setNextWindow(String selection){
+        // agarro por separado el torneo y el admin
+        String tourName = getTournamentName(selection);
+        String adminName = getAdminName(selection);
+        // pido el equipo del usuario
+        Team team = controller.getUserTeam(tourName);
+        // creo la escena de pedroV
+        Scene scene = createTeamManagerWindow(controller.getTournament(adminName,tourName), team);
+        controller.setScene(scene);
     }
 
 }
