@@ -1,10 +1,9 @@
-package Controller;
+package controller;
 
-import Model.Player;
-import Model.Team;
-import Model.Tournament;
-import Model.User;
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import model.Player;
+import model.Team;
+import model.Tournament;
+import model.User;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,15 +11,10 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.util.List;
-import java.util.Map;
 
 public class TeamController {//  crea la ventana del user
 
@@ -28,8 +22,6 @@ public class TeamController {//  crea la ventana del user
     private Button exitButton, ruleButton, playerRankingButton, addPlayerButton, removePlayerButton;
     @FXML
     private TabPane teamsTabPanes;
-    @FXML
-    private ListView<Player> userPlayers;
 
     private User u;
     private Tournament t;
@@ -38,7 +30,6 @@ public class TeamController {//  crea la ventana del user
         /**Inicializo variables de instancia*/
         this.u = u;
         this.t = t;
-        userPlayers = new ListView<Player>();
 
         /**Configuro los tabs*/
         for(Team team : t.getTeams()) {
@@ -73,15 +64,7 @@ public class TeamController {//  crea la ventana del user
 
             /**Agrego la tab*/
             teamsTabPanes.getTabs().add(tab);
-
-            /**Dejo que el usuario pueda elegir mas de un jugador de su equipo*/
-            userPlayers.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         }
-
-        /**Seteo la listView del usuario*/
-        ObservableList<Player> userData = FXCollections.observableArrayList(u.getTeam(t.getName()).getPlayers());
-        userPlayers.setItems(userData);
-
         /**Seteo los listeners de los botones*/
         exitButton.setOnAction(exitHandler);
         ruleButton.setOnAction(ruleHandler);
@@ -124,16 +107,15 @@ public class TeamController {//  crea la ventana del user
     private EventHandler addPlayerHandler = new EventHandler(){
         @Override
         public void handle(Event event) {
-            /**Añade al jugador elegido y decrementa los fondos. FALTA DECREMENTAR LOS FONDOS Y LANZAR LAS EXCEPCIONES PERTINENTES SI AL USUARIO LE FALTA PLATA*/
-            for(Tab tab : teamsTabPanes.getTabs()) {
-                for(Player p : (ObservableList<Player>)((TableView)tab.getContent()).getItems()) {
-                    try {
-                        u.getTeam(t.getName()).add(p, 5); /**De donde saco la cantidad maxima de jugadores? No deberia ser una variable de instancia para el equipo eso?*/
-                    } catch (Exception e) {
-                        /**Hay que catchear cada excepcion y lanzar un mensaje relevante al usuario*/
-                    } finally {
-                        userPlayers.setItems(FXCollections.observableArrayList(u.getTeam(t.getName()).getPlayers()));
-                    }
+            /**Añade al jugador elegido y decrementa los fondos*/
+            for(Tab t : teamsTabPanes.getTabs()) {
+                for(Player p : (ObservableList<Player>)((TableView)t.getContent())) {
+                    /**Agrego el jugaodr al equipo del usuario*/
+                    /**
+                     *
+                     *
+                     *
+                     * */
                 }
             }
         }
@@ -144,10 +126,7 @@ public class TeamController {//  crea la ventana del user
         @Override
         public void handle(Event event) {
             /**Remueve el jugador elegido y aumenta los fondos*/
-            for(Player p : userPlayers.getItems()) {
-                u.getTeam(t.getName()).removePlayer(p);
-            }
-            userPlayers.setItems(FXCollections.observableArrayList(u.getTeam(t.getName()).getPlayers()));
+
         }
     };
 

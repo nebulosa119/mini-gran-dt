@@ -1,9 +1,9 @@
-package View;
+package view;
 
-import Controller.Controller;
-import Model.PropValues;
-import Model.Team;
-import Model.Tournament;
+import controller.MainApp;
+import model.PropValues;
+import model.Team;
+import model.Tournament;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -23,7 +23,7 @@ import javafx.util.StringConverter;
 import java.util.ArrayList;
 
 public class AdminView extends View {
-    public AdminView(Controller controller) {
+    public AdminView(MainApp controller) {
         super(controller);
     }
 

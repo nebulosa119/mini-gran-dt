@@ -1,9 +1,8 @@
-package Model;
+package model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Set;
 
 public class Team extends Identifiable {
 
@@ -58,10 +57,6 @@ public class Team extends Identifiable {
     @Override
     public String toString() {
         return name+"{"+Arrays.toString(players.toArray())+'}';
-    }
-
-    public void removePlayer(Player p) {
-        players.remove(p);
     }
 
     public class PlayerExistsException extends Exception {

@@ -1,12 +1,10 @@
-package View;
+package view;
 
-import Controller.Controller;
-import Model.Team;
-import Model.Tournament;
+import controller.MainApp;
+import model.Team;
+import model.Tournament;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -15,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class UserView extends View {
-    public UserView(Controller controller) {
+    public UserView(MainApp controller) {
         super(controller);
     }
 
