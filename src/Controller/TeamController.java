@@ -5,10 +5,13 @@ import Model.User;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.util.Map;
 
@@ -41,6 +44,9 @@ public class TeamController {//  crea la ventana del user
         @Override
         public void handle(Event event) {
             /**Abre la ventana de reglas*/
+            Stage aux = getEventStage(event);
+            RulesWindow rw = new RulesWindow();
+            aux.setScene(new Scene(rw));
         }
     };
 
@@ -49,6 +55,7 @@ public class TeamController {//  crea la ventana del user
         @Override
         public void handle(Event event) {
             /**Abre la ventana de posicion de jugaodores*/
+
         }
     };
 
@@ -57,6 +64,7 @@ public class TeamController {//  crea la ventana del user
         @Override
         public void handle(Event event) {
             /**Añade el jugador elegido y decrementa los fondos*/
+
         }
     };
 
@@ -65,7 +73,12 @@ public class TeamController {//  crea la ventana del user
         @Override
         public void handle(Event event) {
             /**Remueve el jugador elegido y aumenta los fondos*/
+
         }
     };
+
+    private Stage getEventStage(Event e) {
+        return (Stage) ((Node)e.getSource()).getScene().getWindow();
+    }
 
 }
