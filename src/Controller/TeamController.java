@@ -19,6 +19,7 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.List;
 import java.util.Map;
 
 public class TeamController {//  crea la ventana del user
@@ -27,6 +28,8 @@ public class TeamController {//  crea la ventana del user
     private Button exitButton, ruleButton, playerRankingButton, addPlayerButton, removePlayerButton;
     @FXML
     private TabPane teamsTabPanes;
+    @FXML
+    private ListView<Player> userPlayers;
 
     private User u;
     private Tournament t;
@@ -35,6 +38,7 @@ public class TeamController {//  crea la ventana del user
         /**Inicializo variables de instancia*/
         this.u = u;
         this.t = t;
+        userPlayers = new ListView<Player>();
 
         /**Configuro los tabs*/
         for(Team team : t.getTeams()) {
@@ -70,6 +74,11 @@ public class TeamController {//  crea la ventana del user
             /**Agrego la tab*/
             teamsTabPanes.getTabs().add(tab);
         }
+
+        /**Seteo la listView del usuario*/
+        ObservableList<Player> userData = FXCollections.observableArrayList(u.getTeam(t.getName()).getPlayers());
+        userPlayers.setItems(userData);
+
         /**Seteo los listeners de los botones*/
         exitButton.setOnAction(exitHandler);
         ruleButton.setOnAction(ruleHandler);
@@ -112,15 +121,15 @@ public class TeamController {//  crea la ventana del user
     private EventHandler addPlayerHandler = new EventHandler(){
         @Override
         public void handle(Event event) {
-            /**Añade al jugador elegido y decrementa los fondos*/
-            for(Tab t : teamsTabPanes.getTabs()) {
-                for(Player p : (ObservableList<Player>)((TableView)t.getContent())) {
-                    /**Agrego el jugaodr al equipo del usuario*/
-                    /**
-                     *
-                     *
-                     *
-                     * */
+            /**Añade al jugador elegido y decrementa los fondos. FALTA DECREMENTAR LOS FONDOS Y LANZAR LAS EXCEPCIONES PERTINENTES SI AL USUARIO LE FALTA PLATA*/
+            for(Tab tab : teamsTabPanes.getTabs()) {
+                for(Player p : (ObservableList<Player>)((TableView)tab.getContent())) {
+                    try {
+                        u.getTeam(t.getName()).add(p, 5); /**De donde saco la cantidad maxima de jugadores? No deberia ser una variable de instancia para el equipo eso?*/
+                        userPlayers.setItems(FXCollections.observableArrayList(u.getTeam(t.getName()).getPlayers()));
+                    } catch (Exception e) {
+                        /**Hay que catchear cada excepcion y lanzar un mensaje relevante al usuario*/
+                    }
                 }
             }
         }
