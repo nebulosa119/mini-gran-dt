@@ -7,7 +7,7 @@ public class RankingsWindow extends VBox {
     private final String rules = "Da ranks";
     private Label label = new Label();
 
-    public void RulesWindow() {
+    public RankingsWindow() {
         getChildren().addAll(label);
     }
 
