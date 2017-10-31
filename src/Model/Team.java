@@ -60,6 +60,10 @@ public class Team extends Identifiable {
         return name+"{"+Arrays.toString(players.toArray())+'}';
     }
 
+    public void removePlayer(Player p) {
+        players.remove(p);
+    }
+
     public class PlayerExistsException extends Exception {
         public PlayerExistsException() {
             super("El jugador ya se encuentra en el equipo");

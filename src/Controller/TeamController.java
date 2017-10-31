@@ -73,6 +73,9 @@ public class TeamController {//  crea la ventana del user
 
             /**Agrego la tab*/
             teamsTabPanes.getTabs().add(tab);
+
+            /**Dejo que el usuario pueda elegir mas de un jugador de su equipo*/
+            userPlayers.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         }
 
         /**Seteo la listView del usuario*/
@@ -123,7 +126,7 @@ public class TeamController {//  crea la ventana del user
         public void handle(Event event) {
             /**Añade al jugador elegido y decrementa los fondos. FALTA DECREMENTAR LOS FONDOS Y LANZAR LAS EXCEPCIONES PERTINENTES SI AL USUARIO LE FALTA PLATA*/
             for(Tab tab : teamsTabPanes.getTabs()) {
-                for(Player p : (ObservableList<Player>)((TableView)tab.getContent())) {
+                for(Player p : (ObservableList<Player>)((TableView)tab.getContent()).getItems()) {
                     try {
                         u.getTeam(t.getName()).add(p, 5); /**De donde saco la cantidad maxima de jugadores? No deberia ser una variable de instancia para el equipo eso?*/
                         userPlayers.setItems(FXCollections.observableArrayList(u.getTeam(t.getName()).getPlayers()));
@@ -140,7 +143,9 @@ public class TeamController {//  crea la ventana del user
         @Override
         public void handle(Event event) {
             /**Remueve el jugador elegido y aumenta los fondos*/
-
+            for(Player p : userPlayers.getItems()) {
+                u.getTeam(t.getName()).removePlayer(p);
+            }
         }
     };
 
