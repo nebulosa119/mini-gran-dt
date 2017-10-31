@@ -11,26 +11,23 @@ import java.util.ArrayList;
 public class AccountsManager implements Serializable{
     private ArrayList<Account> accounts;
 
-    public AccountsManager() {
-        //loadAccounts();
-        //if(accounts == null){
+    AccountsManager() {
             accounts = new ArrayList<>();
-        //}
     }
 
     public void loadAccounts() {
         accounts = (ArrayList<Account>) FileManager.unserializeObject(Types.USER.fileName);// no se como se soluciona
     }
 
-    public boolean contains(String username) {
+    boolean contains(String username) {
         System.out.println();
         return getAccount(username) != null;
     }
 
-    public Account getAccount(String username) {
+    Account getAccount(String username) {
         for (Account aux: accounts) {
-            if (aux.getName().equals(username));
-            return aux;
+            if (aux.getName().equals(username))
+                return aux;
         }
         return null;
     }
@@ -45,11 +42,11 @@ public class AccountsManager implements Serializable{
         //FileManager.serializeObject(this,Types.USER.fileName);
     }
 
-    public void createAccount(String username) {
+    void createAccount(String username) {
             accounts.add(new User(username));
     }
 
-    public void createAccount(Account account) {
+    void createAccount(Account account) {
         accounts.add(account);
     }
 
