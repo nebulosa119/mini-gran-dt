@@ -7,15 +7,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-import javax.xml.soap.Text;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class UserView extends View {
@@ -24,28 +20,11 @@ public class UserView extends View {
     }
 
     @Override
-    public Scene createScene() {
-        return createMainWindow();
-    }
     public Scene createMainWindow(){
-        //cargamos los torneos
-        Map<String,ArrayList<String>> tournamentsBinding = controller.getAllTournaments();
-        ArrayList<String> allTournaments = new ArrayList<>();
-        // creamos un bining EJ: larana: CopaJuveniles
-        for (String adminName:tournamentsBinding.keySet()) {
-            for (String tourName:tournamentsBinding.get(adminName)) {
-                String bindingString = adminName + ": " + tourName;
-                allTournaments.add(bindingString);
-            }
-        }
-        //creamos el Observablelist
-        final ObservableList<String> stringList =
-                FXCollections.observableArrayList(allTournaments);
-        final ListView<String> listView = new ListView<>(stringList);
-        //armamos la lista
-        listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
-        Button buttonEditTeam = new Button("Edit Team");
+        //creamos la lista para el usuario
+        ListView<String> listView = createListView();
+        //respectivos botones
+        Button buttonEditTeam = new Button("Edit Your Team");
         buttonEditTeam.setMaxWidth(Double.MAX_VALUE);
         buttonEditTeam.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -69,6 +48,26 @@ public class UserView extends View {
         return new Scene(vBox);
     }
 
+    private ListView<String> createListView(){
+        //cargamos los torneos
+        Map<String,ArrayList<String>> tournamentsBinding = controller.getAllTournaments();
+        ArrayList<String> allTournaments = new ArrayList<>();
+        // creamos un bining EJ: larana: CopaJuveniles
+        for (String adminName:tournamentsBinding.keySet()) {
+            for (String tourName:tournamentsBinding.get(adminName)) {
+                String bindingString = adminName + ": " + tourName;
+                allTournaments.add(bindingString);
+            }
+        }
+        //creamos el Observablelist
+        final ObservableList<String> stringList =
+                FXCollections.observableArrayList(allTournaments);
+        final ListView<String> listView = new ListView<>(stringList);
+        //armamos la lista
+        listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        return listView;
+    }
+
     private Scene createTeamManagerWindow(Tournament tournament, Team team) {
         return new Scene(new TextField("hola"));
     }
@@ -77,6 +76,7 @@ public class UserView extends View {
         int index = bindingName.indexOf(':');
         return bindingName.substring(0,index-1);
     }
+
     private String getTournamentName(String bindingName){
         int index = bindingName.indexOf(':');
         return bindingName.substring(index+1);

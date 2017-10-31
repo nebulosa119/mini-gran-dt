@@ -50,7 +50,7 @@ public class Controller extends Application {
                 if(!userTextField.getText().isEmpty()){
                     username = userTextField.getText();
                     loadView(username);
-                    setScene(view.createScene());
+                    setScene(view.createMainWindow());
                 }
             }
         });
@@ -323,7 +323,7 @@ public class Controller extends Application {
         if(!userTextField.getText().isEmpty()){
             username = userTextField.getText();
             loadView(username);
-            stage.setScene(view.createScene());
+            stage.setScene(view.createMainWindow());
         }
     }*/
 }

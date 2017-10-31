@@ -28,11 +28,7 @@ public class AdminView extends View {
     }
 
     @Override
-    public Scene createScene() {
-        return createMainWindow();
-    }
-
-    private Scene createMainWindow(){
+    public Scene createMainWindow(){
         Pane pane = new Pane();
         HBox hBox = new HBox();
         Button createTournamentButton = new Button("Create Tournament");
@@ -45,6 +41,7 @@ public class AdminView extends View {
         pane.getChildren().add(hBox);
         return new Scene(pane,600,50);
     }
+
     private Scene createLoadDataScene(){
         Accordion tAccordion = createTournamentsView(controller.getAccountTournaments());
         tAccordion.setMinSize(100, 100);

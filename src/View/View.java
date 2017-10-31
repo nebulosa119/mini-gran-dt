@@ -2,7 +2,6 @@ package View;
 
 
 import Controller.Controller;
-import Model.Account;
 import javafx.scene.Scene;
 
 public abstract class View {
@@ -10,5 +9,6 @@ public abstract class View {
     View(Controller controller) {
         this.controller = controller;
     }
-    public abstract Scene createScene();
+
+    public abstract Scene createMainWindow();
 }
