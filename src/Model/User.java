@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -15,6 +16,18 @@ public class User extends Account {
         puntaje = 0;
     }
 
+    @Override
+    public ArrayList<String> getTournamentNames() {
+        ArrayList<String> tourNames = new ArrayList<>();
+        tourNames.addAll(teams.keySet());
+        return tourNames;
+    }
+
+    public Team getTeam(String tourName){
+        if (teams.containsKey(tourName))
+            return new Team(teams.get(tourName));
+        return null;
+    }
     // si no se contiene al torneo, se lo agrega, caso contrario se pisa el equipo
     public void addTeam(String tournamentName, Team e){
         if (tournamentName == null)

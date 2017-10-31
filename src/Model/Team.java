@@ -14,6 +14,11 @@ public class Team extends Identifiable {
         this.players = new ArrayList<>();
     }
 
+    public Team(Team team) {
+        this(team.getName());
+        players.addAll(team.getPlayers());
+    }
+
     public ArrayList<Player> getPlayers() {
         return players;
     }

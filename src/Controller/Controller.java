@@ -1,14 +1,11 @@
 package Controller;
 
 import Model.*;
+import Model.Properties;
 import View.*;
-import com.jfoenix.controls.JFXTextField;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
@@ -17,10 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 public class Controller extends Application {
 
@@ -69,27 +63,10 @@ public class Controller extends Application {
         primaryStage.show();
 
     }
+
     public void setScene(Scene scene){
         stage.setScene(scene);
     }
-
-    //private JFXTextField userTextField;
-
-    /*@FXML
-    public void handleClose(){
-        //accounts.save();
-        System.exit(0);
-    }
-
-    @FXML
-    public void handleLogin(){
-        if(!userTextField.getText().isEmpty()){
-            username = userTextField.getText();
-            loadView(username);
-            stage.setScene(view.createScene());
-        }
-    }*/
-
 
     private void loadView(String username) {
          //buscamos cual tiene al usuario
@@ -108,16 +85,7 @@ public class Controller extends Application {
         }
     }
 
-    @Override
-    public void stop() throws Exception {
-        //accounts.save();
-        super.stop();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-    public AccountsManager simulateTournaments() throws Team.PlayerExistsException, Team.CompleteTeamException {
+    private AccountsManager simulateTournaments() throws Team.PlayerExistsException, Team.CompleteTeamException {
         String[] teamNames = new String[]{
                 "Sonido Caracol",
                 "Lincoln",
@@ -278,7 +246,7 @@ public class Controller extends Application {
         return accountsManager;
     }
 
-    public ArrayList<Tournament> getTournaments() {
+    public ArrayList<Tournament> getAccountTournaments() {
         if (account instanceof Administrator)
             return ((Administrator)account).getTournaments();
         return null;
@@ -288,7 +256,7 @@ public class Controller extends Application {
         if (account instanceof Administrator)
             ((Administrator)account).addTournament(new Tournament(tourName, maxPlayers));
     }
-    public void createNewTorunament(Tournament newTournament) {
+    private void createNewTorunament(Tournament newTournament) { // hay tres getter metodos distintos pero iguales, despues los meto todos en uno
         if (account instanceof Administrator && newTournament != null)
             ((Administrator)account).addTournament(newTournament);
     }
@@ -297,4 +265,65 @@ public class Controller extends Application {
         Optional<Tournament> result = textInputDialog.showAndWait();
         result.ifPresent(newTournament -> createNewTorunament(newTournament));
     }
+
+    @Override
+    public void stop() throws Exception {
+        //accounts.save();
+        super.stop();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    public Map<String,ArrayList<String>> getAllTournaments() {
+        HashMap<String,ArrayList<String>> tourNames= new HashMap<>();
+        for (Account account:accounts.getAccounts()) {
+            if (account instanceof Administrator){
+                Administrator admin = (Administrator)account;
+                tourNames.put(admin.getName(), account.getTournamentNames());
+            }
+        }
+        return tourNames;
+    }
+
+    //esta todo muy mesclado, despues hat uqe cambiarlo
+    public ArrayList<String> getUserTournaments() {
+        if (account instanceof User)
+            return account.getTournamentNames();
+        return null;
+    }
+
+    public Team getUserTeam(String tourName) {
+        if (account instanceof User)
+            return ((User)account).getTeam(tourName);
+        return null;
+    }
+
+    // el nombre del club deberia er identico al del administrador
+    public Tournament getTournament(String clubName, String tourName) {
+        for (Account account:accounts.getAccounts()) {
+            if (account instanceof Administrator)
+                if (account.getName().equals(clubName) && ((Administrator) account).hasTournament(tourName))
+                    return ((Administrator) account).getTournament(tourName);
+        }
+        return null;
+    }
+
+    //private JFXTextField userTextField;
+
+    /*@FXML
+    public void handleClose(){
+        //accounts.save();
+        System.exit(0);
+    }
+
+    @FXML
+    public void handleLogin(){
+        if(!userTextField.getText().isEmpty()){
+            username = userTextField.getText();
+            loadView(username);
+            stage.setScene(view.createScene());
+        }
+    }*/
 }

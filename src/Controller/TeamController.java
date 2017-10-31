@@ -1,19 +1,14 @@
 package Controller;
 
-import Model.Team;
 import Model.User;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.Map;
 
 public class TeamController {//  crea la ventana del user
 
@@ -55,9 +50,9 @@ public class TeamController {//  crea la ventana del user
         @Override
         public void handle(Event event) {
             /**Abre la ventana de ranking de los jugadores*/
-            Stage aux = getEventStage();
-            RankingsWindow rw = new RankingsWindow();
-            aux.setScene(new Scene(rw));
+            //Stage aux = getEventStage();
+            //RankingsWindow rw = new RankingsWindow();
+            //aux.setScene(new Scene(rw));
         }
     };
 

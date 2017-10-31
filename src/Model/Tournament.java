@@ -19,6 +19,12 @@ public class Tournament extends Identifiable {
         this.teams = new ArrayList<Team>();
     }
 
+    public Tournament(Tournament t) {
+        this(t.getName(),t.getMaxPlayers());
+        teams = new ArrayList<Team>();
+        teams.addAll(t.getTeams());
+    }
+
     public void refreshTeam(HashMap<String, Properties> prop, Team t) {
         for(Team team: teams) {
             if(team.equals(t)) {

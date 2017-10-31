@@ -18,11 +18,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
-import javafx.util.Callback;
 import javafx.util.StringConverter;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class AdminView extends View {
     public AdminView(Controller controller) {
@@ -48,7 +46,7 @@ public class AdminView extends View {
         return new Scene(pane,600,50);
     }
     private Scene createLoadDataScene(){
-        Accordion tAccordion = createTournamentsView(controller.getTournaments());
+        Accordion tAccordion = createTournamentsView(controller.getAccountTournaments());
         tAccordion.setMinSize(100, 100);
 
         Button confrimButton = new Button("Confrim");

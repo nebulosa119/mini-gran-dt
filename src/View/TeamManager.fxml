@@ -21,7 +21,6 @@
   <children>
       <ButtonBar buttonOrder="" prefHeight="40.0" prefWidth="200.0">
         <buttons>
-          <Button fx:id="button" mnemonicParsing="false" text="Team Management" />
             <Button mnemonicParsing="false" text="Game Rules" />
             <Button mnemonicParsing="false" text="Player Rankings" textFill="#141212" />
             <Button mnemonicParsing="false" text="Exit Game" />

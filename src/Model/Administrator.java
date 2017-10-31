@@ -17,6 +17,15 @@ public class Administrator extends Account{
         super(name);
     }
 
+    @Override
+    public ArrayList<String> getTournamentNames() {
+        ArrayList<String> resp = new ArrayList<>();
+        for (Tournament tour:tournaments) {
+            resp.add(tour.getName());
+        }
+        return resp;
+    }
+
     /**Metodo para que el controller pueda tener acceso a los torneos y asi poder mostrarlos al admin*/
     public ArrayList<Tournament> getTournaments() {
         return tournaments;
@@ -43,7 +52,7 @@ public class Administrator extends Account{
 
     public boolean hasTournament(String tournamentName) {
         for (Tournament t : tournaments) {
-            if(t.getName().compareTo(tournamentName) == 0)
+            if(t.getName().equals(tournamentName))
                 return true;
         }
         return false;
@@ -52,7 +61,7 @@ public class Administrator extends Account{
     public Tournament getTournament(String name) {
         for(Tournament t : tournaments) {
             if(t.getName().compareTo(name) == 0)
-                return t;
+                return new Tournament(t);
         }
         return null;
     }
