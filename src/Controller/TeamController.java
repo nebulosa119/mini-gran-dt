@@ -129,9 +129,10 @@ public class TeamController {//  crea la ventana del user
                 for(Player p : (ObservableList<Player>)((TableView)tab.getContent()).getItems()) {
                     try {
                         u.getTeam(t.getName()).add(p, 5); /**De donde saco la cantidad maxima de jugadores? No deberia ser una variable de instancia para el equipo eso?*/
-                        userPlayers.setItems(FXCollections.observableArrayList(u.getTeam(t.getName()).getPlayers()));
                     } catch (Exception e) {
                         /**Hay que catchear cada excepcion y lanzar un mensaje relevante al usuario*/
+                    } finally {
+                        userPlayers.setItems(FXCollections.observableArrayList(u.getTeam(t.getName()).getPlayers()));
                     }
                 }
             }
@@ -146,6 +147,7 @@ public class TeamController {//  crea la ventana del user
             for(Player p : userPlayers.getItems()) {
                 u.getTeam(t.getName()).removePlayer(p);
             }
+            userPlayers.setItems(FXCollections.observableArrayList(u.getTeam(t.getName()).getPlayers()));
         }
     };
 
