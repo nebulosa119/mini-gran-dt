@@ -5,7 +5,6 @@ package Model;
 // cualquier atributo.
 public class Player extends Identifiable {
 
-    private int ranking;
     private int price;
     private Properties properties;
 
@@ -39,5 +38,9 @@ public class Player extends Identifiable {
     @Override
     public String toString() {
         return name;
+    }
+
+    public int getRanking() {
+        return properties.calculateRanking();
     }
 }

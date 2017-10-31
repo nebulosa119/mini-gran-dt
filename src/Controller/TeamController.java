@@ -4,6 +4,7 @@ import Model.Player;
 import Model.Team;
 import Model.Tournament;
 import Model.User;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -38,22 +39,33 @@ public class TeamController {//  crea la ventana del user
             Tab tab = new Tab();
             tab.setText(team.getName());
 
-            /**Defino la tabla de jugadores que va adentro del tab particular*/
-            TableView<Player> playerTableView = new TableView<>();
-
-            /**Agrego las columnas a la tabla*/
-            TableColumn playerName = new TableColumn("Player name");
-            TableColumn playerRanking = new TableColumn("Player ranking");
-            playerTableView.getColumns().addAll(playerName, playerRanking);
-
             /**Defino la data que va a ir adrento de la tabla*/
             ObservableList<Player> data = FXCollections.observableArrayList();
             for(Player p : team.getPlayers()) {
                 data.add(p);
             }
 
-            /**Asocio los datos con las celdas de la tabla*/
+            /**Defino la tabla de jugadores que va adentro del tab particular*/
+            TableView<Player> playerTableView = new TableView<>();
+            playerTableView.setItems(data);
 
+            /**Defino las columnas de la tabla*/
+            TableColumn<Player, String> playerName = new TableColumn<>("Name");
+            TableColumn<Player, Integer> playerRanking = new TableColumn<>("Ranking");
+
+            /**Asocio los datos con las celdas de la tabla*/
+            playerName.setCellValueFactory(info -> new SimpleStringProperty(info.getValue().getName()));
+            playerRanking.setCellValueFactory(info -> (new SimpleIntegerProperty(info.getValue().getRanking())).asObject());
+
+
+
+            /**Agrego las columnas a la tabla*/
+            playerTableView.getColumns().addAll(playerName, playerRanking);
+
+            /**Agrego la tabla al tab*/
+            tab.setContent(playerTableView);
+
+            /**Agrego la tab*/
             teamsTabPanes.getTabs().add(tab);
         }
         /**Seteo los listeners de los botones*/
