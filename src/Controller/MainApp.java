@@ -225,7 +225,7 @@ public class MainApp extends Application {
         } catch (Exception ex) {
             Logger.getLogger(Controller.MainApp2.class.getName()).log(Level.SEVERE, null, ex);
         }*/
-        view = new AdminView(this);
+        view = new AdminView(this, (Administrator) account);
         setScene(view.createMainWindow());
     }
 

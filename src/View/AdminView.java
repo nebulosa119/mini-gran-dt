@@ -1,10 +1,7 @@
 package View;
 
 import Controller.MainApp;
-import Model.Player;
-import Model.PropValues;
-import Model.Team;
-import Model.Tournament;
+import Model.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -24,8 +21,10 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public class AdminView extends View {
-    public AdminView(MainApp controller) {
+    private Administrator admin;
+    public AdminView(MainApp controller, Administrator admin) {
         super(controller);
+        this.admin = admin;
     }
 
     @Override
@@ -44,7 +43,7 @@ public class AdminView extends View {
     }
 
     private Scene createLoadDataScene(){
-        Accordion tAccordion = createTournamentsView(controller.getAccountTournaments());
+        Accordion tAccordion = createTournamentsView(admin.getTournaments());
         tAccordion.setMinSize(150, 100);
 
         Button confrimButton = new Button("Confrim");
@@ -85,13 +84,14 @@ public class AdminView extends View {
     }
 
     private TableView createPlayersTable(Team team){
-        ObservableList data = FXCollections.observableArrayList(team.getNewPlayers());
+        // genera cambio?
+        ObservableList<Player> data = FXCollections.observableArrayList(team.getPlayers());
 
         ArrayList<TableColumn> columnsList = new ArrayList<>();
         //primera columna
         TableColumn PlayerNameCol = new TableColumn();
         PlayerNameCol.setText("Player");
-        PlayerNameCol.setCellValueFactory(new PropertyValueFactory("name"));
+        PlayerNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         //PlayerNameCol.setCellFactory(TextFieldTableCell.forTableColumn(sc));
         columnsList.add(PlayerNameCol);
         // una columna por propiedad

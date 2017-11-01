@@ -19,7 +19,7 @@ public class Team extends Identifiable {
     }
 
     public ArrayList<Player> getPlayers() {
-        return new ArrayList<Player>(players);
+        return players;
     }
 
     public ArrayList<Player> getNewPlayers(){
