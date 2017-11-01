@@ -18,7 +18,9 @@ import javafx.stage.Modality;
 import javafx.util.StringConverter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 public class AdminView extends View {
     private Administrator admin;
@@ -33,12 +35,12 @@ public class AdminView extends View {
         createTournamentButton.setMaxWidth(Double.MAX_VALUE);
         createTournamentButton.setOnAction(event -> controller.show(createTextInputDialog("New Tournament", "Input the tournament information","Tournamnet name","Players per team")));
 
-        Button loadDatabutton = new Button("Load Data To Tournaments");
-        loadDatabutton.setMaxWidth(Double.MAX_VALUE);
-        loadDatabutton.setOnAction(event -> controller.setScene(createLoadDataScene()));
+        Button loadDataButton = new Button("Load Data To Tournaments");
+        loadDataButton.setMaxWidth(Double.MAX_VALUE);
+        loadDataButton.setOnAction(event -> controller.setScene(createLoadDataScene()));
 
         HBox hBox = new HBox();
-        hBox.getChildren().addAll(createTournamentButton,loadDatabutton);
+        hBox.getChildren().addAll(createTournamentButton,loadDataButton);
         return new Scene(hBox,600,50);
     }
 
@@ -46,10 +48,10 @@ public class AdminView extends View {
         Accordion tAccordion = createTournamentsView(admin.getTournaments());
         tAccordion.setMinSize(150, 100);
 
-        Button confrimButton = new Button("Confrim");
-        confrimButton.setMaxWidth(Double.MAX_VALUE);
-        confrimButton.setOnAction(event -> {
-            Alert alert = createAlert("Are you shure?");
+        Button confirmButton = new Button("Confirm");
+        confirmButton.setMaxWidth(Double.MAX_VALUE);
+        confirmButton.setOnAction(event -> {
+            Alert alert = createAlert("Are you sure?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK){
                 uploadData(tAccordion);// como quedaria mejor esto?
@@ -62,13 +64,13 @@ public class AdminView extends View {
         backButton.setOnAction(event -> controller.setScene(createMainWindow()));
 
         HBox buttonBox = new HBox();
-        buttonBox.getChildren().addAll(backButton,confrimButton);
+        buttonBox.getChildren().addAll(backButton,confirmButton);
         VBox vBox = new VBox();
         vBox.getChildren().addAll(tAccordion,buttonBox);
         return new Scene(vBox,600,600);
     }
 
-    private Accordion createTournamentsView(ArrayList<Tournament> tournaments){
+    private Accordion createTournamentsView(Set<Tournament> tournaments){
         Accordion tAccoridion = new Accordion();
 
         for (Tournament tournament: tournaments) {
@@ -129,7 +131,7 @@ public class AdminView extends View {
     }
 
     private void uploadData(Accordion tAccordion) {
-        ArrayList<Tournament> tournaments = new ArrayList<>();
+        Set<Tournament> tournaments = new HashSet<>();
         // para cada acordion de torneo...
         for (TitledPane tourPane:tAccordion.getPanes()) {
             String tourName = tourPane.getText();

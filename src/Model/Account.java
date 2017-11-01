@@ -1,7 +1,7 @@
 package Model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Set;
 
 public abstract class Account extends Identifiable implements Serializable {
     public Account() {
@@ -20,7 +20,7 @@ public abstract class Account extends Identifiable implements Serializable {
         return this instanceof Administrator;
     }
 
-    public abstract ArrayList<String> getTournamentNames();
+/*    public abstract Set<String> getTournamentNames();
 
-    public abstract void refresh(ArrayList<Tournament> tournaments);
+    public abstract void refresh(Set<Tournament> tournaments);*/
 }

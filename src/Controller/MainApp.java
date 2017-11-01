@@ -35,17 +35,18 @@ public class MainApp extends Application {
         return instance;
     }
 
-    public void createNewTorunament(String tourName, int maxPlayers) {
+    public void createNewTournament(String tourName, int maxPlayers) {
         if (account instanceof Administrator)
             ((Administrator)account).addTournament(new Tournament(tourName, maxPlayers));
     }
-    private void createNewTorunament(Tournament newTournament) { // hay tres getter metodos distintos pero iguales, despues los meto todos en uno
+    private void createNewTournament(Tournament newTournament) { // hay tres getter metodos distintos pero iguales, despues los meto todos en uno
         if (account instanceof Administrator && newTournament != null)
             ((Administrator)account).addTournament(newTournament);
     }
 
-    //lista de torneos del admin
-    public ArrayList getAccountTournaments() {
+    //nunca se usan y me gustaria eliminar el getTournamentNames del user..
+/*    //lista de torneos del admin
+    public Set getAccountTournaments() {
         if (account instanceof Administrator)
             return ((Administrator)account).getTournaments();//lista de torneos
         else if (account instanceof User)
@@ -58,7 +59,7 @@ public class MainApp extends Application {
         if (account instanceof User)
             return account.getTournamentNames();
         return null;
-    }
+    }*/
 
     // el nombre del club deberia er identico al del administrador
     public Tournament getTournament(String clubName, String tourName) {
@@ -70,12 +71,12 @@ public class MainApp extends Application {
         return null;
     }
 
-    public Map<String,ArrayList<String>> getAllTournaments() {
-        HashMap<String,ArrayList<String>> tourNames= new HashMap<>();
+    public Map<String,Set<String>> getAllTournaments() {
+        HashMap<String,Set<String>> tourNames= new HashMap<>();
         for (Account account:accounts.getAccounts()) {
             if (account instanceof Administrator){
                 Administrator admin = (Administrator)account;
-                tourNames.put(admin.getName(), account.getTournamentNames());
+                tourNames.put(admin.getName(), admin.getTournamentNames());
             }
         }
         return tourNames;
@@ -89,7 +90,7 @@ public class MainApp extends Application {
 
     public void show(Dialog textInputDialog) {
         Optional<Tournament> result = textInputDialog.showAndWait();
-        result.ifPresent(newTournament -> createNewTorunament(newTournament));
+        result.ifPresent(newTournament -> createNewTournament(newTournament));
     }
 
     @Override
@@ -166,10 +167,10 @@ public class MainApp extends Application {
         return accountsManager;
     }
 
-    public void refresh(ArrayList<Tournament> tournaments) {
+    public void refresh(Set<Tournament> tournaments) {
         if (account instanceof Administrator)
 
-            account.refresh(tournaments);
+            ((Administrator)account).refresh(tournaments);
     }
 
     public void setScene(Scene scene){

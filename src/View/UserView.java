@@ -11,8 +11,10 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Set;
 
 public class UserView extends View {
+
     public UserView(MainApp controller) {
         super(controller);
     }
@@ -25,7 +27,7 @@ public class UserView extends View {
         Button buttonEditTeam = new Button("Edit Your Team");
         buttonEditTeam.setMaxWidth(Double.MAX_VALUE);
         buttonEditTeam.setOnAction(event -> {
-            // pido la seleccionEJ larana: copa mayores y seteo la ventana
+            // pido la seleccion EJ larana: copa mayores y seteo la ventana
             String selection = listView.getSelectionModel().getSelectedItem();
             setNextWindow(selection);
         });
@@ -38,7 +40,7 @@ public class UserView extends View {
 
     private ListView<String> createListView(){
         //cargamos los torneos
-        Map<String,ArrayList<String>> tournamentsBinding = controller.getAllTournaments();
+        Map<String,Set<String>> tournamentsBinding = controller.getAllTournaments();
         ArrayList<String> allTournaments = new ArrayList<>();
         // creamos un bining EJ: larana: CopaJuveniles
         for (String adminName:tournamentsBinding.keySet()) {

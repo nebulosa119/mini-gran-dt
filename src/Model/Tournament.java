@@ -8,9 +8,6 @@ public class Tournament extends Identifiable {
 
     private ArrayList<Team> teams;
     private int maxPlayers;
-    // para llevar registro de los jugadores
-    //private HashMap<Date,> por simplificaicon no vamos a llevar(por ahora) registro de las fechas, eso
-    // se opcupara el adiministrador en su pagina web.....
 
     public Tournament(String tourName) {
         super(tourName);

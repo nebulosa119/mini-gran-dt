@@ -16,7 +16,7 @@ public class User extends Account {
         puntaje = 0;
     }
 
-    @Override
+/*    @Override
     public ArrayList<String> getTournamentNames() {
         ArrayList<String> tourNames = new ArrayList<>();
         tourNames.addAll(teams.keySet());
@@ -26,7 +26,7 @@ public class User extends Account {
     @Override
     public void refresh(ArrayList<Tournament> tournaments) {
 
-    }
+    }*/
 
     public Team getTeam(String tourName){
         if (teams.containsKey(tourName))
