@@ -1,7 +1,7 @@
 package Controller;
 
 import java.util.*;
-import java.util.Properties;
+import Model.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import Model.*;

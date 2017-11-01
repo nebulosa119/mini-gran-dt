@@ -26,14 +26,14 @@ public class Administrator extends Account{
     @Override
     public void refresh(ArrayList<Tournament> tournaments) {
         for (Tournament myTour:this.tournaments) {
-                if (myTour.getName().equals(dataTour.getName())) {
             for (Tournament dataTour:tournaments) {
+                if (myTour.getName().equals(dataTour.getName())) {
                     myTour.refresh(dataTour);
                     break;
                 }
             }
-    }
         }
+    }
 
     /**Metodo para que el Controller pueda tener acceso a los torneos y asi poder mostrarlos al admin*/
     public ArrayList<Tournament> getTournaments() {
