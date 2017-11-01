@@ -1,9 +1,7 @@
 package View;
 
 import Controller.Controller;
-import Model.PropValues;
-import Model.Team;
-import Model.Tournament;
+import Model.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -15,12 +13,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.util.StringConverter;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class AdminView extends View {
     public AdminView(Controller controller) {
@@ -29,35 +27,35 @@ public class AdminView extends View {
 
     @Override
     public Scene createMainWindow(){
-        Pane pane = new Pane();
-        HBox hBox = new HBox();
         Button createTournamentButton = new Button("Create Tournament");
         createTournamentButton.setMaxWidth(Double.MAX_VALUE);
         createTournamentButton.setOnAction(event -> controller.show(createTextInputDialog("New Tournament", "Input the tournament information","Tournamnet name","Players per team")));
+
         Button loadDatabutton = new Button("Load Data To Tournaments");
         loadDatabutton.setMaxWidth(Double.MAX_VALUE);
         loadDatabutton.setOnAction(event -> controller.setScene(createLoadDataScene()));
+
+        HBox hBox = new HBox();
         hBox.getChildren().addAll(createTournamentButton,loadDatabutton);
-        pane.getChildren().add(hBox);
-        return new Scene(pane,600,50);
+        return new Scene(hBox,600,50);
     }
 
     private Scene createLoadDataScene(){
         Accordion tAccordion = createTournamentsView(controller.getAccountTournaments());
-        tAccordion.setMinSize(100, 100);
+        tAccordion.setMinSize(150, 100);
 
         Button confrimButton = new Button("Confrim");
         confrimButton.setMaxWidth(Double.MAX_VALUE);
         confrimButton.setOnAction(event -> {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.initModality(Modality.APPLICATION_MODAL);
-                //alert.getDialogPane().setContentText(Alert.AlertType.CONFIRMATION + " text.");
-                alert.getDialogPane().setHeaderText("Are you shure?");
-                alert.showAndWait()
-                        .filter(response -> response == ButtonType.OK)
-                        .ifPresent(response -> controller.setScene(createMainWindow()));
+            Alert alert = createAlert("Are you shure?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                uploadData(tAccordion);// como quedaria mejor esto?
+            }else
+                alert.close();
         });
-        Button backButton = new Button("Back");
+
+        Button backButton = new Button("Cancel");
         backButton.setMaxWidth(Double.MAX_VALUE);
         backButton.setOnAction(event -> controller.setScene(createMainWindow()));
 
@@ -68,42 +66,35 @@ public class AdminView extends View {
         return new Scene(vBox,600,600);
     }
 
+    private Accordion createTournamentsView(ArrayList<Tournament> tournaments){
+        Accordion tAccoridion = new Accordion();
+
+        for (Tournament tournament: tournaments) {
+            Accordion teamAccordion = new Accordion();
+
+            for (Team team:tournament.getTeams()) {
+                TableView table = createPlayersTable(team);
+                teamAccordion.getPanes().add(new TitledPane(team.getName(),table));
+            }
+            tAccoridion.getPanes().add(new TitledPane(tournament.getName(),teamAccordion));
+        }
+        return tAccoridion;
+    }
+
     private TableView createPlayersTable(Team team){
-        ObservableList data = FXCollections.observableArrayList(team.getPlayers());
+        ObservableList data = FXCollections.observableArrayList(team.getNewPlayers());
 
-        StringConverter<Object> sc = new StringConverter<Object>() {
-            @Override
-            public String toString(Object t) {
-                return t == null ? null : t.toString();
-            }
-
-            @Override
-            public Object fromString(String string) {
-                return string;
-            }
-        };// para manejar cambios de nombre
-
-
-        ArrayList<TableColumn> columnsList = new ArrayList<TableColumn>();
-
+        ArrayList<TableColumn> columnsList = new ArrayList<>();
+        //primera columna
         TableColumn PlayerNameCol = new TableColumn();
         PlayerNameCol.setText("Player");
         PlayerNameCol.setCellValueFactory(new PropertyValueFactory("name"));
-        PlayerNameCol.setCellFactory(TextFieldTableCell.forTableColumn(sc));
+        //PlayerNameCol.setCellFactory(TextFieldTableCell.forTableColumn(sc));
         columnsList.add(PlayerNameCol);
-
+        // una columna por propiedad
         for (PropValues prop: PropValues.values()) {
-            String colName = prop.toString();
-            colName = colName.replace('_',' ');// sacamos los _
-            colName = colName.substring(0, 1).toUpperCase() + colName.substring(1);// Pasamos a mayuscula la primera;
-
-            TableColumn column = new TableColumn<>();
-            column.setText(colName);
-            column.setMinWidth(70);
-            column.setCellValueFactory(new PropertyValueFactory(prop.toString()));
-            column.setCellFactory(col -> new SpinnerCell());
-
-            columnsList.add(column);
+            String colName = cleanString(prop.toString());
+            columnsList.add(createPropColumn(colName, prop.toString()));
         }
 
         TableView tableView = new TableView();
@@ -114,19 +105,70 @@ public class AdminView extends View {
 
     }
 
-    private Accordion createTournamentsView(ArrayList<Tournament> tournaments){
-        Accordion tourAccoridion = new Accordion();
-
-        for (Tournament tournament: tournaments) {
-            Accordion teamAccordion = new Accordion();
-
-            for (Team team:tournament.getTeams()) {
-                TableView table = createPlayersTable(team);
-                teamAccordion.getPanes().add(new TitledPane(team.getName(),table));
+    private TableColumn createPropColumn(String colName, String propertie) {
+        TableColumn column = new TableColumn();
+        column.setText(colName);
+        column.setMinWidth(70);
+        column.setCellValueFactory(new PropertyValueFactory(propertie));
+        StringConverter<Object> sc = new StringConverter<Object>() {
+            @Override
+            public String toString(Object t) {
+                return t == null ? "0" : t.toString();
             }
-            tourAccoridion.getPanes().add(new TitledPane(tournament.getName(),teamAccordion));
+
+            @Override
+            public Object fromString(String string) {
+                return string;
+            }
+        };
+        column.setCellFactory(TextFieldTableCell.forTableColumn(sc));
+        return column;
+    }
+
+    private void uploadData(Accordion tAccordion) {
+        ArrayList<Tournament> tournaments = new ArrayList<>();
+        // para cada acordion de torneo...
+        for (TitledPane tourPane:tAccordion.getPanes()) {
+            String tourName = tourPane.getText();
+            Accordion teamsAccordion = (Accordion)tourPane.getContent();
+            tournaments.add(getTournamentData(tourName, teamsAccordion));
         }
-        return tourAccoridion;
+        controller.refresh(tournaments);
+        System.out.println();
+    }
+
+    private Tournament getTournamentData(String tourName, Accordion teamsAccordion) {
+        Tournament tournament = new Tournament(tourName);
+        // para cada panel de euipo dentro del acordion del torneo...
+        for (TitledPane teamPane:teamsAccordion.getPanes()) {
+            String teamName = teamPane.getText();
+            TableView teamTable = (TableView)teamPane.getContent();
+            tournament.addTeam(getTeamData(teamName,teamTable));
+        }
+        return tournament;
+    }
+
+    private Team getTeamData(String teamName, TableView teamTable) {
+        Team team = new Team(teamName);
+        ObservableList items = teamTable.getItems();
+        int tourMaxPlayers = items.size();
+        for (Object item:items) {
+            team.add((Player)item,tourMaxPlayers);
+        }
+        return team;
+    }
+
+    private String cleanString(String string) {
+        string = string.replace('_',' ');// sacamos los _
+        string = string.substring(0, 1).toUpperCase() + string.substring(1);// Pasamos a mayuscula la primera;
+        return string;
+    }
+
+    private Alert createAlert(String message){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.getDialogPane().setHeaderText(message);
+        return alert;
     }
 
     private class SpinnerCell<S, T> extends TableCell<S, T> {
@@ -160,6 +202,10 @@ public class AdminView extends View {
                     this.spinner.getValueFactory().valueProperty().bindBidirectional(((IntegerProperty) this.ov).asObject());
                 }
             }
+        }
+
+        public ObservableValue<T> getObservableValue() {
+            return ov;
         }
     }
 

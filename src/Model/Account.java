@@ -16,9 +16,12 @@ public abstract class Account extends Identifiable implements Serializable {
     public boolean isUser() {
         return this instanceof User;
     }
+
     public boolean isAdmin() {
         return this instanceof Administrator;
     }
 
     public abstract ArrayList<String> getTournamentNames();
+
+    public abstract void refresh(ArrayList<Tournament> tournaments);
 }

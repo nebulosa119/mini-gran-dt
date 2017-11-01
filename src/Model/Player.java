@@ -8,9 +8,17 @@ public class Player extends Identifiable {
     private int price;
     private Properties properties;
 
-    public Player(String name) {
+    public Player(String name, Properties properties) {
         super(name);
-        properties = new Properties();
+        this.properties = properties;
+    }
+    public Player(String name) {
+        this(name,new Properties());
+    }
+
+    public Player(String name, int price) {
+        this(name);
+        this.price = price;
     }
 
     public void refresh(Properties p) {
@@ -42,5 +50,14 @@ public class Player extends Identifiable {
 
     public int getRanking() {
         return properties.calculateRanking();
+    }
+
+    public void refresh(Player dataPlayer) {
+        properties.refresh(dataPlayer.properties);
+        System.out.println(getName()+" "+getProperties());
+    }
+
+    public String getProperties() {
+        return properties.toString();
     }
 }

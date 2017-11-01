@@ -23,6 +23,11 @@ public class User extends Account {
         return tourNames;
     }
 
+    @Override
+    public void refresh(ArrayList<Tournament> tournaments) {
+
+    }
+
     public Team getTeam(String tourName){
         if (teams.containsKey(tourName))
             return new Team(teams.get(tourName));

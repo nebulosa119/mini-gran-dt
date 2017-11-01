@@ -20,15 +20,21 @@ public class Team extends Identifiable {
     }
 
     public ArrayList<Player> getPlayers() {
-        return players;
+        return new ArrayList<Player>(players);
     }
 
-    public void add(Player p, int maxPlayers) throws CompleteTeamException, PlayerExistsException{
-        if (players.size() >= maxPlayers)
-            throw new CompleteTeamException();
-        if (players.contains(p))
-            throw new PlayerExistsException();
-        players.add(p);
+    public ArrayList<Player> getNewPlayers(){
+        ArrayList<Player> resp = new ArrayList<>();
+        for (Player player :players) {
+            System.out.println(player.getName()+" "+player.getProperties());
+            resp.add(new Player(player.getName()));
+        }
+        return resp;
+    }
+
+    public void add(Player p, int maxPlayers){
+        if (players.size() < maxPlayers && !players.contains(p))
+            players.add(p);
     }
 
     public void refreshPlayers(HashMap<String, Properties> prop) {
@@ -58,6 +64,17 @@ public class Team extends Identifiable {
     @Override
     public String toString() {
         return name+"{"+Arrays.toString(players.toArray())+'}';
+    }
+
+    public void refresh(Team team) {
+        for (Player myPlayer:players) {
+            for (Player dataPlayer:team.getPlayers()) {
+                if (myPlayer.getName().equals(dataPlayer.getName())){
+                    myPlayer.refresh(dataPlayer);
+                    break;
+                }
+            }
+        }
     }
 
     public class PlayerExistsException extends Exception {

@@ -26,9 +26,21 @@ public class Administrator extends Account{
         return resp;
     }
 
+    @Override
+    public void refresh(ArrayList<Tournament> tournaments) {
+        for (Tournament myTour:this.tournaments) {
+            for (Tournament dataTour:tournaments) {
+                if (myTour.getName().equals(dataTour.getName())) {
+                    myTour.refresh(dataTour);
+                    break;
+                }
+            }
+        }
+    }
+
     /**Metodo para que el controller pueda tener acceso a los torneos y asi poder mostrarlos al admin*/
     public ArrayList<Tournament> getTournaments() {
-        return tournaments;
+        return new ArrayList<Tournament>(tournaments);
     }
 
     public void setTournaments(ArrayList<Tournament> tournaments) {this.tournaments=tournaments;}
@@ -47,7 +59,7 @@ public class Administrator extends Account{
     /**Para cuando el administrador quiera crear un nuevo torneo. Mi idea es que desde el controller se instancie la
      * clase torneo para poder ingresarla directamente*/
     public void addTournament(Tournament t){
-        tournaments.add(t);
+        tournaments.add(new Tournament(t));
     }
 
     public boolean hasTournament(String tournamentName) {

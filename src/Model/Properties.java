@@ -61,4 +61,17 @@ public class Properties {
         resp += goals_scored_goalkeeper     * 100 * PropValues.goals_scored_goalkeeper.getUPricePerCent();
         return resp;
     }
+
+    @Override
+    public String toString() {
+        return "Properties{" +
+                "normal_goals_scored=" + normal_goals_scored +
+                ", goals_scored_by_penalty_kick=" + goals_scored_by_penalty_kick +
+                ", penalty_catched=" + penalty_catched +
+                ", goals_scored_goalkeeper=" + goals_scored_goalkeeper +
+                ", yellow_cards=" + yellow_cards +
+                ", red_cards=" + red_cards +
+                ", goals_against=" + goals_against +
+                '}';
+    }
 }

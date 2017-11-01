@@ -13,16 +13,27 @@ public class Tournament extends Identifiable {
     //private HashMap<Date,> por simplificaicon no vamos a llevar(por ahora) registro de las fechas, eso
     // se opcupara el adiministrador en su pagina web.....
 
-    public Tournament(String name, int maxPlayers) {
-        super(name);
-        this.maxPlayers = maxPlayers;
-        this.teams = new ArrayList<Team>();
+    public Tournament(String tourName) {
+        super(tourName);
+        teams = new ArrayList<Team>();
     }
 
-    public Tournament(Tournament t) {
+    public Tournament(String name, int maxPlayers) {
+        this(name);
+        this.maxPlayers = maxPlayers;
+    }
+
+    Tournament(Tournament t) {
         this(t.getName(),t.getMaxPlayers());
-        teams = new ArrayList<Team>();
         teams.addAll(t.getTeams());
+    }
+
+    public int getMaxPlayers() {
+        return maxPlayers;
+    }
+
+    public ArrayList<Team> getTeams() {
+        return new ArrayList<Team>(teams);
     }
 
     public void refreshTeam(HashMap<String, Properties> prop, Team t) {
@@ -33,17 +44,9 @@ public class Tournament extends Identifiable {
         }
     }
 
-    public int getMaxPlayers() {
-        return maxPlayers;
-    }
-
-    public ArrayList<Team> getTeams() {
-        return teams;
-    }
-
     /**Para cuando se cree el torneo y los equipos*/
     public void addTeam(Team t) {
-        teams.add(t);
+        teams.add(new Team(t));
     }
 
     public boolean hasTeam(Team t) {
@@ -69,6 +72,17 @@ public class Tournament extends Identifiable {
         int result = super.hashCode();
         result = result * 7; // para diferenciarlo d
         return result;
+    }
+
+    public void refresh(Tournament dataTour) {
+        for (Team myTeam:teams) {
+            for (Team dataTeam:dataTour.getTeams()) {
+                if (myTeam.getName().equals(dataTeam.getName())){
+                    myTeam.refresh(dataTeam);
+                    break;
+                }
+            }
+        }
     }
 
     @Override

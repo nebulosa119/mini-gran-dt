@@ -36,4 +36,5 @@ public abstract class Identifiable {
         result = 31 * result + name.hashCode();
         return result;
     }
+
 }
