@@ -6,14 +6,16 @@ import java.util.TreeMap;
 
 public class User extends Account {
 
-    protected int puntaje;
-
+    private int points; /**Pa qué protected si no lo necesitamos acceder desde subclases de User?*/
+    private int money;
+    private final static int INITIAL_AMOUNT = 1000; /**Discutir el monto después*/
     private Map<String, Team> teams; // String para reconocer el tournament por el nombre
 
     public User(String name) {
         super(name);
         this.teams = new TreeMap<String, Team>();
-        puntaje = 0;
+        points = 0;
+        money = INITIAL_AMOUNT;
     }
 
 /*    @Override
@@ -58,6 +60,23 @@ public class User extends Account {
         int result = super.hashCode();
         result = result * 5;
         return result;
+    }
+
+    public void sell(Player p, Tournament t) {
+        if(teams.get(t.getName()).getPlayers().contains(p)) {
+            teams.get(t.getName()).getPlayers().remove(p); /**Queda medio feo*/
+        }
+    }
+
+    /**Falta definir MAX_CAPACITY*/
+    public boolean canBuy(Player p) {
+        return money >= p.getPrice();
+    }
+
+    public boolean hasCapacity(Tournament t) {
+        if(!teams.containsKey(t)) return true; /**Por programación defensiva*/
+        if(teams.get(t).getPlayers().size() < Team.MAX_CAPACITY) return true;
+        return false;
     }
 
 }

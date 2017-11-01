@@ -25,7 +25,11 @@ public class Player extends Identifiable {
         properties.refresh(p);
     }
 
-        @Override
+    public int getPrice() {
+        return properties.calculatePrice();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o)
             return true;

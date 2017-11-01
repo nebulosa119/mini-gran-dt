@@ -6,6 +6,8 @@ import java.util.HashMap;
 
 public class Team extends Identifiable {
 
+    public static final int MAX_CAPACITY = 5; /**A definir después*/
+
     private ArrayList<Player> players;
 
     public Team(String name) {

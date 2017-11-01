@@ -22,17 +22,20 @@ public class TeamController {//  crea la ventana del user
     private Button exitButton, ruleButton, playerRankingButton, addPlayerButton, removePlayerButton;
     @FXML
     private TabPane teamsTabPanes;
+    @FXML
+    private ListView<Player> userPlayerList;
 
-    private User u;
-    private Tournament t;
+    private User user;
+    private Tournament tournament;
 
-    public void initModel(User u, Tournament t) {
+    public void initModel(User user, Tournament tournament) {
         /**Inicializo variables de instancia*/
-        this.u = u;
-        this.t = t;
+        this.user = user;
+        this.tournament = tournament;
+        teamsTabPanes = new TabPane();
 
         /**Configuro los tabs*/
-        for(Team team : t.getTeams()) {
+        for(Team team : tournament.getTeams()) {
             Tab tab = new Tab();
             tab.setText(team.getName());
 
@@ -64,6 +67,23 @@ public class TeamController {//  crea la ventana del user
 
             /**Agrego la tab*/
             teamsTabPanes.getTabs().add(tab);
+
+            /**Configuro el listView del usuario*/
+            /**Lo lleno con los jugadores que tenga*/
+            userPlayerList.setItems(FXCollections.observableArrayList(user.getTeam(tournament.getName()).getPlayers()));
+            userPlayerList.setCellFactory(param -> new ListCell<Player>() {
+                @Override
+                protected void updateItem(Player p, boolean empty) {
+                    super.updateItem(p, empty);
+                    if (empty || p == null || p.getName() == null) {
+                        setText(null);
+                    } else {
+                        setText(p.getName());
+                    }
+                }
+            });
+            /**Permite selecciones múltiples*/
+            userPlayerList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         }
         /**Seteo los listeners de los botones*/
         exitButton.setOnAction(exitHandler);
@@ -87,9 +107,10 @@ public class TeamController {//  crea la ventana del user
         @Override
         public void handle(Event event) {
             /**Abre la ventana de reglas*/
-            Stage aux = getEventStage(event);
+            Stage aux = new Stage();
             RulesWindow rw = new RulesWindow();
             aux.setScene(new Scene(rw));
+            aux.show();
         }
     };
 
@@ -98,24 +119,27 @@ public class TeamController {//  crea la ventana del user
         @Override
         public void handle(Event event) {
             /**Abre la ventana de ranking de los jugadores*/
-            Stage aux = getEventStage(event);
+            Stage aux = new Stage();
             RankingsWindow rw = new RankingsWindow();
             aux.setScene(new Scene(rw));
         }
     };
 
+    /**En cuanto al tema de repetidos: se debería ver desde el model eso. Es decir, en la clase Usuario debería existir un método para verificar si
+     * el jugador que quiere y puede comprar es repetido o no*/
     private EventHandler addPlayerHandler = new EventHandler(){
         @Override
         public void handle(Event event) {
             /**Añade al jugador elegido y decrementa los fondos*/
             for(Tab t : teamsTabPanes.getTabs()) {
-                for(Player p : (ObservableList<Player>)((TableView)t.getContent())) {
+                for(Player p : (ObservableList<Player>)((TableView)t.getContent()).getSelectionModel().getSelectedItems()) {
                     /**Agrego el jugaodr al equipo del usuario*/
-                    /**
-                     *
-                     *
-                     *
-                     * */
+                    if(user.canBuy(p) && user.hasCapacity(tournament)) {
+                        user.getTeam(tournament.getName()).getPlayers().add(p);
+                    } else {
+                        showErrorMessage();
+                    }
+                    /**Se debería desde acá restarle al usuario sus fondos*/
                 }
             }
         }
@@ -126,12 +150,22 @@ public class TeamController {//  crea la ventana del user
         @Override
         public void handle(Event event) {
             /**Remueve el jugador elegido y aumenta los fondos*/
-
+            for(Player p : userPlayerList.getSelectionModel().getSelectedItems()) {
+                user.sell(p); /**Implementar este método en User*/
+                user.getTeam(tournament.getName()).getPlayers().remove(p);
+            }
         }
     };
 
     private Stage getEventStage(Event e) {
         return (Stage) ((Node)e.getSource()).getScene().getWindow();
+    }
+
+    private void showErrorMessage() {
+        Alert aux = new Alert(Alert.AlertType.ERROR);
+        aux.setTitle("ERROR");
+        aux.setHeaderText("INSUFFICIENT FUNDS OR FULL TEAM");
+        aux.showAndWait();
     }
 
 }
