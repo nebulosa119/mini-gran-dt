@@ -1,9 +1,9 @@
-package Controller;
+package controller;
 
-import Model.Player;
-import Model.Team;
-import Model.Tournament;
-import Model.User;
+import model.Player;
+import model.Team;
+import model.Tournament;
+import model.User;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,13 +11,10 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.stage.Stage;
-
-import java.util.Map;
 
 public class TeamController {//  crea la ventana del user
 
@@ -52,12 +49,12 @@ public class TeamController {//  crea la ventana del user
             /**Defino las columnas de la tabla*/
             TableColumn<Player, String> playerName = new TableColumn<>("Name");
             TableColumn<Player, Integer> playerRanking = new TableColumn<>("Ranking");
+            TableColumn<Player, Boolean> wantPlayer = new TableColumn<>("Check to buy");
 
             /**Asocio los datos con las celdas de la tabla*/
             playerName.setCellValueFactory(info -> new SimpleStringProperty(info.getValue().getName()));
             playerRanking.setCellValueFactory(info -> (new SimpleIntegerProperty(info.getValue().getRanking())).asObject());
-
-
+            wantPlayer.setCellFactory(CheckBoxTableCell.forTableColumn(wantPlayer));
 
             /**Agrego las columnas a la tabla*/
             playerTableView.getColumns().addAll(playerName, playerRanking);
@@ -80,7 +77,7 @@ public class TeamController {//  crea la ventana del user
 
         @Override
         public void handle(Event event) {
-            /**Guarda y sale*/
+            /**Guarda y sale. NO SE COMO FUCKING HACER ESTO DE SERIALIZAR*/
 
         }
     };
@@ -108,11 +105,19 @@ public class TeamController {//  crea la ventana del user
     };
 
     private EventHandler addPlayerHandler = new EventHandler(){
-
         @Override
         public void handle(Event event) {
-            /**Añade el jugador elegido y decrementa los fondos*/
-
+            /**Añade al jugador elegido y decrementa los fondos*/
+            for(Tab t : teamsTabPanes.getTabs()) {
+                for(Player p : (ObservableList<Player>)((TableView)t.getContent())) {
+                    /**Agrego el jugaodr al equipo del usuario*/
+                    /**
+                     *
+                     *
+                     *
+                     * */
+                }
+            }
         }
     };
 

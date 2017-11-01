@@ -1,10 +1,6 @@
-package Controller;
+package controller;
 
-import Controller.Controller;
-import Model.Administrator;
-import Model.Tournament;
-
-import java.util.ArrayList;
+import model.Administrator;
 
 public class AdminController{
 

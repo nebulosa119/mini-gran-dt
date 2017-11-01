@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 public enum PropValues{
     normal_goals_scored(20,40,0.35),

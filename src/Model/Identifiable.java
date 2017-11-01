@@ -1,6 +1,4 @@
-package Model;
-
-import java.util.Comparator;
+package model;
 
 public abstract class Identifiable {
 

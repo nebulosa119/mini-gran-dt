@@ -1,12 +1,12 @@
-package View;
+package view;
 
 
-import Controller.Controller;
+import controller.MainApp;
 import javafx.scene.Scene;
 
 public abstract class View {
-    Controller controller;
-    View(Controller controller) {
+    MainApp controller;
+    View(MainApp controller) {
         this.controller = controller;
     }
 

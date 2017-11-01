@@ -1,11 +1,9 @@
-package Controller;
+package controller;
 
-import Model.Account;
-import Model.Administrator;
-import Model.User;
+import model.Account;
+import model.User;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.ArrayList;
 
 public class AccountsManager implements Serializable{
@@ -19,12 +17,12 @@ public class AccountsManager implements Serializable{
         accounts = (ArrayList<Account>) FileManager.unserializeObject(Types.USER.fileName);// no se como se soluciona
     }
 
-    boolean contains(String username) {
+    public boolean contains(String username) {
         System.out.println();
         return getAccount(username) != null;
     }
 
-    Account getAccount(String username) {
+    public Account getAccount(String username) {
         for (Account aux: accounts) {
             if (aux.getName().equals(username))
                 return aux;
@@ -42,11 +40,11 @@ public class AccountsManager implements Serializable{
         //FileManager.serializeObject(this,Types.USER.fileName);
     }
 
-    void createAccount(String username) {
+    public void createAccount(String username) {
             accounts.add(new User(username));
     }
 
-    void createAccount(Account account) {
+    public void createAccount(Account account) {
         accounts.add(account);
     }
 

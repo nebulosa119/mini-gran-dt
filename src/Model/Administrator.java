@@ -1,7 +1,4 @@
-package Model;
-
-import Model.Account;
-import Model.Tournament;
+package model;
 
 import java.util.*;
 

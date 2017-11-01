@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 public abstract class Session {
     private Account session;

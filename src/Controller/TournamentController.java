@@ -1,9 +1,6 @@
-package Controller;
+package controller;
 
-import Model.Team;
-import Model.Tournament;
-
-import java.util.Vector;
+import model.Tournament;
 
 public class TournamentController {
 
