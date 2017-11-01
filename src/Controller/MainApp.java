@@ -1,32 +1,22 @@
-package controller;
+package Controller;
 
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
-<<<<<<< HEAD:src/Controller/Controller.java
-=======
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
->>>>>>> origin/develop:src/controller/MainApp.java
 import javafx.scene.Scene;
 import javafx.scene.control.Dialog;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import model.*;
-import model.Properties;
-import view.AdminView;
-import view.UserView;
-import view.View;
 
 
 public class MainApp extends Application {
 
     private Stage stage;
-    private Account account;
-<<<<<<< HEAD:src/Controller/Controller.java
+    private Model.Account account;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -336,7 +326,7 @@ public class MainApp extends Application {
         /*try {
             replaceSceneContent("profile.fxml");
         } catch (Exception ex) {
-            Logger.getLogger(controller.MainApp.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Controller.MainApp.class.getName()).log(Level.SEVERE, null, ex);
         }*/
         view = new AdminView(this);
         setScene(view.createMainWindow());
@@ -346,7 +336,7 @@ public class MainApp extends Application {
         /*try {
             replaceSceneContent("profile.fxml");
         } catch (Exception ex) {
-            Logger.getLogger(controller.MainApp.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Controller.MainApp.class.getName()).log(Level.SEVERE, null, ex);
         }*/
         view = new UserView(this);
         setScene(view.createMainWindow());

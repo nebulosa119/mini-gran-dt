@@ -1,6 +1,6 @@
-package controller;
+package Controller;
 
-import model.Tournament;
+import Model.Tournament;
 
 public class TournamentController {
 

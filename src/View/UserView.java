@@ -1,8 +1,8 @@
-package view;
+package View;
 
-import controller.MainApp;
-import model.Team;
-import model.Tournament;
+import Controller.MainApp;
+import Model.Team;
+import Model.Tournament;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;

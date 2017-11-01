@@ -1,8 +1,7 @@
-package model;
+package Model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 
 public abstract class Account extends Identifiable implements Serializable {
     public Account() {

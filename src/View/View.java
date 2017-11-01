@@ -1,7 +1,7 @@
-package view;
+package View;
 
 
-import controller.MainApp;
+import Controller.MainApp;
 import javafx.scene.Scene;
 
 public abstract class View {

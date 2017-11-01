@@ -1,7 +1,7 @@
-package controller;
+package Controller;
 
-import model.Account;
-import model.User;
+import Model.Account;
+import Model.User;
 
 import java.io.Serializable;
 import java.util.ArrayList;
