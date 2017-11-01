@@ -152,7 +152,7 @@ public class TeamController {//  crea la ventana del user
         public void handle(Event event) {
             /**Remueve el jugador elegido y aumenta los fondos*/
             for(Player p : userPlayerList.getSelectionModel().getSelectedItems()) {
-                user.sell(p); /**Implementar este método en User*/
+                user.sell(p,tournament); /**Implementar este método en User*/
                 user.getTeam(tournament.getName()).getPlayers().remove(p);
             }
         }

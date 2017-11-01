@@ -27,11 +27,19 @@ public class Administrator extends Account{
             for (Tournament dataTour : tournaments) {
                 if (myTour.getName().equals(dataTour.getName())) {
                     myTour.refresh(dataTour);
+                    refreshUsers(dataTour);
                     break;
                 }
             }
         }
     }
+
+    private void refreshUsers(Tournament tournament) {
+        for (User user : tournamentUsers.get(tournament)) {
+            user.refreshPoints(tournament.getName());
+        }
+    }
+
 
     /**Metodo para que el Controller pueda tener acceso a los torneos y asi poder mostrarlos al admin*/
     public Set<Tournament> getTournaments() {

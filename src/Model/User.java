@@ -18,18 +18,6 @@ public class User extends Account {
         money = INITIAL_AMOUNT;
     }
 
-/*    @Override
-    public ArrayList<String> getTournamentNames() {
-        ArrayList<String> tourNames = new ArrayList<>();
-        tourNames.addAll(teams.keySet());
-        return tourNames;
-    }
-
-    @Override
-    public void refresh(ArrayList<Tournament> tournaments) {
-
-    }*/
-
     public Team getTeam(String tourName){
         if (teams.containsKey(tourName))
             return new Team(teams.get(tourName));
@@ -46,20 +34,10 @@ public class User extends Account {
         return teams;
     }
 
-    @Override
-    public boolean equals(Object o){
-        if (this == o)
-            return true;
-        if (!(o instanceof User))
-            return false;
-        User user = (User) o;
-        return super.equals(user);
-    }
-    @Override
-    public int hashCode(){
-        int result = super.hashCode();
-        result = result * 5;
-        return result;
+    public void refreshPoints(String tournament) {
+        // points += aca se deberian sumar y restar los puntos que sumo su equipo pero en la ULTIMA fecha.. osea
+        // que deberia recibir las properties del team, pero no las totales de como queda cada jugador con las
+        // properties actualizadas
     }
 
     public void sell(Player p, Tournament t) {
@@ -79,4 +57,19 @@ public class User extends Account {
         return false;
     }
 
+    @Override
+    public boolean equals(Object o){
+        if (this == o)
+            return true;
+        if (!(o instanceof User))
+            return false;
+        User user = (User) o;
+        return super.equals(user);
+    }
+    @Override
+    public int hashCode(){
+        int result = super.hashCode();
+        result = result * 5;
+        return result;
+    }
 }
