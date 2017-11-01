@@ -1,9 +1,9 @@
-package controller;
+package Controller;
 
-import model.Player;
-import model.Team;
-import model.Tournament;
-import model.User;
+import Model.Player;
+import Model.Team;
+import Model.Tournament;
+import Model.User;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -1,6 +1,6 @@
-package controller;
+package Controller;
 
-import model.Administrator;
+import Model.Administrator;
 
 public class AdminController{
 

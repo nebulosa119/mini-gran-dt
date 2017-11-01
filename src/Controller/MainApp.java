@@ -1,4 +1,4 @@
-package controller;
+package Controller;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -11,12 +11,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Dialog;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import model.*;
-import model.Properties;
-import view.AdminView;
-import view.UserView;
-import view.View;
+import Model.*;
+import Model.Properties;
+import View.AdminView;
+import View.UserView;
+import View.View;
 
 
 public class MainApp extends Application {
@@ -211,7 +210,7 @@ public class MainApp extends Application {
         /*try {
             replaceSceneContent("profile.fxml");
         } catch (Exception ex) {
-            Logger.getLogger(controller.MainApp.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Controller.MainApp.class.getName()).log(Level.SEVERE, null, ex);
         }*/
         view = new AdminView(this);
         setScene(view.createMainWindow());
@@ -221,7 +220,7 @@ public class MainApp extends Application {
         /*try {
             replaceSceneContent("profile.fxml");
         } catch (Exception ex) {
-            Logger.getLogger(controller.MainApp.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Controller.MainApp.class.getName()).log(Level.SEVERE, null, ex);
         }*/
         view = new UserView(this);
         setScene(view.createMainWindow());

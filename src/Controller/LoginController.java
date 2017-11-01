@@ -1,7 +1,6 @@
-package controller;
+package Controller;
 
 import com.jfoenix.controls.JFXTextField;
-import controller.MainApp;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 

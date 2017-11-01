@@ -1,6 +1,6 @@
-package controller;
+package Controller;
 
-import model.User;
+import Model.User;
 
 public class UserController {
 

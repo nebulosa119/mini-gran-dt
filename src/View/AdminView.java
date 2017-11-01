@@ -1,9 +1,9 @@
-package view;
+package View;
 
-import controller.MainApp;
-import model.PropValues;
-import model.Team;
-import model.Tournament;
+import Controller.MainApp;
+import Model.PropValues;
+import Model.Team;
+import Model.Tournament;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;

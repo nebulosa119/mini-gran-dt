@@ -1,4 +1,4 @@
-package model;
+package Model;
 
 import java.util.*;
 
@@ -23,7 +23,7 @@ public class Administrator extends Account{
         return resp;
     }
 
-    /**Metodo para que el controller pueda tener acceso a los torneos y asi poder mostrarlos al admin*/
+    /**Metodo para que el Controller pueda tener acceso a los torneos y asi poder mostrarlos al admin*/
     public ArrayList<Tournament> getTournaments() {
         return tournaments;
     }
@@ -32,7 +32,7 @@ public class Administrator extends Account{
 
     /**Este metodo deberia ser el primero en llamarse cuando desde el front el admin
      * actualiza los jugadores de un equipo en un torneo. Llama metodo refresh en cascada desde la clase torneo
-     * Aun me queda la duda de si deberiamos llamar estos metodos desde las clases del model o de otras.*/
+     * Aun me queda la duda de si deberiamos llamar estos metodos desde las clases del Model o de otras.*/
    /* public void refreshTeam(String tournamentName, Properties p, Team t, String name) {
         for(Tournament tournament : tournaments) {
             if(tournament.getName().compareTo(tournamentName) == 0) {
@@ -41,7 +41,7 @@ public class Administrator extends Account{
         }
     }*/
 
-    /**Para cuando el administrador quiera crear un nuevo torneo. Mi idea es que desde el controller se instancie la
+    /**Para cuando el administrador quiera crear un nuevo torneo. Mi idea es que desde el Controller se instancie la
      * clase torneo para poder ingresarla directamente*/
     public void addTournament(Tournament t){
         tournaments.add(t);
