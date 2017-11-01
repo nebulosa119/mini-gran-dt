@@ -1,20 +1,19 @@
 package Controller;
 
 import java.util.*;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import Model.Account;
+import Model.*;
+import View.AdminView;
+import View.UserView;
+import View.View;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
@@ -23,70 +22,17 @@ public class MainApp extends Application {
     private Stage stage;
     private Account account;
     private AccountsManager accounts;
-
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-        // guardamos el stage para manipularlo desde cualquier parte de la clase
-        stage = primaryStage;
-        // guardamos los accoutns para manipularlos desde cualqeuir parte
-        accounts = simulateTournaments();
-        /*accounts = (AccountsManager) FileManager.readObjectFromFile(Types.ADMIN.fileName);
-        if (accounts == null) {
-            System.out.println("es vacio");
-            accounts = new AccountsManager();
-        }*/
-        // creando login
-        /*Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("View/login.fxml"));
-        primaryStage.initStyle(StageStyle.UNDECORATED);
-        Scene loginScene = new Scene(root);*/
-
-        VBox vBox = new VBox();
-        Text welcomeTex = new Text("Welcome");
-        Button button = new Button("Login/CreateAccount");
-        TextField userTextField = new TextField();
-        button.setOnAction(event -> {
-            if(!userTextField.getText().isEmpty())
-                setAccountWindow(userTextField.getText());
-        });
-        vBox.getChildren().addAll(welcomeTex,userTextField,button);
-        Scene loginScene = new Scene(vBox,600,600);
-        // logeamos
-        primaryStage.setTitle("Mini Gran DT");
-    private AccountsManager accounts;
     private View view;
->>>>>>> origin/develop:src/ Controller /MainApp.java
 
     private static MainApp instance;
+
 
     public MainApp() {
         instance = this;
     }
 
-<<<<<<< HEAD:src/Controller/Controller.java
-    private void setAccountWindow(String username){
-        loadView(username);
-        setScene(view.createMainWindow());
-    }
-
-    public void setScene(Scene scene){
-        stage.setScene(scene);
-    }
-
-    private void loadView(String username) {
-        if (!accounts.contains(username)){
-            // si no existe lo creamos como usuario
-            accounts.createAccount(username);
-        }
-        account = accounts.getAccount(username);
-        if (account instanceof User){
-            View = new UserView(this);
-        }else {
-            View = new AdminView(this);
-        }
-=======
     public static MainApp getInstance() {
         return instance;
->>>>>>> origin/develop:src/ Controller /MainApp.java
     }
 
     public void createNewTorunament(String tourName, int maxPlayers) {
@@ -222,59 +168,8 @@ public class MainApp extends Application {
 
     public void refresh(ArrayList<Tournament> tournaments) {
         if (account instanceof Administrator)
-<<<<<<< HEAD:src/Controller/Controller.java
+
             account.refresh(tournaments);
-    }
-=======
-            return ((Administrator)account).getTournaments();
-        return null;
-    }
-
-    public void createNewTorunament(String tourName, int maxPlayers) {
-        if (account instanceof Administrator)
-            ((Administrator)account).addTournament(new Tournament(tourName, maxPlayers));
-    }
-    private void createNewTorunament(Tournament newTournament) { // hay tres getter metodos distintos pero iguales, despues los meto todos en uno
-        if (account instanceof Administrator && newTournament != null)
-            ((Administrator)account).addTournament(newTournament);
-    }
-
-    public void show(Dialog textInputDialog) {
-        Optional<Tournament> result = textInputDialog.showAndWait();
-        result.ifPresent(newTournament -> createNewTorunament(newTournament));
-    }
-    public Map<String,ArrayList<String>> getAllTournaments() {
-        HashMap<String,ArrayList<String>> tourNames= new HashMap<>();
-        for (Account account:accounts.getAccounts()) {
-            if (account instanceof Administrator){
-                Administrator admin = (Administrator)account;
-                tourNames.put(admin.getName(), account.getTournamentNames());
-            }
-        }
-        return tourNames;
-    }
-
-    //esta todo muy mesclado, despues hat uqe cambiarlo
-    public ArrayList<String> getUserTournaments() {
-        if (account instanceof User)
-            return account.getTournamentNames();
-        return null;
-    }
-
-    public Team getUserTeam(String tourName) {
-        if (account instanceof User)
-            return ((User)account).getTeam(tourName);
-        return null;
-    }
-
-    // el nombre del club deberia er identico al del administrador
-    public Tournament getTournament(String clubName, String tourName) {
-        for (Account account:accounts.getAccounts()) {
-            if (account instanceof Administrator)
-                if (account.getName().equals(clubName) && ((Administrator) account).hasTournament(tourName))
-                    return ((Administrator) account).getTournament(tourName);
-        }
-        return null;
     }
 
     public void setScene(Scene scene){
@@ -328,20 +223,20 @@ public class MainApp extends Application {
         /*try {
             replaceSceneContent("profile.fxml");
         } catch (Exception ex) {
-            Logger.getLogger(Controller.MainApp.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Controller.MainApp2.class.getName()).log(Level.SEVERE, null, ex);
         }*/
-        View = new AdminView(this);
-        setScene(View.createMainWindow());
+        view = new AdminView(this);
+        setScene(view.createMainWindow());
     }
 
     private void gotoUserView() {
         /*try {
             replaceSceneContent("profile.fxml");
         } catch (Exception ex) {
-            Logger.getLogger(Controller.MainApp.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Controller.MainApp2.class.getName()).log(Level.SEVERE, null, ex);
         }*/
-        View = new UserView(this);
-        setScene(View.createMainWindow());
+        view = new UserView(this);
+        setScene(view.createMainWindow());
     }
 
     private void gotoLogin() {
@@ -361,5 +256,5 @@ public class MainApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
->>>>>>> origin/develop:src/controller/MainApp.java
+
 }
