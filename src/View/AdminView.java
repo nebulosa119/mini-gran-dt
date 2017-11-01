@@ -1,9 +1,8 @@
 package View;
 
-import controller.MainApp;
-import model.PropValues;
-import model.Team;
-import model.Tournament;
+import Model.PropValues;
+import Model.Team;
+import Model.Tournament;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -31,11 +30,11 @@ public class AdminView extends View {
     public Scene createMainWindow(){
         Button createTournamentButton = new Button("Create Tournament");
         createTournamentButton.setMaxWidth(Double.MAX_VALUE);
-        createTournamentButton.setOnAction(event -> controller.show(createTextInputDialog("New Tournament", "Input the tournament information","Tournamnet name","Players per team")));
+        createTournamentButton.setOnAction(event -> Controller.show(createTextInputDialog("New Tournament", "Input the tournament information","Tournamnet name","Players per team")));
 
         Button loadDatabutton = new Button("Load Data To Tournaments");
         loadDatabutton.setMaxWidth(Double.MAX_VALUE);
-        loadDatabutton.setOnAction(event -> controller.setScene(createLoadDataScene()));
+        loadDatabutton.setOnAction(event -> Controller.setScene(createLoadDataScene()));
 
         HBox hBox = new HBox();
         hBox.getChildren().addAll(createTournamentButton,loadDatabutton);
@@ -43,7 +42,7 @@ public class AdminView extends View {
     }
 
     private Scene createLoadDataScene(){
-        Accordion tAccordion = createTournamentsView(controller.getAccountTournaments());
+        Accordion tAccordion = createTournamentsView(Controller.getAccountTournaments());
         tAccordion.setMinSize(150, 100);
 
         Button confrimButton = new Button("Confrim");
@@ -59,7 +58,7 @@ public class AdminView extends View {
 
         Button backButton = new Button("Cancel");
         backButton.setMaxWidth(Double.MAX_VALUE);
-        backButton.setOnAction(event -> controller.setScene(createMainWindow()));
+        backButton.setOnAction(event -> Controller.setScene(createMainWindow()));
 
         HBox buttonBox = new HBox();
         buttonBox.getChildren().addAll(backButton,confrimButton);
@@ -135,7 +134,7 @@ public class AdminView extends View {
             Accordion teamsAccordion = (Accordion)tourPane.getContent();
             tournaments.add(getTournamentData(tourName, teamsAccordion));
         }
-        controller.refresh(tournaments);
+        Controller.refresh(tournaments);
         System.out.println();
     }
 

@@ -4,19 +4,25 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import Model.Account;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
 public class MainApp extends Application {
 
     private Stage stage;
-    private Model.Account account;
+    private Account account;
+    private AccountsManager accounts;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -46,10 +52,9 @@ public class MainApp extends Application {
         Scene loginScene = new Scene(vBox,600,600);
         // logeamos
         primaryStage.setTitle("Mini Gran DT");
-=======
     private AccountsManager accounts;
     private View view;
->>>>>>> origin/develop:src/controller/MainApp.java
+>>>>>>> origin/develop:src/ Controller /MainApp.java
 
     private static MainApp instance;
 
@@ -74,14 +79,14 @@ public class MainApp extends Application {
         }
         account = accounts.getAccount(username);
         if (account instanceof User){
-            view = new UserView(this);
+            View = new UserView(this);
         }else {
-            view = new AdminView(this);
+            View = new AdminView(this);
         }
 =======
     public static MainApp getInstance() {
         return instance;
->>>>>>> origin/develop:src/controller/MainApp.java
+>>>>>>> origin/develop:src/ Controller /MainApp.java
     }
 
     public void createNewTorunament(String tourName, int maxPlayers) {
@@ -147,9 +152,6 @@ public class MainApp extends Application {
         super.stop();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 
     private AccountsManager simulateTournaments() throws Team.PlayerExistsException, Team.CompleteTeamException {
         String[] teamNames = new String[]{"Sonido Caracol", "Lincoln", "Matambre Reloaded", "C.A. Hay Combate", "Tu Marido", "Cerezas Inocentes", "Piraña", "La Vieja Señora", "Asfalten Kayen", "Ultimo Momento", "El Equipo de Carama", "FC Ronvodwhisky", "Tenedor Libre", "Herederos del Ñoqui", "Savio F.C.", "Pato Criollo", "Extra Brutt", "El Mago y su Jauria", "Colectivo San Juan", "El Nono Michelin", "Submarino Amarilo", "Jamaica Bajo Cero", "Los Borbotones", "No Manzana", "Corta el Pasto", "Furia FC", "La Vino Tinto", "Lineo B", "Te lo Juro por las Nenas", "La Nave Fulbo Clu", "Argentinos Juniors	Buenos Aires", "Belgrano	Córdoba", "Boca Juniors	Buenos Aires", "Chacarita Juniors	Villa Maipú", "Colón	Santa Fe", "Estudiantes	La Plata", "Ferro Carril Oeste	Buenos Aires", "Gimnasia y Esgrima	Jujuy", "Gimnasia y Esgrima	La Plata", "Independiente	Avellaneda", "Instituto	Córdoba", "Lanús	Lanús", "Newell's Old Boys	Rosario", "Racing Club	Avellaneda", "River Plate	Buenos Aires", "Rosario Central	Rosario", "San Lorenzo	Buenos Aires", "Talleres	Córdoba", "Unión	Santa Fe", "Vélez Sarsfield	Buenos Aires"};
@@ -328,8 +330,8 @@ public class MainApp extends Application {
         } catch (Exception ex) {
             Logger.getLogger(Controller.MainApp.class.getName()).log(Level.SEVERE, null, ex);
         }*/
-        view = new AdminView(this);
-        setScene(view.createMainWindow());
+        View = new AdminView(this);
+        setScene(View.createMainWindow());
     }
 
     private void gotoUserView() {
@@ -338,8 +340,8 @@ public class MainApp extends Application {
         } catch (Exception ex) {
             Logger.getLogger(Controller.MainApp.class.getName()).log(Level.SEVERE, null, ex);
         }*/
-        view = new UserView(this);
-        setScene(view.createMainWindow());
+        View = new UserView(this);
+        setScene(View.createMainWindow());
     }
 
     private void gotoLogin() {

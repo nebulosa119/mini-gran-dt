@@ -38,7 +38,7 @@ public class UserView extends View {
 
     private ListView<String> createListView(){
         //cargamos los torneos
-        Map<String,ArrayList<String>> tournamentsBinding = controller.getAllTournaments();
+        Map<String,ArrayList<String>> tournamentsBinding = Controller.getAllTournaments();
         ArrayList<String> allTournaments = new ArrayList<>();
         // creamos un bining EJ: larana: CopaJuveniles
         for (String adminName:tournamentsBinding.keySet()) {
@@ -75,10 +75,10 @@ public class UserView extends View {
         String tourName = getTournamentName(selection);
         String adminName = getAdminName(selection);
         // pido el equipo del usuario
-        Team team = controller.getUserTeam(tourName);
+        Team team = Controller.getUserTeam(tourName);
         // creo la escena de pedroV
-        Scene scene = createTeamManagerWindow(controller.getTournament(adminName,tourName), team);
-        controller.setScene(scene);
+        Scene scene = createTeamManagerWindow(Controller.getTournament(adminName,tourName), team);
+        Controller.setScene(scene);
     }
 
 }

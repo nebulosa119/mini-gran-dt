@@ -35,7 +35,7 @@ public class Administrator extends Account{
     }
         }
 
-    /**Metodo para que el controller pueda tener acceso a los torneos y asi poder mostrarlos al admin*/
+    /**Metodo para que el Controller pueda tener acceso a los torneos y asi poder mostrarlos al admin*/
     public ArrayList<Tournament> getTournaments() {
         return new ArrayList<Tournament>(tournaments);
     }
