@@ -32,7 +32,7 @@ public class AdminView extends View {
     public Scene createMainWindow(){
         Button createTournamentButton = new Button("Create Tournament");
         createTournamentButton.setMaxWidth(Double.MAX_VALUE);
-        createTournamentButton.setOnAction(event -> controller.show(createTextInputDialog("New Tournament", "Input the tournament information","Tournamnet name","Players per team")));
+        createTournamentButton.setOnAction(event -> controller.show(createTextInputDialog("New Tournament", "Input the tournament information","Tournament name","Players per team")));
 
         Button loadDataButton = new Button("Load Data To Tournaments");
         loadDataButton.setMaxWidth(Double.MAX_VALUE);
@@ -70,18 +70,18 @@ public class AdminView extends View {
     }
 
     private Accordion createTournamentsView(Set<Tournament> tournaments){
-        Accordion tAccoridion = new Accordion();
+        Accordion tAccordion = new Accordion();
 
         for (Tournament tournament: tournaments) {
             Accordion teamAccordion = new Accordion();
 
-            for (Team team:tournament.getTeams()) {
+            for (Team team : tournament.getTeams()) {
                 TableView table = createPlayersTable(team);
                 teamAccordion.getPanes().add(new TitledPane(team.getName(),table));
             }
-            tAccoridion.getPanes().add(new TitledPane(tournament.getName(),teamAccordion));
+            tAccordion.getPanes().add(new TitledPane(tournament.getName(),teamAccordion));
         }
-        return tAccoridion;
+        return tAccordion;
     }
 
     private TableView createPlayersTable(Team team){
@@ -96,7 +96,7 @@ public class AdminView extends View {
         //PlayerNameCol.setCellFactory(TextFieldTableCell.forTableColumn(sc));
         columnsList.add(PlayerNameCol);
         // una columna por propiedad
-        for (PropValues prop: PropValues.values()) {
+        for (PropValues prop : PropValues.values()) {
             String colName = cleanString(prop.toString());
             columnsList.add(createPropColumn(colName, prop.toString()));
         }
@@ -132,7 +132,7 @@ public class AdminView extends View {
     private void uploadData(Accordion tAccordion) {
         Set<Tournament> tournaments = new HashSet<>();
         // para cada acordion de torneo...
-        for (TitledPane tourPane:tAccordion.getPanes()) {
+        for (TitledPane tourPane : tAccordion.getPanes()) {
             String tourName = tourPane.getText();
             Accordion teamsAccordion = (Accordion)tourPane.getContent();
             tournaments.add(getTournamentData(tourName, teamsAccordion));
@@ -144,7 +144,7 @@ public class AdminView extends View {
     private Tournament getTournamentData(String tourName, Accordion teamsAccordion) {
         Tournament tournament = new Tournament(tourName);
         // para cada panel de euipo dentro del acordion del torneo...
-        for (TitledPane teamPane:teamsAccordion.getPanes()) {
+        for (TitledPane teamPane : teamsAccordion.getPanes()) {
             String teamName = teamPane.getText();
             TableView teamTable = (TableView)teamPane.getContent();
             tournament.addTeam(getTeamData(teamName,teamTable));
@@ -156,7 +156,7 @@ public class AdminView extends View {
         Team team = new Team(teamName);
         ObservableList items = teamTable.getItems();
         int tourMaxPlayers = items.size();
-        for (Object item:items) {
+        for (Object item : items) {
             team.add((Player)item,tourMaxPlayers);
         }
         return team;

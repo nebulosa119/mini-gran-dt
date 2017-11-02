@@ -43,23 +43,6 @@ public class MainApp extends Application {
             ((Administrator)account).addTournament(newTournament);
     }
 
-    //nunca se usan y me gustaria eliminar el getTournamentNames del user..
-/*    //lista de torneos del admin
-    public Set getAccountTournaments() {
-        if (account instanceof Administrator)
-            return ((Administrator)account).getTournaments();//lista de torneos
-        else if (account instanceof User)
-            return account.getTournamentNames(); //lista de string
-        return null;
-    }
-
-    // generalizar estos metodos
-    public ArrayList<String> getUserTournaments() {
-        if (account instanceof User)
-            return account.getTournamentNames();
-        return null;
-    }*/
-
     // el nombre del club deberia er identico al del administrador
     public Tournament getTournament(String clubName, String tourName) {
         for (Account account:accounts.getAccounts()) {
