@@ -1,6 +1,5 @@
 package View;
 
-import Controller.MainApp;
 import Model.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ObservableValue;

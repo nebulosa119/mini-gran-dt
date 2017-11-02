@@ -1,7 +1,6 @@
 package View;
 
 
-import Controller.MainApp;
 import javafx.scene.Scene;
 
 public abstract class View {

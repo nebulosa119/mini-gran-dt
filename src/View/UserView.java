@@ -1,6 +1,5 @@
 package View;
 
-import Controller.MainApp;
 import Model.Team;
 import Model.Tournament;
 import javafx.collections.FXCollections;
@@ -8,7 +7,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;

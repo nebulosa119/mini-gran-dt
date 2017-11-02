@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class AccountsManager implements Serializable{
     private ArrayList<Account> accounts;
 
-    AccountsManager() {
+    public AccountsManager() {
             accounts = new ArrayList<>();
     }
 

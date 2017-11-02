@@ -1,13 +1,12 @@
-package Controller;
+package View;
 
 import java.util.*;
+
+import Controller.AccountsManager;
 import Model.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import Model.*;
-import View.AdminView;
-import View.UserView;
-import View.View;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
@@ -169,7 +168,6 @@ public class MainApp extends Application {
 
     public void refresh(Set<Tournament> tournaments) {
         if (account instanceof Administrator)
-
             ((Administrator)account).refresh(tournaments);
     }
 
@@ -224,7 +222,7 @@ public class MainApp extends Application {
         /*try {
             replaceSceneContent("profile.fxml");
         } catch (Exception ex) {
-            Logger.getLogger(Controller.MainApp2.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainApp.class.getName()).log(Level.SEVERE, null, ex);
         }*/
         view = new AdminView(this, (Administrator) account);
         setScene(view.createMainWindow());
@@ -234,7 +232,7 @@ public class MainApp extends Application {
         /*try {
             replaceSceneContent("profile.fxml");
         } catch (Exception ex) {
-            Logger.getLogger(Controller.MainApp2.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainApp.class.getName()).log(Level.SEVERE, null, ex);
         }*/
         view = new UserView(this);
         setScene(view.createMainWindow());
