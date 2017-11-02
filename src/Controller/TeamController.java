@@ -16,7 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.stage.Stage;
 
-public class TeamController {//  crea la ventana del user
+public class TeamController {//  controla la ventana del user
 
     @FXML
     private Button exitButton, ruleButton, playerRankingButton, addPlayerButton, removePlayerButton;

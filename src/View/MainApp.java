@@ -23,14 +23,16 @@ public class MainApp extends Application {
     private AccountsManager accounts;
     private View view;
 
-    private static MainApp instance;
+    private static MainApp instance = null;
 
 
-    public MainApp() {
-        instance = this;
-    }
+    private MainApp() {
+    } /**La gracia de lo que estamos tratando de hacer aca es que solo exista una instancia. Si el constructor es public, entonces se podrian crear
+     varias instancias XD*/
 
     public static MainApp getInstance() {
+        if(instance == null)
+            instance = new MainApp();
         return instance;
     }
 

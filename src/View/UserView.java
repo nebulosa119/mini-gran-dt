@@ -4,9 +4,13 @@ import Model.Team;
 import Model.Tournament;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
@@ -27,7 +31,10 @@ public class UserView extends View {
         buttonEditTeam.setOnAction(event -> {
             // pido la seleccion EJ larana: copa mayores y seteo la ventana
             String selection = listView.getSelectionModel().getSelectedItem();
-            setNextWindow(selection);
+            if (selection == null) /**PUEDE LLEGAR A DEVOLVER NULL SI NO ELIGIO NINGUNO!!!!!!111!1 XD*/
+                setNextWindow(listView.getItems().get(0));
+            else
+                setNextWindow(selection);
         });
 
         VBox vBox = new VBox();
@@ -57,7 +64,14 @@ public class UserView extends View {
     }
 
     private Scene createTeamManagerWindow(Tournament tournament, Team team) {
-        return new Scene(new TextField("hola"));
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("TeamManager.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        return new Scene(root);
     }
 
     private String getAdminName(String bindingName){
