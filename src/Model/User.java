@@ -3,7 +3,6 @@ package Model;
 import java.util.Map;
 import java.util.TreeMap;
 
-
 public class User extends Account {
 
     private int points; /**Pa qué protected si no lo necesitamos acceder desde subclases de User?*/
@@ -43,6 +42,7 @@ public class User extends Account {
     public void sell(Player p, Tournament t) {
         if(teams.get(t.getName()).getPlayers().contains(p)) {
             teams.get(t.getName()).getPlayers().remove(p); /**Queda medio feo*/
+            money += p.getPrice();
         }
     }
 
@@ -57,6 +57,11 @@ public class User extends Account {
         return false;
     }
 
+    public void buy(String name, Player p) {
+        teams.get(name).getPlayers().add(p);
+        money -= p.getPrice();
+    }
+
     @Override
     public boolean equals(Object o){
         if (this == o)
@@ -66,6 +71,7 @@ public class User extends Account {
         User user = (User) o;
         return super.equals(user);
     }
+
     @Override
     public int hashCode(){
         int result = super.hashCode();

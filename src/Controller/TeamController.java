@@ -135,6 +135,7 @@ public class TeamController {//  crea la ventana del user
                 for(Player p : (ObservableList<Player>)((TableView)t.getContent()).getSelectionModel().getSelectedItems()) {
                     /**Agrego el jugaodr al equipo del usuario*/
                     if(user.canBuy(p) && user.hasCapacity(tournament)) {
+                        user.buy(tournament.getName(), p);
                         user.getTeam(tournament.getName()).getPlayers().add(p); /**Aca hay un tema de ocultamiento de la info: si lo queremos modularizar bien de manera que quedetodo bien independiente entre si,
                          entonces no deberiamos revelar que la clase User guarda a los jugadores de sus equipos en forma de ArrayList*/
                     } else {
@@ -152,8 +153,8 @@ public class TeamController {//  crea la ventana del user
         public void handle(Event event) {
             /**Remueve el jugador elegido y aumenta los fondos*/
             for(Player p : userPlayerList.getSelectionModel().getSelectedItems()) {
-                user.sell(p,tournament); /**Implementar este método en User*/
-                user.getTeam(tournament.getName()).getPlayers().remove(p);
+                user.sell(p,tournament);
+                user.getTeam(tournament.getName()).getPlayers().remove(p); /**Implementar este método en User*/
             }
         }
     };
