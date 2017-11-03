@@ -23,16 +23,13 @@ public class MainApp extends Application {
     private AccountsManager accounts;
     private View view;
 
-    private static MainApp instance = null;
+    private static MainApp instance;
 
-
-    private MainApp() {
-    } /**La gracia de lo que estamos tratando de hacer aca es que solo exista una instancia. Si el constructor es public, entonces se podrian crear
-     varias instancias XD*/
+    public MainApp() {
+        instance = this;
+    }
 
     public static MainApp getInstance() {
-        if(instance == null)
-            instance = new MainApp();
         return instance;
     }
 
@@ -151,7 +148,7 @@ public class MainApp extends Application {
         return accountsManager;
     }
 
-    public void refresh(Set<Tournament> tournaments) {
+    public void refresh(Map<String,Map<String,Map<String,Properties>>> tournaments) {
         if (account instanceof Administrator)
             ((Administrator)account).refresh(tournaments);
     }

@@ -3,6 +3,7 @@ package Model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Tournament extends Identifiable {
 
@@ -32,14 +33,6 @@ public class Tournament extends Identifiable {
         return new ArrayList<Team>(teams);
     }
 
-    public void refreshTeam(HashMap<String, Properties> prop, Team t) {
-        for(Team team: teams) {
-            if(team.equals(t)) {
-                team.refreshPlayers(prop);
-            }
-        }
-    }
-
     /**Para cuando se cree el torneo y los equipos*/
     public void addTeam(Team t) {
         teams.add(new Team(t));
@@ -51,6 +44,12 @@ public class Tournament extends Identifiable {
                 return true;
         }
         return false;
+    }
+
+    public void refresh(Map<String,Map<String,Properties>> dataTeams) {
+        for (Team myTeam : teams) {
+            myTeam.refresh(dataTeams.get(myTeam.getName()));
+        }
     }
 
     @Override
@@ -68,17 +67,6 @@ public class Tournament extends Identifiable {
         int result = super.hashCode();
         result = result * 7; // para diferenciarlo d
         return result;
-    }
-
-    public void refresh(Tournament dataTour) {
-        for (Team myTeam:teams) {
-            for (Team dataTeam:dataTour.getTeams()) {
-                if (myTeam.getName().equals(dataTeam.getName())){
-                    myTeam.refresh(dataTeam);
-                    break;
-                }
-            }
-        }
     }
 
     @Override

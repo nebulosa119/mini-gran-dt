@@ -3,7 +3,10 @@ package Model;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class User extends Account {
+
+// implementa comparable con respecto a los puntos para ordenarlos en cada tournament y cuando se muestra la lista de puntajes
+// solo hay que recorrer la lista e imprimirlos
+public class User extends Account implements Comparable<User>{
 
     private int points; /**Pa qué protected si no lo necesitamos acceder desde subclases de User?*/
     private int money;
@@ -33,10 +36,11 @@ public class User extends Account {
         return teams;
     }
 
-    public void refreshPoints(String tournament) {
-        // points += aca se deberian sumar y restar los puntos que sumo su equipo pero en la ULTIMA fecha.. osea
-        // que deberia recibir las properties del team, pero no las totales de como queda cada jugador con las
-        // properties actualizadas
+    public void refreshPoints(String tournament, Map<String,Properties> players) {
+        Team team = teams.get(tournament);
+        for (Player p : team.getPlayers()) {
+            points += players.get(p.getName()).getPoints();
+        }
     }
 
     public void sell(Player p, Tournament t) {
@@ -60,6 +64,11 @@ public class User extends Account {
     public void buy(String name, Player p) {
         teams.get(name).getPlayers().add(p);
         money -= p.getPrice();
+    }
+
+    @Override
+    public int compareTo(User user) {
+        return points-user.points;
     }
 
     @Override

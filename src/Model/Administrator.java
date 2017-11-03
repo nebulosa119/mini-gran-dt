@@ -22,40 +22,32 @@ public class Administrator extends Account{
         return resp;
     }
 
-    public void refresh(Set<Tournament> tournaments) {
+    public void refresh(Map<String,Map<String,Map<String,Properties>>> dataTournaments) {
         for (Tournament myTour : tournamentUsers.keySet()) {
-            for (Tournament dataTour : tournaments) {
-                if (myTour.getName().equals(dataTour.getName())) {
-                    myTour.refresh(dataTour);
-                    refreshUsers(dataTour);
-                    break;
-                }
-            }
+            myTour.refresh(dataTournaments.get(myTour.getName()));
+            refreshUsers(myTour.getName(), dataTournaments.get(myTour.getName()));
         }
     }
 
-    private void refreshUsers(Tournament tournament) {
-        for (User user : tournamentUsers.get(tournament)) {
-            user.refreshPoints(tournament.getName());
+    private void refreshUsers(String tourName, Map<String,Map<String,Properties>> tournament) {
+        for (User user : tournamentUsers.get(tourName)) {
+            user.refreshPoints(tourName,unifyPlayers(tournament));
         }
     }
 
+    //junta todos los jugadores de todos los teams en un solo arreglo clave-valor
+    private Map<String,Properties> unifyPlayers(Map<String,Map<String,Properties>> teams) {
+        Map<String,Properties> unified = new HashMap<>();
+        for (Map<String,Properties> team : teams.values()) {
+            unified.putAll(team);
+        }
+        return unified;
+    }
 
     /**Metodo para que el Controller pueda tener acceso a los torneos y asi poder mostrarlos al admin*/
     public Set<Tournament> getTournaments() {
         return tournamentUsers.keySet();
     }
-
-    /**Este metodo deberia ser el primero en llamarse cuando desde el front el admin
-     * actualiza los jugadores de un equipo en un torneo. Llama metodo refresh en cascada desde la clase torneo
-     * Aun me queda la duda de si deberiamos llamar estos metodos desde las clases del Model o de otras.*/
-   /* public void refreshTeam(String tournamentName, Properties p, Team t, String name) {
-        for(Tournament tournament : tournaments) {
-            if(tournament.getName().compareTo(tournamentName) == 0) {
-                tournament.refreshTeamName(p, t, name);
-            }
-        }
-    }*/
 
     /**Para cuando el administrador quiera crear un nuevo torneo. Mi idea es que desde el Controller se instancie la
      * clase torneo para poder ingresarla directamente*/

@@ -56,11 +56,6 @@ public class Player extends Identifiable {
         return properties.calculateRanking();
     }
 
-    public void refresh(Player dataPlayer) {
-        properties.refresh(dataPlayer.properties);
-        System.out.println(getName()+" "+getProperties());
-    }
-
     public String getProperties() {
         return properties.toString();
     }
