@@ -25,10 +25,9 @@ public class MainApp extends Application {
 
     private static MainApp instance;
 
-
     public MainApp() {
         instance = this;
-    } /**No cambiar esto, porque sin esto no arranca el programa, javafx funciona asi, o por lo menos en los tutoriales que vi se hace asi. Si quieren despues lo hablamos pero no lo cambien*/
+    } //No modificar esto!
 
     public static MainApp getInstance() {
         return instance;
@@ -38,6 +37,7 @@ public class MainApp extends Application {
         if (account instanceof Administrator)
             ((Administrator)account).addTournament(new Tournament(tourName, maxPlayers));
     }
+
     private void createNewTournament(Tournament newTournament) { // hay tres getter metodos distintos pero iguales, despues los meto todos en uno
         if (account instanceof Administrator && newTournament != null)
             ((Administrator)account).addTournament(newTournament);
@@ -80,7 +80,6 @@ public class MainApp extends Application {
         //accounts.save();
         super.stop();
     }
-
 
     private AccountsManager simulateTournaments() throws Team.PlayerExistsException, Team.CompleteTeamException {
         String[] teamNames = new String[]{"Sonido Caracol", "Lincoln", "Matambre Reloaded", "C.A. Hay Combate", "Tu Marido", "Cerezas Inocentes", "Piraña", "La Vieja Señora", "Asfalten Kayen", "Ultimo Momento", "El Equipo de Carama", "FC Ronvodwhisky", "Tenedor Libre", "Herederos del Ñoqui", "Savio F.C.", "Pato Criollo", "Extra Brutt", "El Mago y su Jauria", "Colectivo San Juan", "El Nono Michelin", "Submarino Amarilo", "Jamaica Bajo Cero", "Los Borbotones", "No Manzana", "Corta el Pasto", "Furia FC", "La Vino Tinto", "Lineo B", "Te lo Juro por las Nenas", "La Nave Fulbo Clu", "Argentinos Juniors	Buenos Aires", "Belgrano	Córdoba", "Boca Juniors	Buenos Aires", "Chacarita Juniors	Villa Maipú", "Colón	Santa Fe", "Estudiantes	La Plata", "Ferro Carril Oeste	Buenos Aires", "Gimnasia y Esgrima	Jujuy", "Gimnasia y Esgrima	La Plata", "Independiente	Avellaneda", "Instituto	Córdoba", "Lanús	Lanús", "Newell's Old Boys	Rosario", "Racing Club	Avellaneda", "River Plate	Buenos Aires", "Rosario Central	Rosario", "San Lorenzo	Buenos Aires", "Talleres	Córdoba", "Unión	Santa Fe", "Vélez Sarsfield	Buenos Aires"};
@@ -149,7 +148,7 @@ public class MainApp extends Application {
         return accountsManager;
     }
 
-    public void refresh(Set<Tournament> tournaments) {
+    public void refresh(Map<String,Map<String,Map<String,Properties>>> tournaments) {
         if (account instanceof Administrator)
             ((Administrator)account).refresh(tournaments);
     }
@@ -157,7 +156,6 @@ public class MainApp extends Application {
     public void setScene(Scene scene){
         stage.setScene(scene);
     }
-
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -235,6 +233,7 @@ public class MainApp extends Application {
         stage.setScene(scene);
         return page;
     }
+
     public static void main(String[] args) {
         launch(args);
     }

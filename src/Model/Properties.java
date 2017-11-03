@@ -30,6 +30,25 @@ public class Properties {
         this.goals_against = goals_against;
     }
 
+    public void setProperty(int index, int property) {
+        switch (index) {
+            case 0: normal_goals_scored = property;
+                    break;
+            case 1: goals_scored_by_penalty_kick = property;
+                    break;
+            case 2: penalty_catched = property;
+                    break;
+            case 3: goals_scored_goalkeeper = property;
+                    break;
+            case 4: yellow_cards = property;
+                    break;
+            case 5: red_cards = property;
+                    break;
+            case 6: goals_against = property;
+                    break;
+        }
+    }
+
     public void refresh(Properties p) {
         this.normal_goals_scored            += p.normal_goals_scored;
         this.goals_scored_by_penalty_kick   += p.goals_scored_by_penalty_kick;
@@ -47,9 +66,9 @@ public class Properties {
         resp += goals_scored_by_penalty_kick    * PropValues.goals_scored_by_penalty_kick.getpValue();
         resp += penalty_catched                 * PropValues.penalty_catched.getpValue();
         resp += goals_scored_goalkeeper         * PropValues.goals_scored_goalkeeper.getpValue();
-        resp += yellow_cards                    * PropValues.yellow_cards.getpValue();
-        resp += red_cards                       * PropValues.red_cards.getpValue();
-        resp += goals_against                   * PropValues.goals_against.getpValue();
+        resp -= yellow_cards                    * PropValues.yellow_cards.getpValue();
+        resp -= red_cards                       * PropValues.red_cards.getpValue();
+        resp -= goals_against                   * PropValues.goals_against.getpValue();
         return resp;
     }
 
@@ -60,6 +79,10 @@ public class Properties {
         resp += penalty_catched             * 100 * PropValues.penalty_catched.getUPricePerCent();
         resp += goals_scored_goalkeeper     * 100 * PropValues.goals_scored_goalkeeper.getUPricePerCent();
         return resp;
+    }
+
+    public int getPoints() {
+        return normal_goals_scored+goals_scored_by_penalty_kick+penalty_catched+goals_scored_goalkeeper-yellow_cards-red_cards-goals_against;
     }
 
     @Override

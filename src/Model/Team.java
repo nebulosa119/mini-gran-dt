@@ -3,10 +3,11 @@ package Model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Team extends Identifiable {
 
-    public static final int MAX_CAPACITY = 5; /**A definir después*/
+    static final int MAX_CAPACITY = 5; /**A definir después*/
 
     private ArrayList<Player> players;
 
@@ -38,10 +39,9 @@ public class Team extends Identifiable {
             players.add(p);
     }
 
-    public void refreshPlayers(HashMap<String, Properties> prop) {
-        for (Player player : players) {
-            Properties p = prop.get(player.getName());
-            player.refresh(p);
+    public void refresh(Map<String,Properties> dataPlayers) {
+        for (Player myPlayer : players) {
+            myPlayer.refresh(dataPlayers.get(myPlayer.getName()));
         }
     }
 
@@ -65,17 +65,6 @@ public class Team extends Identifiable {
     @Override
     public String toString() {
         return name+"{"+Arrays.toString(players.toArray())+'}';
-    }
-
-    public void refresh(Team team) {
-        for (Player myPlayer:players) {
-            for (Player dataPlayer:team.getPlayers()) {
-                if (myPlayer.getName().equals(dataPlayer.getName())){
-                    myPlayer.refresh(dataPlayer);
-                    break;
-                }
-            }
-        }
     }
 
     public class PlayerExistsException extends Exception {
