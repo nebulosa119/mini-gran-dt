@@ -174,6 +174,10 @@ public class MainApp extends Application {
         return account;
     }
 
+    public AccountsManager getAccounts() {
+        return accounts;
+    }
+
     public boolean accountLogging(String username){
         //buscamos cual tiene al usuario
         if (!accounts.contains(username)){

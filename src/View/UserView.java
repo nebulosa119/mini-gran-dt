@@ -1,7 +1,9 @@
 package View;
 
+import Model.Administrator;
 import Model.Team;
 import Model.Tournament;
+import Model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +19,7 @@ import java.util.Set;
 
 public class UserView extends View {
 
-    public UserView(MainApp controller) {
+    UserView(MainApp controller) {
         super(controller);
     }
 
@@ -31,9 +33,10 @@ public class UserView extends View {
         buttonEditTeam.setOnAction(event -> {
             // pido la seleccion EJ larana: copa mayores y seteo la ventana
             String selection = listView.getSelectionModel().getSelectedItem();
-            if (selection == null) /**PUEDE LLEGAR A DEVOLVER NULL SI NO ELIGIO NINGUNO!!!!!!111!1 XD*/
+            if (selection == null) {
                 setNextWindow(listView.getItems().get(0));
-            else
+                addUserToTournamentList(listView.getItems().get(0));
+            } else
                 setNextWindow(selection);
         });
 
@@ -93,6 +96,14 @@ public class UserView extends View {
         // creo la escena de pedroV
         Scene scene = createTeamManagerWindow(controller.getTournament(adminName,tourName), team);
         controller.setScene(scene);
+    }
+
+    private void addUserToTournamentList(String selection) {
+        String tourName = getTournamentName(selection);
+        String adminName = getAdminName(selection);
+
+        Administrator admin = (Administrator) controller.getAccounts().getAccount(adminName);
+        admin.addUser(tourName,(User)controller.getAccount());
     }
 
 }

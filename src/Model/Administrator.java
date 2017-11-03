@@ -30,8 +30,11 @@ public class Administrator extends Account{
     }
 
     private void refreshUsers(String tourName, Map<String,Map<String,Properties>> tournament) {
-        for (User user : tournamentUsers.get(tourName)) {
-            user.refreshPoints(tourName,unifyPlayers(tournament));
+        TreeSet<User> users = tournamentUsers.get(tourName);
+        if (users!=null) {
+            for (User user : users) {
+                user.refreshPoints(tourName,unifyPlayers(tournament));
+            }
         }
     }
 
@@ -69,6 +72,10 @@ public class Administrator extends Account{
                 return new Tournament(t);
         }
         return null;
+    }
+
+    public void addUser(String tournament, User user) {
+        tournamentUsers.get(tournament).add(user);
     }
 
     @Override
