@@ -23,16 +23,14 @@ public class MainApp extends Application {
     private AccountsManager accounts;
     private View view;
 
-    private static MainApp instance = null;
+    private static MainApp instance;
 
 
-    private MainApp() {
-    } /**La gracia de lo que estamos tratando de hacer aca es que solo exista una instancia. Si el constructor es public, entonces se podrian crear
-     varias instancias XD*/
+    public MainApp() {
+        instance = this;
+    } /**No cambiar esto, porque sin esto no arranca el programa, javafx funciona asi, o por lo menos en los tutoriales que vi se hace asi. Si quieren despues lo hablamos pero no lo cambien*/
 
     public static MainApp getInstance() {
-        if(instance == null)
-            instance = new MainApp();
         return instance;
     }
 
