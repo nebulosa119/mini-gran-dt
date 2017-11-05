@@ -9,11 +9,6 @@ public class LoginController{
     private JFXTextField userTextField;
 
     @FXML
-    protected void handleClose(){
-        System.exit(0);
-    }
-
-    @FXML
     protected void handleLogin() {
         String username = userTextField.getText();
         //buscamos cual tiene al usuario
