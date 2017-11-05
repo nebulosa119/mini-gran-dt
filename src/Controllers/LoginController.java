@@ -2,12 +2,8 @@ package Controllers;
 
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public class LoginController implements Initializable {
+public class LoginController{
 
     @FXML
     private JFXTextField userTextField;
@@ -32,10 +28,5 @@ public class LoginController implements Initializable {
         }else {
             MainApp.setScene("TransitionScene");
         }
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
     }
 }

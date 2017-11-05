@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.Team;
 import Models.Tournament;
+import Models.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -14,6 +15,13 @@ import java.util.Map;
 import java.util.Set;
 
 public class UserViewController extends ViewController {
+
+    private User user;
+
+    UserViewController(MainApp controller, User user) {
+        super(controller);
+        this.user = user;
+    }
 
     @Override
     public Scene createMainWindow(){
@@ -58,10 +66,6 @@ public class UserViewController extends ViewController {
         return listView;
     }
 
-    private void createTeamManagerWindow(Tournament tournament, Team team) {
-        MainApp.setScene("TeamManager");
-    }
-
     private String getAdminName(String bindingName){
         int index = bindingName.indexOf(':');
         return bindingName.substring(0,index-1);
@@ -79,8 +83,7 @@ public class UserViewController extends ViewController {
         // pido el equipo del usuario
         Team team = AccountsManager.getUserTeam(tourName);
         // creo la escena de pedroV
-        Scene scene = createTeamManagerWindow(AccountsManager.getTournament(adminName,tourName), team);
-        controller.setScene(scene);
+        controller.setScene("TeamManager");
     }
 
     private void addUserToTournamentList(String selection) {

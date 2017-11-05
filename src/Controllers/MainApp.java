@@ -1,11 +1,8 @@
 package Controllers;
 
-import java.util.*;
-
-import Models.*;
+import java.util.HashMap;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Dialog;
 import javafx.stage.Stage;
 
 
@@ -54,6 +51,11 @@ public class MainApp extends Application { // saquemoslo de Controlles despues
     public static void setScene(String windowName){
         stage.setScene(scenes.get(windowName));
     }
+
+    public static void setScene(Scene scene){
+        stage.setScene(scene);
+    }
+    //Agrego este metodo hasta terminar de implementar lo demas, solo para que compile y funcione
 
     public void accountLogout(){
         setScene("login");

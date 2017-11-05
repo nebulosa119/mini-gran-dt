@@ -2,7 +2,6 @@ package Controllers;
 
 import Models.*;
 import Models.Properties;
-
 import java.io.Serializable;
 import java.util.*;
 
@@ -125,7 +124,7 @@ public class AccountsManager implements Serializable{
         return false;
     }
 
-    public static void refresh(Map<String,Map<String,Map<String,Properties>>> tournaments) {
+    public static void refresh(Map<String,Map<String,Map<String, Properties>>> tournaments) {
         if (account instanceof Administrator)
             ((Administrator) account).refresh(tournaments);
     }

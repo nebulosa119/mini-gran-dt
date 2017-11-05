@@ -31,7 +31,7 @@ public class AdminViewController extends ViewController {
     public Scene createMainWindow(){
         Button createTournamentButton = new Button("Create Tournament");
         createTournamentButton.setMaxWidth(Double.MAX_VALUE);
-        createTournamentButton.setOnAction(event -> controller.show(createTextInputDialog("New Tournament", "Input the tournament information","Tournament name","Players per team")));
+        createTournamentButton.setOnAction(event -> show(createTextInputDialog("New Tournament", "Input the tournament information","Tournament name","Players per team")));
 
         Button loadDataButton = new Button("Load Data To Tournaments");
         loadDataButton.setMaxWidth(Double.MAX_VALUE);
