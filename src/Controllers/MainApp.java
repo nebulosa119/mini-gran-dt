@@ -8,18 +8,16 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application { // saquemoslo de Controlles despues
 
+    private static MainApp instance;
     private static Stage stage;
     private static HashMap<String,Scene> scenes;
-    private static MainApp instance;
 
     public MainApp() {
         instance = this;
     } //No modificar esto!
 
-    @Override
-    public void stop() throws Exception {
-        //accounts.save();
-        super.stop();
+    public static void main(String[] args) {
+        launch(args);
     }
 
     @Override
@@ -40,8 +38,10 @@ public class MainApp extends Application { // saquemoslo de Controlles despues
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    @Override
+    public void stop() throws Exception {
+        //accounts.save();
+        super.stop();
     }
 
     public static MainApp getInstance() {
@@ -52,10 +52,10 @@ public class MainApp extends Application { // saquemoslo de Controlles despues
         stage.setScene(scenes.get(windowName));
     }
 
+    //Agrego este metodo hasta terminar de implementar lo demas, solo para que compile y funcione
     public static void setScene(Scene scene){
         stage.setScene(scene);
     }
-    //Agrego este metodo hasta terminar de implementar lo demas, solo para que compile y funcione
 
     public void accountLogout(){
         setScene("login");

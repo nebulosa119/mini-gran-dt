@@ -11,6 +11,6 @@ public abstract class ViewController {
         this.controller = controller;
     }
 
-    public abstract Scene createMainWindow();
+    //public abstract Scene createMainWindow();
 
 }

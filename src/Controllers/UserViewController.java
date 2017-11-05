@@ -23,7 +23,6 @@ public class UserViewController extends ViewController {
         this.user = user;
     }
 
-    @Override
     public Scene createMainWindow(){
         //creamos la lista para el usuario
         ListView<String> listView = createListView();
