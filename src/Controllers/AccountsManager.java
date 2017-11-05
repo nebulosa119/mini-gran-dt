@@ -170,4 +170,8 @@ public class AccountsManager implements Serializable{
     public static void addUserToTournament(String adminName, String tourName) {
         ((Administrator)getAccount(adminName)).addUser(tourName,(User) account);
     }
+
+    public static Set<Tournament> getTournaments() {
+        return ((Administrator)account).getTournaments();
+    }
 }

@@ -24,7 +24,6 @@ public class LoginController implements Initializable {
         if (!AccountsManager.contains(username)){
             // si no existe lo creamos como usuario
             AccountsManager.createAccount(username);
-            System.out.println("no Existe");
         }
         AccountsManager.setAccount(username);
         if (AccountsManager.accountIsUser()){
