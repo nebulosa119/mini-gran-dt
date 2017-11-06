@@ -26,11 +26,16 @@ public class AccountsManager implements Serializable{
     }
 
     public static boolean contains(String username) {
+        if(username.equals(""))
+            return false;
         return getAccount(username) != null;
     }
 
-    public static void createAccount(String username) {
-            accounts.add(new User(username));
+    public static boolean createAccount(String username) {
+        if(username.equals(""))
+            return false;
+        accounts.add(new User(username));
+        return true;
     }
 
     public static void createAccount(Account account) {

@@ -2,6 +2,8 @@ package Controllers;
 
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 public class LoginController{
 
@@ -9,18 +11,26 @@ public class LoginController{
     private JFXTextField userTextField;
 
     @FXML
+    private Label error;
+
+    @FXML
     protected void handleLogin() {
         String username = userTextField.getText();
         //buscamos cual tiene al usuario
         if (!AccountsManager.contains(username)){
-            // si no existe lo creamos como usuario
-            AccountsManager.createAccount(username);
+            error.setVisible(true);
+        }else{
+            AccountsManager.setAccount(username);
+            if (AccountsManager.accountIsUser()) {
+                MainApp.setScene("teamSelection");
+            } else {
+                MainApp.setScene("transitionScene");
+            }
         }
-        AccountsManager.setAccount(username);
-        if (AccountsManager.accountIsUser()){
-            MainApp.setScene("TeamSelection");
-        }else {
-            MainApp.setScene("TransitionScene");
-        }
+    }
+
+    @FXML
+    protected void handleRegister(){
+        MainApp.setScene("registrationScene");
     }
 }

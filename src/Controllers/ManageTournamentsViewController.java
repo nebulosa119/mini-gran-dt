@@ -42,7 +42,7 @@ public class ManageTournamentsViewController extends ViewController {
 
         Button backButton = new Button("Cancel");
         backButton.setMaxWidth(Double.MAX_VALUE);
-        backButton.setOnAction(event -> MainApp.setScene("TransitionScene"));
+        backButton.setOnAction(event -> MainApp.setScene("transitionScene"));
 
         HBox buttonBox = new HBox();
         buttonBox.getChildren().addAll(backButton,confirmButton);

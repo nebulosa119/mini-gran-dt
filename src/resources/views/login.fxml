@@ -17,12 +17,12 @@
       </ImageView>
       <AnchorPane layoutX="362.0" layoutY="50.0" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #9C2B27;">
          <children>
-            <JFXTextField fx:id="userTextField" alignment="CENTER" focusColor="#4c965b" layoutX="40.0" layoutY="123.0" prefHeight="25.0" prefWidth="220.0" promptText="usuario" style="-fx-background-color: #b15858;" unFocusColor="#cdb8b8">
+            <JFXTextField fx:id="userTextField" alignment="CENTER" focusColor="#4c965b" layoutX="40.0" layoutY="107.0" prefHeight="25.0" prefWidth="220.0" promptText="usuario" style="-fx-background-color: #b15858;" unFocusColor="#cdb8b8">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXButton layoutX="40.0" layoutY="201.0" onMouseClicked="#handleLogin" prefHeight="25.0" prefWidth="220.0" style="-fx-background-color: #E45652;" text="Ingresar" textFill="#d0c9c9">
+            <JFXButton layoutX="40.0" layoutY="201.0" onAction="#handleLogin" prefHeight="25.0" prefWidth="220.0" style="-fx-background-color: #E45652;" text="Ingresar" textFill="#d0c9c9">
                <font>
                   <Font size="16.0" />
                </font>
@@ -32,11 +32,21 @@
                   <Font size="21.0" />
                </font>
             </Label>
+            <Label fx:id="error" layoutX="65.0" layoutY="162.0" text="Error, usuario inexistente." textFill="#b1c94d" visible="false">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
          </children></AnchorPane>
       <Label layoutX="71.0" layoutY="42.0" text="Mini Gran DT" textFill="#ebe2e2">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
+      <JFXButton layoutX="26.0" layoutY="350.0" onAction="#handleRegister" prefHeight="37.0" prefWidth="172.0" style="-fx-background-color: #E45652;" text="Registrarse" textFill="#d0c9c9">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

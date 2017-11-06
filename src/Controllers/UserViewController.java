@@ -82,7 +82,7 @@ public class UserViewController extends ViewController {
         // pido el equipo del usuario
         Team team = AccountsManager.getUserTeam(tourName);
         // creo la escena de pedroV
-        controller.setScene("TeamManager");
+        controller.setScene("teamManager");
     }
 
     private void addUserToTournamentList(String selection) {

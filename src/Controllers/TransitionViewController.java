@@ -17,7 +17,7 @@ public class TransitionViewController {
 
         Button loadDataButton = new Button("Load Data To Tournaments");
         loadDataButton.setMaxWidth(Double.MAX_VALUE);
-        loadDataButton.setOnAction(event -> MainApp.setScene("ManageTournaments"));
+        loadDataButton.setOnAction(event -> MainApp.setScene("manageTournaments"));
 
         HBox hBox = new HBox();
         hBox.getChildren().addAll(createTournamentButton,loadDataButton);

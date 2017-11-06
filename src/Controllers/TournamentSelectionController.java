@@ -22,7 +22,7 @@ public class TournamentSelectionController {
         MyPair pair = tournamentsTableView.getSelectionModel().getSelectedItem();
         if (pair != null) {
             AccountsManager.addUserToTournament(pair.getKey().toString(),pair.getValue().toString());
-            MainApp.setScene("TeamManager");
+            MainApp.setScene("teamManager");
         }
     }
 
