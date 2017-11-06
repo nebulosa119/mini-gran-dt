@@ -28,7 +28,7 @@ public class TeamController {//  controla la ventana del user
     private User user;
     private Tournament tournament;
 
-    public void initModel(User user, Tournament tournament) {
+    public void initialize(User user, Tournament tournament) {
         /**Inicializo variables de instancia*/
         this.user = user;
         this.tournament = tournament;
