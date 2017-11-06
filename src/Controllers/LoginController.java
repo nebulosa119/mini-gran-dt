@@ -1,9 +1,9 @@
 package Controllers;
 
+import Models.AccountsManager;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
 public class LoginController{
 
@@ -14,7 +14,7 @@ public class LoginController{
     private Label error;
 
     @FXML
-    protected void handleLogin() {
+    private void handleLogin() {
         String username = userTextField.getText();
         //buscamos cual tiene al usuario
         if (!AccountsManager.contains(username)){
@@ -30,7 +30,7 @@ public class LoginController{
     }
 
     @FXML
-    protected void handleRegister(){
+    private void handleRegister(){
         MainApp.setScene("registrationScene");
     }
 }

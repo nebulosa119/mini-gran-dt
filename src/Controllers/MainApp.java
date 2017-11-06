@@ -1,6 +1,8 @@
 package Controllers;
 
 import java.util.HashMap;
+
+import Models.AccountsManager;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -9,7 +11,6 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application { // saquemoslo de Controlles despues
 
-    private static MainApp instance;
     private static Stage stage;
     private static HashMap<String,Scene> scenes;
 
@@ -42,10 +43,6 @@ public class MainApp extends Application { // saquemoslo de Controlles despues
     public void stop() throws Exception {
         //accounts.save();
         super.stop();
-    }
-
-    public static MainApp getInstance() {
-        return instance;
     }
 
     public static void setScene(String windowName){

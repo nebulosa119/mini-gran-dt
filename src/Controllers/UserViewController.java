@@ -1,7 +1,7 @@
 package Controllers;
 
+import Models.AccountsManager;
 import Models.Team;
-import Models.Tournament;
 import Models.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

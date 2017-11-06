@@ -1,4 +1,4 @@
-package Controllers;
+package Models;
 
 import Models.*;
 import Models.Properties;
@@ -8,12 +8,23 @@ import java.util.*;
 public class AccountsManager implements Serializable{
     private static ArrayList<Account> accounts;
     private static Account account;
+    private static AccountsManager instance;
+
+    private AccountsManager(){
+
+    }
 
     /*Metodos para la clase: manejo de cuentas*/
     public static void loadAccounts() {
         //accounts = (ArrayList<Account>) FileManager.unserializeObject(Types.USER.fileName);// no se como se soluciona
         accounts = new ArrayList<>();
         simulateAccounts();
+    }
+
+    public static AccountsManager getInstance(){
+        if(instance == null)
+            instance = new AccountsManager();
+        return instance;
     }
 
     public static void save(){

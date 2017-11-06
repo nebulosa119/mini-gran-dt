@@ -6,15 +6,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminViewController">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UserViewController">
   <children>
     <SplitPane dividerPositions="0.2505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
@@ -26,19 +24,14 @@
               </font>
             </Label>
                   <Accordion layoutX="14.0" layoutY="34.0" prefHeight="499.0" prefWidth="194.0" />
-                  <Button layoutX="11.0" layoutY="538.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Crear torneo" />
+                  <Button layoutX="11.0" layoutY="538.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Cargar Torneo" />
           </children>
         </AnchorPane>
         <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
           <content>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="575.0" prefWidth="670.0">
                      <children>
-                        <TreeTableView layoutX="14.0" layoutY="14.0" prefHeight="521.0" prefWidth="640.0">
-                          <columns>
-                            <TreeTableColumn prefWidth="75.0" sortType="DESCENDING" text="Reglas" />
-                          </columns>
-                        </TreeTableView>
-                        <Button layoutX="546.0" layoutY="535.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="108.0" text="Cargar datos" />
+                        <Button layoutX="546.0" layoutY="535.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="108.0" text="Inscribirse" />
                      </children>
             </AnchorPane>
           </content>

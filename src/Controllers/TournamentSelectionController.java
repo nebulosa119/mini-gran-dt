@@ -1,9 +1,6 @@
 package Controllers;
 
-import Models.Account;
-import Models.Administrator;
-import Models.Identifiable;
-import Models.Tournament;
+import Models.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
