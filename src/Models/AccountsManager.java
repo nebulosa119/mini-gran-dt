@@ -2,10 +2,17 @@ package Models;
 
 import Models.*;
 import Models.Properties;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
 
 public class AccountsManager implements Serializable{
+
+    private static final long serialVersionUID = 1L;
+
     private static ArrayList<Account> accounts;
     private static Account account;
     private static AccountsManager instance;
@@ -188,5 +195,16 @@ public class AccountsManager implements Serializable{
 
     public static Set<Tournament> getTournaments() {
         return ((Administrator)account).getTournaments();
+    }
+
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+        out.writeObject(accounts);
+    }
+
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        ois.defaultReadObject();
+        accounts = (ArrayList)ois.readObject();
     }
 }
