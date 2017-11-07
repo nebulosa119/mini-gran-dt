@@ -1,10 +1,16 @@
 package Models;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
-public class Tournament extends Identifiable {
+public class Tournament extends Identifiable implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private ArrayList<Team> teams;
     private int maxPlayers;
@@ -71,5 +77,20 @@ public class Tournament extends Identifiable {
     @Override
     public String toString() {
         return name +"{"+ Arrays.toString(teams.toArray()) +"}";
+    }
+
+    private void writeObject(ObjectOutputStream out) throws IOException{
+        out.defaultWriteObject();
+        out.writeUTF(name);
+        out.writeInt(maxPlayers);
+        out.writeObject(teams);
+
+    }
+
+    private void readObject(ObjectInputStream ois) throws IOException,ClassNotFoundException{
+        ois.defaultReadObject();
+        name = ois.readUTF();
+        maxPlayers = ois.readInt();
+        teams = (ArrayList) ois.readObject();
     }
 }
