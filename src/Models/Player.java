@@ -1,9 +1,16 @@
 package Models;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 // los jugadores no tendran una posicion fija, pueden variar a lo largo del tornero
 // por ende a la hora de subir los datos, todos los jugadores seran capaces de recibir
 // cualquier atributo.
-public class Player extends Identifiable {
+public class Player extends Identifiable implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     private int price;
     private Properties properties;
@@ -58,5 +65,36 @@ public class Player extends Identifiable {
 
     public String getProperties() {
         return properties.toString();
+    }
+
+    //falta agregar la clase properties y muevo el serializable
+
+    private void writeObject(ObjectOutputStream out) throws IOException{
+        out.defaultWriteObject();
+        out.writeUTF(name);
+        out.writeInt(price);
+        /*
+        out.writeInt(normal_goals_scored);
+        out.writeInt(goals_scored_by_penalty_kick);
+        out.writeInt(penalty_catched);
+        out.writeInt(goals_scored_goalkeeper);
+        out.writeInt(yellow_cards);
+        out.writeInt(red_cards);
+        out.writeInt(goals_against);
+         */
+    }
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException{
+        ois.defaultReadObject();
+        name = ois.readUTF();
+        price = ois.readInt();
+        /*
+        ois.writeInt(normal_goals_scored);
+        ois.writeInt(goals_scored_by_penalty_kick);
+        ois.writeInt(penalty_catched);
+        ois.writeInt(goals_scored_goalkeeper);
+        ois.writeInt(yellow_cards);
+        ois.writeInt(red_cards);
+        ois.writeInt(goals_against);
+         */
     }
 }

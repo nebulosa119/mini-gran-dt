@@ -1,10 +1,16 @@
 package Models;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
-public class Team extends Identifiable {
+public class Team extends Identifiable implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     static final int MAX_CAPACITY = 5; /**A definir después*/
 
@@ -77,4 +83,16 @@ public class Team extends Identifiable {
             super("El equipo esta completo");
         }
     }
+
+    private void writeObject(ObjectOutputStream out)throws IOException{
+        out.defaultWriteObject();
+        out.writeUTF(name);
+        out.writeObject(players);
+    }
+    private void readObject(ObjectInputStream ois) throws IOException,ClassNotFoundException{
+        ois.defaultReadObject();
+        name = ois.readUTF();
+        players = (ArrayList)ois.readObject();
+    }
 }
+

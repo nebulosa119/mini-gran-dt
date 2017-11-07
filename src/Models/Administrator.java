@@ -1,8 +1,16 @@
 package Models;
 
+import sun.reflect.generics.tree.Tree;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.*;
 
-public class Administrator extends Account{
+public class Administrator extends Account implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     private Map<Tournament,TreeSet<User>> tournamentUsers = new HashMap<>();
 
@@ -82,5 +90,16 @@ public class Administrator extends Account{
     public String toString() {
         return "Administrator{" +
                 "name='" + name + Arrays.toString(tournamentUsers.keySet().toArray()) + '}';
+    }
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+        out.writeUTF(name);
+        out.writeObject(tournamentUsers);
+    }
+
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        ois.defaultReadObject();
+        name = ois.readUTF();
+        tournamentUsers = (Map<Tournament, TreeSet<User>>) ois.readObject();
     }
 }
