@@ -1,12 +1,18 @@
 package Models;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
 
 
 // implementa comparable con respecto a los puntos para ordenarlos en cada tournament y cuando se muestra la lista de puntajes
 // solo hay que recorrer la lista e imprimirlos
-public class User extends Account implements Comparable<User>{
+public class User extends Account implements Comparable<User>, Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     private int points; /**Pa qué protected si no lo necesitamos acceder desde subclases de User?*/
     private int money;
@@ -86,5 +92,21 @@ public class User extends Account implements Comparable<User>{
         int result = super.hashCode();
         result = result * 5;
         return result;
+    }
+
+    private void writeObject(ObjectOutputStream out) throws IOException{
+        out.defaultWriteObject();
+        out.writeUTF(name);
+        out.writeInt(points);
+        out.writeInt(money);
+        out.writeObject(teams);
+
+    }
+    private void readObject(ObjectInputStream ois) throws IOException,ClassNotFoundException{
+        ois.defaultReadObject();
+        name = ois.readUTF();
+        points = ois.readInt();
+        money = ois.readInt();
+        teams = (Map<String, Team>) ois.readObject();
     }
 }
