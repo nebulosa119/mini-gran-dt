@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="406.0" fitWidth="610.0" layoutX="-7.0" layoutY="-6.0" opacity="0.7" pickOnBounds="true">
          <image>
-            <Image url="@../media/RankingsImage.JPG" />
+            <Image url="@../Media/RankingsImage.JPG" />
          </image>
       </ImageView>
       <TextField alignment="CENTER" prefHeight="40.0" prefWidth="602.0" style="-fx-background-color: Orange;" text="MINI GRAN DT PLAYER RANKINGS">
@@ -24,12 +24,12 @@
       <ListView layoutX="27.0" layoutY="40.0" opacity="0.55" prefHeight="335.0" prefWidth="547.0" />
       <ImageView fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../media/Cup.jpg" />
+            <Image url="@../Media/Cup.jpg" />
          </image>
       </ImageView>
       <ImageView fitHeight="40.0" fitWidth="30.0" layoutX="573.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../media/Cup.jpg" />
+            <Image url="@../Media/Cup.jpg" />
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="ORANGE" height="360.0" layoutY="40.0" stroke="ORANGE" strokeType="INSIDE" width="29.0" />

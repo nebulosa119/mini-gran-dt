@@ -23,7 +23,7 @@ public class FileManager {
     }
 
     private static String getResourcesDirectory() {
-        File resourcesDirectory = new File("src/resources");
+        File resourcesDirectory = new File("src/Resources");
         return resourcesDirectory.getAbsoluteFile().toString();
     }
 
@@ -73,7 +73,7 @@ public class FileManager {
     static Scene loadFxml(String fileName) throws IOException {
         Parent page = null;
         try {
-            URL fileUrl = MainApp.class.getResource("/resources/views/" + fileName + ".fxml");
+            URL fileUrl = MainApp.class.getResource("/Resources/Views/" + fileName + ".fxml");
             if(fileUrl == null){
                 throw new java.io.FileNotFoundException("FXML file can't be found");
             }

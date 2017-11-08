@@ -1,8 +1,6 @@
 package Controllers;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
 
 import Models.AccountsManager;
 import javafx.application.Application;
@@ -26,7 +24,7 @@ public class MainApp extends Application { // saquemoslo de Controlles despues
     public void start(Stage primaryStage) throws Exception{
         stage = primaryStage;
         stage.setTitle("Mini Gran DT");
-        stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/resources/media/icon.png")));
+        stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/Resources/Media/icon.png")));
         // si no se cargan que se cierre el app y listo
         /*scenes = new HashMap<>();
         scenes.put("addPlayerStats",FileManager.loadFxml("addPlayerStats"));
@@ -54,7 +52,7 @@ public class MainApp extends Application { // saquemoslo de Controlles despues
         //stage.setScene(scenes.get(windowName));
         Parent page = null;
         try {
-            URL fileUrl = MainApp.class.getResource("/resources/views/" + windowName + ".fxml");
+            URL fileUrl = MainApp.class.getResource("/Resources/Views/" + windowName + ".fxml");
             page = new FXMLLoader().load(fileUrl);
         } catch (Exception e) {
             System.out.println("FXML Error.");

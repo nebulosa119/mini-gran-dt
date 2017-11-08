@@ -13,7 +13,7 @@
       <Accordion layoutY="40.0" prefHeight="410.0" prefWidth="969.0" />
       <ImageView fitHeight="500.0" fitWidth="278.0" layoutX="969.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../media/Referee.jpg" />
+            <Image url="@../Media/Referee.jpg" />
          </image>
       </ImageView>
       <TextField alignment="CENTER" prefHeight="40.0" prefWidth="1200.0" style="-fx-background-color: yellow;" text="ADD PLAYERS ACTIONS IN THE MATCH">

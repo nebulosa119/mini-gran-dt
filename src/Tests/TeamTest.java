@@ -2,7 +2,11 @@ package Tests;
 
 import Models.Player;
 import Models.Team;
+import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Test;
+
+import java.io.Serializable;
+
 import static org.junit.Assert.assertEquals;
 
 public class TeamTest {
@@ -48,6 +52,12 @@ public class TeamTest {
         }
 
         assertEquals(true,thrown);
+    }
 
+    @Test
+    public void serializationTest() {
+        Serializable original = new Team("teamName",5);
+        Serializable copy = SerializationUtils.clone(original);
+        assertEquals(original, copy);
     }
 }

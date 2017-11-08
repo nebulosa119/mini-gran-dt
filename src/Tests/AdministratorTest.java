@@ -1,7 +1,10 @@
 package Tests;
 
 import Models.*;
+import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Test;
+
+import java.io.Serializable;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
 
@@ -11,10 +14,11 @@ public class AdministratorTest {
     public void createAccountTest() {
         Account account1 = new Administrator("adminName1");
         Account account2 = new Administrator("adminName2");
+        Account account1bis= new Administrator("adminName1");
 
         assertEquals("adminName1",account1.getName());
         assertEquals(false,account1.equals(account2));
-        assertEquals(true,account1.equals(account1));
+        assertEquals(true,account1.equals(account1bis));
     }
 
     @Test
@@ -42,5 +46,12 @@ public class AdministratorTest {
         assertEquals(false,set.isEmpty());
         assertEquals(true,set.contains(user1));
         assertEquals(false,set.contains(user2));
+    }
+
+    @Test
+    public void serializationTest() {
+        Serializable original = new Administrator("adminName");
+        Serializable copy = SerializationUtils.clone(original);
+        assertEquals(original, copy);
     }
 }

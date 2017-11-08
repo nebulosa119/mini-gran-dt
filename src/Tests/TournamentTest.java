@@ -2,7 +2,11 @@ package Tests;
 
 import Models.Team;
 import Models.Tournament;
+import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Test;
+
+import java.io.Serializable;
+
 import static org.junit.Assert.assertEquals;
 
 public class TournamentTest {
@@ -28,5 +32,12 @@ public class TournamentTest {
 
         assertEquals(true,tour.hasTeam(team1));
         assertEquals(false,tour.hasTeam(team2));
+    }
+
+    @Test
+    public void serializationTest() {
+        Serializable original = new Tournament("tourName",5);
+        Serializable copy = SerializationUtils.clone(original);
+        assertEquals(original, copy);
     }
 }

@@ -3,7 +3,11 @@ package Tests;
 import Models.Player;
 import Models.Team;
 import Models.User;
+import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Test;
+
+import java.io.Serializable;
+
 import static org.junit.Assert.assertEquals;
 
 public class UserTest {
@@ -54,4 +58,10 @@ public class UserTest {
         assertEquals(false,user.canBuy(player3));
     }
 
+    @Test
+    public void serializationTest() {
+        Serializable original = new User("userName");
+        Serializable copy = SerializationUtils.clone(original);
+        assertEquals(original, copy);
+    }
 }
