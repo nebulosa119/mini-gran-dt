@@ -1,4 +1,4 @@
-package Controllers;
+package Models;
 
 public enum Types {
     USER("data.temp", "Users"), ADMIN("data.temp","Admin");

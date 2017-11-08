@@ -13,10 +13,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 
@@ -37,11 +37,12 @@ public class AdminViewController implements Initializable{
     private Accordion tournamentsAccordion;
 
     @FXML
-    private TableView playersTableView;
+    private AnchorPane playersAnchorPane;
 
     @FXML
-    private void handleTeams(){
+    private void handleRefresh(){
         System.out.println(team.toString());
+        dataRefreshed.setVisible(true);
     }
 
 
@@ -63,7 +64,7 @@ public class AdminViewController implements Initializable{
                     if (tournamentGroup.getSelectedToggle() != null) {
                         RadioButton selected = (RadioButton)tournamentGroup.getSelectedToggle();
                         team = tournament.getTeam(selected.getText());
-
+                        showTeamPlayers();
                     }
                 }
             });
@@ -71,6 +72,103 @@ public class AdminViewController implements Initializable{
             tournamentsAccordion.getPanes().add(tournamentPane);
         }
         tournamentsLoaded.setVisible(true);
+    }
+
+    private void showTeamPlayers(){
+        TableColumn playerNameCol = new TableColumn("Player");
+        playerNameCol.setMinWidth(200);
+        playerNameCol.setCellValueFactory(new PropertyValueFactory<Player,String>("name"));
+
+        TableColumn normalGoalsScored = new TableColumn("Normal Goals Scored");
+        normalGoalsScored.setMinWidth(170);
+        normalGoalsScored.setCellValueFactory(new PropertyValueFactory<Player,String>("normal_goals_scored"));
+        normalGoalsScored.setCellFactory(TextFieldTableCell.forTableColumn());
+        normalGoalsScored.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Player,String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Player,String> t) {
+                ((Player) t.getTableView().getItems().get(t.getTablePosition().getRow())).setNormalGoalsScored(t.getNewValue());
+            }
+        });
+
+        TableColumn goalsScoredByPenaltyKick = new TableColumn("Goals Scored By Penalty Kick");
+        goalsScoredByPenaltyKick.setMinWidth(230);
+        goalsScoredByPenaltyKick.setCellValueFactory(new PropertyValueFactory<Player,String>("goals_scored_by_penalty_kick"));
+        goalsScoredByPenaltyKick.setCellFactory(TextFieldTableCell.forTableColumn());
+        goalsScoredByPenaltyKick.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Player,String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Player,String> t) {
+                ((Player) t.getTableView().getItems().get(t.getTablePosition().getRow())).setGoalsScoredByPenaltyKick(t.getNewValue());
+            }
+        });
+
+        TableColumn penaltyCatched = new TableColumn("Penalty Catched");
+        penaltyCatched.setMinWidth(140);
+        penaltyCatched.setCellValueFactory(new PropertyValueFactory<Player,String>("penalty_catched"));
+        penaltyCatched.setCellFactory(TextFieldTableCell.forTableColumn());
+        penaltyCatched.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Player,String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Player,String> t) {
+                ((Player) t.getTableView().getItems().get(t.getTablePosition().getRow())).setPenaltyCatched(t.getNewValue());
+            }
+        });
+
+        TableColumn goalsScoredGoalkeeper = new TableColumn("Goals Scored Goalkeeper");
+        goalsScoredGoalkeeper.setMinWidth(200);
+        goalsScoredGoalkeeper.setCellValueFactory(new PropertyValueFactory<Player,String>("goals_scored_goalkeeper"));
+        goalsScoredGoalkeeper.setCellFactory(TextFieldTableCell.forTableColumn());
+        goalsScoredGoalkeeper.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Player,String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Player,String> t) {
+                ((Player) t.getTableView().getItems().get(t.getTablePosition().getRow())).setGoalsScoredGoalkeeper(t.getNewValue());
+            }
+        });
+
+        TableColumn yellowCards = new TableColumn("Yellow Cards");
+        yellowCards.setMinWidth(120);
+        yellowCards.setCellValueFactory(new PropertyValueFactory<Player,String>("yellow_cards"));
+        yellowCards.setCellFactory(TextFieldTableCell.forTableColumn());
+        yellowCards.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Player,String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Player,String> t) {
+                ((Player) t.getTableView().getItems().get(t.getTablePosition().getRow())).setYellowCards(t.getNewValue());
+            }
+        });
+
+        TableColumn redCards = new TableColumn("Red Cards");
+        redCards.setMinWidth(100);
+        redCards.setCellValueFactory(new PropertyValueFactory<Player,String>("red_cards"));
+        redCards.setCellFactory(TextFieldTableCell.forTableColumn());
+        redCards.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Player,String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Player,String> t) {
+                ((Player) t.getTableView().getItems().get(t.getTablePosition().getRow())).setRedCards(t.getNewValue());
+            }
+        });
+
+        TableColumn goalsAgainst = new TableColumn("Goals Against");
+        goalsAgainst.setMinWidth(130);
+        goalsAgainst.setCellValueFactory(new PropertyValueFactory<Player,String>("goals_against"));
+        goalsAgainst.setCellFactory(TextFieldTableCell.forTableColumn());
+        goalsAgainst.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Player,String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Player,String> t) {
+                ((Player) t.getTableView().getItems().get(t.getTablePosition().getRow())).setGoalsAgainst(t.getNewValue());
+            }
+        });
+
+        //armo lista de players vacios con la info del team
+        ArrayList<Player> newPlayers = new ArrayList<>();
+        for (Models.Player player : team.getPlayers())
+            newPlayers.add(new Player(player.getName()));
+        ObservableList<Player> data = FXCollections.observableArrayList(newPlayers);
+
+        playersAnchorPane.getChildren().removeAll();
+        TableView<Player> playersTableView = new TableView<Player>();
+        playersTableView.setItems(data);
+        playersTableView.setEditable(true);
+        playersTableView.getColumns().addAll(playerNameCol,normalGoalsScored,goalsScoredByPenaltyKick,penaltyCatched,goalsScoredGoalkeeper,yellowCards,redCards,goalsAgainst);
+        playersTableView.prefHeightProperty().bind(playersAnchorPane.heightProperty());
+        playersAnchorPane.getChildren().add(playersTableView);
     }
 
     public static class Player {

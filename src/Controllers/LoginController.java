@@ -22,7 +22,7 @@ public class LoginController{
         }else{
             AccountsManager.getInstance().setAccount(username);
             if (AccountsManager.getInstance().accountIsUser()) {
-                MainApp.setScene("teamSelection");
+                    MainApp.setScene("userView");
             } else {
                 MainApp.setScene("adminView");
             }

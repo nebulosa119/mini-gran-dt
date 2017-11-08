@@ -1,4 +1,5 @@
-package Tests;
+/**package Tests;
+/**package Tests;
 
 import Models.Team;
 import Models.Tournament;
@@ -41,3 +42,4 @@ public class TournamentTest {
         assertEquals(original, copy);
     }
 }
+**/
