@@ -2,94 +2,76 @@ package Controllers;
 
 import Models.AccountsManager;
 import Models.Team;
+import Models.Tournament;
 import Models.User;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import sun.plugin.javascript.navig.Anchor;
+
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Set;
 
-public class UserViewController extends ViewController {
+public class UserViewController implements Initializable{
 
-    private User user;
+    private Team team = null;
 
-    UserViewController(MainApp controller, User user) {
-        super(controller);
-        this.user = user;
-    }
+    @FXML
+    private Accordion tournamentAccordion;
+    @FXML
+    private Button signUpButton;
+    @FXML
+    private AnchorPane userTeamView;
 
-    public Scene createMainWindow(){
-        //creamos la lista para el usuario
-        ListView<String> listView = createListView();
-        //respectivos botones
-        Button buttonEditTeam = new Button("Edit Your Team");
-        buttonEditTeam.setMaxWidth(Double.MAX_VALUE);
-        buttonEditTeam.setOnAction(event -> {
-            // pido la seleccion EJ larana: copa mayores y seteo la ventana
-            String selection = listView.getSelectionModel().getSelectedItem();
-            if (selection == null) {
-                setNextWindow(listView.getItems().get(0));
-                addUserToTournamentList(listView.getItems().get(0));
-            } else
-                setNextWindow(selection);
-        });
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Set<Tournament> tournaments = AccountsManager.getInstance().getTournaments();
 
-        VBox vBox = new VBox();
-        vBox.getChildren().addAll(listView,buttonEditTeam);
-
-        return new Scene(vBox);
-    }
-
-    private ListView<String> createListView(){
-        //cargamos los torneos
-        Map<String,Set<String>> tournamentsBinding = AccountsManager.getAllTournaments();
-        ArrayList<String> allTournaments = new ArrayList<>();
-        // creamos un bining EJ: larana: CopaJuveniles
-        for (String adminName:tournamentsBinding.keySet()) {
-            for (String tourName:tournamentsBinding.get(adminName)) {
-                String bindingString = adminName + ": " + tourName;
-                allTournaments.add(bindingString);
+        for(Tournament tournament : tournaments) {
+            ToggleGroup tournamentGroup = new ToggleGroup();
+            VBox tournamentBox = new VBox(10);
+            tournamentBox.setPadding(new Insets(10));
+            for(Team team : tournament.getTeams()) {
+                RadioButton teamButton = new RadioButton(team.getName());
+                tournamentGroup.getToggles().add(teamButton);
+                tournamentBox.getChildren().add(teamButton);
             }
+            tournamentGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+                @Override
+                public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+                    if(tournamentGroup.getSelectedToggle() != null && ((User)AccountsManager.getInstance().getSignedAccount()).getTeam(tournament.getName()) != null) {
+                        RadioButton selected = (RadioButton)tournamentGroup.getSelectedToggle();
+                        team = tournament.getTeam(selected.getText());
+                        TeamController.setTournament(tournament);
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("teamManager.fxml"));
+                        Parent root = null;
+                        try {
+                            root = loader.load();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        userTeamView.getChildren().add(root);
+                    }
+                }
+            });
+            TitledPane tournamentPane = new TitledPane(tournament.getName(), tournamentBox);
+            tournamentAccordion.getPanes().add(tournamentPane);
         }
-        //creamos el Observablelist
-        final ObservableList<String> stringList =
-                FXCollections.observableArrayList(allTournaments);
-        final ListView<String> listView = new ListView<>(stringList);
-        //armamos la lista
-        listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        return listView;
+
     }
-
-    private String getAdminName(String bindingName){
-        int index = bindingName.indexOf(':');
-        return bindingName.substring(0,index-1);
-    }
-
-    private String getTournamentName(String bindingName){
-        int index = bindingName.indexOf(':');
-        return bindingName.substring(index+1);
-    }
-
-    private void setNextWindow(String selection){
-        // agarro por separado el torneo y el admin
-        String tourName = getTournamentName(selection);
-        String adminName = getAdminName(selection);
-        // pido el equipo del usuario
-        Team team = AccountsManager.getUserTeam(tourName);
-        // creo la escena de pedroV
-        controller.setScene("teamManager");
-    }
-
-    private void addUserToTournamentList(String selection) {
-        String tourName = getTournamentName(selection);
-        String adminName = getAdminName(selection);
-
-        AccountsManager.addUserToTournament(adminName,tourName);
-    }
-
 }
