@@ -21,10 +21,10 @@ public class RegistrationSceneController {
     @FXML
     protected void handleCreateUser(){
         String username = userTextField.getText();
-        if (AccountsManager.contains(username)){
+        if (AccountsManager.getInstance().contains(username)){
             error.setVisible(true);
         }else {
-            if(!AccountsManager.createAccount(username))
+            if(!AccountsManager.getInstance().createAccount(username))
                 error.setVisible(true);
             else
                 MainApp.setScene("login");

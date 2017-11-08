@@ -30,6 +30,13 @@ public class Tournament extends Identifiable implements Serializable {
         teams.addAll(t.getTeams());
     }
 
+    public Team getTeam(String teamName){
+        for(Team team : teams)
+            if(team.getName().equals(teamName))
+                return team;
+        return null;
+    }
+
     public int getMaxPlayers() {
         return maxPlayers;
     }

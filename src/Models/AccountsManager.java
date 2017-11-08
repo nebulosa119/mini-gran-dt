@@ -23,7 +23,7 @@ public class AccountsManager implements Serializable{
     private static AccountsManager instance;
 
     private AccountsManager(){
-
+        instance = this;
     }
 
     /** Carga los usuarios existentes al programa */
@@ -164,11 +164,6 @@ public class AccountsManager implements Serializable{
     public static void createNewTournament(String tourName, int maxPlayers) {
         if (account instanceof Administrator)
             ((Administrator)account).addTournament(new Tournament(tourName, maxPlayers));
-    }
-
-    static void createNewTournament(Tournament newTournament) { // hay tres getter metodos distintos pero iguales, despues los meto todos en uno
-        if (account instanceof Administrator && newTournament != null)
-            ((Administrator)account).addTournament(newTournament);
     }
 
     // el nombre del club deberia er identico al del administrador

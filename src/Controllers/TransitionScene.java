@@ -4,10 +4,14 @@ import Models.*;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class TransitionScene {
+
+public class TransitionScene implements Initializable{
     @FXML
     private Button addPlayerPropertiesButton, editTournButton;
 
@@ -38,5 +42,10 @@ public class TransitionScene {
         //aca se  abre la ventana para crear y editar torneos
         }
     };
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
 }
 

@@ -17,14 +17,14 @@ public class LoginController{
     private void handleLogin() {
         String username = userTextField.getText();
         //buscamos cual tiene al usuario
-        if (!AccountsManager.contains(username)){
+        if (!AccountsManager.getInstance().contains(username)){
             error.setVisible(true);
         }else{
-            AccountsManager.setAccount(username);
-            if (AccountsManager.accountIsUser()) {
+            AccountsManager.getInstance().setAccount(username);
+            if (AccountsManager.getInstance().accountIsUser()) {
                 MainApp.setScene("teamSelection");
             } else {
-                MainApp.setScene("transitionScene");
+                MainApp.setScene("adminView");
             }
         }
     }
