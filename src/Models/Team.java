@@ -12,17 +12,17 @@ public class Team extends Identifiable implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    static final int MAX_CAPACITY = 5; /**A definir después*/
-
     private ArrayList<Player> players;
+    private int maxPlayers;
 
-    public Team(String name) {
+    public Team(String name, int maxPlayers) {
         super(name);
         this.players = new ArrayList<>();
+        this.maxPlayers = maxPlayers;
     }
 
-    public Team(Team team) {
-        this(team.getName());
+    public Team(Team team, int maxPlayers) {
+        this(team.getName(),maxPlayers);
         players.addAll(team.getPlayers());
     }
 
@@ -33,15 +33,18 @@ public class Team extends Identifiable implements Serializable {
     public ArrayList<Player> getNewPlayers(){
         ArrayList<Player> resp = new ArrayList<>();
         for (Player player :players) {
-            //System.out.println(player.getName()+" "+player.getProperties());
             resp.add(new Player(player.getName()));
         }
         return resp;
     }
 
-    public void add(Player p, int maxPlayers){
+    public int getMaxPlayers() { return maxPlayers; }
+
+    public void add(Player p) throws CompleteTeamException{
         if (players.size() < maxPlayers && !players.contains(p))
             players.add(p);
+        else
+            throw new CompleteTeamException();
     }
 
     public void refresh(Map<String,Properties> dataPlayers) {
@@ -70,12 +73,6 @@ public class Team extends Identifiable implements Serializable {
     @Override
     public String toString() {
         return name+"{"+Arrays.toString(players.toArray())+'}';
-    }
-
-    public class PlayerExistsException extends Exception {
-        public PlayerExistsException() {
-            super("El jugador ya se encuentra en el equipo");
-        }
     }
 
     public class CompleteTeamException extends Exception {

@@ -9,6 +9,11 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ * Clase que maneja todas las cuentas de usuarios del programa Mini Gran DT.
+ *
+ * @author
+ */
 public class AccountsManager implements Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -21,7 +26,7 @@ public class AccountsManager implements Serializable{
 
     }
 
-    /*Metodos para la clase: manejo de cuentas*/
+    /** Carga los usuarios existentes al programa */
     public static void loadAccounts() {
         //accounts = (ArrayList<Account>) FileManager.unserializeObject(Types.USER.fileName);// no se como se soluciona
         accounts = new ArrayList<>();
@@ -105,8 +110,8 @@ public class AccountsManager implements Serializable{
 
         ArrayList<Team> teams = new ArrayList<Team>();
 
-        for (String teamName:teamNames) {
-            Team team = new Team(teamName);
+        for (String teamName : teamNames) {
+            Team team = new Team(teamName,8);
             teams.add(team);
         }
 
@@ -119,7 +124,11 @@ public class AccountsManager implements Serializable{
                     Player newPlayer = new Player(name,rand.nextInt(20000));
                     Properties properties = new Properties(rand.nextInt(10),rand.nextInt(10),rand.nextInt(10),rand.nextInt(10),rand.nextInt(10),rand.nextInt(10),rand.nextInt(10));
                     newPlayer.refresh(properties);
-                    team.add(newPlayer,tour.getMaxPlayers());
+                    try {
+                        team.add(newPlayer);
+                    } catch (Team.CompleteTeamException ex) {
+                        ex.getMessage();
+                    }
                 }
                 teams.remove(i);
                 teams.trimToSize();

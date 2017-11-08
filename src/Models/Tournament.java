@@ -40,7 +40,7 @@ public class Tournament extends Identifiable implements Serializable {
 
     /**Para cuando se cree el torneo y los equipos*/
     public void addTeam(Team t) {
-        teams.add(new Team(t));
+        teams.add(new Team(t,maxPlayers));
     }
 
     public boolean hasTeam(Team t) {

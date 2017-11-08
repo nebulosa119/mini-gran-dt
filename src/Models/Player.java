@@ -32,9 +32,11 @@ public class Player extends Identifiable implements Serializable{
         properties.refresh(p);
     }
 
-    public int getPrice() {
+    public int getCalculatedPrice() {
         return properties.calculatePrice();
     }
+
+    public int getPrice() { return price; }
 
     @Override
     public boolean equals(Object o) {

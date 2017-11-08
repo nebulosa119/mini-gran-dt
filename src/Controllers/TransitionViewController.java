@@ -27,7 +27,7 @@ public class TransitionViewController {
 
     public static void show(Dialog textInputDialog) {
         Optional<Tournament> result = textInputDialog.showAndWait();
-        result.ifPresent(AccountsManager::createNewTournament);
+        //result.ifPresent(AccountsManager::createNewTournament);
     }
 
     private Dialog createTextInputDialog(String title, String message, String textField1, String textField2) {

@@ -10,7 +10,7 @@ import java.util.TreeMap;
 
 // implementa comparable con respecto a los puntos para ordenarlos en cada tournament y cuando se muestra la lista de puntajes
 // solo hay que recorrer la lista e imprimirlos
-public class User extends Account implements Comparable<User>, Serializable{
+public class User extends Account implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
@@ -28,7 +28,7 @@ public class User extends Account implements Comparable<User>, Serializable{
 
     public Team getTeam(String tourName){
         if (teams.containsKey(tourName))
-            return new Team(teams.get(tourName));
+            return teams.get(tourName);
         return null;
     }
     // si no se contiene al torneo, se lo agrega, caso contrario se pisa el equipo
@@ -49,6 +49,10 @@ public class User extends Account implements Comparable<User>, Serializable{
         }
     }
 
+    public int getPoints() {
+        return points;
+    }
+
     public void sell(Player p, Tournament t) {
         if(teams.get(t.getName()).getPlayers().contains(p)) {
             teams.get(t.getName()).getPlayers().remove(p); /**Queda medio feo*/
@@ -63,18 +67,14 @@ public class User extends Account implements Comparable<User>, Serializable{
 
     public boolean hasCapacity(Tournament t) {
         if(!teams.containsKey(t)) return true; /**Por programación defensiva*/
-        if(teams.get(t).getPlayers().size() < Team.MAX_CAPACITY) return true;
+        Team team = teams.get(t);
+        if(team.getPlayers().size() < team.getMaxPlayers()) return true;
         return false;
     }
 
     public void buy(String name, Player p) {
         teams.get(name).getPlayers().add(p);
         money -= p.getPrice();
-    }
-
-    @Override
-    public int compareTo(User user) {
-        return points-user.points;
     }
 
     @Override

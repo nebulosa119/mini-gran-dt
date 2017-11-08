@@ -12,7 +12,7 @@ public class Administrator extends Account implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    private Map<Tournament,TreeSet<User>> tournamentUsers = new HashMap<>();
+    private Map<Tournament,ArrayList<User>> tournamentUsers = new HashMap<>();
 
     public Administrator() {
         super();
@@ -38,12 +38,19 @@ public class Administrator extends Account implements Serializable{
     }
 
     private void refreshUsers(String tourName, Map<String,Map<String,Properties>> tournament) {
-        TreeSet<User> users = tournamentUsers.get(tourName);
+        Tournament tour = getTournament(tourName);
+        ArrayList<User> users = tournamentUsers.get(tour);
         if (users!=null) {
             for (User user : users) {
                 user.refreshPoints(tourName,unifyPlayers(tournament));
             }
         }
+        Collections.sort(users, new Comparator<User>() {
+            @Override
+            public int compare(User t, User t1) {
+                return t.getPoints()-t1.getPoints();
+            }
+        });
     }
 
     //junta todos los jugadores de todos los teams en un solo arreglo clave-valor
@@ -63,7 +70,7 @@ public class Administrator extends Account implements Serializable{
     /**Para cuando el administrador quiera crear un nuevo torneo. Mi idea es que desde el Controllers se instancie la
      * clase torneo para poder ingresarla directamente*/
     public void addTournament(Tournament t){
-        tournamentUsers.put(new Tournament(t),null);
+        tournamentUsers.put(new Tournament(t),new ArrayList<User>());
     }
 
     public boolean hasTournament(String tournamentName) {
@@ -83,14 +90,20 @@ public class Administrator extends Account implements Serializable{
     }
 
     public void addUser(String tournament, User user) {
-        tournamentUsers.get(tournament).add(user);
+        Tournament tour = getTournament(tournament);
+        tournamentUsers.get(tour).add(user);
+    }
+
+    public ArrayList<User> getUsers(String tournament) {
+        Tournament tour = getTournament(tournament);
+        return tournamentUsers.get(tour);
     }
 
     @Override
     public String toString() {
-        return "Administrator{" +
-                "name='" + name + Arrays.toString(tournamentUsers.keySet().toArray()) + '}';
+        return "Administrator{" + "name='" + name + Arrays.toString(tournamentUsers.keySet().toArray()) + '}';
     }
+
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
         out.writeUTF(name);
@@ -100,6 +113,6 @@ public class Administrator extends Account implements Serializable{
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject();
         name = ois.readUTF();
-        tournamentUsers = (Map<Tournament, TreeSet<User>>) ois.readObject();
+        tournamentUsers = (Map<Tournament, ArrayList<User>>) ois.readObject();
     }
 }
