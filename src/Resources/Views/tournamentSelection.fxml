@@ -27,12 +27,12 @@
       </TextField>
       <ImageView fitHeight="52.0" fitWidth="60.0" layoutX="550.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../media/icon.png" />
+            <Image url="@../Media/icon.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="52.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../media/icon.png" />
+            <Image url="@../Media/icon.png" />
          </image>
       </ImageView>
       <TableView fx:id="tournamentsTableView" layoutY="50.0" prefHeight="299.0" prefWidth="602.0">

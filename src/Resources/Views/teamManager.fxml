@@ -57,7 +57,7 @@
                      <children>
                         <ImageView fitHeight="742.0" fitWidth="480.0" pickOnBounds="true">
                            <image>
-                              <Image url="@/resources/media/FutbolField.jpg" />
+                              <Image url="@/Resources/Media/FutbolField.jpg" />
                            </image>
                         </ImageView>
                         <CheckBox contentDisplay="BOTTOM" layoutX="238.0" layoutY="687.0" mnemonicParsing="false" text="Goalkeeper" textFill="WHITE" textOverrun="CENTER_ELLIPSIS" />

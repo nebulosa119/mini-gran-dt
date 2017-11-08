@@ -12,7 +12,7 @@
    <children>
       <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
          <image>
-            <Image url="@../media/Formacion.jpg" />
+            <Image url="@../Media/Formacion.jpg" />
          </image>
       </ImageView>
       <TextField alignment="CENTER" layoutY="280.0" prefHeight="60.0" prefWidth="600.0" style="-fx-background-color: blue;" text="BIENVENIDO AL ADMINISTRADOR DE MINI GRAN DT">
