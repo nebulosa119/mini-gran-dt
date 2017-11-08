@@ -211,4 +211,8 @@ public class AccountsManager implements Serializable{
         ois.defaultReadObject();
         accounts = (ArrayList)ois.readObject();
     }
+
+    public Account getSignedAccount() {
+        return account;
+    }
 }

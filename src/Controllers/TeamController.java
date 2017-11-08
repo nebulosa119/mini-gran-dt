@@ -1,9 +1,6 @@
 package Controllers;
 
-import Models.Player;
-import Models.Team;
-import Models.Tournament;
-import Models.User;
+import Models.*;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,12 +23,11 @@ public class TeamController {//  controla la ventana del user
     private ListView<Player> userPlayerList;
 
     private User user;
-    private Tournament tournament;
+    private static Tournament tournament;
 
-    public void initialize(User user, Tournament tournament) {
+    public void initialize() {
         /**Inicializo variables de instancia*/
-        this.user = user;
-        this.tournament = tournament;
+        user = (User) AccountsManager.getInstance().getSignedAccount();
         teamsTabPanes = new TabPane();
 
         /**Configuro los tabs*/
@@ -134,14 +130,16 @@ public class TeamController {//  controla la ventana del user
             for(Tab t : teamsTabPanes.getTabs()) {
                 for(Player p : (ObservableList<Player>)((TableView)t.getContent()).getSelectionModel().getSelectedItems()) {
                     /**Agrego el jugaodr al equipo del usuario*/
-                    if(user.canBuy(p) && user.hasCapacity(tournament)) {
+                    if (user.canBuy(p) && user.hasCapacity(tournament)) {
                         user.buy(tournament.getName(), p);
                         user.getTeam(tournament.getName()).getPlayers().add(p); /**Aca hay un tema de ocultamiento de la info: si lo queremos modularizar bien de manera que quedetodo bien independiente entre si,
                          entonces no deberiamos revelar que la clase User guarda a los jugadores de sus equipos en forma de ArrayList*/
+                        userPlayerList.setItems(FXCollections.observableArrayList(user.getTeam(tournament.getName()).getPlayers()));
                     } else {
                         showErrorMessage();
                     }
                     /**Se debería desde acá restarle al usuario sus fondos*/
+
                 }
             }
         }
@@ -168,6 +166,10 @@ public class TeamController {//  controla la ventana del user
         aux.setTitle("ERROR");
         aux.setHeaderText("INSUFFICIENT FUNDS OR FULL TEAM");
         aux.showAndWait();
+    }
+
+    public static void setTournament(Tournament t) {
+        tournament = t;
     }
 
 }
