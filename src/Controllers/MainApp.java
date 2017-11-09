@@ -49,7 +49,7 @@ public class MainApp extends Application { // saquemoslo de Controlles despues
     public static void setScene(String windowName){
         Parent page = null;
         try {
-            URL fileUrl = MainApp.class.getResource("/resources/views/" + windowName + ".fxml");
+            URL fileUrl = MainApp.class.getResource("/Resources/Views/" + windowName + ".fxml");
             page = new FXMLLoader().load(fileUrl);
         } catch (Exception e) {
             System.out.println("FXML Error.");

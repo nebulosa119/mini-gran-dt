@@ -91,7 +91,7 @@ public class AdminViewController implements Initializable{
         normalGoalsScored.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Player,String>>() {
             @Override
             public void handle(TableColumn.CellEditEvent<Player,String> t) {
-                ((Player) t.getTableView().getItems().get(t.getTablePosition().getRow())).setNormalGoalsScored(t.getNewValue());
+                t.getTableView().getItems().get(t.getTablePosition().getRow()).setNormalGoalsScored(t.getNewValue());
             }
         });
 
@@ -102,7 +102,7 @@ public class AdminViewController implements Initializable{
         goalsScoredByPenaltyKick.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Player,String>>() {
             @Override
             public void handle(TableColumn.CellEditEvent<Player,String> t) {
-                ((Player) t.getTableView().getItems().get(t.getTablePosition().getRow())).setGoalsScoredByPenaltyKick(t.getNewValue());
+                t.getTableView().getItems().get(t.getTablePosition().getRow()).setGoalsScoredByPenaltyKick(t.getNewValue());
             }
         });
 
@@ -113,7 +113,7 @@ public class AdminViewController implements Initializable{
         penaltyCatched.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Player,String>>() {
             @Override
             public void handle(TableColumn.CellEditEvent<Player,String> t) {
-                ((Player) t.getTableView().getItems().get(t.getTablePosition().getRow())).setPenaltyCatched(t.getNewValue());
+                t.getTableView().getItems().get(t.getTablePosition().getRow()).setPenaltyCatched(t.getNewValue());
             }
         });
 
@@ -124,7 +124,7 @@ public class AdminViewController implements Initializable{
         goalsScoredGoalkeeper.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Player,String>>() {
             @Override
             public void handle(TableColumn.CellEditEvent<Player,String> t) {
-                ((Player) t.getTableView().getItems().get(t.getTablePosition().getRow())).setGoalsScoredGoalkeeper(t.getNewValue());
+                t.getTableView().getItems().get(t.getTablePosition().getRow()).setGoalsScoredGoalkeeper(t.getNewValue());
             }
         });
 
@@ -135,7 +135,7 @@ public class AdminViewController implements Initializable{
         yellowCards.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Player,String>>() {
             @Override
             public void handle(TableColumn.CellEditEvent<Player,String> t) {
-                ((Player) t.getTableView().getItems().get(t.getTablePosition().getRow())).setYellowCards(t.getNewValue());
+                t.getTableView().getItems().get(t.getTablePosition().getRow()).setYellowCards(t.getNewValue());
             }
         });
 
@@ -146,7 +146,7 @@ public class AdminViewController implements Initializable{
         redCards.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Player,String>>() {
             @Override
             public void handle(TableColumn.CellEditEvent<Player,String> t) {
-                ((Player) t.getTableView().getItems().get(t.getTablePosition().getRow())).setRedCards(t.getNewValue());
+                t.getTableView().getItems().get(t.getTablePosition().getRow()).setRedCards(t.getNewValue());
             }
         });
 
@@ -157,7 +157,7 @@ public class AdminViewController implements Initializable{
         goalsAgainst.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Player,String>>() {
             @Override
             public void handle(TableColumn.CellEditEvent<Player,String> t) {
-                ((Player) t.getTableView().getItems().get(t.getTablePosition().getRow())).setGoalsAgainst(t.getNewValue());
+                t.getTableView().getItems().get(t.getTablePosition().getRow()).setGoalsAgainst(t.getNewValue());
             }
         });
 
