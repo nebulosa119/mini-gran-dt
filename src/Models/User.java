@@ -42,7 +42,7 @@ public class User extends Account implements Serializable{
         return teams;
     }
 
-    public void refreshPoints(String tournament, Map<String,Properties> players) {
+    public void refreshPoints(String tournament, Map<String, Player.Properties> players) {
         Team team = teams.get(tournament);
         for (Player p : team.getPlayers()) {
             points += players.get(p.getName()).getPoints();

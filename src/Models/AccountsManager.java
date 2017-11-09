@@ -1,13 +1,9 @@
 package Models;
 
-import Models.*;
-import Models.Properties;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -120,7 +116,7 @@ public class AccountsManager implements Serializable{
                 Collections.shuffle(men);
                 for (String name: men) {
                     Player newPlayer = new Player(name,rand.nextInt(20000));
-                    Properties properties = new Properties(rand.nextInt(10),rand.nextInt(10),rand.nextInt(10),rand.nextInt(10),rand.nextInt(10),rand.nextInt(10),rand.nextInt(10));
+                    Player.Properties properties = new Player.Properties(rand.nextInt(10),rand.nextInt(10),rand.nextInt(10),rand.nextInt(10),rand.nextInt(10),rand.nextInt(10),rand.nextInt(10));
                     newPlayer.refresh(properties);
                     try {
                         team.add(newPlayer);
@@ -154,7 +150,7 @@ public class AccountsManager implements Serializable{
         return false;
     }
 
-    public static void refresh(Map<String,Map<String,Map<String, Properties>>> tournaments) {
+    public static void refresh(Map<String,Map<String,Map<String, Player.Properties>>> tournaments) {
         if (account instanceof Administrator)
             ((Administrator) account).refresh(tournaments);
     }

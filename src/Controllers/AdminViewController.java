@@ -1,9 +1,6 @@
 package Controllers;
 
-import Models.AccountsManager;
-import Models.Properties;
-import Models.Team;
-import Models.Tournament;
+import Models.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -252,7 +249,7 @@ public class AdminViewController implements Initializable{
     }
 
     private void uploadData(Accordion tAccordion) {
-        Map<String,Map<String,Map<String,Properties>>> dataTournaments = new HashMap<>();
+        Map<String,Map<String,Map<String, Models.Player.Properties>>> dataTournaments = new HashMap<>();
         // para cada acordion de torneo...
         for (TitledPane tourPane : tAccordion.getPanes()) {
             String tourName = tourPane.getText();
@@ -263,8 +260,8 @@ public class AdminViewController implements Initializable{
         System.out.println();
     }
 
-    private Map<String,Map<String,Properties>> getTournamentData(Accordion teamsAccordion) {
-        Map<String,Map<String,Properties>> dataTournament = new HashMap<>();
+    private Map<String,Map<String, Models.Player.Properties>> getTournamentData(Accordion teamsAccordion) {
+        Map<String,Map<String, Models.Player.Properties>> dataTournament = new HashMap<>();
         // para cada panel de equipo dentro del accordion del torneo...
         for (TitledPane teamPane : teamsAccordion.getPanes()) {
             String teamName = teamPane.getText();
@@ -274,9 +271,9 @@ public class AdminViewController implements Initializable{
         return dataTournament;
     }
 
-    private Map<String,Properties> getTeamData(TableView teamTable) {
-        Map<String,Properties> dataTeam = new HashMap<>();
-        Properties prop = new Properties();
+    private Map<String, Models.Player.Properties> getTeamData(TableView teamTable) {
+        Map<String, Models.Player.Properties> dataTeam = new HashMap<>();
+        Models.Player.Properties prop = new Models.Player.Properties();
         for (Object item : teamTable.getItems()) {
             String name = ((AdminViewController.Player)item).getName();
             prop.setProperty(0,Integer.parseInt(((AdminViewController.Player)item).getNormalGoalsScored()));

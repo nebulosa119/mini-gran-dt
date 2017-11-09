@@ -1,7 +1,5 @@
 package Models;
 
-import sun.reflect.generics.tree.Tree;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -26,14 +24,14 @@ public class Administrator extends Account implements Serializable{
         return resp;
     }
 
-    public void refresh(Map<String,Map<String,Map<String,Properties>>> dataTournaments) {
+    public void refresh(Map<String,Map<String,Map<String, Player.Properties>>> dataTournaments) {
         for (Tournament myTour : tournamentUsers.keySet()) {
             myTour.refresh(dataTournaments.get(myTour.getName()));
             refreshUsers(myTour.getName(), dataTournaments.get(myTour.getName()));
         }
     }
 
-    private void refreshUsers(String tourName, Map<String,Map<String,Properties>> tournament) {
+    private void refreshUsers(String tourName, Map<String,Map<String, Player.Properties>> tournament) {
         Tournament tour = getTournament(tourName);
         ArrayList<User> users = tournamentUsers.get(tour);
         if (users!=null) {
@@ -50,9 +48,9 @@ public class Administrator extends Account implements Serializable{
     }
 
     //junta todos los jugadores de todos los teams en un solo arreglo clave-valor
-    private Map<String,Properties> unifyPlayers(Map<String,Map<String,Properties>> teams) {
-        Map<String,Properties> unified = new HashMap<>();
-        for (Map<String,Properties> team : teams.values()) {
+    private Map<String, Player.Properties> unifyPlayers(Map<String,Map<String, Player.Properties>> teams) {
+        Map<String, Player.Properties> unified = new HashMap<>();
+        for (Map<String, Player.Properties> team : teams.values()) {
             unified.putAll(team);
         }
         return unified;

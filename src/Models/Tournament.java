@@ -63,7 +63,7 @@ public class Tournament implements Serializable {
         return false;
     }
 
-    public void refresh(Map<String,Map<String,Properties>> dataTeams) {
+    public void refresh(Map<String,Map<String, Player.Properties>> dataTeams) {
         for (Team myTeam : teams) {
             myTeam.refresh(dataTeams.get(myTeam.getName()));
         }

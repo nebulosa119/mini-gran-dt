@@ -44,7 +44,7 @@ public class Team implements Serializable {
             throw new CompleteTeamException();
     }
 
-    public void refresh(Map<String,Properties> dataPlayers) {
+    public void refresh(Map<String, Player.Properties> dataPlayers) {
         for (Player myPlayer : players) {
             myPlayer.refresh(dataPlayers.get(myPlayer.getName()));
         }
