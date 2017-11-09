@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.*;
 import javafx.beans.property.*;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -11,16 +12,21 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class TeamController {//  controla la ventana del user
 
     @FXML
     private Button exitButton, ruleButton, playerRankingButton, addPlayerButton, removePlayerButton;
     @FXML
+    private ListView<Player> userPlayerList;
+    @FXML
     private TabPane teamsTabPanes;
     @FXML
-    private ListView<Player> userPlayerList;
+    private Pane teamsToCheckOutPane;
 
     private User user;
     private static Tournament tournament;
@@ -28,8 +34,6 @@ public class TeamController {//  controla la ventana del user
     public void initialize() {
         /**Inicializo variables de instancia*/
         user = (User) AccountsManager.getInstance().getSignedAccount();
-        teamsTabPanes = new TabPane();
-
         /**Configuro los tabs*/
         for(Team team : tournament.getTeams()) {
             Tab tab = new Tab();
@@ -54,6 +58,13 @@ public class TeamController {//  controla la ventana del user
             playerName.setCellValueFactory(info -> new SimpleStringProperty(info.getValue().getName()));
             playerRanking.setCellValueFactory(info -> (new SimpleIntegerProperty(info.getValue().getRanking())).asObject());
             wantPlayer.setCellFactory(CheckBoxTableCell.forTableColumn(wantPlayer));
+            playerName.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Player, String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<Player, String> param) {
+                    ObservableValue<String> aux = new SimpleStringProperty(param.getValue().getName());
+                    return aux;
+                }
+            });
 
             /**Agrego las columnas a la tabla*/
             playerTableView.getColumns().addAll(playerName, playerRanking);
@@ -66,7 +77,8 @@ public class TeamController {//  controla la ventana del user
 
             /**Configuro el listView del usuario*/
             /**Lo lleno con los jugadores que tenga*/
-            userPlayerList.setItems(FXCollections.observableArrayList(user.getTeam(tournament.getName()).getPlayers()));
+            if(user != null && user.getTeam(tournament.getName()) != null)
+                userPlayerList.setItems(FXCollections.observableArrayList(user.getTeam(tournament.getName()).getPlayers()));
             userPlayerList.setCellFactory(param -> new ListCell<Player>() {
                 @Override
                 protected void updateItem(Player p, boolean empty) {
@@ -81,6 +93,9 @@ public class TeamController {//  controla la ventana del user
             /**Permite selecciones múltiples*/
             userPlayerList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         }
+        VBox aux = new VBox();
+        aux.getChildren().add(teamsTabPanes);
+        teamsToCheckOutPane.getChildren().add(aux);
         /**Seteo los listeners de los botones*/
         exitButton.setOnAction(exitHandler);
         ruleButton.setOnAction(ruleHandler);

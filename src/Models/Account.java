@@ -26,4 +26,5 @@ public abstract class Account implements Serializable {
     public String getName() {
         return name;
     }
+
 }

@@ -21,14 +21,13 @@ import javafx.scene.layout.VBox;
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 public class UserViewController implements Initializable{
 
     private RadioButton selectedButton = null;
+
+    private Map<RadioButton, Tournament> map = new HashMap<>();
 
     @FXML
     private Accordion tournamentAccordion;
@@ -46,6 +45,7 @@ public class UserViewController implements Initializable{
             tournamentBox.setPadding(new Insets(10));
             for(Tournament tournament : administrator.getTournaments()) {
                 RadioButton tButton = new RadioButton(tournament.getName());
+                map.put(tButton, tournament);
                 tournamentGroup.getToggles().add(tButton);
                 tournamentBox.getChildren().add(tButton);
             }
@@ -77,7 +77,17 @@ public class UserViewController implements Initializable{
         signUpButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-
+                if(selectedButton != null) {
+                    TeamController.setTournament(map.get(selectedButton));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Resources/Views/teamManager.fxml"));
+                    Parent root = null;
+                    try {
+                        root = loader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    userTeamView.getChildren().add(root);
+                }
             }
         });
 
