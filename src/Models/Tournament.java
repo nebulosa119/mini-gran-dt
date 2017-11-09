@@ -8,21 +8,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
-public class Tournament extends Identifiable implements Serializable {
+public class Tournament implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private ArrayList<Team> teams;
+    private String name;
     private int maxPlayers;
 
     public Tournament(String tourName) {
-        super(tourName);
-        teams = new ArrayList<Team>();
+        this(tourName,0);
     }
 
     public Tournament(String name, int maxPlayers) {
-        this(name);
+        this.name = name;
         this.maxPlayers = maxPlayers;
+        teams = new ArrayList<>();
     }
 
     Tournament(Tournament t) {
@@ -35,6 +36,10 @@ public class Tournament extends Identifiable implements Serializable {
             if(team.getName().equals(teamName))
                 return team;
         return null;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getMaxPlayers() {

@@ -14,10 +14,6 @@ public class Administrator extends Account implements Serializable{
 
     private Map<Tournament,ArrayList<User>> tournamentUsers = new HashMap<>();
 
-    public Administrator() {
-        super();
-    }
-
     public Administrator(String name) {
         super(name);
     }

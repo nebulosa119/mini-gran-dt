@@ -7,11 +7,9 @@ import java.io.Serializable;
  *
  * @author
  */
-public abstract class Account extends Identifiable implements Serializable {
+public abstract class Account implements Serializable {
 
-    public Account() {
-        super();
-    }
+    String name;
 
     /**
      * Crea una nueva cuenta.
@@ -19,7 +17,13 @@ public abstract class Account extends Identifiable implements Serializable {
      * @param name Nombre del usuario
      */
     public Account(String name) {
-        super(name);
+        this.name = name;
     }
 
+    /**
+     * Retorna el nombre de la cuenta
+     */
+    public String getName() {
+        return name;
+    }
 }

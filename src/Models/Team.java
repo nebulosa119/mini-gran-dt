@@ -8,15 +8,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
-public class Team extends Identifiable implements Serializable {
+public class Team implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private ArrayList<Player> players;
-    private int maxPlayers;
+    private String name;
+    private int maxPlayers; // esto no tiene que estar aca, es de tournament, hay que arreglarlo
 
     public Team(String name, int maxPlayers) {
-        super(name);
+        this.name = name;
         this.players = new ArrayList<>();
         this.maxPlayers = maxPlayers;
     }
@@ -30,12 +31,8 @@ public class Team extends Identifiable implements Serializable {
         return players;
     }
 
-    public ArrayList<Player> getNewPlayers(){
-        ArrayList<Player> resp = new ArrayList<>();
-        for (Player player :players) {
-            resp.add(new Player(player.getName()));
-        }
-        return resp;
+    public String getName() {
+        return name;
     }
 
     public int getMaxPlayers() { return maxPlayers; }
