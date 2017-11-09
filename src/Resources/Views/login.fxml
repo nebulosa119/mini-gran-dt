@@ -17,7 +17,7 @@
       </ImageView>
       <AnchorPane layoutX="362.0" layoutY="50.0" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #9C2B27;">
          <children>
-            <JFXTextField fx:id="userTextField" alignment="CENTER" focusColor="#4c965b" layoutX="40.0" layoutY="107.0" prefHeight="25.0" prefWidth="220.0" promptText="usuario" style="-fx-background-color: #b15858;" unFocusColor="#cdb8b8">
+            <JFXTextField fx:id="userTextField" onKeyPressed="#handleEnterPressed" alignment="CENTER" focusColor="#4c965b" layoutX="40.0" layoutY="107.0" prefHeight="25.0" prefWidth="220.0" promptText="usuario" style="-fx-background-color: #b15858;" unFocusColor="#cdb8b8">
                <font>
                   <Font size="16.0" />
                </font>

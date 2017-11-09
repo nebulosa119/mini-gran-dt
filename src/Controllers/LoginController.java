@@ -4,6 +4,10 @@ import Models.AccountsManager;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+
+import java.awt.event.ActionEvent;
 
 public class LoginController{
 
@@ -32,5 +36,11 @@ public class LoginController{
     @FXML
     private void handleRegister(){
         MainApp.setScene("registrationScene");
+    }
+
+    @FXML
+    public void handleEnterPressed(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER)
+            handleLogin();
     }
 }
