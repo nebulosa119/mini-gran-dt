@@ -84,11 +84,11 @@ public class AccountsManager implements Serializable{
 
     /** Carga los usuarios existentes al programa */
     public static void loadAccounts() {
-        accounts = (ArrayList<Account>) FileManager.unserializeObject("accountsData.temp");
+        accounts = (ArrayList<Account>) FileManager.readFromFile("accountsData.temp");
     }
     /** Guarda los usuarios existentes */
     public static void save(){
-        FileManager.serializeObject(accounts,"accountsData.temp");
+        FileManager.writeToFile(accounts,"accountsData.temp");
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException {

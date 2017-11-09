@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 
 import java.io.*;
 import java.net.URL;
+import java.util.NoSuchElementException;
 
 
 public class FileManager {
@@ -16,30 +17,46 @@ public class FileManager {
         return resourcesDirectory.getAbsoluteFile().toString();
     }
 
-    public static void serializeObject(Object obj, String fileName) {
+    public static void writeToFile(Object obj, String fileName){
         String resourceDirectory = getResourcesDirectory();
+        ObjectOutputStream outStream = null;
         try {
-            FileOutputStream fileOut = new FileOutputStream(resourceDirectory+"/"+fileName);
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(obj);
-            out.close();
-            fileOut.close();
-        }catch(IOException i) {
-            i.printStackTrace();
+            outStream = new ObjectOutputStream(new FileOutputStream(resourceDirectory + "/" + fileName));
+            outStream.writeObject(obj);
+        } catch (IOException ioException) {
+            System.err.println("Error opening file.");
+        }catch(NoSuchElementException noSuchElementExcaption){
+            System.err.println("Invalid input.");
+        }finally{
+            try {
+                if (outStream != null)
+                    outStream.close();
+            }catch(IOException ioException){
+                System.err.println("Error closing file.");
+            }
         }
     }
 
-    static Object unserializeObject(String fileName) {
+    static Object readFromFile(String fileName) {
         String resourceDirectory = getResourcesDirectory();
         Object obj = null;
+        ObjectInputStream inputStream = null;
         try {
-            FileInputStream fileIn = new FileInputStream(resourceDirectory + "/"+fileName);
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            obj = in.readObject();
-            in.close();
-            fileIn.close();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            inputStream = new ObjectInputStream(new FileInputStream(resourceDirectory + "/" + fileName));
+            obj = inputStream.readObject();
+        } catch (EOFException eofException) {
+            return obj;
+        } catch (ClassNotFoundException classNetFoundException) {
+            System.err.println("Object creation failed.");
+        } catch (IOException ioException) {
+            System.err.println("Error opening file.");
+        } finally {
+            try {
+                if (inputStream != null)
+                    inputStream.close();
+            } catch (IOException ioException) {
+                System.err.println("Error closing file.");
+            }
         }
         return obj;
     }
