@@ -28,10 +28,10 @@ public class MainApp extends Application { // saquemoslo de Controlles despues
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        AccountsManager.loadAccounts();
         stage = primaryStage;
         stage.setTitle("Mini Gran DT");
         stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/Resources/Media/icon.png")));
-        AccountsManager.loadAccounts();
         setScene("login");
         stage.show();
     }
