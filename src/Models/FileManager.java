@@ -1,12 +1,6 @@
 package Models;
 
-import Controllers.MainApp;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-
 import java.io.*;
-import java.net.URL;
 import java.util.NoSuchElementException;
 
 
@@ -60,23 +54,4 @@ public class FileManager {
         }
         return obj;
     }
-
-    static Scene loadFxml(String fileName) throws IOException {
-        Parent page = null;
-        try {
-            URL fileUrl = MainApp.class.getResource("/Resources/Views/" + fileName + ".fxml");
-            if(fileUrl == null){
-                throw new java.io.FileNotFoundException("FXML file can't be found");
-            }
-            page = new FXMLLoader().load(fileUrl);
-        } catch (Exception e) {
-            //Esta tirando excepciones aca porque no estan conectados a ningun Controller algunos fxml
-            System.out.println(e.getMessage());
-        }
-        if(page!=null)
-            return new Scene(page);
-        else
-            return null;
-    }
-
 }

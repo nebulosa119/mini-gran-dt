@@ -10,8 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-
-public class MainApp extends Application { // saquemoslo de Controlles despues
+public class MainApp extends Application {
 
     private static Stage stage;
     private static MainApp instance;
@@ -48,7 +47,7 @@ public class MainApp extends Application { // saquemoslo de Controlles despues
             URL fileUrl = MainApp.class.getResource("/Resources/Views/" + windowName + ".fxml");
             page = FXMLLoader.load(fileUrl);
         } catch (Exception e) {
-            System.out.println("FXML Error.");
+            System.out.println("FXML " + windowName +" loading error.");
         }
         stage.setScene(new Scene(page));
     }
