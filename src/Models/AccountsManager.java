@@ -49,15 +49,6 @@ public class AccountsManager implements Serializable{
         return instance;
     }
 
-    public static void save(){
-        // (!(accounts == null || accounts.isEmpty())){
-        //   String fileName = Types.USER.fileName;
-        // System.out.println("guardando en "+fileName);
-        //FileManager.serializeObject(accounts,fileName);
-        //
-        //FileManager.serializeObject(this,Types.USER.fileName);
-    }
-
     public static boolean contains(String username) {
         if(username.equals(""))
             return false;
@@ -73,10 +64,6 @@ public class AccountsManager implements Serializable{
 
     public static void createAccount(Account account) {
         accounts.add(account);
-    }
-
-    public static ArrayList<Account> getAccounts() {
-        return accounts;
     }
 
     public static Account getAccount(String username) {
@@ -172,41 +159,7 @@ public class AccountsManager implements Serializable{
             ((Administrator) account).refresh(tournaments);
     }
 
-    public static void createNewTournament(String tourName, int maxPlayers) {
-        if (account instanceof Administrator)
-            ((Administrator)account).addTournament(new Tournament(tourName, maxPlayers));
-    }
-
     // el nombre del club deberia er identico al del administrador
-    public static Tournament getTournament(String clubName, String tourName) {
-        for (Account account:accounts) {
-            if (account instanceof Administrator)
-                if (account.getName().equals(clubName) && ((Administrator) account).hasTournament(tourName))
-                    return ((Administrator) account).getTournament(tourName);
-        }
-        return null;
-    }
-
-    public static Map<String,Set<String>> getAllTournaments() {
-        HashMap<String,Set<String>> tourNames= new HashMap<>();
-        for (Account account:accounts) {
-            if (account instanceof Administrator){
-                Administrator admin = (Administrator)account;
-                tourNames.put(admin.getName(), admin.getTournamentNames());
-            }
-        }
-        return tourNames;
-    }
-
-    public static Team getUserTeam(String tourName) {
-        if (account instanceof User)
-            return ((User)account).getTeam(tourName);
-        return null;
-    }
-
-    public static void addUserToTournament(String adminName, String tourName) {
-        ((Administrator)getAccount(adminName)).addUser(tourName,(User) account);
-    }
 
     public static Set<Tournament> getTournaments() {
         return ((Administrator)account).getTournaments();
