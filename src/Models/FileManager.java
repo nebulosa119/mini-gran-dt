@@ -11,37 +11,11 @@ import java.net.URL;
 
 public class FileManager {
 
-    public static void writeObjectToFile(Object o, String file) {
-        file = getResourcesDirectory()+"/"+file;
-        try{
-            FileOutputStream fos = new FileOutputStream(file);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(o);
-            oos.close();
-        } catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
-
     private static String getResourcesDirectory() {
         File resourcesDirectory = new File("src/Resources");
         return resourcesDirectory.getAbsoluteFile().toString();
     }
 
-    public static Object readObjectFromFile(String file) {
-        file = getResourcesDirectory()+"/"+file;
-        System.out.println("reading from "+ file);
-        Object resp = null;
-        try{
-            FileInputStream fis = new FileInputStream(file);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            resp = ois.readObject();
-            ois.close();
-        } catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-        return resp;
-    }
     public static void serializeObject(Object obj, String fileName) {
         String resourceDirectory = getResourcesDirectory();
         try {
@@ -50,7 +24,6 @@ public class FileManager {
             out.writeObject(obj);
             out.close();
             fileOut.close();
-            System.out.printf("Serialized "+obj+"to file "+fileName);
         }catch(IOException i) {
             i.printStackTrace();
         }

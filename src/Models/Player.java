@@ -86,32 +86,16 @@ public class Player implements Serializable{
         out.defaultWriteObject();
         out.writeUTF(name);
         out.writeInt(price);
-        /*
-        out.writeInt(normal_goals_scored);
-        out.writeInt(goals_scored_by_penalty_kick);
-        out.writeInt(penalty_catched);
-        out.writeInt(goals_scored_goalkeeper);
-        out.writeInt(yellow_cards);
-        out.writeInt(red_cards);
-        out.writeInt(goals_against);
-         */
+        out.writeObject(properties);
     }
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException{
         ois.defaultReadObject();
         name = ois.readUTF();
         price = ois.readInt();
-        /*
-        ois.writeInt(normal_goals_scored);
-        ois.writeInt(goals_scored_by_penalty_kick);
-        ois.writeInt(penalty_catched);
-        ois.writeInt(goals_scored_goalkeeper);
-        ois.writeInt(yellow_cards);
-        ois.writeInt(red_cards);
-        ois.writeInt(goals_against);
-         */
+        properties = (Properties) ois.readObject();
     }
 
-    public static class Properties {
+    public static class Properties implements Serializable {
 
         private int normal_goals_scored;
         private int goals_scored_by_penalty_kick;
@@ -239,6 +223,27 @@ public class Player implements Serializable{
             public double getUPricePerCent() {
                 return uPricePerCent;
             }
+        }
+
+        private void writeObject(ObjectOutputStream out) throws IOException{
+            out.defaultWriteObject();
+            out.writeInt(normal_goals_scored);
+            out.writeInt(goals_scored_by_penalty_kick);
+            out.writeInt(penalty_catched);
+            out.writeInt(goals_scored_goalkeeper);
+            out.writeInt(yellow_cards);
+            out.writeInt(red_cards);
+            out.writeInt(goals_against);
+        }
+        private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException{
+            ois.defaultReadObject();
+            normal_goals_scored          = ois.readInt();
+            goals_scored_by_penalty_kick = ois.readInt();
+            penalty_catched              = ois.readInt();
+            goals_scored_goalkeeper      = ois.readInt();
+            yellow_cards                 = ois.readInt();
+            red_cards                    = ois.readInt();
+            goals_against                = ois.readInt();
         }
     }
 }

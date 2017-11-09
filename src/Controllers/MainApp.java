@@ -26,10 +26,6 @@ public class MainApp extends Application { // saquemoslo de Controlles despues
         return instance;
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     @Override
     public void start(Stage primaryStage) throws Exception{
         stage = primaryStage;
@@ -42,7 +38,7 @@ public class MainApp extends Application { // saquemoslo de Controlles despues
 
     @Override
     public void stop() throws Exception {
-        //accounts.save();
+        AccountsManager.save();
         super.stop();
     }
 
@@ -50,10 +46,14 @@ public class MainApp extends Application { // saquemoslo de Controlles despues
         Parent page = null;
         try {
             URL fileUrl = MainApp.class.getResource("/Resources/Views/" + windowName + ".fxml");
-            page = new FXMLLoader().load(fileUrl);
+            page = FXMLLoader.load(fileUrl);
         } catch (Exception e) {
             System.out.println("FXML Error.");
         }
         stage.setScene(new Scene(page));
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
