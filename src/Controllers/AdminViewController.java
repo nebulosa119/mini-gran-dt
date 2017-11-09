@@ -45,6 +45,11 @@ public class AdminViewController implements Initializable{
         dataRefreshed.setVisible(true);
     }
 
+    @FXML
+    private void handleLogout(){
+        MainApp.getInstance().setScene("login");
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

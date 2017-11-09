@@ -19,7 +19,7 @@
          <children>
             <ButtonBar prefHeight="25.0" prefWidth="866.0">
               <buttons>
-                <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="89.0" text="Salir" />
+                <Button mnemonicParsing="false" onAction="#handleLogout" prefHeight="41.0" prefWidth="89.0" text="Salir" />
               </buttons>
             </ButtonBar>
             <SplitPane dividerPositions="0.2505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">

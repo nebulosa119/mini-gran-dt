@@ -120,6 +120,7 @@ public class AccountsManager implements Serializable{
         for (Tournament tour:tournaments) {
             for (int i = 0; i < 8; i++) {
                 Team team = teams.get(i);
+                Collections.shuffle(men);
                 for (String name: men) {
                     Player newPlayer = new Player(name,rand.nextInt(20000));
                     Properties properties = new Properties(rand.nextInt(10),rand.nextInt(10),rand.nextInt(10),rand.nextInt(10),rand.nextInt(10),rand.nextInt(10),rand.nextInt(10));
