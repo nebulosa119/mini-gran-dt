@@ -2,7 +2,7 @@ package Controllers;
 
 import Models.Tournament;
 
-public class TournamentController {
+public class  TournamentController {
 
     private Tournament t;
 

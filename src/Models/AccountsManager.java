@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -31,6 +32,15 @@ public class AccountsManager implements Serializable{
         //accounts = (ArrayList<Account>) FileManager.unserializeObject(Types.USER.fileName);// no se como se soluciona
         accounts = new ArrayList<>();
         simulateAccounts();
+    }
+
+    public ArrayList<Administrator> getAdmins() {
+        ArrayList<Administrator> aux = new ArrayList<>();
+        for(Account a : accounts) {
+            if(a instanceof Administrator)
+                aux.add((Administrator)a);
+        }
+        return aux;
     }
 
     public static AccountsManager getInstance(){

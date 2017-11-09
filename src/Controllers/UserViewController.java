@@ -1,13 +1,11 @@
 package Controllers;
 
-import Models.AccountsManager;
-import Models.Team;
-import Models.Tournament;
-import Models.User;
+import Models.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,6 +13,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 //import sun.plugin.javascript.navig.Anchor;
@@ -40,24 +39,24 @@ public class UserViewController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Set<Tournament> tournaments = AccountsManager.getInstance().getTournaments();
 
-        for(Tournament tournament : tournaments) {
+        for(Administrator administrator : AccountsManager.getInstance().getAdmins()) {
             ToggleGroup tournamentGroup = new ToggleGroup();
             VBox tournamentBox = new VBox(10);
             tournamentBox.setPadding(new Insets(10));
-            for(Team team : tournament.getTeams()) {
-                RadioButton teamButton = new RadioButton(team.getName());
-                tournamentGroup.getToggles().add(teamButton);
-                tournamentBox.getChildren().add(teamButton);
+            for(Tournament tournament : administrator.getTournaments()) {
+                RadioButton tButton = new RadioButton(tournament.getName());
+                tournamentGroup.getToggles().add(tButton);
+                tournamentBox.getChildren().add(tButton);
             }
             tournamentGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
                 @Override
                 public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
-                    if(tournamentGroup.getSelectedToggle() != null && ((User)AccountsManager.getInstance().getSignedAccount()).getTeam(tournament.getName()) != null) {
+                    if(tournamentGroup.getSelectedToggle() != null &&
+                            ((User)AccountsManager.getInstance().getSignedAccount()).getTeam(((RadioButton)tournamentGroup.getSelectedToggle()).getText()) != null) {
                         RadioButton selected = (RadioButton)tournamentGroup.getSelectedToggle();
-                        team = tournament.getTeam(selected.getText());
-                        TeamController.setTournament(tournament);
+                        Tournament aux = administrator.getTournament(selected.getText());
+                        TeamController.setTournament(aux);
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("teamManager.fxml"));
                         Parent root = null;
                         try {
@@ -69,9 +68,15 @@ public class UserViewController implements Initializable{
                     }
                 }
             });
-            TitledPane tournamentPane = new TitledPane(tournament.getName(), tournamentBox);
+            TitledPane tournamentPane = new TitledPane(administrator.getName(), tournamentBox);
             tournamentAccordion.getPanes().add(tournamentPane);
         }
+
+        signUpButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            }
+        });
 
     }
 }
