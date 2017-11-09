@@ -28,7 +28,7 @@ import java.util.Set;
 
 public class UserViewController implements Initializable{
 
-    private Team team = null;
+    private RadioButton selectedButton = null;
 
     @FXML
     private Accordion tournamentAccordion;
@@ -65,6 +65,8 @@ public class UserViewController implements Initializable{
                             e.printStackTrace();
                         }
                         userTeamView.getChildren().add(root);
+                    } else {
+                        selectedButton = (RadioButton) tournamentGroup.getSelectedToggle();
                     }
                 }
             });
@@ -75,6 +77,7 @@ public class UserViewController implements Initializable{
         signUpButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+
             }
         });
 

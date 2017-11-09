@@ -212,7 +212,6 @@ public class AccountsManager implements Serializable{
         return ((Administrator)account).getTournaments();
     }
 
-
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
         out.writeObject(accounts);
