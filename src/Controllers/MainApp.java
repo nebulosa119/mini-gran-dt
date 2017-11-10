@@ -26,7 +26,7 @@ public class MainApp extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage){
         AccountsManager.loadAccounts();
         stage = primaryStage;
         stage.setTitle("Mini Gran DT");
@@ -36,9 +36,13 @@ public class MainApp extends Application {
     }
 
     @Override
-    public void stop() throws Exception {
-        AccountsManager.save();
-        super.stop();
+    public void stop(){
+        try {
+            AccountsManager.save();
+            super.stop();
+        } catch (Exception e) {
+            System.out.println("Error while stopping.");
+        }
     }
 
     public static void setScene(String windowName){

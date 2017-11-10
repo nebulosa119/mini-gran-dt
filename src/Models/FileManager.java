@@ -19,7 +19,7 @@ public class FileManager {
             outStream.writeObject(obj);
         } catch (IOException ioException) {
             System.err.println("Error opening file.");
-        }catch(NoSuchElementException noSuchElementExcaption){
+        }catch(NoSuchElementException noSuchElementException){
             System.err.println("Invalid input.");
         }finally{
             try {
