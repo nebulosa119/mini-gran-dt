@@ -22,7 +22,10 @@ import java.util.*;
 
 public class AdminViewController implements Initializable{
 
-    private Team team=null;
+    private Team team = null;
+    private String tournamentName = null;
+    private String teamName = null;
+    private TableView<Player> playersTableView;
 
     @FXML
     private Label tournamentsLoaded;
@@ -37,16 +40,9 @@ public class AdminViewController implements Initializable{
     private AnchorPane playersAnchorPane;
 
     @FXML
-    private void handleRefresh(){
-        System.out.println(team.toString());
-        dataRefreshed.setVisible(true);
-    }
-
-    @FXML
     private void handleLogout(){
         MainApp.getInstance().setScene("login");
     }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -66,6 +62,8 @@ public class AdminViewController implements Initializable{
                     if (tournamentGroup.getSelectedToggle() != null) {
                         RadioButton selected = (RadioButton)tournamentGroup.getSelectedToggle();
                         team = tournament.getTeam(selected.getText());
+                        tournamentName = tournament.getName();
+                        teamName = team.getName();
                         showTeamPlayers();
                     }
                 }
@@ -77,11 +75,19 @@ public class AdminViewController implements Initializable{
     }
 
     private void showTeamPlayers(){
-        TableColumn playerNameCol = new TableColumn("Player");
-        playerNameCol.setMinWidth(200);
+        //armo lista de players vacios con la info del team
+        ArrayList<Player> newPlayers = new ArrayList<>();
+        for (Models.Player player : team.getPlayers()){
+            newPlayers.add(new Player(player.getName()));
+
+        }
+        ObservableList<Player> data = FXCollections.observableArrayList(newPlayers);
+
+        TableColumn playerNameCol = new TableColumn("Jugador");
+        playerNameCol.setMinWidth(150);
         playerNameCol.setCellValueFactory(new PropertyValueFactory<Player,String>("name"));
 
-        TableColumn normalGoalsScored = new TableColumn("Normal Goals Scored");
+        TableColumn normalGoalsScored = new TableColumn("Goles anotados");
         normalGoalsScored.setMinWidth(170);
         normalGoalsScored.setCellValueFactory(new PropertyValueFactory<Player,String>("normal_goals_scored"));
         normalGoalsScored.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -92,7 +98,7 @@ public class AdminViewController implements Initializable{
             }
         });
 
-        TableColumn goalsScoredByPenaltyKick = new TableColumn("Goals Scored By Penalty Kick");
+        TableColumn goalsScoredByPenaltyKick = new TableColumn("Goles anotados por penal");
         goalsScoredByPenaltyKick.setMinWidth(230);
         goalsScoredByPenaltyKick.setCellValueFactory(new PropertyValueFactory<Player,String>("goals_scored_by_penalty_kick"));
         goalsScoredByPenaltyKick.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -103,7 +109,7 @@ public class AdminViewController implements Initializable{
             }
         });
 
-        TableColumn penaltyCatched = new TableColumn("Penalty Catched");
+        TableColumn penaltyCatched = new TableColumn("Penal atrapado");
         penaltyCatched.setMinWidth(140);
         penaltyCatched.setCellValueFactory(new PropertyValueFactory<Player,String>("penalty_catched"));
         penaltyCatched.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -114,7 +120,7 @@ public class AdminViewController implements Initializable{
             }
         });
 
-        TableColumn goalsScoredGoalkeeper = new TableColumn("Goals Scored Goalkeeper");
+        TableColumn goalsScoredGoalkeeper = new TableColumn("Gol anotado por arquero");
         goalsScoredGoalkeeper.setMinWidth(200);
         goalsScoredGoalkeeper.setCellValueFactory(new PropertyValueFactory<Player,String>("goals_scored_goalkeeper"));
         goalsScoredGoalkeeper.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -125,7 +131,7 @@ public class AdminViewController implements Initializable{
             }
         });
 
-        TableColumn yellowCards = new TableColumn("Yellow Cards");
+        TableColumn yellowCards = new TableColumn("Tarjetas amarillas");
         yellowCards.setMinWidth(120);
         yellowCards.setCellValueFactory(new PropertyValueFactory<Player,String>("yellow_cards"));
         yellowCards.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -136,7 +142,7 @@ public class AdminViewController implements Initializable{
             }
         });
 
-        TableColumn redCards = new TableColumn("Red Cards");
+        TableColumn redCards = new TableColumn("Tarjetas rojas");
         redCards.setMinWidth(100);
         redCards.setCellValueFactory(new PropertyValueFactory<Player,String>("red_cards"));
         redCards.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -147,7 +153,7 @@ public class AdminViewController implements Initializable{
             }
         });
 
-        TableColumn goalsAgainst = new TableColumn("Goals Against");
+        TableColumn goalsAgainst = new TableColumn("Goles en contra");
         goalsAgainst.setMinWidth(130);
         goalsAgainst.setCellValueFactory(new PropertyValueFactory<Player,String>("goals_against"));
         goalsAgainst.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -158,19 +164,101 @@ public class AdminViewController implements Initializable{
             }
         });
 
-        //armo lista de players vacios con la info del team
-        ArrayList<Player> newPlayers = new ArrayList<>();
-        for (Models.Player player : team.getPlayers())
-            newPlayers.add(new Player(player.getName()));
-        ObservableList<Player> data = FXCollections.observableArrayList(newPlayers);
-
         playersAnchorPane.getChildren().removeAll();
-        TableView<Player> playersTableView = new TableView<Player>();
+        playersTableView = new TableView<Player>();
         playersTableView.setItems(data);
         playersTableView.setEditable(true);
         playersTableView.getColumns().addAll(playerNameCol,normalGoalsScored,goalsScoredByPenaltyKick,penaltyCatched,goalsScoredGoalkeeper,yellowCards,redCards,goalsAgainst);
         playersTableView.prefHeightProperty().bind(playersAnchorPane.heightProperty());
         playersAnchorPane.getChildren().add(playersTableView);
+    }
+
+    @FXML
+    private void handleRefresh(){
+        if(tournamentName == null || teamName == null)
+            return;
+        dataRefreshed.setVisible(true);
+        uploadData();
+    }
+
+    private void uploadData(){
+        Map<String,Map<String,Map<String, Models.Player.Properties>>> dataTournaments = new HashMap<>();
+        dataTournaments.put(tournamentName,getTournamentData());
+        AccountsManager.refresh(dataTournaments);
+    }
+
+    private Map<String,Map<String, Models.Player.Properties>> getTournamentData(){
+        /*VBox tournamentVBox = (VBox)tournamentsAccordion.getExpandedPane().getContent();
+        ToggleGroup tournamentGroup = (ToggleGroup)tournamentVBox.getChildren();
+        RadioButton selectedTeam = (RadioButton)tournamentGroup.getSelectedToggle();
+        String teamName = selectedTeam.getText();*/
+        Map<String,Map<String, Models.Player.Properties>> dataTournament = new HashMap<>();
+        dataTournament.put(teamName, getTeamData());
+        return dataTournament;
+    }
+
+    private Map<String, Models.Player.Properties> getTeamData() {
+        Map<String, Models.Player.Properties> dataTeam = new HashMap<>();
+        Models.Player.Properties prop = new Models.Player.Properties();
+        for (Object item : playersTableView.getItems()) {
+            String name = ((AdminViewController.Player)item).getName();
+            prop.setProperty(0,Integer.parseInt(((AdminViewController.Player)item).getNormalGoalsScored()));
+            prop.setProperty(1,Integer.parseInt(((AdminViewController.Player)item).getGoalsScoredByPenaltyKick()));
+            prop.setProperty(2,Integer.parseInt(((AdminViewController.Player)item).getPenaltyCatched()));
+            prop.setProperty(3,Integer.parseInt(((AdminViewController.Player)item).getGoalsScoredGoalkeeper()));
+            prop.setProperty(4,Integer.parseInt(((AdminViewController.Player)item).getYellowCards()));
+            prop.setProperty(5,Integer.parseInt(((AdminViewController.Player)item).getRedCards()));
+            prop.setProperty(6,Integer.parseInt(((AdminViewController.Player)item).getGoalsAgainst()));
+            dataTeam.put(name,prop);
+        }
+        return dataTeam;
+    }
+
+    /*private void uploadData(Accordion tAccordion) {
+        Map<String,Map<String,Map<String, Models.Player.Properties>>> dataTournaments = new HashMap<>();
+        // para cada acordion de torneo...
+        for (TitledPane tourPane : tAccordion.getPanes()) {
+            String tourName = tourPane.getText();
+            Accordion teamsAccordion = (Accordion)tourPane.getContent();
+            dataTournaments.put(tourName,getTournamentData(teamsAccordion));
+        }
+        AccountsManager.refresh(dataTournaments);
+        System.out.println();
+    }
+
+    private Map<String,Map<String, Models.Player.Properties>> getTournamentData(Accordion teamsAccordion) {
+        Map<String,Map<String, Models.Player.Properties>> dataTournament = new HashMap<>();
+        // para cada panel de equipo dentro del accordion del torneo...
+        for (TitledPane teamPane : teamsAccordion.getPanes()) {
+            String teamName = teamPane.getText();
+            TableView teamTable = (TableView)teamPane.getContent();
+            dataTournament.put(teamName,getTeamData(teamTable));
+        }
+        return dataTournament;
+    }
+
+    private Map<String, Models.Player.Properties> getTeamData(TableView teamTable) {
+        Map<String, Models.Player.Properties> dataTeam = new HashMap<>();
+        Models.Player.Properties prop = new Models.Player.Properties();
+        for (Object item : teamTable.getItems()) {
+            String name = ((AdminViewController.Player)item).getName();
+            prop.setProperty(0,Integer.parseInt(((AdminViewController.Player)item).getNormalGoalsScored()));
+            prop.setProperty(1,Integer.parseInt(((AdminViewController.Player)item).getGoalsScoredByPenaltyKick()));
+            prop.setProperty(2,Integer.parseInt(((AdminViewController.Player)item).getPenaltyCatched()));
+            prop.setProperty(3,Integer.parseInt(((AdminViewController.Player)item).getGoalsScoredGoalkeeper()));
+            prop.setProperty(4,Integer.parseInt(((AdminViewController.Player)item).getYellowCards()));
+            prop.setProperty(5,Integer.parseInt(((AdminViewController.Player)item).getRedCards()));
+            prop.setProperty(6,Integer.parseInt(((AdminViewController.Player)item).getGoalsAgainst()));
+            dataTeam.put(name,prop);
+        }
+        return dataTeam;
+    }*/
+
+    private Alert createAlert(String message){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.getDialogPane().setHeaderText(message);
+        return alert;
     }
 
     public static class Player {
@@ -246,52 +334,5 @@ public class AdminViewController implements Initializable{
         void setGoalsAgainst(String goals_against) {
             this.goals_against.set(goals_against);
         }
-    }
-
-    private void uploadData(Accordion tAccordion) {
-        Map<String,Map<String,Map<String, Models.Player.Properties>>> dataTournaments = new HashMap<>();
-        // para cada acordion de torneo...
-        for (TitledPane tourPane : tAccordion.getPanes()) {
-            String tourName = tourPane.getText();
-            Accordion teamsAccordion = (Accordion)tourPane.getContent();
-            dataTournaments.put(tourName,getTournamentData(teamsAccordion));
-        }
-        AccountsManager.refresh(dataTournaments);
-        System.out.println();
-    }
-
-    private Map<String,Map<String, Models.Player.Properties>> getTournamentData(Accordion teamsAccordion) {
-        Map<String,Map<String, Models.Player.Properties>> dataTournament = new HashMap<>();
-        // para cada panel de equipo dentro del accordion del torneo...
-        for (TitledPane teamPane : teamsAccordion.getPanes()) {
-            String teamName = teamPane.getText();
-            TableView teamTable = (TableView)teamPane.getContent();
-            dataTournament.put(teamName,getTeamData(teamTable));
-        }
-        return dataTournament;
-    }
-
-    private Map<String, Models.Player.Properties> getTeamData(TableView teamTable) {
-        Map<String, Models.Player.Properties> dataTeam = new HashMap<>();
-        Models.Player.Properties prop = new Models.Player.Properties();
-        for (Object item : teamTable.getItems()) {
-            String name = ((AdminViewController.Player)item).getName();
-            prop.setProperty(0,Integer.parseInt(((AdminViewController.Player)item).getNormalGoalsScored()));
-            prop.setProperty(1,Integer.parseInt(((AdminViewController.Player)item).getGoalsScoredByPenaltyKick()));
-            prop.setProperty(2,Integer.parseInt(((AdminViewController.Player)item).getPenaltyCatched()));
-            prop.setProperty(3,Integer.parseInt(((AdminViewController.Player)item).getGoalsScoredGoalkeeper()));
-            prop.setProperty(4,Integer.parseInt(((AdminViewController.Player)item).getYellowCards()));
-            prop.setProperty(5,Integer.parseInt(((AdminViewController.Player)item).getRedCards()));
-            prop.setProperty(6,Integer.parseInt(((AdminViewController.Player)item).getGoalsAgainst()));
-            dataTeam.put(name,prop);
-        }
-        return dataTeam;
-    }
-
-    private Alert createAlert(String message){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initModality(Modality.APPLICATION_MODAL);
-        alert.getDialogPane().setHeaderText(message);
-        return alert;
     }
 }
