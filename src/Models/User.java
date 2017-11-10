@@ -10,7 +10,7 @@ import java.util.TreeMap;
 
 // implementa comparable con respecto a los puntos para ordenarlos en cada tournament y cuando se muestra la lista de puntajes
 // solo hay que recorrer la lista e imprimirlos
-public class User extends Account implements Serializable{
+public class User extends Account{
 
     private static final long serialVersionUID = 1L;
 

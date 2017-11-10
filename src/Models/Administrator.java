@@ -6,7 +6,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
 
-public class Administrator extends Account implements Serializable{
+public class Administrator extends Account {
 
     private static final long serialVersionUID = 1L;
 
