@@ -36,7 +36,7 @@ public class Administrator extends Account {
         ArrayList<User> users = tournamentUsers.get(tour);
         if (users!=null) {
             for (User user : users) {
-                user.refreshPoints(tourName,unifyPlayers(tournament));
+                //user.refreshPoints(tourName,unifyPlayers(tournament));
             }
         }
         Collections.sort(users, new Comparator<User>() {

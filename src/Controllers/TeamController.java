@@ -1,17 +1,17 @@
 package Controllers;
 
 import Models.*;
-import javafx.beans.property.*;
+import Models.Exceptions.InsufficientFundsException;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -52,12 +52,16 @@ public class TeamController {//  controla la ventana del user
             /**Defino las columnas de la tabla*/
             TableColumn<Player, String> playerName = new TableColumn<>("Name");
             TableColumn<Player, Integer> playerRanking = new TableColumn<>("Ranking");
-            TableColumn<Player, Boolean> wantPlayer = new TableColumn<>("Check to buy");
+            TableColumn<Player, Integer> playerPrice = new TableColumn<>("Price");
 
             /**Asocio los datos con las celdas de la tabla*/
-            playerName.setCellValueFactory(info -> new SimpleStringProperty(info.getValue().getName()));
             playerRanking.setCellValueFactory(info -> (new SimpleIntegerProperty(info.getValue().getRanking())).asObject());
-            wantPlayer.setCellFactory(CheckBoxTableCell.forTableColumn(wantPlayer));
+            playerPrice.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Player, Integer>, ObservableValue<Integer>>() {
+                @Override
+                public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Player, Integer> param) {
+                    return (new SimpleIntegerProperty(param.getValue().getPrice())).asObject();
+                }
+            });
             playerName.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Player, String>, ObservableValue<String>>() {
                 @Override
                 public ObservableValue<String> call(TableColumn.CellDataFeatures<Player, String> param) {
@@ -67,7 +71,7 @@ public class TeamController {//  controla la ventana del user
             });
 
             /**Agrego las columnas a la tabla*/
-            playerTableView.getColumns().addAll(playerName, playerRanking);
+            playerTableView.getColumns().addAll(playerName, playerRanking, playerPrice);
 
             /**Agrego la tabla al tab*/
             tab.setContent(playerTableView);
@@ -75,24 +79,22 @@ public class TeamController {//  controla la ventana del user
             /**Agrego la tab*/
             teamsTabPanes.getTabs().add(tab);
 
-            /**Configuro el listView del usuario*/
-            /**Lo lleno con los jugadores que tenga*/
-            if(user != null && user.getTeam(tournament.getName()) != null)
-                userPlayerList.setItems(FXCollections.observableArrayList(user.getTeam(tournament.getName()).getPlayers()));
-            userPlayerList.setCellFactory(param -> new ListCell<Player>() {
-                @Override
-                protected void updateItem(Player p, boolean empty) {
-                    super.updateItem(p, empty);
-                    if (empty || p == null || p.getName() == null) {
-                        setText(null);
-                    } else {
-                        setText(p.getName());
-                    }
-                }
-            });
-            /**Permite selecciones múltiples*/
-            userPlayerList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         }
+        /**Configuro el listView del usuario*/
+        /**Lo lleno con los jugadores que tenga*/
+        if(user != null && user.hasSigned(tournament))
+            userPlayerList.setItems(FXCollections.observableArrayList(user.getUserTeams().getUserTeamPlayers(tournament)));
+        userPlayerList.setCellFactory(param -> new ListCell<Player>() {
+                @Override
+                protected void updateItem(Player p, boolean empty) { super.updateItem(p, empty);
+                if (empty || p == null || p.getName() == null) {
+                    setText(null);
+                } else {
+                    setText(p.getName());
+                } }
+        });
+        /**Permite selecciones múltiples*/
+        userPlayerList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         VBox aux = new VBox();
         aux.getChildren().add(teamsTabPanes);
         teamsToCheckOutPane.getChildren().add(aux);
@@ -108,7 +110,7 @@ public class TeamController {//  controla la ventana del user
 
         @Override
         public void handle(Event event) {
-            /**Guarda y sale. NO SE COMO FUCKING HACER ESTO DE SERIALIZAR*/
+            /**Guarda y sale*/
 
         }
     };
@@ -138,26 +140,22 @@ public class TeamController {//  controla la ventana del user
 
     /**En cuanto al tema de repetidos: se debería ver desde el model eso. Es decir, en la clase Usuario debería existir un método para verificar si
      * el jugador que quiere y puede comprar es repetido o no*/
-    private EventHandler addPlayerHandler = new EventHandler(){
+    private EventHandler addPlayerHandler = new EventHandler() {
         @Override
         public void handle(Event event) {
             /**Añade al jugador elegido y decrementa los fondos*/
-            for(Tab t : teamsTabPanes.getTabs()) {
-                for(Player p : (ObservableList<Player>)((TableView)t.getContent()).getSelectionModel().getSelectedItems()) {
-                    /**Agrego el jugaodr al equipo del usuario*/
-                    if (user.canBuy(p) && user.hasCapacity(tournament)) {
-                        user.buy(tournament.getName(), p);
-                        user.getTeam(tournament.getName()).getPlayers().add(p); /**Aca hay un tema de ocultamiento de la info: si lo queremos modularizar bien de manera que quedetodo bien independiente entre si,
-                         entonces no deberiamos revelar que la clase User guarda a los jugadores de sus equipos en forma de ArrayList*/
-                        userPlayerList.setItems(FXCollections.observableArrayList(user.getTeam(tournament.getName()).getPlayers()));
-                    } else {
-                        showErrorMessage();
+            try {
+                for (Tab t : teamsTabPanes.getTabs()) {
+                    for (Player p : (ObservableList<Player>) ((TableView) t.getContent()).getSelectionModel().getSelectedItems()) {
+                        /**Agrego el jugaodr al equipo del usuario*/
+                        user.buy(tournament, p);
                     }
-                    /**Se debería desde acá restarle al usuario sus fondos*/
-
                 }
+            } catch (InsufficientFundsException e) {
+                showErrorMessage();
             }
         }
+
     };
 
     private EventHandler removePlayerHandler = new EventHandler(){
@@ -166,15 +164,10 @@ public class TeamController {//  controla la ventana del user
         public void handle(Event event) {
             /**Remueve el jugador elegido y aumenta los fondos*/
             for(Player p : userPlayerList.getSelectionModel().getSelectedItems()) {
-                user.sell(p,tournament);
-                user.getTeam(tournament.getName()).getPlayers().remove(p); /**Implementar este método en User*/
+                user.sell(tournament, p);
             }
         }
     };
-
-    private Stage getEventStage(Event e) {
-        return (Stage) ((Node)e.getSource()).getScene().getWindow();
-    }
 
     private void showErrorMessage() {
         Alert aux = new Alert(Alert.AlertType.ERROR);

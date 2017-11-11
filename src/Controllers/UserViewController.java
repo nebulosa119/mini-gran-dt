@@ -53,7 +53,7 @@ public class UserViewController implements Initializable{
                 @Override
                 public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
                     if(tournamentGroup.getSelectedToggle() != null &&
-                            ((User)AccountsManager.getInstance().getSignedAccount()).getTeam(((RadioButton)tournamentGroup.getSelectedToggle()).getText()) != null) {
+                            ((User)AccountsManager.getInstance().getSignedAccount()).hasSigned(map.get(tournamentGroup.getSelectedToggle()))) {
                         RadioButton selected = (RadioButton)tournamentGroup.getSelectedToggle();
                         Tournament aux = administrator.getTournament(selected.getText());
                         TeamController.setTournament(aux);
@@ -87,6 +87,7 @@ public class UserViewController implements Initializable{
                         e.printStackTrace();
                     }
                     userTeamView.getChildren().add(root);
+                    ((User)AccountsManager.getInstance().getSignedAccount()).signUp(map.get(selectedButton));
                 }
             }
         });

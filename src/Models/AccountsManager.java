@@ -21,6 +21,7 @@ public class AccountsManager implements Serializable{
 
     private AccountsManager(){
         instance = this;
+        accounts = new ArrayList<>();
     }
 
     public static AccountsManager getInstance(){
@@ -48,7 +49,14 @@ public class AccountsManager implements Serializable{
         return getAccount(username) != null;
     }
 
-    public static boolean createAccount(String username) {
+    public static boolean createAdmin(String username) {
+        if(username.equals(""))
+            return false;
+        accounts.add(new Administrator(username));
+        return true;
+    }
+
+    public static boolean createUser(String username) {
         if(username.equals(""))
             return false;
         accounts.add(new User(username));

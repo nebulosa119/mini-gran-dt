@@ -19,7 +19,7 @@ public class LoginController{
     private void handleLogin() {
         String username = userTextField.getText();
         //buscamos cual tiene al usuario
-        if (!AccountsManager.getInstance().contains(username)){
+        if (!(AccountsManager.getInstance().contains(username))){
             error.setVisible(true);
         }else{
             AccountsManager.getInstance().setAccount(username);

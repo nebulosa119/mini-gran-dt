@@ -27,6 +27,10 @@ public class Team implements Serializable {
         players.addAll(team.getPlayers());
     }
 
+    public Team() {
+        players = new ArrayList<>();
+    }
+
     public ArrayList<Player> getPlayers() {
         return players;
     }

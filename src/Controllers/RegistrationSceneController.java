@@ -3,6 +3,7 @@ package Controllers;
 import Models.AccountsManager;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -13,6 +14,9 @@ public class RegistrationSceneController {
     private JFXTextField userTextField;
 
     @FXML
+    private CheckBox admin_account_check;
+
+    @FXML
     private Label error;
 
     @FXML
@@ -21,12 +25,16 @@ public class RegistrationSceneController {
     }
 
     @FXML
-    protected void handleCreateUser(){
+    protected void handleCreateUser() {
         String username = userTextField.getText();
-        if (AccountsManager.getInstance().contains(username)){
+        System.out.println(username == null);
+        if (AccountsManager.getInstance().contains(username)) {
             error.setVisible(true);
-        }else {
-            if(!AccountsManager.getInstance().createAccount(username))
+        } else {
+            boolean wantsAdmin = admin_account_check.isSelected();
+            if (wantsAdmin && !AccountsManager.getInstance().createAdmin(username))
+                error.setVisible(true);
+            else if (!AccountsManager.getInstance().createUser(username))
                 error.setVisible(true);
             else
                 MainApp.setScene("login");
