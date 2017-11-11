@@ -27,4 +27,8 @@ public class UserTeams {
     public ArrayList<Player> getUserTeamPlayers(Tournament t) {
         return teams.get(t).getPlayers();
     }
+
+    public void refresh(Player.Properties p, Tournament t) {
+        teams.get(t).refreshPoints(p);
+    }
 }

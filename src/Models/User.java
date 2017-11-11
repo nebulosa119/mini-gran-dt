@@ -14,11 +14,10 @@ public class User extends Account{
 
     private UserExpenses expenses = new UserExpenses();
     private UserTeams userTeams = new UserTeams();
-    private int points;
+    private int points = 0;
 
     public User(String name) {
         super(name);
-        points = 0;
     }
 
     public int getPoints() {

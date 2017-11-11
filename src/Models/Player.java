@@ -47,7 +47,6 @@ public class Player implements Serializable{
 
     public Properties getProperties() { return properties; }
 
-
     public int getRanking() {
         return properties.calculateRanking();
     }

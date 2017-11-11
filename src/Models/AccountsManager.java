@@ -44,7 +44,7 @@ public class AccountsManager implements Serializable{
     }
 
     public static Set<Tournament> getTournaments() {
-        return ((Administrator)account).getTournaments();
+        return (Set<Tournament>)((Administrator)account).getAdministration().getTournaments();
     }
 
     public static boolean createAdmin(String username) {
@@ -96,11 +96,6 @@ public class AccountsManager implements Serializable{
     /** Guarda los usuarios existentes */
     public static void save(){
         FileManager.writeToFile(accounts,"accountsData.temp");
-    }
-
-    public static void refresh(Map<String,Map<String,Map<String, Player.Properties>>> tournaments) {
-        if (account instanceof Administrator)
-            ((Administrator) account).refresh(tournaments);
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException {

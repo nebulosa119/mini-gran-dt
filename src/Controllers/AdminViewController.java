@@ -173,20 +173,6 @@ public class AdminViewController implements Initializable{
         playersAnchorPane.getChildren().add(playersTableView);
     }
 
-    @FXML
-    private void handleRefresh(){
-        if(tournamentName == null || teamName == null)
-            return;
-        dataRefreshed.setVisible(true);
-        uploadData();
-    }
-
-    private void uploadData(){
-        Map<String,Map<String,Map<String, Models.Player.Properties>>> dataTournaments = new HashMap<>();
-        dataTournaments.put(tournamentName,getTournamentData());
-        AccountsManager.refresh(dataTournaments);
-    }
-
     private Map<String,Map<String, Models.Player.Properties>> getTournamentData(){
         /*VBox tournamentVBox = (VBox)tournamentsAccordion.getExpandedPane().getContent();
         ToggleGroup tournamentGroup = (ToggleGroup)tournamentVBox.getChildren();
