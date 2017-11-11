@@ -12,8 +12,8 @@ public class User extends Account{
 
     private static final long serialVersionUID = 1L;
 
-    private UserExpenses expenses = new UserExpenses(this);
-    private UserTeams userTeams = new UserTeams(this);
+    private UserExpenses expenses = new UserExpenses();
+    private UserTeams userTeams = new UserTeams();
     private int points;
 
     public User(String name) {
@@ -47,6 +47,7 @@ public class User extends Account{
     public UserTeams getUserTeams() {
         return userTeams;
     }
+
     @Override
     public boolean equals(Object o) {
         return this == o || o instanceof User && super.equals(o);

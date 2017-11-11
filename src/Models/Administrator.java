@@ -20,14 +20,6 @@ public class Administrator extends Account {
         return tournamentUsers.keySet();
     }
 
-    public Set<String> getTournamentNames() {
-        Set<String> resp = new HashSet<>();
-        for (Tournament t : tournamentUsers.keySet()) {
-            resp.add(t.getName());
-        }
-        return resp;
-    }
-
     public Tournament getTournament(String name) {
         for (Tournament t : tournamentUsers.keySet()) {
             if (t.getName().compareTo(name) == 0)
@@ -44,7 +36,7 @@ public class Administrator extends Account {
     /**Para cuando el administrador quiera crear un nuevo torneo. Mi idea es que desde el Controllers se instancie la
      * clase torneo para poder ingresarla directamente*/
     public void addTournament(Tournament t){
-        tournamentUsers.put(new Tournament(t),new ArrayList<User>());
+        tournamentUsers.put(new Tournament(t),new ArrayList<>());
     }
 
     public boolean hasTournament(String tournamentName) {
@@ -60,7 +52,7 @@ public class Administrator extends Account {
         tournamentUsers.get(tour).add(user);
     }
 
-    public void refresh(Map<String,Map<String,Map<String, Player.Properties>>> dataTournaments) {
+    void refresh(Map<String, Map<String, Map<String, Player.Properties>>> dataTournaments) {
         for (Tournament myTour : tournamentUsers.keySet()) {
             myTour.refresh(dataTournaments.get(myTour.getName()));
             refreshUsers(myTour.getName(), dataTournaments.get(myTour.getName()));

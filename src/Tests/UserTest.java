@@ -21,7 +21,9 @@ public class UserTest {
         assertEquals(0,user1.getPoints());
     }
 
-/*    @Test
+
+/*
+    @Test
     public void serializationTest() {
         User user = new User("userName");
         Team team = new Team("teamName",5);
