@@ -1,5 +1,6 @@
 package Tests;
 
+import Models.Exceptions.CompleteTeamException;
 import Models.Player;
 import Models.Team;
 import org.apache.commons.lang3.SerializationUtils;
@@ -8,6 +9,8 @@ import org.junit.Test;
 import java.io.Serializable;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class TeamTest {
 
@@ -17,8 +20,8 @@ public class TeamTest {
         Team team2 = new Team("teamName2",5);
         Team team3 = new Team("teamName1",5);
 
-        assertEquals(false,team1.equals(team2));
-        assertEquals(true,team1.equals(team3));
+        assertFalse(team1.equals(team2));
+        assertTrue(team1.equals(team3));
     }
 
     @Test
@@ -40,7 +43,7 @@ public class TeamTest {
             team.add(p3);
             team.add(p4);
             team.add(p5);
-        } catch (Team.CompleteTeamException ex) {
+        } catch (CompleteTeamException ex) {
             thrown = true;
         }
 
@@ -48,11 +51,11 @@ public class TeamTest {
 
         try {
             team.add(p6);
-        } catch (Team.CompleteTeamException ex) {
+        } catch (CompleteTeamException ex) {
             thrown = true;
         }
 
-        assertEquals(true,thrown);
+        assertTrue(thrown);
     }
 
     @Test
@@ -61,13 +64,13 @@ public class TeamTest {
         Player player = new Player("playerName");
         try {
             team.add(player);
-        } catch (Team.CompleteTeamException ex) {
+        } catch (CompleteTeamException ex) {
             ex.getMessage();
         }
 
         Serializable copy = SerializationUtils.clone((Serializable) team);
 
         assertEquals(team, copy);
-        assertEquals(true,((Team)copy).getPlayers().contains(player));
+        assertTrue(((Team)copy).getPlayers().contains(player));
     }
 }

@@ -7,6 +7,8 @@ import org.junit.Test;
 import java.io.Serializable;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class AdministratorTest {
 
@@ -17,8 +19,8 @@ public class AdministratorTest {
         Account account1bis= new Administrator("adminName1");
 
         assertEquals("adminName1",account1.getName());
-        assertEquals(false,account1.equals(account2));
-        assertEquals(true,account1.equals(account1bis));
+        assertFalse(account1.equals(account2));
+        assertTrue(account1.equals(account1bis));
     }
 
     @Test
@@ -27,7 +29,7 @@ public class AdministratorTest {
         Administrator admin = new Administrator("adminName");
         admin.addTournament(tour);
 
-        assertEquals(true,admin.hasTournament("tourName"));
+        assertTrue(admin.hasTournament("tourName"));
         assertEquals(tour,admin.getTournament("tourName"));
     }
 
@@ -43,9 +45,9 @@ public class AdministratorTest {
 
         User user2 = new User("userName2");
 
-        assertEquals(false,set.isEmpty());
-        assertEquals(true,set.contains(user1));
-        assertEquals(false,set.contains(user2));
+        assertFalse(set.isEmpty());
+        assertTrue(set.contains(user1));
+        assertFalse(set.contains(user2));
     }
 
     @Test

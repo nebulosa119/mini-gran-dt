@@ -5,11 +5,6 @@ import Models.Exceptions.InsufficientFundsException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
-
 
 // implementa comparable con respecto a los puntos para ordenarlos en cada tournament y cuando se muestra la lista de puntajes
 // solo hay que recorrer la lista e imprimirlos
@@ -19,8 +14,7 @@ public class User extends Account{
 
     private UserExpenses expenses = new UserExpenses(this);
     private UserTeams userTeams = new UserTeams(this);
-
-    private int points; /**Pa qué protected si no lo necesitamos acceder desde subclases de User?*/
+    private int points;
 
     public User(String name) {
         super(name);
@@ -54,12 +48,8 @@ public class User extends Account{
         return userTeams;
     }
     @Override
-    public boolean equals(Object o){
-        if (this == o)
-            return true;
-        if (!(o instanceof User))
-            return false;
-        return super.equals(o);
+    public boolean equals(Object o) {
+        return this == o || o instanceof User && super.equals(o);
     }
 
     @Override

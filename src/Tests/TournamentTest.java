@@ -7,7 +7,9 @@ import org.junit.Test;
 
 import java.io.Serializable;
 
+import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class TournamentTest {
 
@@ -16,7 +18,7 @@ public class TournamentTest {
         Tournament tour1 = new Tournament("tourName1",5);
         Tournament tour2 = new Tournament("tourName2",5);
 
-        assertEquals(false,tour1.equals(tour2));
+        assertFalse(tour1.equals(tour2));
         assertEquals(5,tour1.getMaxPlayers());
         assertEquals(5,tour2.getMaxPlayers());
     }
@@ -29,8 +31,8 @@ public class TournamentTest {
 
         Team team2 = new Team("teamName2",tour.getMaxPlayers());
 
-        assertEquals(true,tour.hasTeam(team1));
-        assertEquals(false,tour.hasTeam(team2));
+        assertTrue(tour.hasTeam(team1));
+        assertFalse(tour.hasTeam(team2));
     }
 
     @Test

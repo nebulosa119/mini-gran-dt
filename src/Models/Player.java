@@ -82,6 +82,7 @@ public class Player implements Serializable{
         out.writeInt(price);
         out.writeObject(properties);
     }
+
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException{
         ois.defaultReadObject();
         name = ois.readUTF();
@@ -119,7 +120,7 @@ public class Player implements Serializable{
             this.goals_against = goals_against;
         }
 
-        int getPoints() {
+        public int getPoints() {
             return normal_goals_scored+goals_scored_by_penalty_kick+penalty_catched+goals_scored_goalkeeper-yellow_cards-red_cards-goals_against;
         }
 
@@ -142,19 +143,19 @@ public class Player implements Serializable{
             }
         }
 
-        int calculateRanking() {
+        public int calculateRanking() {
             int resp=0;
             resp += normal_goals_scored             * PropValues.normal_goals_scored.getpValue();
             resp += goals_scored_by_penalty_kick    * PropValues.goals_scored_by_penalty_kick.getpValue();
             resp += penalty_catched                 * PropValues.penalty_catched.getpValue();
             resp += goals_scored_goalkeeper         * PropValues.goals_scored_goalkeeper.getpValue();
-            resp -= yellow_cards                    * PropValues.yellow_cards.getpValue();
-            resp -= red_cards                       * PropValues.red_cards.getpValue();
-            resp -= goals_against                   * PropValues.goals_against.getpValue();
+            resp += yellow_cards                    * PropValues.yellow_cards.getpValue();
+            resp += red_cards                       * PropValues.red_cards.getpValue();
+            resp += goals_against                   * PropValues.goals_against.getpValue();
             return resp;
         }
 
-        int calculatePrice() {
+        public int calculatePrice() {
             int resp = 0;
             resp += normal_goals_scored         * 100 * PropValues.normal_goals_scored.getUPricePerCent();
             resp += goals_scored_by_penalty_kick* 100 * PropValues.goals_scored_by_penalty_kick.getUPricePerCent();
@@ -214,7 +215,7 @@ public class Player implements Serializable{
             return result;
         }
 
-        private void writeObject(ObjectOutputStream out) throws IOException{
+        public void writeObject(ObjectOutputStream out) throws IOException{
             out.defaultWriteObject();
             out.writeInt(normal_goals_scored);
             out.writeInt(goals_scored_by_penalty_kick);
@@ -224,7 +225,7 @@ public class Player implements Serializable{
             out.writeInt(red_cards);
             out.writeInt(goals_against);
         }
-        private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException{
+        public void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException{
             ois.defaultReadObject();
             normal_goals_scored          = ois.readInt();
             goals_scored_by_penalty_kick = ois.readInt();

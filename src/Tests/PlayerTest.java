@@ -3,10 +3,10 @@ package Tests;
 import Models.Player;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Test;
-
 import java.io.Serializable;
-
+import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class PlayerTest {
 
@@ -18,8 +18,8 @@ public class PlayerTest {
 
         assertEquals("playerName1", player1.getName());
         assertEquals(2000, player1.getPrice());
-        assertEquals(false, player1.equals(player2));
-        assertEquals(true, player1.equals(player3));
+        assertFalse(player1.equals(player2));
+        assertTrue(player1.equals(player3));
     }
 
     @Test
