@@ -17,7 +17,6 @@ public class TournamentTest {
         Tournament tour2 = new Tournament("tourName2",5);
 
         assertEquals(false,tour1.equals(tour2));
-        assertEquals(true,tour1.equals(tour1));
         assertEquals(5,tour1.getMaxPlayers());
         assertEquals(5,tour2.getMaxPlayers());
     }
@@ -38,6 +37,8 @@ public class TournamentTest {
     public void serializationTest() {
         Serializable original = new Tournament("tourName",5);
         Serializable copy = SerializationUtils.clone(original);
+
         assertEquals(original, copy);
+        assertEquals(5,((Tournament)copy).getMaxPlayers());
     }
 }

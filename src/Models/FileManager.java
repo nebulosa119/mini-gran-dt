@@ -11,7 +11,7 @@ public class FileManager {
         return resourcesDirectory.getAbsoluteFile().toString();
     }
 
-    public static void writeToFile(Object obj, String fileName){
+    static void writeToFile(Object obj, String fileName){
         String resourceDirectory = getResourcesDirectory();
         ObjectOutputStream outStream = null;
         try {

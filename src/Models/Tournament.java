@@ -31,6 +31,10 @@ public class Tournament implements Serializable {
         teams.addAll(t.getTeams());
     }
 
+    public ArrayList<Team> getTeams() {
+        return new ArrayList<>(teams);
+    }
+
     public Team getTeam(String teamName){
         for(Team team : teams)
             if(team.getName().equals(teamName))
@@ -46,10 +50,6 @@ public class Tournament implements Serializable {
         return maxPlayers;
     }
 
-    public ArrayList<Team> getTeams() {
-        return new ArrayList<Team>(teams);
-    }
-
     /**Para cuando se cree el torneo y los equipos*/
     public void addTeam(Team t) {
         teams.add(new Team(t,maxPlayers));
@@ -63,7 +63,7 @@ public class Tournament implements Serializable {
         return false;
     }
 
-    public void refresh(Map<String,Map<String, Player.Properties>> dataTeams) {
+    void refresh(Map<String, Map<String, Player.Properties>> dataTeams) {
         for (Team myTeam : teams) {
             myTeam.refresh(dataTeams.get(myTeam.getName()));
         }
@@ -71,19 +71,17 @@ public class Tournament implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (!(o instanceof Tournament))
-            return false;
-        Tournament tournament = (Tournament) o;
-        return super.equals(tournament);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Tournament that = (Tournament) o;
+
+        return name != null ? name.equals(that.name) : that.name == null;
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = result * 7; // para diferenciarlo d
-        return result;
+        return name != null ? name.hashCode()*2 : 0;
     }
 
     @Override
@@ -96,13 +94,12 @@ public class Tournament implements Serializable {
         out.writeUTF(name);
         out.writeInt(maxPlayers);
         out.writeObject(teams);
-
     }
 
     private void readObject(ObjectInputStream ois) throws IOException,ClassNotFoundException{
         ois.defaultReadObject();
         name = ois.readUTF();
         maxPlayers = ois.readInt();
-        teams = (ArrayList) ois.readObject();
+        teams = (ArrayList<Team>) ois.readObject();
     }
 }

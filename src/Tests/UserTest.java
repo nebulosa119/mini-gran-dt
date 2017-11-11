@@ -19,14 +19,17 @@ public class UserTest {
         User user2 = new User("userName2");
 
         assertEquals(false,user1.equals(user2));
-        assertEquals(true, user1.equals(user1));
         assertEquals(0,user1.getPoints());
     }
 
     @Test
     public void serializationTest() {
-        Serializable original = new User("userName");
-        Serializable copy = SerializationUtils.clone(original);
-        assertEquals(original, copy);
+        User user = new User("userName");
+        Team team = new Team("teamName",5);
+        user.addTeam("tourName",team);
+
+        Serializable copy = SerializationUtils.clone((Serializable) user);
+        assertEquals(user, copy);
+        assertEquals(true,((User)copy).getTeam("tourName").equals(team));
     }
 }
