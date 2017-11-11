@@ -35,5 +35,7 @@ public class UserExpenses {
         if(!(hasEnough(t, p))) throw new InsufficientFundsException();
         Integer aux = funds.get(t);
         aux -= p.getPrice();
+        funds.remove(t);
+        funds.put(t, aux);
     }
 }
