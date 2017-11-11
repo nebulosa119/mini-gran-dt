@@ -1,5 +1,7 @@
 package Models;
 
+import Models.Exceptions.CompleteTeamException;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -48,7 +50,7 @@ public class Team implements Serializable {
             throw new CompleteTeamException();
     }
 
-    public void refresh(Map<String, Player.Properties> dataPlayers) {
+    void refresh(Map<String, Player.Properties> dataPlayers) {
         for (Player myPlayer : players) {
             myPlayer.refresh(dataPlayers.get(myPlayer.getName()));
         }
@@ -56,30 +58,22 @@ public class Team implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (!(o instanceof Team))
-            return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
         Team team = (Team) o;
-        return super.equals(team);
+
+        return name != null ? name.equals(team.name) : team.name == null;
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = result * 2; // para diferenciarlos
-        return result;
+        return name != null ? name.hashCode()*3 : 0;
     }
 
     @Override
     public String toString() {
         return name+"{"+Arrays.toString(players.toArray())+'}';
-    }
-
-    public class CompleteTeamException extends Exception {
-        public CompleteTeamException() {
-            super("El equipo esta completo");
-        }
     }
 
     private void writeObject(ObjectOutputStream out)throws IOException{

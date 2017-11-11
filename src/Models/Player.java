@@ -17,7 +17,7 @@ public class Player implements Serializable{
     private int price;
     private Properties properties;
 
-    public Player(String name,int price,Properties properties) {
+    public Player(String name, int price, Properties properties) {
         this.name = name;
         this.price = price;
         this.properties = properties;
@@ -35,52 +35,46 @@ public class Player implements Serializable{
         this(name,price,new Properties());
     }
 
-    public void refresh(Properties p) {
-        properties.refresh(p);
-    }
-
-    public int getCalculatedPrice() {
-        return properties.calculatePrice();
-    }
-
     public String getName() {
         return name;
     }
 
     public int getPrice() { return price; }
 
+    public int getCalculatedPrice() {
+        return properties.calculatePrice();
+    }
+
+    public Properties getProperties() { return properties; }
+
+
+    public int getRanking() {
+        return properties.calculateRanking();
+    }
+
+    void refresh(Properties p) {
+        properties.refresh(p);
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (!(o instanceof Player))
-            return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
         Player player = (Player) o;
 
-        return super.equals(player);
+        return name != null ? name.equals(player.name) : player.name == null;
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = result * 3; // para diferenciarlo
-        return result;
+        return name != null ? name.hashCode()*7 : 0;
     }
 
     @Override
     public String toString() {
         return name;
     }
-
-    public int getRanking() {
-        return properties.calculateRanking();
-    }
-
-    public String getProperties() {
-        return properties.toString();
-    }
-
-    //falta agregar la clase properties y muevo el serializable
 
     private void writeObject(ObjectOutputStream out) throws IOException{
         out.defaultWriteObject();
@@ -125,6 +119,10 @@ public class Player implements Serializable{
             this.goals_against = goals_against;
         }
 
+        int getPoints() {
+            return normal_goals_scored+goals_scored_by_penalty_kick+penalty_catched+goals_scored_goalkeeper-yellow_cards-red_cards-goals_against;
+        }
+
         public void setProperty(int index, int property) {
             switch (index) {
                 case 0: normal_goals_scored = property;
@@ -144,18 +142,7 @@ public class Player implements Serializable{
             }
         }
 
-        public void refresh(Properties p) {
-            this.normal_goals_scored            += p.normal_goals_scored;
-            this.goals_scored_by_penalty_kick   += p.goals_scored_by_penalty_kick;
-            this.penalty_catched                += p.penalty_catched;
-            this.goals_scored_goalkeeper        += p.goals_scored_goalkeeper;
-            this.yellow_cards                   += p.yellow_cards;
-            this.red_cards                      += p.red_cards;
-            this.goals_against                  += p.goals_against;
-        }
-
-
-        public int calculateRanking() {
+        int calculateRanking() {
             int resp=0;
             resp += normal_goals_scored             * PropValues.normal_goals_scored.getpValue();
             resp += goals_scored_by_penalty_kick    * PropValues.goals_scored_by_penalty_kick.getpValue();
@@ -167,7 +154,7 @@ public class Player implements Serializable{
             return resp;
         }
 
-        public int calculatePrice() {
+        int calculatePrice() {
             int resp = 0;
             resp += normal_goals_scored         * 100 * PropValues.normal_goals_scored.getUPricePerCent();
             resp += goals_scored_by_penalty_kick* 100 * PropValues.goals_scored_by_penalty_kick.getUPricePerCent();
@@ -176,8 +163,14 @@ public class Player implements Serializable{
             return resp;
         }
 
-        public int getPoints() {
-            return normal_goals_scored+goals_scored_by_penalty_kick+penalty_catched+goals_scored_goalkeeper-yellow_cards-red_cards-goals_against;
+        void refresh(Properties p) {
+            this.normal_goals_scored            += p.normal_goals_scored;
+            this.goals_scored_by_penalty_kick   += p.goals_scored_by_penalty_kick;
+            this.penalty_catched                += p.penalty_catched;
+            this.goals_scored_goalkeeper        += p.goals_scored_goalkeeper;
+            this.yellow_cards                   += p.yellow_cards;
+            this.red_cards                      += p.red_cards;
+            this.goals_against                  += p.goals_against;
         }
 
         @Override
@@ -191,6 +184,55 @@ public class Player implements Serializable{
                     ", red_cards=" + red_cards +
                     ", goals_against=" + goals_against +
                     '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Properties that = (Properties) o;
+
+            if (normal_goals_scored != that.normal_goals_scored) return false;
+            if (goals_scored_by_penalty_kick != that.goals_scored_by_penalty_kick) return false;
+            if (penalty_catched != that.penalty_catched) return false;
+            if (goals_scored_goalkeeper != that.goals_scored_goalkeeper) return false;
+            if (yellow_cards != that.yellow_cards) return false;
+            if (red_cards != that.red_cards) return false;
+            return goals_against == that.goals_against;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = normal_goals_scored;
+            result = 31 * result + goals_scored_by_penalty_kick;
+            result = 31 * result + penalty_catched;
+            result = 31 * result + goals_scored_goalkeeper;
+            result = 31 * result + yellow_cards;
+            result = 31 * result + red_cards;
+            result = 31 * result + goals_against;
+            return result;
+        }
+
+        private void writeObject(ObjectOutputStream out) throws IOException{
+            out.defaultWriteObject();
+            out.writeInt(normal_goals_scored);
+            out.writeInt(goals_scored_by_penalty_kick);
+            out.writeInt(penalty_catched);
+            out.writeInt(goals_scored_goalkeeper);
+            out.writeInt(yellow_cards);
+            out.writeInt(red_cards);
+            out.writeInt(goals_against);
+        }
+        private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException{
+            ois.defaultReadObject();
+            normal_goals_scored          = ois.readInt();
+            goals_scored_by_penalty_kick = ois.readInt();
+            penalty_catched              = ois.readInt();
+            goals_scored_goalkeeper      = ois.readInt();
+            yellow_cards                 = ois.readInt();
+            red_cards                    = ois.readInt();
+            goals_against                = ois.readInt();
         }
 
         public enum PropValues{
@@ -223,27 +265,6 @@ public class Player implements Serializable{
             public double getUPricePerCent() {
                 return uPricePerCent;
             }
-        }
-
-        private void writeObject(ObjectOutputStream out) throws IOException{
-            out.defaultWriteObject();
-            out.writeInt(normal_goals_scored);
-            out.writeInt(goals_scored_by_penalty_kick);
-            out.writeInt(penalty_catched);
-            out.writeInt(goals_scored_goalkeeper);
-            out.writeInt(yellow_cards);
-            out.writeInt(red_cards);
-            out.writeInt(goals_against);
-        }
-        private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException{
-            ois.defaultReadObject();
-            normal_goals_scored          = ois.readInt();
-            goals_scored_by_penalty_kick = ois.readInt();
-            penalty_catched              = ois.readInt();
-            goals_scored_goalkeeper      = ois.readInt();
-            yellow_cards                 = ois.readInt();
-            red_cards                    = ois.readInt();
-            goals_against                = ois.readInt();
         }
     }
 }

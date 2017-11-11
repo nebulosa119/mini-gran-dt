@@ -15,9 +15,10 @@ public class TeamTest {
     public void createTeamTest() {
         Team team1 = new Team("teamName1",5);
         Team team2 = new Team("teamName2",5);
+        Team team3 = new Team("teamName1",5);
 
         assertEquals(false,team1.equals(team2));
-        assertEquals(true,team1.equals(team1));
+        assertEquals(true,team1.equals(team3));
     }
 
     @Test
@@ -56,8 +57,17 @@ public class TeamTest {
 
     @Test
     public void serializationTest() {
-        Serializable original = new Team("teamName",5);
-        Serializable copy = SerializationUtils.clone(original);
-        assertEquals(original, copy);
+        Team team = new Team("teamName",5);
+        Player player = new Player("playerName");
+        try {
+            team.add(player);
+        } catch (Team.CompleteTeamException ex) {
+            ex.getMessage();
+        }
+
+        Serializable copy = SerializationUtils.clone((Serializable) team);
+
+        assertEquals(team, copy);
+        assertEquals(true,((Team)copy).getPlayers().contains(player));
     }
 }

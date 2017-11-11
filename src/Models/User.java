@@ -59,8 +59,7 @@ public class User extends Account{
             return true;
         if (!(o instanceof User))
             return false;
-        User user = (User) o;
-        return super.equals(user);
+        return super.equals(o);
     }
 
     @Override

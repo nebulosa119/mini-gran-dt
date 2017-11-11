@@ -3,7 +3,6 @@ package Models;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.*;
 
 public class Administrator extends Account {
@@ -16,12 +15,49 @@ public class Administrator extends Account {
         super(name);
     }
 
+    /**Metodo para que el Controllers pueda tener acceso a los torneos y asi poder mostrarlos al admin*/
+    public Set<Tournament> getTournaments() {
+        return tournamentUsers.keySet();
+    }
+
     public Set<String> getTournamentNames() {
         Set<String> resp = new HashSet<>();
         for (Tournament t : tournamentUsers.keySet()) {
             resp.add(t.getName());
         }
         return resp;
+    }
+
+    public Tournament getTournament(String name) {
+        for (Tournament t : tournamentUsers.keySet()) {
+            if (t.getName().compareTo(name) == 0)
+                return new Tournament(t);
+        }
+        return null;
+    }
+
+    public ArrayList<User> getUsers(String tournament) {
+        Tournament tour = getTournament(tournament);
+        return tournamentUsers.get(tour);
+    }
+
+    /**Para cuando el administrador quiera crear un nuevo torneo. Mi idea es que desde el Controllers se instancie la
+     * clase torneo para poder ingresarla directamente*/
+    public void addTournament(Tournament t){
+        tournamentUsers.put(new Tournament(t),new ArrayList<User>());
+    }
+
+    public boolean hasTournament(String tournamentName) {
+        for (Tournament t : tournamentUsers.keySet()) {
+            if (t.getName().equals(tournamentName))
+                return true;
+        }
+        return false;
+    }
+
+    public void addUser(String tournament, User user) {
+        Tournament tour = getTournament(tournament);
+        tournamentUsers.get(tour).add(user);
     }
 
     public void refresh(Map<String,Map<String,Map<String, Player.Properties>>> dataTournaments) {
@@ -54,43 +90,6 @@ public class Administrator extends Account {
             unified.putAll(team);
         }
         return unified;
-    }
-
-    /**Metodo para que el Controllers pueda tener acceso a los torneos y asi poder mostrarlos al admin*/
-    public Set<Tournament> getTournaments() {
-        return tournamentUsers.keySet();
-    }
-
-    /**Para cuando el administrador quiera crear un nuevo torneo. Mi idea es que desde el Controllers se instancie la
-     * clase torneo para poder ingresarla directamente*/
-    public void addTournament(Tournament t){
-        tournamentUsers.put(new Tournament(t),new ArrayList<User>());
-    }
-
-    public boolean hasTournament(String tournamentName) {
-        for (Tournament t : tournamentUsers.keySet()) {
-            if (t.getName().equals(tournamentName))
-                return true;
-        }
-        return false;
-    }
-
-    public Tournament getTournament(String name) {
-        for (Tournament t : tournamentUsers.keySet()) {
-            if (t.getName().compareTo(name) == 0)
-                return new Tournament(t);
-        }
-        return null;
-    }
-
-    public void addUser(String tournament, User user) {
-        Tournament tour = getTournament(tournament);
-        tournamentUsers.get(tour).add(user);
-    }
-
-    public ArrayList<User> getUsers(String tournament) {
-        Tournament tour = getTournament(tournament);
-        return tournamentUsers.get(tour);
     }
 
     @Override

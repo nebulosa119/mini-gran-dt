@@ -43,10 +43,8 @@ public class AccountsManager implements Serializable{
         return aux;
     }
 
-    public static boolean contains(String username) {
-        if(username.equals(""))
-            return false;
-        return getAccount(username) != null;
+    public static Set<Tournament> getTournaments() {
+        return ((Administrator)account).getTournaments();
     }
 
     public static boolean createAdmin(String username) {
@@ -75,28 +73,34 @@ public class AccountsManager implements Serializable{
         account = getAccount(accountName);
     }
 
+    public static boolean createAccount(String username) {
+        if(username.equals(""))
+            return false;
+        accounts.add(new User(username));
+        return true;
+    }
+
+    public static boolean contains(String username) {
+        return !username.equals("") && getAccount(username) != null;
+    }
+
     public static boolean accountIsUser() {
-        if (account != null)
-            return account instanceof  User;
-        return false;
-    }
-
-    public static void refresh(Map<String,Map<String,Map<String, Player.Properties>>> tournaments) {
-        if (account instanceof Administrator)
-            ((Administrator) account).refresh(tournaments);
-    }
-
-    public static Set<Tournament> getTournaments() {
-        return ((Administrator)account).getTournaments();
+        return account != null && account instanceof User;
     }
 
     /** Carga los usuarios existentes al programa */
     public static void loadAccounts() {
         accounts = (ArrayList<Account>) FileManager.readFromFile("accountsData.temp");
     }
+
     /** Guarda los usuarios existentes */
     public static void save(){
         FileManager.writeToFile(accounts,"accountsData.temp");
+    }
+
+    public static void refresh(Map<String,Map<String,Map<String, Player.Properties>>> tournaments) {
+        if (account instanceof Administrator)
+            ((Administrator) account).refresh(tournaments);
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException {
@@ -106,6 +110,6 @@ public class AccountsManager implements Serializable{
 
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject();
-        accounts = (ArrayList)ois.readObject();
+        accounts = (ArrayList<Account>)ois.readObject();
     }
 }
