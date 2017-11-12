@@ -43,7 +43,7 @@ public class UserViewController implements Initializable{
             ToggleGroup tournamentGroup = new ToggleGroup();
             VBox tournamentBox = new VBox(10);
             tournamentBox.setPadding(new Insets(10));
-            for(Tournament tournament : administrator.getAdministration().getTournaments()) {
+            for(Tournament tournament : administrator.getTournaments()) {
                 RadioButton tButton = new RadioButton(tournament.getName());
                 map.put(tButton, tournament);
                 tournamentGroup.getToggles().add(tButton);
@@ -55,7 +55,7 @@ public class UserViewController implements Initializable{
                     if(tournamentGroup.getSelectedToggle() != null &&
                             ((User)AccountsManager.getInstance().getSignedAccount()).hasSigned(map.get(tournamentGroup.getSelectedToggle()))) {
                         RadioButton selected = (RadioButton)tournamentGroup.getSelectedToggle();
-                        Tournament aux = administrator.getAdministration().getTournament(map.get(selected));
+                        Tournament aux = administrator.getTournament(map.get(selected).getName());
                         TeamController.setTournament(aux);
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("teamManager.fxml"));
                         Parent root = null;

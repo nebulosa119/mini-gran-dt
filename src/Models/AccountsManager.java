@@ -44,7 +44,7 @@ public class AccountsManager implements Serializable{
     }
 
     public static Set<Tournament> getTournaments() {
-        return (Set<Tournament>)((Administrator)account).getAdministration().getTournaments();
+        return ((Administrator)account).getTournaments();
     }
 
     public static boolean createAdmin(String username) {
@@ -52,6 +52,11 @@ public class AccountsManager implements Serializable{
             return false;
         accounts.add(new Administrator(username));
         return true;
+    }
+
+    public static void refresh(Map<String,Map<String,Map<String, Player.Properties>>> tournaments) {
+        if (account instanceof Administrator)
+            ((Administrator) account).refresh(tournaments);
     }
 
     public static boolean createUser(String username) {

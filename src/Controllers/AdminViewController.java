@@ -44,6 +44,20 @@ public class AdminViewController implements Initializable{
         MainApp.getInstance().setScene("login");
     }
 
+        @FXML
+     private void handleRefresh(){
+        if(tournamentName == null || teamName == null)
+            return;
+        dataRefreshed.setVisible(true);
+        uploadData();
+    }
+
+    private void uploadData(){
+        Map<String,Map<String,Map<String, Models.Player.Properties>>> dataTournaments = new HashMap<>();
+        dataTournaments.put(tournamentName,getTournamentData());
+        AccountsManager.refresh(dataTournaments);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Set<Tournament> tournaments = AccountsManager.getInstance().getTournaments();

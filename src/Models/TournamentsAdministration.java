@@ -5,6 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TournamentsAdministration implements Serializable{
 
@@ -12,6 +14,7 @@ public class TournamentsAdministration implements Serializable{
 
     private ArrayList<Tournament> tournaments = new ArrayList<>();
     private ArrayList<User> usersParticipating = new ArrayList<>();
+    private Map<Tournament, ArrayList<User>> usersParticipatingMap = new HashMap<>();
     private Administrator admin;
 
     public TournamentsAdministration(Administrator admin) {
@@ -38,7 +41,7 @@ public class TournamentsAdministration implements Serializable{
         return tournaments;
     }
 
-    public void addUser(User u) {
+    public void addUser(Tournament t, User u) {
         usersParticipating.add(u);
     }
 
