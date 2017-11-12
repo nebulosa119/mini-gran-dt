@@ -44,6 +44,7 @@ public class UserViewController implements Initializable{
             VBox tournamentBox = new VBox(10);
             tournamentBox.setPadding(new Insets(10));
             for(Tournament tournament : administrator.getTournaments()) {
+                tournament.setAdministrator(administrator);
                 RadioButton tButton = new RadioButton(tournament.getName());
                 map.put(tButton, tournament);
                 tournamentGroup.getToggles().add(tButton);
@@ -80,6 +81,7 @@ public class UserViewController implements Initializable{
             public void handle(MouseEvent event) {
                 if(selectedButton != null) {
                     ((User)AccountsManager.getInstance().getSignedAccount()).signUp(map.get(selectedButton));
+                    map.get(selectedButton).getAdministrator().addUser(map.get(selectedButton).getName(), (User)AccountsManager.getInstance().getSignedAccount());
                     TeamController.setTournament(map.get(selectedButton));
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/Resources/Views/teamManager.fxml"));
                     Parent root = null;
