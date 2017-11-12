@@ -74,6 +74,10 @@ public class AccountsManager implements Serializable{
         return null;
     }
 
+    public static Account getAccount(){
+        return account;
+    }
+
     public static void setAccount(String accountName) {
         account = getAccount(accountName);
     }

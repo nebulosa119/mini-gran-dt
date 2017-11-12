@@ -142,6 +142,19 @@ public class Player implements Serializable{
             }
         }
 
+        public int getProperty(int index) {
+            switch (index) {
+                case 0: return normal_goals_scored;
+                case 1: return goals_scored_by_penalty_kick;
+                case 2: return penalty_catched;
+                case 3: return goals_scored_goalkeeper;
+                case 4: return yellow_cards;
+                case 5: return red_cards;
+                case 6: return goals_against;
+            }
+            return 0;
+        }
+
         public int calculateRanking() {
             int resp=0;
             resp += normal_goals_scored             * PropValues.normal_goals_scored.getpValue();

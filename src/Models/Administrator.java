@@ -30,6 +30,16 @@ public class Administrator extends Account {
         }
         return null;
     }
+
+    public boolean createTournament(String tournamentName, int maxPlayers){
+        if(tournamentName.equals("") || maxPlayers<0)
+            return false;
+
+        Tournament tournament = new Tournament(tournamentName, maxPlayers);
+        addTournament(tournament);
+        return true;
+    }
+
     public ArrayList<User> getUsers(String tournament) {
         Tournament tour = getTournament(tournament);
         return tournamentUsers.get(tour);
@@ -39,10 +49,13 @@ public class Administrator extends Account {
     public void addTournament(Tournament t){
         tournamentUsers.put(new Tournament(t),new ArrayList<>());
     }
+
     public boolean hasTournament(String tournamentName) {
-        for (Tournament t : tournamentUsers.keySet()) {
-            if (t.getName().equals(tournamentName))
-                return true;
+        if(!tournamentName.equals("")) {
+            for (Tournament t : tournamentUsers.keySet()) {
+                if (t.getName().equals(tournamentName))
+                    return true;
+            }
         }
         return false;
     }

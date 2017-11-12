@@ -24,7 +24,7 @@ public class LoginController{
         }else{
             AccountsManager.getInstance().setAccount(username);
             if (AccountsManager.getInstance().accountIsUser()) {
-                    MainApp.setScene("userView");
+                MainApp.setScene("userView");
             } else {
                 MainApp.setScene("adminView");
             }
