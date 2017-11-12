@@ -36,6 +36,7 @@ public class Administrator extends Account {
             return false;
 
         Tournament tournament = new Tournament(tournamentName, maxPlayers);
+        tournament.setAdministrator(this);
         addTournament(tournament);
         return true;
     }

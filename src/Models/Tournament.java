@@ -13,6 +13,7 @@ public class Tournament implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private ArrayList<Team> teams;
+    private Administrator administrator;
     private String name;
     private int maxPlayers;
 
@@ -63,6 +64,10 @@ public class Tournament implements Serializable {
         return false;
     }
 
+    public void setAdministrator(Administrator administrator) {
+        this.administrator = administrator;
+    }
+
     void refresh(Map<String, Map<String, Player.Properties>> dataTeams) {
         for (Team myTeam : teams) {
             myTeam.refresh(dataTeams.get(myTeam.getName()));
@@ -101,5 +106,9 @@ public class Tournament implements Serializable {
         name = ois.readUTF();
         maxPlayers = ois.readInt();
         teams = (ArrayList<Team>) ois.readObject();
+    }
+
+    public Administrator getAdministrator() {
+        return administrator;
     }
 }
