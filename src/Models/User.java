@@ -63,11 +63,15 @@ public class User extends Account{
         out.defaultWriteObject();
         out.writeUTF(name);
         out.writeInt(points);
+        out.writeObject(expenses);
+        out.writeObject(userTeams);
     }
 
     private void readObject(ObjectInputStream ois) throws IOException,ClassNotFoundException{
         ois.defaultReadObject();
         name = ois.readUTF();
         points = ois.readInt();
+        expenses = (UserExpenses)ois.readObject();
+        userTeams = (UserTeams)ois.readObject();
     }
 }

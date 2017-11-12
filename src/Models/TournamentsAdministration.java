@@ -1,8 +1,14 @@
 package Models;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TournamentsAdministration {
+public class TournamentsAdministration implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     private ArrayList<Tournament> tournaments = new ArrayList<>();
     private ArrayList<User> usersParticipating = new ArrayList<>();
@@ -40,5 +46,18 @@ public class TournamentsAdministration {
         for(User u : usersParticipating) {
             u.getUserTeams().refresh(p, t);
         }
+    }
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+        out.writeObject(tournaments);
+        out.writeObject(usersParticipating);
+        out.writeObject(admin);
+    }
+
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        ois.defaultReadObject();
+        tournaments = (ArrayList<Tournament>) ois.readObject();
+        usersParticipating = (ArrayList<User>) ois.readObject();
+        admin = (Administrator) ois.readObject();
     }
 }

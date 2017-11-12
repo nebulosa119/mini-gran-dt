@@ -25,10 +25,12 @@ public class Administrator extends Account {
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
         out.writeUTF(name);
+        out.writeObject(tournamentsAdministration);
     }
 
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject();
         name = ois.readUTF();
+        tournamentsAdministration = (TournamentsAdministration)ois.readObject();
     }
 }
