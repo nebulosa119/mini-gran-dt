@@ -31,27 +31,12 @@ public class FileManager {
         }
     }
 
-    static Object readFromFile(String fileName) {
-        String resourceDirectory = getResourcesDirectory();
-        Object obj = null;
+    static Object readFromFile(String fileName) throws IOException, ClassNotFoundException {
+        String resourceDirectory = getResourcesDirectory();;
         ObjectInputStream inputStream = null;
-        try {
-            inputStream = new ObjectInputStream(new FileInputStream(resourceDirectory + "/" + fileName));
-            obj = inputStream.readObject();
-        } catch (EOFException eofException) {
-            return obj;
-        } catch (ClassNotFoundException classNetFoundException) {
-            System.err.println("Object creation failed.");
-        } catch (IOException ioException) {
-            System.err.println("Error opening file.");
-        } finally {
-            try {
-                if (inputStream != null)
-                    inputStream.close();
-            } catch (IOException ioException) {
-                System.err.println("Error closing file.");
-            }
-        }
+        inputStream = new ObjectInputStream(new FileInputStream(resourceDirectory + "/" + fileName));
+        Object obj = inputStream.readObject();
+        inputStream.close();
         return obj;
     }
 }

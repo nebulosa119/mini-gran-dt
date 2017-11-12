@@ -9,7 +9,7 @@ import java.util.Map;
 
 // implementa comparable con respecto a los puntos para ordenarlos en cada tournament y cuando se muestra la lista de puntajes
 // solo hay que recorrer la lista e imprimirlos
-public class User extends Account{
+public class UserDT extends Account{
 
     private static final long serialVersionUID = 1L;
 
@@ -17,7 +17,7 @@ public class User extends Account{
     private UserTeams userTeams = new UserTeams();
     private int points = 0;
 
-    public User(String name) {
+    public UserDT(String name) {
         super(name);
     }
 
@@ -58,7 +58,7 @@ public class User extends Account{
 
     @Override
     public boolean equals(Object o) {
-        return this == o || o instanceof User && super.equals(o);
+        return this == o || o instanceof UserDT && super.equals(o);
     }
 
     @Override

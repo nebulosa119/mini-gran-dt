@@ -13,8 +13,8 @@ public class TournamentsAdministration implements Serializable{
     private static final long serialVersionUID = 1L;
 
     private ArrayList<Tournament> tournaments = new ArrayList<>();
-    private ArrayList<User> usersParticipating = new ArrayList<>();
-    private Map<Tournament, ArrayList<User>> usersParticipatingMap = new HashMap<>();
+    private ArrayList<UserDT> usersParticipating = new ArrayList<>();
+    private Map<Tournament, ArrayList<UserDT>> usersParticipatingMap = new HashMap<>();
     private Administrator admin;
 
     public TournamentsAdministration(Administrator admin) {
@@ -41,12 +41,12 @@ public class TournamentsAdministration implements Serializable{
         return tournaments;
     }
 
-    public void addUser(Tournament t, User u) {
+    public void addUser(Tournament t, UserDT u) {
         usersParticipating.add(u);
     }
 
     public void refreshUsers(Player.Properties p, Tournament t) {
-        for(User u : usersParticipating) {
+        for(UserDT u : usersParticipating) {
             u.getUserTeams().refresh(p, t);
         }
     }
@@ -60,7 +60,7 @@ public class TournamentsAdministration implements Serializable{
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject();
         tournaments = (ArrayList<Tournament>) ois.readObject();
-        usersParticipating = (ArrayList<User>) ois.readObject();
+        usersParticipating = (ArrayList<UserDT>) ois.readObject();
         admin = (Administrator) ois.readObject();
     }
 }

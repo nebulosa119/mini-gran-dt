@@ -36,18 +36,18 @@ public class AdministratorTest {
     @Test
     public void addUserTest() {
         Tournament tour = new Tournament("tourName");
-        User user1 = new User("userName1");
+        UserDT userDT1 = new UserDT("userName1");
         Administrator admin = new Administrator("adminName");
         admin.addTournament(tour);
-        admin.addUser("tourName",user1);
+        admin.addUser("tourName", userDT1);
 
-        List<User> set = admin.getUsers("tourName");
+        List<UserDT> set = admin.getUsers("tourName");
 
-        User user2 = new User("userName2");
+        UserDT userDT2 = new UserDT("userName2");
 
         assertFalse(set.isEmpty());
-        assertTrue(set.contains(user1));
-        assertFalse(set.contains(user2));
+        assertTrue(set.contains(userDT1));
+        assertFalse(set.contains(userDT2));
     }
 
     @Test

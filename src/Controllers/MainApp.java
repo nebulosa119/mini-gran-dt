@@ -1,7 +1,7 @@
 package Controllers;
 
+import java.io.IOException;
 import java.net.URL;
-
 import Models.AccountsManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import static javafx.application.Platform.exit;
 
 public class MainApp extends Application {
 
@@ -27,7 +29,12 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage){
-        AccountsManager.loadAccounts();
+        try {
+            AccountsManager.loadAccounts();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            exit();
+        }
         stage = primaryStage;
         stage.setTitle("Mini Gran DT");
         stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/Resources/Media/icon.png")));
@@ -59,4 +66,5 @@ public class MainApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
 }

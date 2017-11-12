@@ -17,6 +17,9 @@ public class AddTournamentController{
     private TextField playersTextField;
 
     @FXML
+    /**
+     * Permite al admin retornar a la ventana anterior
+     */
     private void handleBack(){
         MainApp.getInstance().setScene("adminView");
     }
@@ -24,13 +27,17 @@ public class AddTournamentController{
     @FXML
     private Label error;
 
+    /**
+     * Permite al admin crearo un torneo
+     * Se le va a pedir el nombre del torneo y cantidad de jugadores en el mismo
+     */
     @FXML
     private void handleCreateTournament(){
         String tournamentName = tournamentTextField.getText();
         int maxPlayers = parseInt(playersTextField.getText());
-        if(!((Administrator)AccountsManager.getInstance().getAccount()).hasTournament(tournamentName)) {
-            if(((Administrator) AccountsManager.getInstance().getAccount()).createTournament(tournamentName, maxPlayers))
-                MainApp.getInstance().setScene("adminView");
+        if(!((Administrator)AccountsManager.getSignedAccount()).hasTournament(tournamentName)) {
+            if(((Administrator) AccountsManager.getSignedAccount()).createTournament(tournamentName, maxPlayers))
+                MainApp.setScene("adminView");
             else
                 error.setVisible(true);
         }

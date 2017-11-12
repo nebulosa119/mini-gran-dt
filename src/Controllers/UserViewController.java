@@ -3,22 +3,18 @@ package Controllers;
 import Models.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 //import sun.plugin.javascript.navig.Anchor;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -39,7 +35,7 @@ public class UserViewController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        for(Administrator administrator : AccountsManager.getInstance().getAdmins()) {
+        for(Administrator administrator : AccountsManager.getAdmins()) {
             ToggleGroup tournamentGroup = new ToggleGroup();
             VBox tournamentBox = new VBox(10);
             tournamentBox.setPadding(new Insets(10));
@@ -52,9 +48,9 @@ public class UserViewController implements Initializable{
             tournamentGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
                 @Override
                 public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
-                    System.out.println(((User)AccountsManager.getInstance().getSignedAccount()).hasSigned(map.get(tournamentGroup.getSelectedToggle())));
+                    System.out.println(((UserDT)AccountsManager.getSignedAccount()).hasSigned(map.get(tournamentGroup.getSelectedToggle())));
                     if(tournamentGroup.getSelectedToggle() != null &&
-                            ((User)AccountsManager.getInstance().getSignedAccount()).hasSigned(map.get(tournamentGroup.getSelectedToggle()))) {
+                            ((UserDT)AccountsManager.getSignedAccount()).hasSigned(map.get(tournamentGroup.getSelectedToggle()))) {
                         RadioButton selected = (RadioButton)tournamentGroup.getSelectedToggle();
                         Tournament aux = administrator.getTournament(map.get(selected).getName());
                         TeamController.setTournament(aux);
@@ -79,7 +75,7 @@ public class UserViewController implements Initializable{
             @Override
             public void handle(MouseEvent event) {
                 if(selectedButton != null) {
-                    ((User)AccountsManager.getInstance().getSignedAccount()).signUp(map.get(selectedButton));
+                    ((UserDT)AccountsManager.getSignedAccount()).signUp(map.get(selectedButton));
                     TeamController.setTournament(map.get(selectedButton));
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/Resources/Views/teamManager.fxml"));
                     Parent root = null;

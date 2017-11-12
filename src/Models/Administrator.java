@@ -10,7 +10,7 @@ public class Administrator extends Account {
     private static final long serialVersionUID = 1L;
 
     private TournamentsAdministration tournamentsAdministration = new TournamentsAdministration(this);
-    private Map<Tournament,ArrayList<User>> tournamentUsers = new HashMap<>();
+    private Map<Tournament,ArrayList<UserDT>> tournamentUsers = new HashMap<>();
 
 
     public Administrator(String name) {
@@ -40,7 +40,7 @@ public class Administrator extends Account {
         return true;
     }
 
-    public ArrayList<User> getUsers(String tournament) {
+    public ArrayList<UserDT> getUsers(String tournament) {
         Tournament tour = getTournament(tournament);
         return tournamentUsers.get(tour);
     }
@@ -60,11 +60,11 @@ public class Administrator extends Account {
         return false;
     }
  
-    public void addUser(String tournament, User user) {
+    public void addUser(String tournament, UserDT userDT) {
         Tournament tour = getTournament(tournament);
-        tournamentUsers.get(tour).add(user);
+        tournamentUsers.get(tour).add(userDT);
     }
-    void refresh(Map<String, Map<String, Map<String, Player.Properties>>> dataTournaments) {
+    public void refresh(Map<String, Map<String, Map<String, Player.Properties>>> dataTournaments) {
         for (Tournament myTour : tournamentUsers.keySet()) {
             myTour.refresh(dataTournaments.get(myTour.getName()));
             refreshUsers(myTour.getName(), dataTournaments.get(myTour.getName()));
@@ -72,15 +72,15 @@ public class Administrator extends Account {
     }
     private void refreshUsers(String tourName, Map<String,Map<String, Player.Properties>> tournament) {
         Tournament tour = getTournament(tourName);
-        ArrayList<User> users = tournamentUsers.get(tour);
-        if (users != null) {
-            for (User user : users) {
-                //user.refreshPoints(tourName,unifyPlayers(tournament));}
-                user.refreshPoints(tour, unifyPlayers(tournament));
+        ArrayList<UserDT> userDTS = tournamentUsers.get(tour);
+        if (userDTS != null) {
+            for (UserDT userDT : userDTS) {
+                //userDT.refreshPoints(tourName,unifyPlayers(tournament));}
+                userDT.refreshPoints(tour, unifyPlayers(tournament));
             }
-            Collections.sort(users, new Comparator<User>() {
+            Collections.sort(userDTS, new Comparator<UserDT>() {
                 @Override
-                public int compare(User t, User t1) {
+                public int compare(UserDT t, UserDT t1) {
                     return t.getPoints() - t1.getPoints();
                 }
             });
@@ -112,6 +112,6 @@ public class Administrator extends Account {
         ois.defaultReadObject();
         name = ois.readUTF();
         tournamentsAdministration = (TournamentsAdministration)ois.readObject();
-        tournamentUsers = (Map<Tournament, ArrayList<User>>) ois.readObject();
+        tournamentUsers = (Map<Tournament, ArrayList<UserDT>>) ois.readObject();
     }
 }

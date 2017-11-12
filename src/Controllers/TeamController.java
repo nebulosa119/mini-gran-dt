@@ -16,9 +16,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import sun.applet.Main;
 
-public class TeamController {//  controla la ventana del user
+public class TeamController {//  controla la ventana del userDT
 
     @FXML
     private Button exitButton, ruleButton, playerRankingButton, addPlayerButton, removePlayerButton;
@@ -31,12 +30,12 @@ public class TeamController {//  controla la ventana del user
     @FXML
     private Label pointsLabel, fundsLabel;
 
-    private User user;
+    private UserDT userDT;
     private static Tournament tournament;
 
     public void initialize() {
         /**Inicializo variables de instancia*/
-        user = (User) AccountsManager.getInstance().getSignedAccount();
+        userDT = (UserDT) AccountsManager.getSignedAccount();
         /**Configuro los tabs*/
         for(Team team : tournament.getTeams()) {
             Tab tab = new Tab();
@@ -82,13 +81,13 @@ public class TeamController {//  controla la ventana del user
             /**Agrego la tab*/
             teamsTabPanes.getTabs().add(tab);
 
-            pointsLabel.setText("Current points: " + Integer.toString(user.getUserTeams().getUserTeam(tournament).getUserPoints()));
-            fundsLabel.setText("Available funds: " + Integer.toString(user.getExpenses().getAvailableFunds(tournament)));
+            pointsLabel.setText("Current points: " + Integer.toString(userDT.getUserTeams().getUserTeam(tournament).getUserPoints()));
+            fundsLabel.setText("Available funds: " + Integer.toString(userDT.getExpenses().getAvailableFunds(tournament)));
         }
         /**Configuro el listView del usuario*/
         /**Lo lleno con los jugadores que tenga*/
-        if(user != null && user.hasSigned(tournament))
-            userPlayerList.setItems(FXCollections.observableArrayList(user.getUserTeams().getUserTeamPlayers(tournament)));
+        if(userDT != null && userDT.hasSigned(tournament))
+            userPlayerList.setItems(FXCollections.observableArrayList(userDT.getUserTeams().getUserTeamPlayers(tournament)));
         userPlayerList.setCellFactory(param -> new ListCell<Player>() {
                 @Override
                 protected void updateItem(Player p, boolean empty) { super.updateItem(p, empty);
@@ -154,12 +153,12 @@ public class TeamController {//  controla la ventana del user
                     for (Player p : (ObservableList<Player>) ((TableView) t.getContent()).getSelectionModel().getSelectedItems()) {
                         /**Agrego el jugaodr al equipo del usuario*/
                         if(!userPlayerList.getItems().contains(p)) {
-                            user.buy(tournament, p);
+                            userDT.buy(tournament, p);
                             userPlayerList.getItems().add(p);
                         }
                     }
                 }
-                fundsLabel.setText("Available funds: " + Integer.toString(user.getExpenses().getAvailableFunds(tournament)));
+                fundsLabel.setText("Available funds: " + Integer.toString(userDT.getExpenses().getAvailableFunds(tournament)));
             } catch (InsufficientFundsException e) {
                 showErrorMessage();
             }
@@ -173,10 +172,10 @@ public class TeamController {//  controla la ventana del user
         public void handle(Event event) {
             /**Remueve el jugador elegido y aumenta los fondos*/
             for(Player p : userPlayerList.getSelectionModel().getSelectedItems()) {
-                user.sell(tournament, p);
+                userDT.sell(tournament, p);
                 userPlayerList.getItems().removeAll(p);
             }
-            fundsLabel.setText("Available funds: " + Integer.toString(user.getExpenses().getAvailableFunds(tournament)));
+            fundsLabel.setText("Available funds: " + Integer.toString(userDT.getExpenses().getAvailableFunds(tournament)));
         }
     };
 

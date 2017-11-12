@@ -28,13 +28,13 @@ public class RegistrationSceneController {
     protected void handleCreateUser() {
         String username = userTextField.getText();
         System.out.println(username == null);
-        if (AccountsManager.getInstance().contains(username)) {
+        if (AccountsManager.contains(username)) {
             error.setVisible(true);
         } else {
             boolean wantsAdmin = admin_account_check.isSelected();
-            if (wantsAdmin && !AccountsManager.getInstance().createAdmin(username))
+            if (wantsAdmin && !AccountsManager.createAdmin(username))
                 error.setVisible(true);
-            else if (!AccountsManager.getInstance().createUser(username))
+            else if (!AccountsManager.createUser(username))
                 error.setVisible(true);
             else
                 MainApp.setScene("login");

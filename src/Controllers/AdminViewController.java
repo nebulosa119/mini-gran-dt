@@ -2,25 +2,19 @@ package Controllers;
 
 import Models.*;
 import Models.Exceptions.CompleteTeamException;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
-import javafx.util.Callback;
-
-import javax.swing.text.View;
 import java.net.URL;
 import java.util.*;
 
@@ -54,11 +48,18 @@ public class AdminViewController implements Initializable{
     @FXML
     private Button addPlayer;
 
+    /**
+     * Permite al admin desLoguearse
+     */
     @FXML
     private void handleLogout(){
         MainApp.getInstance().setScene("login");
     }
 
+    /**
+     * Maneja la subida de datos de jugadores.
+     * Se le pregunta al admin si esta seguro de lo que está por subir y se llama el metodo que levanta la informacion
+     */
     @FXML
      private void handleRefresh(){
         if(actualTournament == null || team == null) {
@@ -73,11 +74,17 @@ public class AdminViewController implements Initializable{
         }
     }
 
+    /**
+     * Presenta la ventana de agregado de torneo
+     */
     @FXML
     private void handleAddTournament(){
         MainApp.getInstance().setScene("addTournament");
     }
 
+    /**
+     * Presenta la ventana de agregado de equipos
+     */
     @FXML
     private void handleAddTeam(){
         TextInputDialog dialog = new TextInputDialog();
@@ -91,6 +98,10 @@ public class AdminViewController implements Initializable{
         MainApp.getInstance().setScene("adminView");
     }
 
+    /**
+     * Presenta la ventana de agregado de jugador.
+     * Si el equipo se encuntre completo se le advierte al administrador
+     */
     @FXML
     private void handleAddPlayer(){
         TextInputDialog dialog = new TextInputDialog();
@@ -109,10 +120,12 @@ public class AdminViewController implements Initializable{
         }
         MainApp.getInstance().setScene("adminView");
     }
-
+    /**
+     * Carga los respectivos datos de la ventana
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Set<Tournament> tournaments = AccountsManager.getInstance().getTournaments();
+        Set<Tournament> tournaments = AccountsManager.getTournaments();
 
         for (Tournament tournament: tournaments) {
             ToggleGroup tournamentGroup = new ToggleGroup();
@@ -145,128 +158,56 @@ public class AdminViewController implements Initializable{
         tournamentsLoaded.setVisible(true);
     }
 
+    /**
+     * Carga la informacion de cada jugador
+     */
     private void showTeamPlayers(){
 
-        TableColumn<ViewPlayer, String> playerNameCol = new TableColumn("Jugador");
+        TableColumn<ViewPlayer, String> playerNameCol = new TableColumn<>("Jugador");
         playerNameCol.setMinWidth(150);
-        playerNameCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ViewPlayer, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ViewPlayer, String> param) {
-                return param.getValue().name;
-            }
-        });
+        playerNameCol.setCellValueFactory(param -> param.getValue().name);
 
-        TableColumn<ViewPlayer, String> normalGoalsScored = new TableColumn("Goles anotados");
+        TableColumn<ViewPlayer, String> normalGoalsScored = new TableColumn<>("Goles anotados");
         normalGoalsScored.setMinWidth(170);
-        normalGoalsScored.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ViewPlayer, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ViewPlayer, String> param) {
-                return param.getValue().normal_goals_scored;
-            }
-        });
+        normalGoalsScored.setCellValueFactory(param -> param.getValue().normal_goals_scored);
         normalGoalsScored.setCellFactory(TextFieldTableCell.forTableColumn());
-        normalGoalsScored.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ViewPlayer,String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<ViewPlayer,String> t) {
-                t.getTableView().getItems().get(t.getTablePosition().getRow()).setNormalGoalsScored(t.getNewValue());
-            }
-        });
+        normalGoalsScored.setOnEditCommit(t -> t.getTableView().getItems().get(t.getTablePosition().getRow()).setNormalGoalsScored(t.getNewValue()));
 
-        TableColumn<ViewPlayer, String> goalsScoredByPenaltyKick = new TableColumn("Goles anotados por penal");
+        TableColumn<ViewPlayer, String> goalsScoredByPenaltyKick = new TableColumn<>("Goles anotados por penal");
         goalsScoredByPenaltyKick.setMinWidth(230);
-        goalsScoredByPenaltyKick.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ViewPlayer, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ViewPlayer, String> param) {
-                return param.getValue().goals_scored_by_penalty_kick;
-            }
-        });
+        goalsScoredByPenaltyKick.setCellValueFactory(param -> param.getValue().goals_scored_by_penalty_kick);
         goalsScoredByPenaltyKick.setCellFactory(TextFieldTableCell.forTableColumn());
-        goalsScoredByPenaltyKick.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ViewPlayer,String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<ViewPlayer,String> t) {
-                t.getTableView().getItems().get(t.getTablePosition().getRow()).setGoalsScoredByPenaltyKick(t.getNewValue());
-            }
-        });
+        goalsScoredByPenaltyKick.setOnEditCommit(t -> t.getTableView().getItems().get(t.getTablePosition().getRow()).setGoalsScoredByPenaltyKick(t.getNewValue()));
 
-        TableColumn<ViewPlayer, String> penaltyCatched = new TableColumn("Penal atrapado");
+        TableColumn<ViewPlayer, String> penaltyCatched = new TableColumn<>("Penal atrapado");
         penaltyCatched.setMinWidth(140);
-        penaltyCatched.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ViewPlayer, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ViewPlayer, String> param) {
-                return param.getValue().penalty_catched;
-            }
-        });
+        penaltyCatched.setCellValueFactory(param -> param.getValue().penalty_catched);
         penaltyCatched.setCellFactory(TextFieldTableCell.forTableColumn());
-        penaltyCatched.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ViewPlayer,String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<ViewPlayer,String> t) {
-                t.getTableView().getItems().get(t.getTablePosition().getRow()).setPenaltyCatched(t.getNewValue());
-            }
-        });
+        penaltyCatched.setOnEditCommit(t -> t.getTableView().getItems().get(t.getTablePosition().getRow()).setPenaltyCatched(t.getNewValue()));
 
-        TableColumn<ViewPlayer, String> goalsScoredGoalkeeper = new TableColumn("Gol anotado por arquero");
+        TableColumn<ViewPlayer, String> goalsScoredGoalkeeper = new TableColumn<>("Gol anotado por arquero");
         goalsScoredGoalkeeper.setMinWidth(200);
-        goalsScoredGoalkeeper.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ViewPlayer, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ViewPlayer, String> param) {
-                return param.getValue().goals_scored_goalkeeper;
-            }
-        });
+        goalsScoredGoalkeeper.setCellValueFactory(param -> param.getValue().goals_scored_goalkeeper);
         goalsScoredGoalkeeper.setCellFactory(TextFieldTableCell.forTableColumn());
-        goalsScoredGoalkeeper.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ViewPlayer,String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<ViewPlayer,String> t) {
-                t.getTableView().getItems().get(t.getTablePosition().getRow()).setGoalsScoredGoalkeeper(t.getNewValue());
-            }
-        });
+        goalsScoredGoalkeeper.setOnEditCommit(t -> t.getTableView().getItems().get(t.getTablePosition().getRow()).setGoalsScoredGoalkeeper(t.getNewValue()));
 
-        TableColumn<ViewPlayer, String> yellowCards = new TableColumn("Tarjetas amarillas");
+        TableColumn<ViewPlayer, String> yellowCards = new TableColumn<>("Tarjetas amarillas");
         yellowCards.setMinWidth(120);
-        yellowCards.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ViewPlayer, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ViewPlayer, String> param) {
-                return param.getValue().yellow_cards;
-            }
-        });
+        yellowCards.setCellValueFactory(param -> param.getValue().yellow_cards);
         yellowCards.setCellFactory(TextFieldTableCell.forTableColumn());
-        yellowCards.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ViewPlayer,String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<ViewPlayer,String> t) {
-                t.getTableView().getItems().get(t.getTablePosition().getRow()).setYellowCards(t.getNewValue());
-            }
-        });
+        yellowCards.setOnEditCommit(t -> t.getTableView().getItems().get(t.getTablePosition().getRow()).setYellowCards(t.getNewValue()));
 
-        TableColumn<ViewPlayer, String> redCards = new TableColumn("Tarjetas rojas");
+        TableColumn<ViewPlayer, String> redCards = new TableColumn<>("Tarjetas rojas");
         redCards.setMinWidth(100);
-        redCards.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ViewPlayer, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ViewPlayer, String> param) {
-                return param.getValue().red_cards;
-            }
-        });
+        redCards.setCellValueFactory(param -> param.getValue().red_cards);
         redCards.setCellFactory(TextFieldTableCell.forTableColumn());
-        redCards.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ViewPlayer,String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<ViewPlayer,String> t) {
-                t.getTableView().getItems().get(t.getTablePosition().getRow()).setRedCards(t.getNewValue());
-            }
-        });
+        redCards.setOnEditCommit(t -> t.getTableView().getItems().get(t.getTablePosition().getRow()).setRedCards(t.getNewValue()));
 
-        TableColumn<ViewPlayer, String> goalsAgainst = new TableColumn("Goles en contra");
+        TableColumn<ViewPlayer, String> goalsAgainst = new TableColumn<>("Goles en contra");
         goalsAgainst.setMinWidth(130);
-        goalsAgainst.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ViewPlayer, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ViewPlayer, String> param) {
-                return param.getValue().goals_against;
-            }
-        });
+        goalsAgainst.setCellValueFactory(param -> param.getValue().goals_against);
         goalsAgainst.setCellFactory(TextFieldTableCell.forTableColumn());
-        goalsAgainst.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ViewPlayer,String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<ViewPlayer,String> t) {
-                t.getTableView().getItems().get(t.getTablePosition().getRow()).setGoalsAgainst(t.getNewValue());
-            }
-        });
+        goalsAgainst.setOnEditCommit(t -> t.getTableView().getItems().get(t.getTablePosition().getRow()).setGoalsAgainst(t.getNewValue()));
 
         //armo lista de players vacios con la info del team
         ArrayList<ViewPlayer> newPlayers = new ArrayList<>();
@@ -285,7 +226,7 @@ public class AdminViewController implements Initializable{
             System.out.println(vp.getYellowCards());
         }
         playersAnchorPane.getChildren().removeAll();
-        playersTableView = new TableView<ViewPlayer>();
+        playersTableView = new TableView<>();
         playersTableView.setItems(data);
         playersTableView.setEditable(true);
 
@@ -297,7 +238,7 @@ public class AdminViewController implements Initializable{
     private void uploadData(){
         Map<String,Map<String,Map<String, Player.Properties>>> dataTournaments = new HashMap<>();
         dataTournaments.put(actualTournament.getName(), getTournamentData());
-        AccountsManager.refresh(dataTournaments);
+        ((Administrator)AccountsManager.getSignedAccount()).refresh(dataTournaments);
     }
 
     private Map<String,Map<String, Player.Properties>> getTournamentData(){
