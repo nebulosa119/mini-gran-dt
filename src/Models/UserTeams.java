@@ -47,4 +47,15 @@ public class UserTeams implements Serializable{
         ois.defaultReadObject();
         teams = (Map<Tournament, UserTeam>) ois.readObject();
     }
+
+    public void refreshPoints(Map<String, Player.Properties> propertiesMap, Tournament tour) {
+        UserTeam t = teams.get(tour);
+        for(Player p : t.getPlayers()) {
+            for(String name : propertiesMap.keySet()) {
+                if(p.getName().equals(name)) {
+                    t.refreshPoints(propertiesMap.get(p.getName()));
+                }
+            }
+        }
+    }
 }

@@ -41,7 +41,7 @@
                         <Font name="DejaVu Serif Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Button fx:id="addPlayerButton" layoutX="27.0" layoutY="398.0" mnemonicParsing="false" text="Add Player(flechita abajo)" />
+                  <Button fx:id="addPlayerButton" layoutX="27.0" layoutY="398.0" mnemonicParsing="false" text="Add Player" />
                   <ListView fx:id="userPlayerList" layoutX="27.0" layoutY="458.0" prefHeight="270.0" prefWidth="700.0" />
                   <Label layoutX="27.0" layoutY="438.0" text="Current Players">
                      <font>
@@ -70,7 +70,7 @@
                         <TabPane fx:id="teamsTabPanes" prefHeight="270.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
                         </TabPane>
                      </children></Pane>
-                  <Button fx:id="removePlayerButton" layoutX="370.0" layoutY="398.0" mnemonicParsing="false" text="Remove Player(flechita arriba)" />
+                  <Button fx:id="removePlayerButton" layoutX="370.0" layoutY="398.0" mnemonicParsing="false" text="Remove Player" />
                </children>
         </AnchorPane>
       </items>

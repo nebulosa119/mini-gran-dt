@@ -149,6 +149,7 @@ public class TeamController {//  controla la ventana del user
                     for (Player p : (ObservableList<Player>) ((TableView) t.getContent()).getSelectionModel().getSelectedItems()) {
                         /**Agrego el jugaodr al equipo del usuario*/
                         user.buy(tournament, p);
+                        userPlayerList.getItems().add(p);
                     }
                 }
             } catch (InsufficientFundsException e) {
@@ -165,6 +166,7 @@ public class TeamController {//  controla la ventana del user
             /**Remueve el jugador elegido y aumenta los fondos*/
             for(Player p : userPlayerList.getSelectionModel().getSelectedItems()) {
                 user.sell(tournament, p);
+                userPlayerList.getItems().removeAll(p);
             }
         }
     };

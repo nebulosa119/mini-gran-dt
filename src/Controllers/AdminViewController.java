@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.util.Callback;
 
+import javax.swing.text.View;
 import java.net.URL;
 import java.util.*;
 
@@ -99,7 +100,7 @@ public class AdminViewController implements Initializable{
         if (result.isPresent()){
             try {
                 team.add(new Player(result.get()));
-            }catch(CompleteTeamException e){
+            } catch(CompleteTeamException e) {
                 createAlert("Equipo Completo.");
             }
         }
@@ -143,9 +144,14 @@ public class AdminViewController implements Initializable{
 
     private void showTeamPlayers(){
 
-        TableColumn playerNameCol = new TableColumn("Jugador");
+        TableColumn<ViewPlayer, String> playerNameCol = new TableColumn("Jugador");
         playerNameCol.setMinWidth(150);
-        playerNameCol.setCellValueFactory(new PropertyValueFactory<ViewPlayer,String>("name"));
+        playerNameCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ViewPlayer, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ViewPlayer, String> param) {
+                return param.getValue().name;
+            }
+        });
 
         TableColumn normalGoalsScored = new TableColumn("Goles anotados");
         normalGoalsScored.setMinWidth(170);
@@ -230,11 +236,14 @@ public class AdminViewController implements Initializable{
             newPlayers.add(new ViewPlayer(player.getName(), player.getProperties().getProperty(0), player.getProperties().getProperty(1), player.getProperties().getProperty(2), player.getProperties().getProperty(3), player.getProperties().getProperty(4), player.getProperties().getProperty(5), player.getProperties().getProperty(6)));
         }
         ObservableList<ViewPlayer> data = FXCollections.observableArrayList(newPlayers);
-
+        for(ViewPlayer vp : data) {
+            System.out.println(vp.getName());
+        }
         playersAnchorPane.getChildren().removeAll();
         playersTableView = new TableView<ViewPlayer>();
         playersTableView.setItems(data);
         playersTableView.setEditable(true);
+
         playersTableView.getColumns().addAll(playerNameCol,normalGoalsScored,goalsScoredByPenaltyKick,penaltyCatched,goalsScoredGoalkeeper,yellowCards,redCards,goalsAgainst);
         playersTableView.prefHeightProperty().bind(playersAnchorPane.heightProperty());
         playersAnchorPane.getChildren().add(playersTableView);

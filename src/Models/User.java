@@ -5,6 +5,7 @@ import Models.Exceptions.InsufficientFundsException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Map;
 
 // implementa comparable con respecto a los puntos para ordenarlos en cada tournament y cuando se muestra la lista de puntajes
 // solo hay que recorrer la lista e imprimirlos
@@ -47,6 +48,10 @@ public class User extends Account{
         return userTeams;
     }
 
+    public void refreshPoints(Tournament tour, Map<String, Player.Properties> propertiesMap) {
+        userTeams.refreshPoints(propertiesMap, tour);
+    }
+
     @Override
     public boolean equals(Object o) {
         return this == o || o instanceof User && super.equals(o);
@@ -74,4 +79,5 @@ public class User extends Account{
         expenses = (UserExpenses)ois.readObject();
         userTeams = (UserTeams)ois.readObject();
     }
+
 }

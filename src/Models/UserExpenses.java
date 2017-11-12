@@ -17,7 +17,8 @@ public class UserExpenses implements Serializable{
     private static final int INITIAL_AMOUNT = 100000;
 
     private boolean hasEnough(Tournament t, Player p) {
-        return funds.containsKey(t) && funds.get(t) <= p.getPrice();
+        System.out.println(p.getPrice());
+        return funds.get(t) >= p.getPrice();
     }
 
     void addNewFund(Tournament t) {

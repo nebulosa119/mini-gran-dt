@@ -76,7 +76,7 @@ public class Administrator extends Account {
         if (users != null) {
             for (User user : users) {
                 //user.refreshPoints(tourName,unifyPlayers(tournament));}
-                //
+                user.refreshPoints(tour, unifyPlayers(tournament));
             }
             Collections.sort(users, new Comparator<User>() {
                 @Override
