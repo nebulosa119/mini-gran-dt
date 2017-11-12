@@ -16,6 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import sun.applet.Main;
 
 public class TeamController {//  controla la ventana del user
 
@@ -27,6 +28,8 @@ public class TeamController {//  controla la ventana del user
     private TabPane teamsTabPanes;
     @FXML
     private Pane teamsToCheckOutPane;
+    @FXML
+    private Label pointsLabel, fundsLabel;
 
     private User user;
     private static Tournament tournament;
@@ -79,6 +82,8 @@ public class TeamController {//  controla la ventana del user
             /**Agrego la tab*/
             teamsTabPanes.getTabs().add(tab);
 
+            pointsLabel.setText("Current points: " + Integer.toString(user.getUserTeams().getUserTeam(tournament).getUserPoints()));
+            fundsLabel.setText("Available funds: " + Integer.toString(user.getExpenses().getAvailableFunds(tournament)));
         }
         /**Configuro el listView del usuario*/
         /**Lo lleno con los jugadores que tenga*/
@@ -111,7 +116,7 @@ public class TeamController {//  controla la ventana del user
         @Override
         public void handle(Event event) {
             /**Guarda y sale*/
-
+            MainApp.setScene("login");
         }
     };
 
@@ -148,10 +153,13 @@ public class TeamController {//  controla la ventana del user
                 for (Tab t : teamsTabPanes.getTabs()) {
                     for (Player p : (ObservableList<Player>) ((TableView) t.getContent()).getSelectionModel().getSelectedItems()) {
                         /**Agrego el jugaodr al equipo del usuario*/
-                        user.buy(tournament, p);
-                        userPlayerList.getItems().add(p);
+                        if(!userPlayerList.getItems().contains(p)) {
+                            user.buy(tournament, p);
+                            userPlayerList.getItems().add(p);
+                        }
                     }
                 }
+                fundsLabel.setText("Available funds: " + Integer.toString(user.getExpenses().getAvailableFunds(tournament)));
             } catch (InsufficientFundsException e) {
                 showErrorMessage();
             }
@@ -168,6 +176,7 @@ public class TeamController {//  controla la ventana del user
                 user.sell(tournament, p);
                 userPlayerList.getItems().removeAll(p);
             }
+            fundsLabel.setText("Available funds: " + Integer.toString(user.getExpenses().getAvailableFunds(tournament)));
         }
     };
 

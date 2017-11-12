@@ -40,6 +40,10 @@ public class User extends Account{
         userTeams.addNewTeam(t);
     }
 
+    public UserExpenses getExpenses() {
+        return expenses;
+    }
+
     public boolean hasSigned(Tournament t) {
         return userTeams.isParticipating(t);
     }
@@ -79,5 +83,4 @@ public class User extends Account{
         expenses = (UserExpenses)ois.readObject();
         userTeams = (UserTeams)ois.readObject();
     }
-
 }

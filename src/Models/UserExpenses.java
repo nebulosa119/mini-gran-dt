@@ -25,6 +25,10 @@ public class UserExpenses implements Serializable{
         funds.put(t, INITIAL_AMOUNT);
     }
 
+    public int getAvailableFunds(Tournament t) {
+        return funds.get(t);
+    }
+
     void sell(Tournament t, Player p) {
         Integer aux = funds.get(t);
         aux += p.getPrice();

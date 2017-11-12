@@ -71,6 +71,8 @@
                         </TabPane>
                      </children></Pane>
                   <Button fx:id="removePlayerButton" layoutX="370.0" layoutY="398.0" mnemonicParsing="false" text="Remove Player" />
+                   <Label fx:id="pointsLabel" layoutX="192.0" layoutY="403.0" mnemonicParsing="false" text="Current points: " />
+                  <Label fx:id="fundsLabel" layoutX="555.0" layoutY="403.0" text="Available funds: " />
                </children>
         </AnchorPane>
       </items>

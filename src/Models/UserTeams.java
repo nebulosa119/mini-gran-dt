@@ -16,6 +16,7 @@ public class UserTeams implements Serializable{
 
     void addNewTeam(Tournament t) {
         teams.put(t, new UserTeam());
+        System.out.println(teams.get(t) == null);
     }
 
     void removePlayer(Tournament t, Player p) {
@@ -28,6 +29,10 @@ public class UserTeams implements Serializable{
 
     boolean isParticipating(Tournament t) {
         return teams.containsKey(t);
+    }
+
+    public UserTeam getUserTeam(Tournament t) {
+        return teams.get(t);
     }
 
     public ArrayList<Player> getUserTeamPlayers(Tournament t) {
@@ -58,4 +63,5 @@ public class UserTeams implements Serializable{
             }
         }
     }
+
 }

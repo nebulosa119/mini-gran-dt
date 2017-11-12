@@ -52,12 +52,13 @@ public class UserViewController implements Initializable{
             tournamentGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
                 @Override
                 public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+                    System.out.println(((User)AccountsManager.getInstance().getSignedAccount()).hasSigned(map.get(tournamentGroup.getSelectedToggle())));
                     if(tournamentGroup.getSelectedToggle() != null &&
                             ((User)AccountsManager.getInstance().getSignedAccount()).hasSigned(map.get(tournamentGroup.getSelectedToggle()))) {
                         RadioButton selected = (RadioButton)tournamentGroup.getSelectedToggle();
                         Tournament aux = administrator.getTournament(map.get(selected).getName());
                         TeamController.setTournament(aux);
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("teamManager.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Resources/Views/teamManager.fxml"));
                         Parent root = null;
                         try {
                             root = loader.load();
@@ -78,6 +79,7 @@ public class UserViewController implements Initializable{
             @Override
             public void handle(MouseEvent event) {
                 if(selectedButton != null) {
+                    ((User)AccountsManager.getInstance().getSignedAccount()).signUp(map.get(selectedButton));
                     TeamController.setTournament(map.get(selectedButton));
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/Resources/Views/teamManager.fxml"));
                     Parent root = null;
@@ -87,7 +89,6 @@ public class UserViewController implements Initializable{
                         e.printStackTrace();
                     }
                     userTeamView.getChildren().add(root);
-                    ((User)AccountsManager.getInstance().getSignedAccount()).signUp(map.get(selectedButton));
                 }
             }
         });

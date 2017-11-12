@@ -6,7 +6,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-class UserTeam implements Serializable{
+public class UserTeam implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
@@ -27,6 +27,11 @@ class UserTeam implements Serializable{
 
     public void refreshPoints(Player.Properties p) {
         points += p.getPoints();
+        System.out.println("Points: " + points);
+    }
+
+    public int getUserPoints() {
+        return points;
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException {
