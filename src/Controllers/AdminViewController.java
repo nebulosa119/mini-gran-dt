@@ -24,6 +24,8 @@ import javax.swing.text.View;
 import java.net.URL;
 import java.util.*;
 
+import static java.lang.Integer.parseInt;
+
 public class AdminViewController implements Initializable{
 
     private Team team = null;
@@ -101,7 +103,8 @@ public class AdminViewController implements Initializable{
             try {
                 team.add(new Player(result.get()));
             } catch(CompleteTeamException e) {
-                createAlert("Equipo Completo.");
+                Alert alert = createAlert("Equipo Completo.");
+                alert.showAndWait();
             }
         }
         MainApp.getInstance().setScene("adminView");
@@ -153,79 +156,114 @@ public class AdminViewController implements Initializable{
             }
         });
 
-        TableColumn normalGoalsScored = new TableColumn("Goles anotados");
+        TableColumn<ViewPlayer, String> normalGoalsScored = new TableColumn("Goles anotados");
         normalGoalsScored.setMinWidth(170);
-        normalGoalsScored.setCellValueFactory(new PropertyValueFactory<ViewPlayer,Integer>("normal_goals_scored"));
-        normalGoalsScored.setCellFactory(TextFieldTableCell.forTableColumn());
-        normalGoalsScored.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ViewPlayer,Integer>>() {
+        normalGoalsScored.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ViewPlayer, String>, ObservableValue<String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<ViewPlayer,Integer> t) {
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ViewPlayer, String> param) {
+                return param.getValue().normal_goals_scored;
+            }
+        });
+        normalGoalsScored.setCellFactory(TextFieldTableCell.forTableColumn());
+        normalGoalsScored.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ViewPlayer,String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<ViewPlayer,String> t) {
                 t.getTableView().getItems().get(t.getTablePosition().getRow()).setNormalGoalsScored(t.getNewValue());
             }
         });
 
-        TableColumn goalsScoredByPenaltyKick = new TableColumn("Goles anotados por penal");
+        TableColumn<ViewPlayer, String> goalsScoredByPenaltyKick = new TableColumn("Goles anotados por penal");
         goalsScoredByPenaltyKick.setMinWidth(230);
-        goalsScoredByPenaltyKick.setCellValueFactory(new PropertyValueFactory<ViewPlayer,Integer>("goals_scored_by_penalty_kick"));
-        goalsScoredByPenaltyKick.setCellFactory(TextFieldTableCell.forTableColumn());
-        goalsScoredByPenaltyKick.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ViewPlayer,Integer>>() {
+        goalsScoredByPenaltyKick.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ViewPlayer, String>, ObservableValue<String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<ViewPlayer,Integer> t) {
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ViewPlayer, String> param) {
+                return param.getValue().goals_scored_by_penalty_kick;
+            }
+        });
+        goalsScoredByPenaltyKick.setCellFactory(TextFieldTableCell.forTableColumn());
+        goalsScoredByPenaltyKick.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ViewPlayer,String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<ViewPlayer,String> t) {
                 t.getTableView().getItems().get(t.getTablePosition().getRow()).setGoalsScoredByPenaltyKick(t.getNewValue());
             }
         });
 
-        TableColumn penaltyCatched = new TableColumn("Penal atrapado");
+        TableColumn<ViewPlayer, String> penaltyCatched = new TableColumn("Penal atrapado");
         penaltyCatched.setMinWidth(140);
-        penaltyCatched.setCellValueFactory(new PropertyValueFactory<ViewPlayer,Integer>("penalty_catched"));
-        penaltyCatched.setCellFactory(TextFieldTableCell.forTableColumn());
-        penaltyCatched.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ViewPlayer,Integer>>() {
+        penaltyCatched.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ViewPlayer, String>, ObservableValue<String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<ViewPlayer,Integer> t) {
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ViewPlayer, String> param) {
+                return param.getValue().penalty_catched;
+            }
+        });
+        penaltyCatched.setCellFactory(TextFieldTableCell.forTableColumn());
+        penaltyCatched.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ViewPlayer,String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<ViewPlayer,String> t) {
                 t.getTableView().getItems().get(t.getTablePosition().getRow()).setPenaltyCatched(t.getNewValue());
             }
         });
 
-        TableColumn goalsScoredGoalkeeper = new TableColumn("Gol anotado por arquero");
+        TableColumn<ViewPlayer, String> goalsScoredGoalkeeper = new TableColumn("Gol anotado por arquero");
         goalsScoredGoalkeeper.setMinWidth(200);
-        goalsScoredGoalkeeper.setCellValueFactory(new PropertyValueFactory<ViewPlayer,Integer>("goals_scored_goalkeeper"));
-        goalsScoredGoalkeeper.setCellFactory(TextFieldTableCell.forTableColumn());
-        goalsScoredGoalkeeper.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ViewPlayer,Integer>>() {
+        goalsScoredGoalkeeper.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ViewPlayer, String>, ObservableValue<String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<ViewPlayer,Integer> t) {
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ViewPlayer, String> param) {
+                return param.getValue().goals_scored_goalkeeper;
+            }
+        });
+        goalsScoredGoalkeeper.setCellFactory(TextFieldTableCell.forTableColumn());
+        goalsScoredGoalkeeper.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ViewPlayer,String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<ViewPlayer,String> t) {
                 t.getTableView().getItems().get(t.getTablePosition().getRow()).setGoalsScoredGoalkeeper(t.getNewValue());
             }
         });
 
-        TableColumn yellowCards = new TableColumn("Tarjetas amarillas");
+        TableColumn<ViewPlayer, String> yellowCards = new TableColumn("Tarjetas amarillas");
         yellowCards.setMinWidth(120);
-        yellowCards.setCellValueFactory(new PropertyValueFactory<ViewPlayer,Integer>("yellow_cards"));
-        yellowCards.setCellFactory(TextFieldTableCell.forTableColumn());
-        yellowCards.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ViewPlayer,Integer>>() {
+        yellowCards.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ViewPlayer, String>, ObservableValue<String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<ViewPlayer,Integer> t) {
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ViewPlayer, String> param) {
+                return param.getValue().yellow_cards;
+            }
+        });
+        yellowCards.setCellFactory(TextFieldTableCell.forTableColumn());
+        yellowCards.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ViewPlayer,String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<ViewPlayer,String> t) {
                 t.getTableView().getItems().get(t.getTablePosition().getRow()).setYellowCards(t.getNewValue());
             }
         });
 
-        TableColumn redCards = new TableColumn("Tarjetas rojas");
+        TableColumn<ViewPlayer, String> redCards = new TableColumn("Tarjetas rojas");
         redCards.setMinWidth(100);
-        redCards.setCellValueFactory(new PropertyValueFactory<ViewPlayer,Integer>("red_cards"));
-        redCards.setCellFactory(TextFieldTableCell.forTableColumn());
-        redCards.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ViewPlayer,Integer>>() {
+        redCards.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ViewPlayer, String>, ObservableValue<String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<ViewPlayer,Integer> t) {
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ViewPlayer, String> param) {
+                return param.getValue().red_cards;
+            }
+        });
+        redCards.setCellFactory(TextFieldTableCell.forTableColumn());
+        redCards.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ViewPlayer,String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<ViewPlayer,String> t) {
                 t.getTableView().getItems().get(t.getTablePosition().getRow()).setRedCards(t.getNewValue());
             }
         });
 
-        TableColumn goalsAgainst = new TableColumn("Goles en contra");
+        TableColumn<ViewPlayer, String> goalsAgainst = new TableColumn("Goles en contra");
         goalsAgainst.setMinWidth(130);
-        goalsAgainst.setCellValueFactory(new PropertyValueFactory<ViewPlayer,Integer>("goals_against"));
-        goalsAgainst.setCellFactory(TextFieldTableCell.forTableColumn());
-        goalsAgainst.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ViewPlayer,Integer>>() {
+        goalsAgainst.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ViewPlayer, String>, ObservableValue<String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<ViewPlayer,Integer> t) {
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ViewPlayer, String> param) {
+                return param.getValue().goals_against;
+            }
+        });
+        goalsAgainst.setCellFactory(TextFieldTableCell.forTableColumn());
+        goalsAgainst.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ViewPlayer,String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<ViewPlayer,String> t) {
                 t.getTableView().getItems().get(t.getTablePosition().getRow()).setGoalsAgainst(t.getNewValue());
             }
         });
@@ -233,11 +271,18 @@ public class AdminViewController implements Initializable{
         //armo lista de players vacios con la info del team
         ArrayList<ViewPlayer> newPlayers = new ArrayList<>();
         for (Player player : team.getPlayers()){
-            newPlayers.add(new ViewPlayer(player.getName(), player.getProperties().getProperty(0), player.getProperties().getProperty(1), player.getProperties().getProperty(2), player.getProperties().getProperty(3), player.getProperties().getProperty(4), player.getProperties().getProperty(5), player.getProperties().getProperty(6)));
+            newPlayers.add(new ViewPlayer(player.getName(), ((Integer)(player.getProperties().getProperty(0))).toString(), ((Integer)player.getProperties().getProperty(1)).toString(), ((Integer)player.getProperties().getProperty(2)).toString(), ((Integer)player.getProperties().getProperty(3)).toString(), ((Integer)player.getProperties().getProperty(4)).toString(), ((Integer)player.getProperties().getProperty(5)).toString(), ((Integer)player.getProperties().getProperty(6)).toString() ));
         }
         ObservableList<ViewPlayer> data = FXCollections.observableArrayList(newPlayers);
         for(ViewPlayer vp : data) {
             System.out.println(vp.getName());
+            System.out.println(vp.getGoalsAgainst());
+            System.out.println(vp.getGoalsScoredByPenaltyKick());
+            System.out.println(vp.getGoalsScoredGoalkeeper());
+            System.out.println(vp.getNormalGoalsScored());
+            System.out.println(vp.getPenaltyCatched());
+            System.out.println(vp.getRedCards());
+            System.out.println(vp.getYellowCards());
         }
         playersAnchorPane.getChildren().removeAll();
         playersTableView = new TableView<ViewPlayer>();
@@ -266,13 +311,13 @@ public class AdminViewController implements Initializable{
         Player.Properties prop = new Player.Properties();
         for (Object item : playersTableView.getItems()) {
             String name = ((ViewPlayer)item).getName();
-            prop.setProperty(0,((ViewPlayer)item).getNormalGoalsScored());
-            prop.setProperty(1,((ViewPlayer)item).getGoalsScoredByPenaltyKick());
-            prop.setProperty(2,((ViewPlayer)item).getPenaltyCatched());
-            prop.setProperty(3,((ViewPlayer)item).getGoalsScoredGoalkeeper());
-            prop.setProperty(4,((ViewPlayer)item).getYellowCards());
-            prop.setProperty(5,((ViewPlayer)item).getRedCards());
-            prop.setProperty(6,((ViewPlayer)item).getGoalsAgainst());
+            prop.setProperty(0, parseInt(((ViewPlayer)item).getNormalGoalsScored()));
+            prop.setProperty(1, parseInt(((ViewPlayer)item).getGoalsScoredByPenaltyKick()));
+            prop.setProperty(2, parseInt(((ViewPlayer)item).getPenaltyCatched()));
+            prop.setProperty(3, parseInt(((ViewPlayer)item).getGoalsScoredGoalkeeper()));
+            prop.setProperty(4, parseInt(((ViewPlayer)item).getYellowCards()));
+            prop.setProperty(5, parseInt(((ViewPlayer)item).getRedCards()));
+            prop.setProperty(6, parseInt(((ViewPlayer)item).getGoalsAgainst()));
             dataTeam.put(name,prop);
         }
         return dataTeam;
@@ -294,82 +339,82 @@ public class AdminViewController implements Initializable{
 
     private static class ViewPlayer {
         private final SimpleStringProperty name;
-        private final SimpleIntegerProperty normal_goals_scored;
-        private final SimpleIntegerProperty goals_scored_by_penalty_kick;
-        private final SimpleIntegerProperty penalty_catched;
-        private final SimpleIntegerProperty goals_scored_goalkeeper;
-        private final SimpleIntegerProperty yellow_cards;
-        private final SimpleIntegerProperty red_cards;
-        private final SimpleIntegerProperty goals_against;
+        private final SimpleStringProperty normal_goals_scored;
+        private final SimpleStringProperty goals_scored_by_penalty_kick;
+        private final SimpleStringProperty penalty_catched;
+        private final SimpleStringProperty goals_scored_goalkeeper;
+        private final SimpleStringProperty yellow_cards;
+        private final SimpleStringProperty red_cards;
+        private final SimpleStringProperty goals_against;
 
-        private ViewPlayer(String name, int normal_goals_scored, int goals_scored_by_penalty_kick, int penalty_catched, int goals_scored_goalkeeper, int yellow_cards, int red_cards, int goals_against) {
+        private ViewPlayer(String name, String normal_goals_scored, String goals_scored_by_penalty_kick, String penalty_catched, String goals_scored_goalkeeper, String yellow_cards, String red_cards, String goals_against) {
             this.name = new SimpleStringProperty(name);
-            this.normal_goals_scored = new SimpleIntegerProperty(normal_goals_scored);
-            this.goals_scored_by_penalty_kick = new SimpleIntegerProperty(goals_scored_by_penalty_kick);
-            this.penalty_catched = new SimpleIntegerProperty(penalty_catched);
-            this.goals_scored_goalkeeper = new SimpleIntegerProperty(goals_scored_goalkeeper);
-            this.yellow_cards = new SimpleIntegerProperty(yellow_cards);
-            this.red_cards = new SimpleIntegerProperty(red_cards);
-            this.goals_against = new SimpleIntegerProperty(goals_against);
+            this.normal_goals_scored = new SimpleStringProperty(normal_goals_scored);
+            this.goals_scored_by_penalty_kick = new SimpleStringProperty(goals_scored_by_penalty_kick);
+            this.penalty_catched = new SimpleStringProperty(penalty_catched);
+            this.goals_scored_goalkeeper = new SimpleStringProperty(goals_scored_goalkeeper);
+            this.yellow_cards = new SimpleStringProperty(yellow_cards);
+            this.red_cards = new SimpleStringProperty(red_cards);
+            this.goals_against = new SimpleStringProperty(goals_against);
         }
 
         String getName() {
             return name.get();
         }
 
-        int getNormalGoalsScored() {
+        String getNormalGoalsScored() {
             return normal_goals_scored.get();
         }
 
-        int getGoalsScoredByPenaltyKick() {
+        String getGoalsScoredByPenaltyKick() {
             return goals_scored_by_penalty_kick.get();
         }
 
-        int getPenaltyCatched() {
+        String getPenaltyCatched() {
             return penalty_catched.get();
         }
 
-        int getGoalsScoredGoalkeeper() {
+        String getGoalsScoredGoalkeeper() {
             return goals_scored_goalkeeper.get();
         }
 
-        int getYellowCards() {
+        String getYellowCards() {
             return yellow_cards.get();
         }
 
-        int getRedCards() {
+        String getRedCards() {
             return red_cards.get();
         }
 
-        int getGoalsAgainst() {
+        String getGoalsAgainst() {
             return goals_against.get();
         }
 
-        void setNormalGoalsScored(Integer normal_goals_scored) {
+        void setNormalGoalsScored(String normal_goals_scored) {
             this.normal_goals_scored.set(normal_goals_scored);
         }
 
-        void setGoalsScoredByPenaltyKick(Integer goals_scored_by_penalty_kick) {
+        void setGoalsScoredByPenaltyKick(String goals_scored_by_penalty_kick) {
             this.goals_scored_by_penalty_kick.set(goals_scored_by_penalty_kick);
         }
 
-        void setPenaltyCatched(Integer penalty_catched) {
+        void setPenaltyCatched(String penalty_catched) {
             this.penalty_catched.set(penalty_catched);
         }
 
-        void setGoalsScoredGoalkeeper(Integer goals_scored_goalkeeper) {
+        void setGoalsScoredGoalkeeper(String goals_scored_goalkeeper) {
             this.goals_scored_goalkeeper.set(goals_scored_goalkeeper);
         }
 
-        void setYellowCards(Integer yellow_cards) {
+        void setYellowCards(String yellow_cards) {
             this.yellow_cards.set(yellow_cards);
         }
 
-        void setRedCards(Integer red_cards) {
+        void setRedCards(String red_cards) {
             this.red_cards.set(red_cards);
         }
 
-        void setGoalsAgainst(Integer goals_against) {
+        void setGoalsAgainst(String goals_against) {
             this.goals_against.set(goals_against);
         }
     }
