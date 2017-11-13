@@ -16,8 +16,12 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 //import sun.plugin.javascript.navig.Anchor;
 
+import javax.swing.*;
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.io.IOException;
 import java.net.URL;
@@ -91,6 +95,10 @@ public class UserViewController implements Initializable{
                         e.printStackTrace();
                     }
                     userTeamView.getChildren().add(root);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Transaccion Completada");
+                    alert.setContentText("Ha pagado un monto de $200 para inscribirse");
+                    alert.showAndWait();
                 }
             }
         });
