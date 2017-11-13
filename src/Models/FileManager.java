@@ -31,12 +31,23 @@ public class FileManager {
         }
     }
 
-    static Object readFromFile(String fileName) throws IOException, ClassNotFoundException {
-        String resourceDirectory = getResourcesDirectory();;
-        ObjectInputStream inputStream = null;
-        inputStream = new ObjectInputStream(new FileInputStream(resourceDirectory + "/" + fileName));
-        Object obj = inputStream.readObject();
-        inputStream.close();
+    static Object readFromFile(String fileName) throws ClassNotFoundException {
+        String resourceDirectory = getResourcesDirectory();
+        String filePath = resourceDirectory + "/" + fileName;
+        Object obj = null;
+        // si el archivo está vacio, no nos gastamos en abrirlo
+        if (new File(filePath).length() != 0){
+            System.out.println("El archivo tiene info");
+            ObjectInputStream inputStream;
+            try {
+                inputStream = new ObjectInputStream(new FileInputStream(filePath));
+                obj = inputStream.readObject();
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println(e.getMessage());
+            }
+        }
         return obj;
     }
 }

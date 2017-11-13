@@ -29,7 +29,7 @@ public class AdministratorTest {
         Administrator admin = new Administrator("adminName");
         admin.addTournament(tour);
 
-        assertTrue(admin.hasTournament("tourName"));
+        assertTrue(admin.containsTournament(new Tournament("tourName")));
         assertEquals(tour,admin.getTournament("tourName"));
     }
 
@@ -41,7 +41,7 @@ public class AdministratorTest {
         admin.addTournament(tour);
         admin.addUser("tourName", userDT1);
 
-        List<UserDT> set = admin.getUsers("tourName");
+        List<UserDT> set = admin.getUsers(new Tournament("tourName"));
 
         UserDT userDT2 = new UserDT("userName2");
 

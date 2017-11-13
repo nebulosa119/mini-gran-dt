@@ -39,7 +39,7 @@ public class UserTeams implements Serializable{
         return teams.get(t).getPlayers();
     }
 
-    public void refresh(Player.Properties p, Tournament t) {
+    void refresh(Player.Properties p, Tournament t) {
         teams.get(t).refreshPoints(p);
     }
 
@@ -53,7 +53,7 @@ public class UserTeams implements Serializable{
         teams = (Map<Tournament, UserTeam>) ois.readObject();
     }
 
-    public void refreshPoints(Map<String, Player.Properties> propertiesMap, Tournament tour) {
+    void refreshPoints(Map<String, Player.Properties> propertiesMap, Tournament tour) {
         UserTeam t = teams.get(tour);
         for(Player p : t.getPlayers()) {
             for(String name : propertiesMap.keySet()) {

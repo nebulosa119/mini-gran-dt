@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserExpenses implements Serializable{
+public class UserWallet implements Serializable{
 
     private static final long serialVersionUID = 1L;
 

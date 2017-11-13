@@ -94,6 +94,20 @@ public class AccountsManager implements Serializable{
         return account != null && account instanceof UserDT;
     }
 
+    public static ArrayList<UserDT> getUsersInTournament(Tournament tournament) {
+        ArrayList<UserDT> users = null;
+        for (Account account: accounts) {
+            if (account instanceof Administrator) {
+                Administrator admin = (Administrator) account;
+                if (admin.containsTournament(tournament)) {
+                    users = admin.getUsers(tournament);
+                    break;
+                }
+            }
+        }
+        return users;
+    }
+
     /** Carga los usuarios existentes al programa */
     public static void loadAccounts() throws IOException, ClassNotFoundException {
         accounts = (ArrayList<Account>) FileManager.readFromFile("accountsData.temp");
@@ -121,4 +135,5 @@ public class AccountsManager implements Serializable{
         ois.defaultReadObject();
         accounts = (ArrayList<Account>)ois.readObject();
     }
+
 }

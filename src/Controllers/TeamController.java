@@ -110,36 +110,24 @@ public class TeamController {//  controla la ventana del userDT
         removePlayerButton.setOnAction(removePlayerHandler);
     }
 
-    private EventHandler exitHandler = new EventHandler(){
-
-        @Override
-        public void handle(Event event) {
-            /**Guarda y sale*/
-            MainApp.setScene("login");
-        }
+    private EventHandler exitHandler = event -> {
+        /**Guarda y sale*/
+        MainApp.setScene("login");
     };
 
-    private EventHandler ruleHandler = new EventHandler(){
-
-        @Override
-        public void handle(Event event) {
-            /**Abre la ventana de reglas*/
-            Stage aux = new Stage();
-            RulesWindow rw = new RulesWindow();
-            aux.setScene(new Scene(rw));
-            aux.show();
-        }
+    private EventHandler ruleHandler = event -> {
+        /**Abre la ventana de reglas*/
+        Stage aux = new Stage();
+        RulesWindow rw = new RulesWindow();
+        aux.setScene(new Scene(rw));
+        aux.show();
     };
 
-    private EventHandler rankingHandler = new EventHandler(){
-
-        @Override
-        public void handle(Event event) {
-            /**Abre la ventana de ranking de los jugadores*/
-            Stage aux = new Stage();
-            RankingsWindow rw = new RankingsWindow();
-            aux.setScene(new Scene(rw));
-        }
+    /**Abre la ventana de ranking de los jugadores*/
+    private EventHandler rankingHandler = event -> {
+        // SI O SI se tiene que hace el seteo de info antes de la escena
+        PlayerRankingsController.setInfo(tournament);
+        MainApp.setScene("dtRankings");
     };
 
     /**En cuanto al tema de repetidos: se debería ver desde el model eso. Es decir, en la clase Usuario debería existir un método para verificar si

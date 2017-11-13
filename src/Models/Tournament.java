@@ -77,13 +77,13 @@ public class Tournament implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Tournament that = (Tournament) o;
-
-        return name != null ? name.equals(that.name) : that.name == null;
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || !(obj instanceof Tournament))
+            return false;
+        Tournament tour = (Tournament) obj;
+        return name.equals(tour.name);
     }
 
     @Override

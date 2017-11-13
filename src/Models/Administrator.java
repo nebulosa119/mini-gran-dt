@@ -9,14 +9,11 @@ public class Administrator extends Account {
 
     private static final long serialVersionUID = 1L;
 
-    private TournamentsAdministration tournamentsAdministration = new TournamentsAdministration(this);
     private Map<Tournament,ArrayList<UserDT>> tournamentUsers = new HashMap<>();
-
 
     public Administrator(String name) {
         super(name);
     }
-
 
     /**Metodo para que el Controllers pueda tener acceso a los torneos y asi poder mostrarlos al admin*/
     public Set<Tournament> getTournaments() {
@@ -41,9 +38,8 @@ public class Administrator extends Account {
         return true;
     }
 
-    public ArrayList<UserDT> getUsers(String tournament) {
-        Tournament tour = getTournament(tournament);
-        return tournamentUsers.get(tour);
+    public ArrayList<UserDT> getUsers(Tournament tournament) {
+        return tournamentUsers.get(tournament);
     }
     /**Para cuando el administrador quiera crear un nuevo torneo. Mi idea es que desde el Controllers se instancie la
        * clase torneo para poder ingresarla directamente*/
@@ -51,26 +47,22 @@ public class Administrator extends Account {
         tournamentUsers.put(new Tournament(t),new ArrayList<>());
     }
 
-    public boolean hasTournament(String tournamentName) {
-        if(!tournamentName.equals("")) {
-            for (Tournament t : tournamentUsers.keySet()) {
-                if (t.getName().equals(tournamentName))
-                    return true;
-            }
-        }
-        return false;
+    public boolean containsTournament(Tournament tournament) {
+        return tournamentUsers.containsKey(tournament);
     }
  
     public void addUser(String tournament, UserDT userDT) {
         Tournament tour = getTournament(tournament);
         tournamentUsers.get(tour).add(userDT);
     }
+
     public void refresh(Map<String, Map<String, Map<String, Player.Properties>>> dataTournaments) {
         for (Tournament myTour : tournamentUsers.keySet()) {
             myTour.refresh(dataTournaments.get(myTour.getName()));
             refreshUsers(myTour.getName(), dataTournaments.get(myTour.getName()));
         }
     }
+
     private void refreshUsers(String tourName, Map<String,Map<String, Player.Properties>> tournament) {
         Tournament tour = getTournament(tourName);
         ArrayList<UserDT> userDTS = tournamentUsers.get(tour);
@@ -105,14 +97,12 @@ public class Administrator extends Account {
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
         out.writeUTF(name);
-        out.writeObject(tournamentsAdministration);
         out.writeObject(tournamentUsers);
     }
 
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject();
         name = ois.readUTF();
-        tournamentsAdministration = (TournamentsAdministration)ois.readObject();
         tournamentUsers = (Map<Tournament, ArrayList<UserDT>>) ois.readObject();
     }
 }

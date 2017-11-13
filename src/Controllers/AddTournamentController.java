@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.AccountsManager;
 import Models.Administrator;
+import Models.Tournament;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -35,7 +36,7 @@ public class AddTournamentController{
     private void handleCreateTournament(){
         String tournamentName = tournamentTextField.getText();
         int maxPlayers = parseInt(playersTextField.getText());
-        if(!((Administrator)AccountsManager.getSignedAccount()).hasTournament(tournamentName)) {
+        if(!((Administrator)AccountsManager.getSignedAccount()).containsTournament(new Tournament(tournamentName))) {
             if(((Administrator) AccountsManager.getSignedAccount()).createTournament(tournamentName, maxPlayers))
                 MainApp.setScene("adminView");
             else

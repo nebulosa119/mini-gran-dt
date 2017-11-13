@@ -13,7 +13,7 @@ public class UserDT extends Account{
 
     private static final long serialVersionUID = 1L;
 
-    private UserExpenses expenses = new UserExpenses();
+    private UserWallet expenses = new UserWallet();
     private UserTeams userTeams = new UserTeams();
     private int points = 0;
 
@@ -40,7 +40,7 @@ public class UserDT extends Account{
         userTeams.addNewTeam(t);
     }
 
-    public UserExpenses getExpenses() {
+    public UserWallet getExpenses() {
         return expenses;
     }
 
@@ -62,6 +62,11 @@ public class UserDT extends Account{
     }
 
     @Override
+    public String toString() {
+        return name;
+    }
+
+    @Override
     public int hashCode(){
         int result = super.hashCode();
         result = result * 5;
@@ -80,7 +85,7 @@ public class UserDT extends Account{
         ois.defaultReadObject();
         name = ois.readUTF();
         points = ois.readInt();
-        expenses = (UserExpenses)ois.readObject();
+        expenses = (UserWallet)ois.readObject();
         userTeams = (UserTeams)ois.readObject();
     }
 }
