@@ -26,6 +26,8 @@ public class AdminViewController implements Initializable{
     private Tournament actualTournament = null;
     private Tournament expandedTournament = null;
     private TableView<ViewPlayer> playersTableView;
+    private Map<Tournament, VBox> tournamentVBoxMap = new HashMap<>();
+    private Map<Tournament, ToggleGroup> tournamentToggleGroupMap = new HashMap<>();
 
     @FXML
     private Label tournamentsLoaded;
@@ -93,9 +95,15 @@ public class AdminViewController implements Initializable{
         dialog.setContentText("Ingrese el nombre:");
 
         Optional<String> result = dialog.showAndWait();
-        if (result.isPresent())
-            expandedTournament.addTeam(new Team(result.get(), expandedTournament.getMaxPlayers()));
-        MainApp.getInstance().setScene("adminView");
+        if (result.isPresent()) {
+            Team toAddTeam = new Team(result.get(), expandedTournament.getMaxPlayers());
+            expandedTournament.addTeam(toAddTeam);
+            RadioButton aux = new RadioButton();
+            aux.setText(toAddTeam.getName());
+            tournamentToggleGroupMap.get(expandedTournament).getToggles().add(aux);
+            tournamentVBoxMap.get(expandedTournament).getChildren().add(aux);
+        }
+        //MainApp.getInstance().setScene("adminView");
     }
 
     /**
@@ -113,12 +121,13 @@ public class AdminViewController implements Initializable{
         if (result.isPresent()){
             try {
                 team.add(new Player(result.get()));
+                playersTableView.getItems().add(new ViewPlayer(result.get()));
             } catch(CompleteTeamException e) {
                 Alert alert = createAlert("Equipo Completo.");
                 alert.showAndWait();
             }
         }
-        MainApp.getInstance().setScene("adminView");
+        //MainApp.getInstance().setScene("adminView");
     }
     /**
      * Carga los respectivos datos de la ventana
@@ -131,6 +140,8 @@ public class AdminViewController implements Initializable{
             ToggleGroup tournamentGroup = new ToggleGroup();
             VBox tournamentBox = new VBox(10);
             tournamentBox.setPadding(new Insets(10));
+            tournamentToggleGroupMap.put(tournament, tournamentGroup);
+            tournamentVBoxMap.put(tournament, tournamentBox);
             for (Team team : tournament.getTeams()) {
                 RadioButton teamButton = new RadioButton(team.getName());
                 tournamentGroup.getToggles().add(teamButton);
@@ -244,13 +255,14 @@ public class AdminViewController implements Initializable{
     private Map<String,Map<String, Player.Properties>> getTournamentData(){
         Map<String,Map<String, Player.Properties>> dataTournament = new HashMap<>();
         dataTournament.put(team.getName(), getTeamData());
+        System.out.println(dataTournament);
         return dataTournament;
     }
 
     private Map<String, Player.Properties> getTeamData() {
         Map<String, Player.Properties> dataTeam = new HashMap<>();
-        Player.Properties prop = new Player.Properties();
         for (Object item : playersTableView.getItems()) {
+            Player.Properties prop = new Player.Properties();
             String name = ((ViewPlayer)item).getName();
             prop.setProperty(0, parseInt(((ViewPlayer)item).getNormalGoalsScored()));
             prop.setProperty(1, parseInt(((ViewPlayer)item).getGoalsScoredByPenaltyKick()));
@@ -297,6 +309,17 @@ public class AdminViewController implements Initializable{
             this.yellow_cards = new SimpleStringProperty(yellow_cards);
             this.red_cards = new SimpleStringProperty(red_cards);
             this.goals_against = new SimpleStringProperty(goals_against);
+        }
+
+        private ViewPlayer(String name) {
+            this.name = new SimpleStringProperty(name);
+            normal_goals_scored = new SimpleStringProperty("0");
+            goals_scored_by_penalty_kick = new SimpleStringProperty("0");
+            penalty_catched = new SimpleStringProperty("0");
+            goals_scored_goalkeeper = new SimpleStringProperty("0");
+            yellow_cards = new SimpleStringProperty("0");
+            red_cards = new SimpleStringProperty("0");
+            goals_against= new SimpleStringProperty("0");
         }
 
         String getName() {

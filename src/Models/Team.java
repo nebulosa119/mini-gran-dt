@@ -51,7 +51,9 @@ public class Team implements Serializable {
     }
 
     void refresh(Map<String, Player.Properties> dataPlayers) {
+        System.out.println(dataPlayers);
         for (Player myPlayer : players) {
+            System.out.println(myPlayer.getName());
             myPlayer.refresh(dataPlayers.get(myPlayer.getName()));
         }
     }
