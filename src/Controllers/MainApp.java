@@ -77,6 +77,8 @@ public class MainApp extends Application {
             System.out.println("FXML " + windowName +" loading error.");
         }
         Stage aux = new Stage();
+        aux.setTitle("Mini Gran DT");
+        aux.getIcons().add(new Image(MainApp.class.getResourceAsStream("/Resources/Media/icon.png")));
         if(page!=null){
             aux.setScene(new Scene(page));
             aux.show();

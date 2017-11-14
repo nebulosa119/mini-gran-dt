@@ -88,6 +88,11 @@ public class AdminViewController implements Initializable{
      */
     @FXML
     private void handleAddTeam(){
+        if(expandedTournament==null){
+            Alert alert = createAlert("Ningun torneo seleccionado.");
+            alert.showAndWait();
+            return;
+        }
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Crear equipo en " + expandedTournament.getName());
         dialog.setHeaderText("Agregar equipo en " + expandedTournament.getName() + ".");
@@ -153,14 +158,33 @@ public class AdminViewController implements Initializable{
                     actualTournament = tournament;
                     team = tournament.getTeam(selected.getText());
                     showTeamPlayers();
+                    playersAnchorPane.setVisible(true);
                 }
             });
             TitledPane tournamentPane = new TitledPane(tournament.getName(), tournamentBox);
-            tournamentPane.expandedProperty().addListener((ov, b, b1) -> {
-                expandedTournament = tournament;
-                addTeam.setVisible(true);
-            });
             tournamentsAccordion.getPanes().add(tournamentPane);
+            tournamentsAccordion.expandedPaneProperty().addListener((ov, b, b1) -> {
+                if(tournamentsAccordion.getExpandedPane()!=null){
+                    if(tournamentPane.isExpanded()){
+                        expandedTournament = tournament;
+                        addTeam.setVisible(true);
+                        if (tournamentGroup.getSelectedToggle() != null) {
+                            refreshData.setVisible(true);
+                            addPlayer.setVisible(true);
+                            playersAnchorPane.setVisible(true);
+                            RadioButton selected = (RadioButton)tournamentGroup.getSelectedToggle();
+                            actualTournament = tournament;
+                            team = tournament.getTeam(selected.getText());
+                            showTeamPlayers();
+                        }
+                    }
+                }else{
+                    playersAnchorPane.setVisible(false);
+                    refreshData.setVisible(false);
+                    addPlayer.setVisible(false);
+                    addTeam.setVisible(false);
+                }
+            });
         }
         tournamentsLoaded.setVisible(true);
     }
