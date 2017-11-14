@@ -2,8 +2,8 @@ package Tests;
 
 import Models.Exceptions.CompleteTeamException;
 import Models.Exceptions.InsufficientFundsException;
+import Models.PhysicalTeam;
 import Models.Player;
-import Models.Team;
 import Models.Tournament;
 import Models.UserDT;
 import org.apache.commons.lang3.SerializationUtils;
@@ -32,7 +32,7 @@ public class UserDTTest {
     public void expensesTest() {
         UserDT userDT = new UserDT("userName");
         Tournament tour = new Tournament("tourName");
-        Team team = new Team("teamName",5);
+        PhysicalTeam team = new PhysicalTeam("teamName",5);
         Player player = new Player("playerName");
 
         try {
@@ -64,7 +64,7 @@ public class UserDTTest {
     public void refreshPointsTest() {
         UserDT userDT = new UserDT("userName");
         Tournament tour = new Tournament("tourName");
-        Team team = new Team("teamName",5);
+        PhysicalTeam team = new PhysicalTeam("teamName",5);
         Player player = new Player("playerName");
 
         try {
@@ -93,7 +93,7 @@ public class UserDTTest {
     public void serializationTest() {
         UserDT userDT = new UserDT("userName");
         Tournament tour = new Tournament("tourName");
-        Team team = new Team("teamName",5);
+        PhysicalTeam team = new PhysicalTeam("teamName",5);
         Player player = new Player("playerName");
 
         try {

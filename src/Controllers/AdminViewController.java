@@ -28,7 +28,7 @@ import static java.lang.Integer.parseInt;
  */
 public class AdminViewController implements Initializable{
 
-    private Team team = null;
+    private PhysicalTeam team = null;
     private Tournament actualTournament = null;
     private Tournament expandedTournament = null;
     private TableView<ViewPlayer> playersTableView;
@@ -101,7 +101,7 @@ public class AdminViewController implements Initializable{
 
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
-            Team toAddTeam = new Team(result.get(), expandedTournament.getMaxPlayers());
+            PhysicalTeam toAddTeam = new PhysicalTeam(result.get(), expandedTournament.getMaxPlayers());
             if(expandedTournament.hasTeam(toAddTeam)) {
                 Alert alert = createAlert("El equipo " + toAddTeam.getName() + " ya existe.");
                 alert.showAndWait();
@@ -151,7 +151,7 @@ public class AdminViewController implements Initializable{
             tournamentBox.setPadding(new Insets(10));
             tournamentToggleGroupMap.put(tournament, tournamentGroup);
             tournamentVBoxMap.put(tournament, tournamentBox);
-            for (Team team : tournament.getTeams()) {
+            for (PhysicalTeam team : tournament.getTeams()) {
                 RadioButton teamButton = new RadioButton(team.getName());
                 tournamentGroup.getToggles().add(teamButton);
                 tournamentBox.getChildren().add(teamButton);

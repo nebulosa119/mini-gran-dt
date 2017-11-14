@@ -1,8 +1,8 @@
 package Tests;
 
 import Models.Exceptions.CompleteTeamException;
+import Models.PhysicalTeam;
 import Models.Player;
-import Models.Team;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Test;
 
@@ -12,13 +12,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class TeamTest {
+public class PhysicalTeamTest {
 
     @Test
     public void createTeamTest() {
-        Team team1 = new Team("teamName1",5);
-        Team team2 = new Team("teamName2",5);
-        Team team3 = new Team("teamName1",5);
+        PhysicalTeam team1 = new PhysicalTeam("teamName1",5);
+        PhysicalTeam team2 = new PhysicalTeam("teamName2",5);
+        PhysicalTeam team3 = new PhysicalTeam("teamName1",5);
 
         assertFalse(team1.equals(team2));
         assertTrue(team1.equals(team3));
@@ -26,7 +26,7 @@ public class TeamTest {
 
     @Test
     public void CompleteTeamExceptionTest() {
-        Team team = new Team("teamName",5);
+        PhysicalTeam team = new PhysicalTeam("teamName",5);
 
         Player p1 = new Player("playerName1");
         Player p2 = new Player("playerName2");
@@ -60,7 +60,7 @@ public class TeamTest {
 
     @Test
     public void serializationTest() {
-        Team team = new Team("teamName",5);
+        PhysicalTeam team = new PhysicalTeam("teamName",5);
         Player player = new Player("playerName");
         try {
             team.add(player);
@@ -71,6 +71,6 @@ public class TeamTest {
         Serializable copy = SerializationUtils.clone((Serializable) team);
 
         assertEquals(team, copy);
-        assertTrue(((Team)copy).getPlayers().contains(player));
+        assertTrue(((PhysicalTeam)copy).getPlayers().contains(player));
     }
 }

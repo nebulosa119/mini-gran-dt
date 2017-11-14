@@ -44,7 +44,7 @@ public class TeamManagerController {
         /*Inicializo variables de instancia*/
         userDT = (UserDT) AccountsManager.getSignedAccount();
         /*Configuro los tabs*/
-        for(Team team : tournament.getTeams()) {
+        for(PhysicalTeam team : tournament.getTeams()) {
             Tab tab = new Tab();
             tab.setText(team.getName());
 

@@ -10,7 +10,7 @@ public class Tournament implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private ArrayList<Team> teams;
+    private ArrayList<PhysicalTeam> teams;
     private Administrator administrator;
     private String name;
     private int maxPlayers;
@@ -30,12 +30,12 @@ public class Tournament implements Serializable {
         teams.addAll(t.getTeams());
     }
 
-    public ArrayList<Team> getTeams() {
+    public ArrayList<PhysicalTeam> getTeams() {
         return new ArrayList<>(teams);
     }
 
-    public Team getTeam(String teamName){
-        for(Team team : teams)
+    public PhysicalTeam getTeam(String teamName){
+        for(PhysicalTeam team : teams)
             if(team.getName().equals(teamName))
                 return team;
         return null;
@@ -50,12 +50,12 @@ public class Tournament implements Serializable {
     }
 
     /**Para cuando se cree el torneo y los equipos*/
-    public void addTeam(Team t) {
-        teams.add(new Team(t,maxPlayers));
+    public void addTeam(PhysicalTeam t) {
+        teams.add(new PhysicalTeam(t.getName(), t, maxPlayers));
     }
 
-    public boolean hasTeam(Team t) {
-        for(Team team : teams) {
+    public boolean hasTeam(PhysicalTeam t) {
+        for(PhysicalTeam team : teams) {
             if(t.equals(team))
                 return true;
         }
@@ -67,7 +67,7 @@ public class Tournament implements Serializable {
     }
 
     void refresh(Map<String, Map<String, Player.Properties>> dataTeams) {
-        for (Team myTeam : teams) {
+        for (PhysicalTeam myTeam : teams) {
             System.out.println(myTeam.getName());
             if(dataTeams.get(myTeam.getName()) != null)
                 myTeam.refresh(dataTeams.get(myTeam.getName()));
@@ -81,7 +81,7 @@ public class Tournament implements Serializable {
 
     private Map<Player,Integer> unifyPlayers() {
         ArrayList<Player> players = new ArrayList<>();
-        for (Team team : teams) {
+        for (PhysicalTeam team : teams) {
             for (Player player : team.getPlayers()) {
                 players.add(player);
             }
@@ -129,7 +129,7 @@ public class Tournament implements Serializable {
         ois.defaultReadObject();
         name = ois.readUTF();
         maxPlayers = ois.readInt();
-        teams = (ArrayList<Team>) ois.readObject();
+        teams = (ArrayList<PhysicalTeam>) ois.readObject();
     }
 
     public Administrator getAdministrator() {

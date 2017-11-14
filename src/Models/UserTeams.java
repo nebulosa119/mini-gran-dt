@@ -15,7 +15,7 @@ public class UserTeams implements Serializable{
     private Map<Tournament, UserTeam> teams = new HashMap<>();
 
     void addNewTeam(Tournament t) {
-        teams.put(t, new UserTeam());
+        teams.put(t, new UserTeam(t.getMaxPlayers()));
         System.out.println(teams.get(t) == null);
     }
 

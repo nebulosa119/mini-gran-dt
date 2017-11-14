@@ -10,28 +10,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
-public class Team implements Serializable {
+public class PhysicalTeam extends AbstractTeam implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private ArrayList<Player> players;
     private String name;
-    private int maxPlayers; // esto no tiene que estar aca, es de tournament, hay que arreglarlo
 
-    public Team(String name, int maxPlayers) {
+    public PhysicalTeam(String name, int maxPlayers) {
+        super(maxPlayers);
         this.name = name;
-        this.players = new ArrayList<>();
-        this.maxPlayers = maxPlayers;
     }
 
-    public Team(Team team, int maxPlayers) {
+    public PhysicalTeam(String name, PhysicalTeam team, int maxPlayers) {
         this(team.getName(),maxPlayers);
+        this.name = name;
         players.addAll(team.getPlayers());
     }
 
-    public Team() {
+    /**public PhysicalTeam() {
         players = new ArrayList<>();
-    }
+    */
 
     public ArrayList<Player> getPlayers() {
         return players;
@@ -42,7 +40,8 @@ public class Team implements Serializable {
     }
 
     public void add(Player p) throws CompleteTeamException{
-        if (players.size() < maxPlayers && !players.contains(p))
+        System.out.println(max_players);
+        if (players.size() < max_players && !players.contains(p))
             players.add(p);
         else
             throw new CompleteTeamException();
@@ -61,8 +60,8 @@ public class Team implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Team team = (Team) o;
-
+        PhysicalTeam team = (PhysicalTeam) o;
+        if(!super.equals(o)) return false;
         return name != null ? name.equals(team.name) : team.name == null;
     }
 

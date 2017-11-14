@@ -1,6 +1,6 @@
 package Tests;
 
-import Models.Team;
+import Models.PhysicalTeam;
 import Models.Tournament;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Test;
@@ -26,10 +26,10 @@ public class TournamentTest {
     @Test
     public void addTeamTest() {
         Tournament tour = new Tournament("tourName",5);
-        Team team1 = new Team("teamName1",tour.getMaxPlayers());
+        PhysicalTeam team1 = new PhysicalTeam("teamName1",tour.getMaxPlayers());
         tour.addTeam(team1);
 
-        Team team2 = new Team("teamName2",tour.getMaxPlayers());
+        PhysicalTeam team2 = new PhysicalTeam("teamName2",tour.getMaxPlayers());
 
         assertTrue(tour.hasTeam(team1));
         assertFalse(tour.hasTeam(team2));

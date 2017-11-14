@@ -9,7 +9,7 @@ public class Administrator extends Account {
 
     private static final long serialVersionUID = 1L;
 
-    private Map<Tournament,ArrayList<UserDT>> tournamentUsers = new HashMap<>();
+    private Map<Tournament, ArrayList<UserDT>> tournamentUsers = new HashMap<>();
 
     public Administrator(String name) {
         super(name);
