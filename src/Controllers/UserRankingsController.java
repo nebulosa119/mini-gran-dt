@@ -35,6 +35,7 @@ public class UserRankingsController implements Initializable {
     private static ArrayList<UserDT> users;
     private static String tournamentName;
     private static Tournament tournament;
+    private static Map<UserDT,Integer> usersmap;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -64,14 +65,12 @@ public class UserRankingsController implements Initializable {
                 data.add(user);
             }
 
-            SortedList<UserDT> sortedData = new SortedList<>(data);
             TableView<UserDT> rankingsTableView = new TableView<>();
-
-            sortedData.comparatorProperty().bind(rankingsTableView.comparatorProperty());
-            rankingsTableView.setItems(sortedData);
-
-            rankingsTableView.getSortOrder().addAll(rankingColumn);
+            rankingsTableView.setItems(data);
+            rankingColumn.setSortType(ASCENDING);
+            rankingsTableView.getSortOrder().add(rankingColumn);
             rankingsTableView.getColumns().addAll(rankingColumn, userColumn, pointsColumn);
+            rankingsTableView.sort();
             
             rankingsTableView.prefHeightProperty().bind(rankingsAnchorPane.heightProperty());
             rankingsTableView.prefWidthProperty().bind(rankingsAnchorPane.widthProperty());
@@ -83,18 +82,18 @@ public class UserRankingsController implements Initializable {
         tournamentName = t.getName();
         tournament = t;
         users = AccountsManager.getUsersInTournament(t);
+        usersmap = setRanking();
     }
 
-    private Map<UserDT, Integer> setRanking() {
+    private static Map<UserDT, Integer> setRanking() {
         Map<UserDT,Integer> map = new HashMap<>();
         for (int i=0; i<users.size(); i++) {
-            map.put(users.get(i),i+1);
+            map.put(users.get(i), i+1);
         }
         return map;
     }
 
     private int getRanking(UserDT user) {
-        Map<UserDT,Integer> map = setRanking();
-        return map.get(user);
+        return usersmap.get(user);
     }
 }
