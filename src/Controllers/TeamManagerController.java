@@ -132,18 +132,7 @@ public class TeamManagerController {
      * Abre la ventana de reglas
      */
     private EventHandler ruleHandler = event -> {
-        Stage aux = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Resources/Views/rulesWindow.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            System.out.println("FXML loading error.");
-        }
-        aux.setTitle("Mini Gran DT");
-        aux.getIcons().add(new Image(MainApp.class.getResourceAsStream("/Resources/Media/icon.png")));
-        aux.setScene(new Scene(root));
-        aux.show();
+        MainApp.setNewScene("rulesWindow");
     };
 
     /**
@@ -151,7 +140,7 @@ public class TeamManagerController {
      */
     private EventHandler rankingHandler = event -> {
         UserRankingsController.setInfo(tournament);
-        MainApp.setScene("userRankings");
+        MainApp.setNewScene("userRankings");
     };
 
     /*En cuanto al tema de repetidos: se debería ver desde el model eso. Es decir, en la clase Usuario debería existir un método para verificar si

@@ -68,6 +68,21 @@ public class MainApp extends Application {
             stage.setScene(new Scene(page));
     }
 
+    public static void setNewScene(String windowName){
+        Parent page = null;
+        try {
+            URL fileUrl = MainApp.class.getResource("/Resources/Views/" + windowName + ".fxml");
+            page = FXMLLoader.load(fileUrl);
+        } catch (Exception e) {
+            System.out.println("FXML " + windowName +" loading error.");
+        }
+        Stage aux = new Stage();
+        if(page!=null){
+            aux.setScene(new Scene(page));
+            aux.show();
+        }
+    }
+
     /**
      * Main principal.
      */

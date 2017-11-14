@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="264.0" prefWidth="386.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:controller="Controllers.RulesWindowController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="264.0" prefWidth="386.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="270.0" prefWidth="390.0">
          <children>
@@ -15,42 +15,37 @@
                   <Font name="System Bold" size="30.0" />
                </font>
             </Label>
-            <Label alignment="TOP_CENTER" prefHeight="27.0" prefWidth="250.0" text="Gol anotado suma puntos.">
+            <Label fx:id="scoredGoal" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="250.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="TOP_CENTER" prefHeight="27.0" prefWidth="328.0" text="Gol anotado por penal suma puntos.">
+            <Label fx:id="penaltyGoal" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="328.0" >
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="TOP_CENTER" prefHeight="27.0" prefWidth="272.0" text="Gol de arquero suma puntos.">
+            <Label fx:id="goaleeGoal" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="272.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="TOP_CENTER" prefHeight="27.0" prefWidth="258.0" text="Penal atajado suma puntos.">
+            <Label fx:id="penaltyCatched" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="258.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="TOP_CENTER" prefHeight="27.0" prefWidth="247.0" text="Tiro atajado suma puntos.">
+            <Label fx:id="redCard" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="238.0" >
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="TOP_CENTER" prefHeight="27.0" prefWidth="238.0" text="Tarjeta roja resta puntos.">
+            <Label fx:id="yellowCard" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="269.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="TOP_CENTER" prefHeight="27.0" prefWidth="269.0" text="Tarjeta amarilla resta puntos.">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label alignment="TOP_CENTER" prefHeight="27.0" prefWidth="254.0" text="Gol en contra resta puntos.">
+            <Label fx:id="ownGoal" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="254.0">
                <font>
                   <Font size="18.0" />
                </font>

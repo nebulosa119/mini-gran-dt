@@ -39,9 +39,4 @@ public class UserRankingsController implements Initializable {
         users.sort(Comparator.comparingInt(UserDT::getPoints));
     }
 
-    @FXML
-    private void returnHandler(){
-        MainApp.setScene("userView");
-    }
-
 }
