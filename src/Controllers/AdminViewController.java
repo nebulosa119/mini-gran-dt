@@ -20,6 +20,11 @@ import java.util.*;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * Controlador de la vista del administrador.
+ *
+ * @author tdorado
+ */
 public class AdminViewController implements Initializable{
 
     private Team team = null;

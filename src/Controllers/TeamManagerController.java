@@ -19,9 +19,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-
 import java.io.IOException;
 
+/**
+ * Controlador de la vista del manejo de un equipo para un jugador.
+ *
+ * @author pmommeso
+ */
 public class TeamManagerController {
 
     @FXML
@@ -38,30 +42,34 @@ public class TeamManagerController {
     private UserDT userDT;
     private static Tournament tournament;
 
+    /**
+     * Configura todos los equipos del torneo y jugadores del usuario.
+     * Setea los botones de la pantalla
+     */
     public void initialize() {
-        /**Inicializo variables de instancia*/
+        /*Inicializo variables de instancia*/
         userDT = (UserDT) AccountsManager.getSignedAccount();
-        /**Configuro los tabs*/
+        /*Configuro los tabs*/
         for(Team team : tournament.getTeams()) {
             Tab tab = new Tab();
             tab.setText(team.getName());
 
-            /**Defino la data que va a ir adrento de la tabla*/
+            /*Defino la data que va a ir adrento de la tabla*/
             ObservableList<Player> data = FXCollections.observableArrayList();
             for(Player p : team.getPlayers()) {
                 data.add(p);
             }
 
-            /**Defino la tabla de jugadores que va adentro del tab particular*/
+            /*Defino la tabla de jugadores que va adentro del tab particular*/
             TableView<Player> playerTableView = new TableView<>();
             playerTableView.setItems(data);
 
-            /**Defino las columnas de la tabla*/
+            /*Defino las columnas de la tabla*/
             TableColumn<Player, String> playerName = new TableColumn<>("Name");
             TableColumn<Player, Integer> playerRanking = new TableColumn<>("Ranking");
             TableColumn<Player, Integer> playerPrice = new TableColumn<>("Price");
 
-            /**Asocio los datos con las celdas de la tabla*/
+            /*Asocio los datos con las celdas de la tabla*/
             playerRanking.setCellValueFactory(info -> (new SimpleIntegerProperty(info.getValue().getRanking())).asObject());
             playerPrice.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Player, Integer>, ObservableValue<Integer>>() {
                 @Override
@@ -77,20 +85,20 @@ public class TeamManagerController {
                 }
             });
 
-            /**Agrego las columnas a la tabla*/
+            /*Agrego las columnas a la tabla*/
             playerTableView.getColumns().addAll(playerName, playerRanking, playerPrice);
 
-            /**Agrego la tabla al tab*/
+            /*Agrego la tabla al tab*/
             tab.setContent(playerTableView);
 
-            /**Agrego la tab*/
+            /*Agrego la tab*/
             teamsTabPanes.getTabs().add(tab);
 
             pointsLabel.setText("Current points: " + Integer.toString(userDT.getUserTeams().getUserTeam(tournament).getUserPoints()));
             fundsLabel.setText("Available funds: " + Integer.toString(userDT.getExpenses().getAvailableFunds(tournament)));
         }
-        /**Configuro el listView del usuario*/
-        /**Lo lleno con los jugadores que tenga*/
+        /*Configuro el listView del usuario*/
+        /*Lo lleno con los jugadores que tenga*/
         if(userDT != null && userDT.hasSigned(tournament))
             userPlayerList.setItems(FXCollections.observableArrayList(userDT.getUserTeams().getUserTeamPlayers(tournament)));
         userPlayerList.setCellFactory(param -> new ListCell<Player>() {
@@ -102,12 +110,12 @@ public class TeamManagerController {
                     setText(p.getName());
                 } }
         });
-        /**Permite selecciones múltiples*/
+        /*Permite selecciones múltiples*/
         userPlayerList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         VBox aux = new VBox();
         aux.getChildren().add(teamsTabPanes);
         teamsToCheckOutPane.getChildren().add(aux);
-        /**Seteo los listeners de los botones*/
+        /*Seteo los listeners de los botones*/
         exitButton.setOnAction(exitHandler);
         ruleButton.setOnAction(ruleHandler);
         playerRankingButton.setOnAction(rankingHandler);
@@ -120,8 +128,10 @@ public class TeamManagerController {
         MainApp.setScene("login");
     };
 
+    /**
+     * Abre la ventana de reglas
+     */
     private EventHandler ruleHandler = event -> {
-        /**Abre la ventana de reglas*/
         Stage aux = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Resources/Views/rulesWindow.fxml"));
         Parent root = null;
@@ -136,23 +146,25 @@ public class TeamManagerController {
         aux.show();
     };
 
-    /**Abre la ventana de ranking de los jugadores*/
+    /**
+     * Abre la ventana de ranking de los jugadores
+     */
     private EventHandler rankingHandler = event -> {
-        // SI O SI se tiene que hace el seteo de info antes de la escena
         PlayerRankingsController.setInfo(tournament);
         MainApp.setScene("dtRankings");
     };
 
-    /**En cuanto al tema de repetidos: se debería ver desde el model eso. Es decir, en la clase Usuario debería existir un método para verificar si
-     * el jugador que quiere y puede comprar es repetido o no*/
+    /*En cuanto al tema de repetidos: se debería ver desde el model eso. Es decir, en la clase Usuario debería existir un método para verificar si
+    el jugador que quiere y puede comprar es repetido o no*/
+    /**
+     * Añade un jugador al equipo y decrementa los fondos
+     */
     private EventHandler addPlayerHandler = new EventHandler() {
         @Override
         public void handle(Event event) {
-            /**Añade al jugador elegido y decrementa los fondos*/
             try {
                 for (Tab t : teamsTabPanes.getTabs()) {
                     for (Player p : (ObservableList<Player>) ((TableView) t.getContent()).getSelectionModel().getSelectedItems()) {
-                        /**Agrego el jugaodr al equipo del usuario*/
                         if(!userPlayerList.getItems().contains(p)) {
                             userDT.buy(tournament, p);
                             userPlayerList.getItems().add(p);
@@ -167,11 +179,13 @@ public class TeamManagerController {
 
     };
 
+    /**
+     * Remueve el jugador elegido y aumenta los fondos
+     */
     private EventHandler removePlayerHandler = new EventHandler(){
-
         @Override
         public void handle(Event event) {
-            /**Remueve el jugador elegido y aumenta los fondos*/
+
             for(Player p : userPlayerList.getSelectionModel().getSelectedItems()) {
                 userDT.sell(tournament, p);
                 userPlayerList.getItems().removeAll(p);
@@ -180,6 +194,9 @@ public class TeamManagerController {
         }
     };
 
+    /**
+     * Muestra mensaje de fondos insuficientes
+     */
     private void showErrorMessage() {
         Alert aux = new Alert(Alert.AlertType.ERROR);
         aux.setTitle("ERROR");
@@ -187,6 +204,10 @@ public class TeamManagerController {
         aux.showAndWait();
     }
 
+    /**
+     * Setea un torneo
+     * @param t Torneo a setear
+     */
     public static void setTournament(Tournament t) {
         tournament = t;
     }

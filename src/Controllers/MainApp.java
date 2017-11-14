@@ -12,21 +12,18 @@ import javafx.stage.Stage;
 
 import static javafx.application.Platform.exit;
 
+/**
+ * Main que inicia la aplicación.
+ *
+ * @author emiliobasualdo
+ */
 public class MainApp extends Application {
 
     private static Stage stage;
-    private static MainApp instance;
 
-    public MainApp(){
-        instance = this;
-    }
-
-    public static MainApp getInstance(){
-        if(instance==null)
-            instance = new MainApp();
-        return instance;
-    }
-
+    /**
+     * Realiza la carga de datos del archivo y llama al login.
+     */
     @Override
     public void start(Stage primaryStage){
         try {
@@ -42,6 +39,9 @@ public class MainApp extends Application {
         stage.show();
     }
 
+    /**
+     * Se guarda automaticamente al cerrar la aplicación.
+     */
     @Override
     public void stop(){
         try {
@@ -52,6 +52,10 @@ public class MainApp extends Application {
         }
     }
 
+    /**
+     * Cambia el scene del stage principal.
+     * @param windowName nombre del archivo fxml de la ventana
+     */
     public static void setScene(String windowName){
         Parent page = null;
         try {
@@ -64,6 +68,9 @@ public class MainApp extends Application {
             stage.setScene(new Scene(page));
     }
 
+    /**
+     * Main principal.
+     */
     public static void main(String[] args) {
         launch(args);
     }

@@ -17,6 +17,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * Controlador de la vista principal del usuario.
+ *
+ * @author pmommeso
+ */
 public class UserViewController implements Initializable{
 
     private RadioButton selectedButton = null;

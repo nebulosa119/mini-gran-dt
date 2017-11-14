@@ -6,9 +6,13 @@ import Models.Tournament;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
 import static java.lang.Integer.parseInt;
 
+/**
+ * Controlador de la vista que agrega torneos del administrador.
+ *
+ * @author tdorado
+ */
 public class AddTournamentController{
 
     @FXML
@@ -21,7 +25,7 @@ public class AddTournamentController{
     private Label error;
 
     /**
-     * Permite al admin retornar a la ventana anterior
+     * Permite al administrador volver a la ventana anterior
      */
     @FXML
     private void handleBack(){

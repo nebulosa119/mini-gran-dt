@@ -4,15 +4,18 @@ import Models.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.ResourceBundle;
 
+/**
+ * Controlador de la de rankings de jugadores en un torneo.
+ *
+ * @author emiliobasualdo
+ */
 public class PlayerRankingsController implements Initializable {
 
     @FXML
