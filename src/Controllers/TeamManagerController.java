@@ -94,7 +94,7 @@ public class TeamManagerController {
             /*Agrego la tab*/
             teamsTabPanes.getTabs().add(tab);
 
-            pointsLabel.setText("Current points: " + Integer.toString(userDT.getUserTeams().getUserTeam(tournament).getUserPoints()));
+            pointsLabel.setText("Current points: " + Integer.toString(userDT.getPoints(tournament)));
             fundsLabel.setText("Available funds: " + Integer.toString(userDT.getExpenses().getAvailableFunds(tournament)));
         }
         /*Configuro el listView del usuario*/

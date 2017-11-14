@@ -41,7 +41,7 @@ public class AdministratorTest {
         admin.addTournament(tour);
         admin.addUser("tourName", userDT1);
 
-        List<UserDT> set = admin.getUsers(new Tournament("tourName"));
+        List<UserDT> set = admin.getOrderedUsers(new Tournament("tourName"));
 
         UserDT userDT2 = new UserDT("userName2");
 

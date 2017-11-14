@@ -100,7 +100,7 @@ public class AccountsManager implements Serializable{
             if (account instanceof Administrator) {
                 Administrator admin = (Administrator) account;
                 if (admin.containsTournament(tournament)) {
-                    users = admin.getUsers(tournament);
+                    users = admin.getOrderedUsers(tournament);
                     break;
                 }
             }

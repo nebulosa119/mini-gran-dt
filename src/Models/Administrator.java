@@ -38,8 +38,15 @@ public class Administrator extends Account {
         return true;
     }
 
-    public ArrayList<UserDT> getUsers(Tournament tournament) {
-        return tournamentUsers.get(tournament);
+    public ArrayList<UserDT> getOrderedUsers(Tournament tournament) {
+        ArrayList<UserDT> users = tournamentUsers.get(tournament);
+        users.sort(new Comparator<UserDT>() {
+            @Override
+            public int compare(UserDT t, UserDT t1) {
+                return t.getPoints(tournament) - t1.getPoints(tournament);
+            }
+        });
+        return users;
     }
     /**Para cuando el administrador quiera crear un nuevo torneo. Mi idea es que desde el Controllers se instancie la
        * clase torneo para poder ingresarla directamente*/
@@ -71,13 +78,6 @@ public class Administrator extends Account {
                 //userDT.refreshPoints(tourName,unifyPlayers(tournament));}
                 userDT.refreshPoints(tour, unifyPlayers(tournament));
             }
-            userDTS.sort(new Comparator<UserDT>() {
-                @Override
-                public int compare(UserDT t, UserDT t1) {
-                    Tournament tour = new Tournament(tourName);
-                    return t.getPoints(tour) - t1.getPoints(tour);
-                }
-            });
         }
     }
     //junta todos los jugadores de todos los teams en un solo arreglo clavevalor
