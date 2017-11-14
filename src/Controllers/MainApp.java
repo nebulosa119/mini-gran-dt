@@ -32,7 +32,7 @@ public class MainApp extends Application {
         try {
             AccountsManager.loadAccounts();
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Error while loading.");
             exit();
         }
         stage = primaryStage;
@@ -48,7 +48,7 @@ public class MainApp extends Application {
             AccountsManager.save();
             super.stop();
         } catch (Exception e) {
-            System.out.println("Error while stopping.");
+            System.out.println("Error while saving.");
         }
     }
 
@@ -60,7 +60,8 @@ public class MainApp extends Application {
         } catch (Exception e) {
             System.out.println("FXML " + windowName +" loading error.");
         }
-        stage.setScene(new Scene(page));
+        if(page!=null)
+            stage.setScene(new Scene(page));
     }
 
     public static void main(String[] args) {

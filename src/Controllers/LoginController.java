@@ -18,7 +18,6 @@ public class LoginController{
     @FXML
     private void handleLogin() {
         String username = userTextField.getText();
-        //buscamos cual tiene al usuario
         if (!(AccountsManager.contains(username))){
             error.setVisible(true);
         }else{

@@ -31,31 +31,25 @@ public class AdminViewController implements Initializable{
 
     @FXML
     private Label tournamentsLoaded;
-
     @FXML
     private Label dataRefreshed;
-
     @FXML
     private Accordion tournamentsAccordion;
-
     @FXML
     private AnchorPane playersAnchorPane;
-
     @FXML
     private Button refreshData;
-
     @FXML
     private Button addTeam;
-
     @FXML
     private Button addPlayer;
 
     /**
-     * Permite al admin desLoguearse
+     * Permite al admin desloguearse
      */
     @FXML
     private void handleLogout(){
-        MainApp.getInstance().setScene("login");
+        MainApp.setScene("login");
     }
 
     /**
@@ -63,7 +57,7 @@ public class AdminViewController implements Initializable{
      * Se le pregunta al admin si esta seguro de lo que está por subir y se llama el metodo que levanta la informacion
      */
     @FXML
-     private void handleRefresh(){
+    private void handleRefresh(){
         if(actualTournament == null || team == null) {
             createAlert("Error, ningun equipo seleccionado.").showAndWait();
             return;
@@ -81,7 +75,7 @@ public class AdminViewController implements Initializable{
      */
     @FXML
     private void handleAddTournament(){
-        MainApp.getInstance().setScene("addTournament");
+        MainApp.setScene("addTournament");
     }
 
     /**
@@ -103,7 +97,6 @@ public class AdminViewController implements Initializable{
             tournamentToggleGroupMap.get(expandedTournament).getToggles().add(aux);
             tournamentVBoxMap.get(expandedTournament).getChildren().add(aux);
         }
-        //MainApp.getInstance().setScene("adminView");
     }
 
     /**
@@ -127,8 +120,8 @@ public class AdminViewController implements Initializable{
                 alert.showAndWait();
             }
         }
-        //MainApp.getInstance().setScene("adminView");
     }
+
     /**
      * Carga los respectivos datos de la ventana
      */
@@ -147,16 +140,14 @@ public class AdminViewController implements Initializable{
                 tournamentGroup.getToggles().add(teamButton);
                 tournamentBox.getChildren().add(teamButton);
             }
-            tournamentGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
-                public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
-                    if (tournamentGroup.getSelectedToggle() != null) {
-                        refreshData.setVisible(true);
-                        addPlayer.setVisible(true);
-                        RadioButton selected = (RadioButton)tournamentGroup.getSelectedToggle();
-                        actualTournament = tournament;
-                        team = tournament.getTeam(selected.getText());
-                        showTeamPlayers();
-                    }
+            tournamentGroup.selectedToggleProperty().addListener((ov, old_toggle, new_toggle) -> {
+                if (tournamentGroup.getSelectedToggle() != null) {
+                    refreshData.setVisible(true);
+                    addPlayer.setVisible(true);
+                    RadioButton selected = (RadioButton)tournamentGroup.getSelectedToggle();
+                    actualTournament = tournament;
+                    team = tournament.getTeam(selected.getText());
+                    showTeamPlayers();
                 }
             });
             TitledPane tournamentPane = new TitledPane(tournament.getName(), tournamentBox);
@@ -220,22 +211,12 @@ public class AdminViewController implements Initializable{
         goalsAgainst.setCellFactory(TextFieldTableCell.forTableColumn());
         goalsAgainst.setOnEditCommit(t -> t.getTableView().getItems().get(t.getTablePosition().getRow()).setGoalsAgainst(t.getNewValue()));
 
-        //armo lista de players vacios con la info del team
         ArrayList<ViewPlayer> newPlayers = new ArrayList<>();
         for (Player player : team.getPlayers()){
             newPlayers.add(new ViewPlayer(player.getName(), ((Integer)(player.getProperties().getProperty(0))).toString(), ((Integer)player.getProperties().getProperty(1)).toString(), ((Integer)player.getProperties().getProperty(2)).toString(), ((Integer)player.getProperties().getProperty(3)).toString(), ((Integer)player.getProperties().getProperty(4)).toString(), ((Integer)player.getProperties().getProperty(5)).toString(), ((Integer)player.getProperties().getProperty(6)).toString() ));
         }
         ObservableList<ViewPlayer> data = FXCollections.observableArrayList(newPlayers);
-        for(ViewPlayer vp : data) {
-            System.out.println(vp.getName());
-            System.out.println(vp.getGoalsAgainst());
-            System.out.println(vp.getGoalsScoredByPenaltyKick());
-            System.out.println(vp.getGoalsScoredGoalkeeper());
-            System.out.println(vp.getNormalGoalsScored());
-            System.out.println(vp.getPenaltyCatched());
-            System.out.println(vp.getRedCards());
-            System.out.println(vp.getYellowCards());
-        }
+
         playersAnchorPane.getChildren().removeAll();
         playersTableView = new TableView<>();
         playersTableView.setItems(data);

@@ -10,14 +10,19 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-public class TeamController {//  controla la ventana del userDT
+import java.io.IOException;
+
+public class TeamManagerController {
 
     @FXML
     private Button exitButton, ruleButton, playerRankingButton, addPlayerButton, removePlayerButton;
@@ -118,8 +123,16 @@ public class TeamController {//  controla la ventana del userDT
     private EventHandler ruleHandler = event -> {
         /**Abre la ventana de reglas*/
         Stage aux = new Stage();
-        RulesWindow rw = new RulesWindow();
-        aux.setScene(new Scene(rw));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Resources/Views/rulesWindow.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            System.out.println("FXML loading error.");
+        }
+        aux.setTitle("Mini Gran DT");
+        aux.getIcons().add(new Image(MainApp.class.getResourceAsStream("/Resources/Media/icon.png")));
+        aux.setScene(new Scene(root));
         aux.show();
     };
 

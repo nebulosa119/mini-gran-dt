@@ -26,9 +26,21 @@ public class UserViewController implements Initializable{
     @FXML
     private Accordion tournamentAccordion;
     @FXML
+    private Button logoutButton;
+    @FXML
     private Button signUpButton;
     @FXML
+    private Label signUpLabel;
+    @FXML
     private Pane userTeamView;
+
+    /**
+     * Permite al usuario desloguear
+     */
+    @FXML
+    private void handleLogout(){
+        MainApp.setScene("login");
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -52,16 +64,19 @@ public class UserViewController implements Initializable{
                             ((UserDT)AccountsManager.getSignedAccount()).hasSigned(map.get(tournamentGroup.getSelectedToggle()))) {
                         RadioButton selected = (RadioButton)tournamentGroup.getSelectedToggle();
                         Tournament aux = administrator.getTournament(map.get(selected).getName());
-                        TeamController.setTournament(aux);
+                        TeamManagerController.setTournament(aux);
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Resources/Views/teamManager.fxml"));
                         Parent root = null;
                         try {
                             root = loader.load();
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            System.out.println("FXML loading error.");
                         }
+                        logoutButton.setVisible(false);
                         userTeamView.getChildren().add(root);
                     } else {
+                        signUpLabel.setVisible(true);
+                        signUpButton.setVisible(true);
                         selectedButton = (RadioButton) tournamentGroup.getSelectedToggle();
                     }
                 }
@@ -76,17 +91,19 @@ public class UserViewController implements Initializable{
                 if(selectedButton != null) {
                     ((UserDT)AccountsManager.getSignedAccount()).signUp(map.get(selectedButton));
                     map.get(selectedButton).getAdministrator().addUser(map.get(selectedButton).getName(), (UserDT) AccountsManager.getSignedAccount());
-                    TeamController.setTournament(map.get(selectedButton));
+                    TeamManagerController.setTournament(map.get(selectedButton));
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/Resources/Views/teamManager.fxml"));
                     Parent root = null;
                     try {
                         root = loader.load();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.out.println("FXML loading error.");
                     }
+                    logoutButton.setVisible(false);
                     userTeamView.getChildren().add(root);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Transaccion Completada");
+                    alert.setTitle("Transacción Completada");
+                    alert.setHeaderText("La transacción fue completada");
                     alert.setContentText("Ha pagado un monto de $200 para inscribirse");
                     alert.showAndWait();
                 }
@@ -94,4 +111,5 @@ public class UserViewController implements Initializable{
         });
 
     }
+
 }

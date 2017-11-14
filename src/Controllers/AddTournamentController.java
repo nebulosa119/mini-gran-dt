@@ -18,15 +18,15 @@ public class AddTournamentController{
     private TextField playersTextField;
 
     @FXML
+    private Label error;
+
     /**
      * Permite al admin retornar a la ventana anterior
      */
-    private void handleBack(){
-        MainApp.getInstance().setScene("adminView");
-    }
-
     @FXML
-    private Label error;
+    private void handleBack(){
+        MainApp.setScene("adminView");
+    }
 
     /**
      * Permite al admin crearo un torneo
