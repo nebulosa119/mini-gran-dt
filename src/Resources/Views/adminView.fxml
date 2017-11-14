@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="629.0" prefWidth="918.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="629.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminViewController">
    <children>
-      <VBox layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="900.0">
+      <VBox layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="1190.0">
          <children>
             <ButtonBar prefHeight="25.0" prefWidth="866.0">
               <buttons>
@@ -26,33 +26,33 @@
                <items>
                   <AnchorPane>
                      <children>
-                        <ScrollPane layoutX="11.0" layoutY="34.0" prefHeight="470.0" prefWidth="200.0">
+                        <ScrollPane layoutX="11.0" layoutY="34.0" prefHeight="470.0" prefWidth="155.0">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="467.0" prefWidth="197.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="467.0" prefWidth="150.0">
                                  <children>
-                                    <Accordion fx:id="tournamentsAccordion" prefHeight="467.0" prefWidth="197.0" />
+                                    <Accordion fx:id="tournamentsAccordion" prefHeight="467.0" prefWidth="150.0" />
                                  </children>
                               </AnchorPane>
                           </content>
                         </ScrollPane>
-                        <Label alignment="CENTER" layoutX="7.0" layoutY="7.0" minWidth="60.0" prefHeight="27.0" prefWidth="208.0" style="&#10;" text="Torneos" textAlignment="CENTER" textFill="#2c2c2c">
+                        <Label alignment="CENTER" layoutX="5.0" layoutY="7.0" minWidth="60.0" prefHeight="27.0" prefWidth="208.0" style="&#10;" text="Torneos" textAlignment="CENTER" textFill="#2c2c2c">
                            <font>
                               <Font size="18.0" fx:id="x1" />
                            </font>
                         </Label>
-                        <Button layoutX="11.0" layoutY="537.0" mnemonicParsing="false" onAction="#handleAddTournament" prefHeight="25.0" prefWidth="200.0" text="Crear Torneo" />
-                        <Button fx:id="addTeam" layoutX="11.0" layoutY="508.0" mnemonicParsing="false" onAction="#handleAddTeam" prefHeight="25.0" prefWidth="200.0" text="Agregar Equipo" visible="false" />
+                        <Button layoutX="11.0" layoutY="537.0" mnemonicParsing="false" onAction="#handleAddTournament" prefHeight="25.0" prefWidth="155.0" text="Crear Torneo" />
+                        <Button fx:id="addTeam" layoutX="11.0" layoutY="508.0" mnemonicParsing="false" onAction="#handleAddTeam" prefHeight="25.0" prefWidth="155.0" text="Agregar Equipo" visible="false" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane prefHeight="200.0" prefWidth="160.0">
                      <children>
-                        <ScrollPane prefWidth="672.0">
+                        <ScrollPane prefWidth="800.0">
                            <content>
-                              <AnchorPane id="Content" fx:id="playersAnchorPane" minHeight="-1.0" minWidth="-1.0" prefHeight="530.0" prefWidth="670.0" />
+                              <AnchorPane id="Content" fx:id="playersAnchorPane" minHeight="-1.0" minWidth="-1.0" prefHeight="520.0" prefWidth="790.0" />
                            </content>
                         </ScrollPane>
                         <Button fx:id="refreshData" layoutX="521.0" layoutY="536.0" mnemonicParsing="false" onAction="#handleRefresh" prefHeight="25.0" prefWidth="140.0" text="Cargar Datos" visible="false" />
-                        <Button fx:id="addPlayer" layoutX="14.0" layoutY="536.0" mnemonicParsing="false" onAction="#handleAddPlayer" prefHeight="25.0" prefWidth="120.0" text="Agregar Jugador" visible="false" />
+                        <Button fx:id="addPlayer" layoutX="14.0" layoutY="536.0" mnemonicParsing="false" onAction="#handleAddPlayer" prefHeight="25.0" prefWidth="180.0" text="Agregar Jugador" visible="false" />
                      </children>
                   </AnchorPane>
                </items>
