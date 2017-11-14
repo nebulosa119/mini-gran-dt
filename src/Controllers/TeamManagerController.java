@@ -66,25 +66,9 @@ public class TeamManagerController {
 
             /*Asocio los datos con las celdas de la tabla*/
             playerPoints.setCellValueFactory(info -> (new SimpleIntegerProperty(info.getValue().getPoints())).asObject());
-            playerPrice.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Player, Integer>, ObservableValue<Integer>>() {
-                @Override
-                public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Player, Integer> param) {
-                    return (new SimpleIntegerProperty(param.getValue().getPrice())).asObject();
-                }
-            });
-            playerName.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Player, String>, ObservableValue<String>>() {
-                @Override
-                public ObservableValue<String> call(TableColumn.CellDataFeatures<Player, String> param) {
-                    ObservableValue<String> aux = new SimpleStringProperty(param.getValue().getName());
-                    return aux;
-                }
-            });
-            playerRanking.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Player, Integer>, ObservableValue<Integer>>() {
-                @Override
-                public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Player, Integer> param) {
-                    return (new SimpleIntegerProperty(tournament.getRanking(param.getValue()))).asObject();
-                }
-            });
+            playerPrice.setCellValueFactory(param -> (new SimpleIntegerProperty(param.getValue().getPrice())).asObject());
+            playerName.setCellValueFactory(param -> (new SimpleStringProperty(param.getValue().getName())));
+            playerRanking.setCellValueFactory(param -> (new SimpleIntegerProperty(tournament.getRanking(param.getValue()))).asObject());
 
             /*Agrego las columnas a la tabla*/
             playerTableView.getColumns().addAll(playerRanking, playerName, playerPoints, playerPrice);

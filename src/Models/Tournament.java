@@ -90,7 +90,7 @@ public class Tournament implements Serializable {
         players.sort(new Comparator<Player>() {
             @Override
             public int compare(Player player, Player t1) {
-                return player.getPoints() - t1.getPoints();
+                return t1.getPoints() - player.getPoints();
             }
         });
         for (int i=0; i<players.size(); i++)
