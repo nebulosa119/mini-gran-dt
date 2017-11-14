@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
+import static javafx.application.Platform.exit;
+
 /**
  * Controlador de la vista principal del usuario.
  *
@@ -74,7 +76,8 @@ public class UserViewController implements Initializable{
                         try {
                             root = loader.load();
                         } catch (IOException e) {
-                            System.out.println("FXML loading error.");
+                            MainApp.createAlert("There was an error loading a file. Please try again.").showAndWait();
+                            exit();
                         }
                         logoutButton.setVisible(false);
                         userTeamView.getChildren().add(root);
@@ -101,7 +104,8 @@ public class UserViewController implements Initializable{
                     try {
                         root = loader.load();
                     } catch (IOException e) {
-                        System.out.println("FXML loading error.");
+                        MainApp.createAlert("There was an error loading a file. Please try again.").showAndWait();
+                        exit();
                     }
                     logoutButton.setVisible(false);
                     userTeamView.getChildren().add(root);

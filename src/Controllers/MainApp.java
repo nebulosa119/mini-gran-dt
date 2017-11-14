@@ -7,8 +7,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import sun.applet.Main;
 
 import static javafx.application.Platform.exit;
 
@@ -29,7 +32,7 @@ public class MainApp extends Application {
         try {
             AccountsManager.loadAccounts();
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error while loading.");
+            MainApp.createAlert("Error while loading. GranDT will close.").showAndWait();
             exit();
         }
         stage = primaryStage;
@@ -48,7 +51,8 @@ public class MainApp extends Application {
             AccountsManager.save();
             super.stop();
         } catch (Exception e) {
-            System.out.println("Error while saving.");
+            MainApp.createAlert("Error while saving data. Please try again.").showAndWait();
+            exit();
         }
     }
 
@@ -62,7 +66,8 @@ public class MainApp extends Application {
             URL fileUrl = MainApp.class.getResource("/Resources/Views/" + windowName + ".fxml");
             page = FXMLLoader.load(fileUrl);
         } catch (Exception e) {
-            System.out.println("FXML " + windowName +" loading error.");
+            MainApp.createAlert("There was an error loading a file. Please try again.").showAndWait();
+            exit();
         }
         if(page!=null)
             stage.setScene(new Scene(page));
@@ -74,7 +79,8 @@ public class MainApp extends Application {
             URL fileUrl = MainApp.class.getResource("/Resources/Views/" + windowName + ".fxml");
             page = FXMLLoader.load(fileUrl);
         } catch (Exception e) {
-            System.out.println("FXML " + windowName +" loading error.");
+            MainApp.createAlert("There was an error loading a file. Please try again.").showAndWait();
+            exit();
         }
         Stage aux = new Stage();
         aux.setTitle("Mini Gran DT");
@@ -83,6 +89,20 @@ public class MainApp extends Application {
             aux.setScene(new Scene(page));
             aux.show();
         }
+    }
+
+    /**
+     * Genera una alerta con un mensaje
+     *
+     * @param message Mensaje de la alerta
+     *
+     * @return Alerta con mensaje
+     */
+    public static Alert createAlert(String message){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.getDialogPane().setHeaderText(message);
+        return alert;
     }
 
     /**

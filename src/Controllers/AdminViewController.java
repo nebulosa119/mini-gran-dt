@@ -63,7 +63,7 @@ public class AdminViewController implements Initializable{
     @FXML
     private void handleRefresh(){
         if(actualTournament == null || team == null) {
-            createAlert("Error, ningun equipo seleccionado.").showAndWait();
+            MainApp.createAlert("Error, ningun equipo seleccionado.").showAndWait();
             return;
         }
         Alert alert = questionAlert("¿Esta seguro que quiere cargar?");
@@ -88,7 +88,7 @@ public class AdminViewController implements Initializable{
     @FXML
     private void handleAddTeam(){
         if(expandedTournament==null){
-            Alert alert = createAlert("Ningun torneo seleccionado.");
+            Alert alert = MainApp.createAlert("Ningun torneo seleccionado.");
             alert.showAndWait();
             return;
         }
@@ -101,7 +101,7 @@ public class AdminViewController implements Initializable{
         if (result.isPresent()) {
             PhysicalTeam toAddTeam = new PhysicalTeam(result.get(), expandedTournament.getMaxPlayers());
             if(expandedTournament.hasTeam(toAddTeam)) {
-                Alert alert = createAlert("El equipo " + toAddTeam.getName() + " ya existe.");
+                Alert alert = MainApp.createAlert("El equipo " + toAddTeam.getName() + " ya existe.");
                 alert.showAndWait();
                 return;
             }
@@ -130,7 +130,7 @@ public class AdminViewController implements Initializable{
                 team.add(new Player(result.get()));
                 playersTableView.getItems().add(new ViewPlayer(result.get()));
             } catch(CompleteTeamException e) {
-                Alert alert = createAlert("Equipo Completo.");
+                Alert alert = MainApp.createAlert("Equipo Completo.");
                 alert.showAndWait();
             }
         }
@@ -296,20 +296,6 @@ public class AdminViewController implements Initializable{
     }
 
     /**
-     * Genera una alerta con un mensaje
-     *
-     * @param message Mensaje de la alerta
-     *
-     * @return Alerta con mensaje
-     */
-    private Alert createAlert(String message){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initModality(Modality.APPLICATION_MODAL);
-        alert.getDialogPane().setHeaderText(message);
-        return alert;
-    }
-
-    /**
      * Genera una alerta con una pregunta
      *
      * @param question Pregunta de la alerta
@@ -427,7 +413,7 @@ public class AdminViewController implements Initializable{
             try {
                 return super.fromString(value);
             } catch(NumberFormatException e) {
-                Alert alert = createAlert("Solo números permitidos");
+                Alert alert = MainApp.createAlert("Solo números permitidos");
                 alert.showAndWait();
                 return 0;
             }
