@@ -43,7 +43,7 @@ public class Administrator extends Account {
         users.sort(new Comparator<UserDT>() {
             @Override
             public int compare(UserDT t, UserDT t1) {
-                return t.getPoints(tournament) - t1.getPoints(tournament);
+                return t1.getPoints(tournament) - t.getPoints(tournament);
             }
         });
         return users;
