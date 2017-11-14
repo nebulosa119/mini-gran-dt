@@ -174,13 +174,13 @@ public class Player implements Serializable{
         }
 
         void refresh(Properties p) {
-            this.normal_goals_scored            += p.normal_goals_scored;
-            this.goals_scored_by_penalty_kick   += p.goals_scored_by_penalty_kick;
-            this.penalty_catched                += p.penalty_catched;
-            this.goals_scored_goalkeeper        += p.goals_scored_goalkeeper;
-            this.yellow_cards                   += p.yellow_cards;
-            this.red_cards                      += p.red_cards;
-            this.goals_against                  += p.goals_against;
+            this.normal_goals_scored            = p.normal_goals_scored;
+            this.goals_scored_by_penalty_kick   = p.goals_scored_by_penalty_kick;
+            this.penalty_catched                = p.penalty_catched;
+            this.goals_scored_goalkeeper        = p.goals_scored_goalkeeper;
+            this.yellow_cards                   = p.yellow_cards;
+            this.red_cards                      = p.red_cards;
+            this.goals_against                  = p.goals_against;
         }
 
         @Override

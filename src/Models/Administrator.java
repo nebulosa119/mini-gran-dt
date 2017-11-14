@@ -75,7 +75,6 @@ public class Administrator extends Account {
         ArrayList<UserDT> userDTS = tournamentUsers.get(tour);
         if (userDTS != null) {
             for (UserDT userDT : userDTS) {
-                //userDT.refreshPoints(tourName,unifyPlayers(tournament));}
                 userDT.refreshPoints(tour, unifyPlayers(tournament));
             }
         }
