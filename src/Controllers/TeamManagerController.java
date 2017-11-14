@@ -93,7 +93,7 @@ public class TeamManagerController {
             });
 
             /*Agrego las columnas a la tabla*/
-            playerTableView.getColumns().addAll(playerName, playerPoints, playerPrice, playerRanking);
+            playerTableView.getColumns().addAll(playerRanking, playerName, playerPoints, playerPrice);
 
             /*Agrego la tabla al tab*/
             tab.setContent(playerTableView);
