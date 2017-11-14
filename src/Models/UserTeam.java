@@ -21,13 +21,12 @@ public class UserTeam implements Serializable{
         players.remove(p);
     }
 
-    ArrayList<Player> getPlayers() {
+    public ArrayList<Player> getPlayers() {
         return players;
     }
 
     public void refreshPoints(Player.Properties p) {
         points += p.getPoints();
-        System.out.println("Points: " + points);
     }
 
     public int getUserPoints() {

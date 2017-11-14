@@ -14,7 +14,7 @@ public class UserWallet implements Serializable{
     private static final long serialVersionUID = 1L;
 
     private Map<Tournament, Integer> funds = new HashMap<>();
-    private static final int INITIAL_AMOUNT = 100000;
+    private static final int INITIAL_AMOUNT = 10000;
 
     private boolean hasEnough(Tournament t, Player p) {
         System.out.println(p.getPrice());

@@ -47,7 +47,7 @@ public class Player implements Serializable{
         return properties.calculateRanking();
     }
 
-    void refresh(Properties p) {
+    public void refresh(Properties p) {
         properties.refresh(p);
         price = properties.calculatePrice();
     }

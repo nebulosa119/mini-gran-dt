@@ -14,14 +14,13 @@ public class UserDT extends Account{
 
     private UserWallet expenses = new UserWallet();
     private UserTeams userTeams = new UserTeams();
-    private int points = 0;
 
     public UserDT(String name) {
         super(name);
     }
 
-    public int getPoints() {
-        return points;
+    public int getPoints(Tournament t) {
+        return userTeams.getUserPoints(t);
     }
 
     public void sell(Tournament t , Player p) {
@@ -75,7 +74,6 @@ public class UserDT extends Account{
     private void writeObject(ObjectOutputStream out) throws IOException{
         out.defaultWriteObject();
         out.writeUTF(name);
-        out.writeInt(points);
         out.writeObject(expenses);
         out.writeObject(userTeams);
     }
@@ -83,7 +81,6 @@ public class UserDT extends Account{
     private void readObject(ObjectInputStream ois) throws IOException,ClassNotFoundException{
         ois.defaultReadObject();
         name = ois.readUTF();
-        points = ois.readInt();
         expenses = (UserWallet)ois.readObject();
         userTeams = (UserTeams)ois.readObject();
     }

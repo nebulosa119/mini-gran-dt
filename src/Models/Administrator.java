@@ -74,7 +74,8 @@ public class Administrator extends Account {
             userDTS.sort(new Comparator<UserDT>() {
                 @Override
                 public int compare(UserDT t, UserDT t1) {
-                    return t.getPoints() - t1.getPoints();
+                    Tournament tour = new Tournament(tourName);
+                    return t.getPoints(tour) - t1.getPoints(tour);
                 }
             });
         }

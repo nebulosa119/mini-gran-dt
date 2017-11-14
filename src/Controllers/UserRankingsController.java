@@ -36,7 +36,6 @@ public class UserRankingsController implements Initializable {
     static void setInfo(Tournament tournament){
         tournamentName = tournament.getName();
         users = AccountsManager.getUsersInTournament(tournament);
-        users.sort(Comparator.comparingInt(UserDT::getPoints));
     }
 
 }

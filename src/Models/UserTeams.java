@@ -39,8 +39,8 @@ public class UserTeams implements Serializable{
         return teams.get(t).getPlayers();
     }
 
-    void refresh(Player.Properties p, Tournament t) {
-        teams.get(t).refreshPoints(p);
+    public int getUserPoints(Tournament t) {
+        return teams.get(t).getUserPoints();
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException {
