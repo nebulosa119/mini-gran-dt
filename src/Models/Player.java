@@ -41,10 +41,6 @@ public class Player implements Serializable{
 
     public int getPrice() { return price; }
 
-    public int getCalculatedPrice() {
-        return properties.calculatePrice();
-    }
-
     public Properties getProperties() { return properties; }
 
     public int getRanking() {
@@ -53,6 +49,7 @@ public class Player implements Serializable{
 
     void refresh(Properties p) {
         properties.refresh(p);
+        price = properties.calculatePrice();
     }
 
     @Override
@@ -211,8 +208,7 @@ public class Player implements Serializable{
             if (penalty_catched != that.penalty_catched) return false;
             if (goals_scored_goalkeeper != that.goals_scored_goalkeeper) return false;
             if (yellow_cards != that.yellow_cards) return false;
-            if (red_cards != that.red_cards) return false;
-            return goals_against == that.goals_against;
+            return red_cards == that.red_cards && goals_against == that.goals_against;
         }
 
         @Override
@@ -249,30 +245,24 @@ public class Player implements Serializable{
         }
 
         public enum PropValues{
-            normal_goals_scored(20,40,0.35),
-            goals_scored_by_penalty_kick(10,20,0.1),
-            penalty_catched(20,40,0.2),
-            goals_scored_goalkeeper(60,120,0.35),
-            yellow_cards(-5,-10,0),
-            red_cards(-10,-20,0),
-            goals_against(-20,-40,0);
+            normal_goals_scored(20,0.35),
+            goals_scored_by_penalty_kick(10,0.1),
+            penalty_catched(20,0.2),
+            goals_scored_goalkeeper(60,0.35),
+            yellow_cards(-5,0),
+            red_cards(-10,0),
+            goals_against(-20,0);
 
             int pValue;
-            int uValue;
             double uPricePerCent;
 
-            PropValues(int pValue,int uValue,double uPricePerCent) {
+            PropValues(int pValue, double uPricePerCent) {
                 this.pValue = pValue;
-                this.uValue = uValue;
                 this.uPricePerCent = uPricePerCent;
             }
 
             public int getpValue() {
                 return pValue;
-            }
-
-            public int getuValue() {
-                return uValue;
             }
 
             public double getUPricePerCent() {

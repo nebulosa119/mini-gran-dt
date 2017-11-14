@@ -71,7 +71,7 @@ public class Administrator extends Account {
                 //userDT.refreshPoints(tourName,unifyPlayers(tournament));}
                 userDT.refreshPoints(tour, unifyPlayers(tournament));
             }
-            Collections.sort(userDTS, new Comparator<UserDT>() {
+            userDTS.sort(new Comparator<UserDT>() {
                 @Override
                 public int compare(UserDT t, UserDT t1) {
                     return t.getPoints() - t1.getPoints();

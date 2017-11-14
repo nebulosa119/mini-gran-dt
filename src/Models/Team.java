@@ -41,8 +41,6 @@ public class Team implements Serializable {
         return name;
     }
 
-    public int getMaxPlayers() { return maxPlayers; }
-
     public void add(Player p) throws CompleteTeamException{
         if (players.size() < maxPlayers && !players.contains(p))
             players.add(p);
@@ -86,7 +84,7 @@ public class Team implements Serializable {
     private void readObject(ObjectInputStream ois) throws IOException,ClassNotFoundException{
         ois.defaultReadObject();
         name = ois.readUTF();
-        players = (ArrayList)ois.readObject();
+        players = (ArrayList<Player>)ois.readObject();
     }
 }
 
