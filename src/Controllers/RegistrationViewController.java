@@ -39,7 +39,6 @@ public class RegistrationViewController {
     @FXML
     protected void handleCreateUser() {
         String username = userTextField.getText();
-        System.out.println(username == null);
         if (AccountsManager.contains(username)) {
             error.setVisible(true);
         } else {

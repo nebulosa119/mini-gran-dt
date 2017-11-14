@@ -68,7 +68,6 @@ public class Tournament implements Serializable {
 
     void refresh(Map<String, Map<String, Player.Properties>> dataTeams) {
         for (PhysicalTeam myTeam : teams) {
-            System.out.println(myTeam.getName());
             if(dataTeams.get(myTeam.getName()) != null)
                 myTeam.refresh(dataTeams.get(myTeam.getName()));
         }
@@ -82,9 +81,7 @@ public class Tournament implements Serializable {
     private Map<Player,Integer> unifyPlayers() {
         ArrayList<Player> players = new ArrayList<>();
         for (PhysicalTeam team : teams) {
-            for (Player player : team.getPlayers()) {
-                players.add(player);
-            }
+            players.addAll(team.getPlayers());
         }
         Map<Player,Integer> map = new HashMap<>();
         players.sort(new Comparator<Player>() {

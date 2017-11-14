@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.NoSuchElementException;
 
 
-public class FileManager {
+class FileManager {
 
     private static String getResourcesDirectory() {
         File resourcesDirectory = new File("src/Resources");
@@ -37,7 +37,6 @@ public class FileManager {
         Object obj = null;
         // si el archivo está vacio, no nos gastamos en abrirlo
         if (new File(filePath).length() != 0){
-            System.out.println("El archivo tiene info");
             ObjectInputStream inputStream;
             try {
                 inputStream = new ObjectInputStream(new FileInputStream(filePath));

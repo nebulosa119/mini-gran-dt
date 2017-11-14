@@ -64,7 +64,6 @@ public class UserViewController implements Initializable{
             tournamentGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
                 @Override
                 public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
-                    System.out.println(((UserDT)AccountsManager.getSignedAccount()).hasSigned(map.get(tournamentGroup.getSelectedToggle())));
                     if(tournamentGroup.getSelectedToggle() != null &&
                             ((UserDT)AccountsManager.getSignedAccount()).hasSigned(map.get(tournamentGroup.getSelectedToggle()))) {
                         RadioButton selected = (RadioButton)tournamentGroup.getSelectedToggle();

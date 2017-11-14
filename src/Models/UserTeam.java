@@ -1,7 +1,5 @@
 package Models;
 
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -14,16 +12,15 @@ public class UserTeam extends AbstractTeam implements Serializable{
 
     private int points = 0;
 
-    public UserTeam(int max_players) {
+    UserTeam(int max_players) {
         super(max_players);
     }
 
-    public void refreshPoints(Player.Properties p) {
+    void refreshPoints(Player.Properties p) {
         points += p.getPoints();
-        System.out.println("Points: " + points);
     }
 
-    public int getUserPoints() {
+    int getUserPoints() {
         return points;
     }
 

@@ -19,8 +19,6 @@ import javafx.util.converter.IntegerStringConverter;
 import java.net.URL;
 import java.util.*;
 
-import static java.lang.Integer.parseInt;
-
 /**
  * Controlador de la vista del administrador.
  *
@@ -272,7 +270,6 @@ public class AdminViewController implements Initializable{
     private Map<String,Map<String, Player.Properties>> getTournamentData(){
         Map<String,Map<String, Player.Properties>> dataTournament = new HashMap<>();
         dataTournament.put(team.getName(), getTeamData());
-        System.out.println(dataTournament);
         return dataTournament;
     }
 

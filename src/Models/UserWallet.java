@@ -17,7 +17,6 @@ public class UserWallet implements Serializable{
     private static final int INITIAL_AMOUNT = 10000;
 
     private boolean hasEnough(Tournament t, Player p) {
-        System.out.println(p.getPrice());
         return funds.get(t) >= p.getPrice();
     }
 
@@ -32,7 +31,6 @@ public class UserWallet implements Serializable{
     void sell(Tournament t, Player p) {
         Integer aux = funds.get(t);
         aux += p.getPrice();
-        funds.remove(t);
         funds.put(t, aux);
     }
 
@@ -40,7 +38,6 @@ public class UserWallet implements Serializable{
         if(!(hasEnough(t, p))) throw new InsufficientFundsException();
         Integer aux = funds.get(t);
         aux -= p.getPrice();
-        funds.remove(t);
         funds.put(t, aux);
     }
 

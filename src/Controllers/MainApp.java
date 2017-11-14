@@ -68,7 +68,7 @@ public class MainApp extends Application {
             stage.setScene(new Scene(page));
     }
 
-    public static void setNewScene(String windowName){
+    static void setNewScene(String windowName){
         Parent page = null;
         try {
             URL fileUrl = MainApp.class.getResource("/Resources/Views/" + windowName + ".fxml");

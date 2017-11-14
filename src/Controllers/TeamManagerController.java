@@ -4,7 +4,6 @@ import Models.*;
 import Models.Exceptions.InsufficientFundsException;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -13,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.util.Callback;
 
 /**
  * Controlador de la vista del manejo de un equipo para un jugador.
@@ -50,9 +48,7 @@ public class TeamManagerController {
 
             /*Defino la data que va a ir adrento de la tabla*/
             ObservableList<Player> data = FXCollections.observableArrayList();
-            for(Player p : team.getPlayers()) {
-                data.add(p);
-            }
+            data.addAll(team.getPlayers());
 
             /*Defino la tabla de jugadores que va adentro del tab particular*/
             TableView<Player> playerTableView = new TableView<>();

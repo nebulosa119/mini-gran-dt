@@ -1,22 +1,26 @@
 package Models;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class AbstractTeam {
+public abstract class AbstractTeam implements Serializable{
 
-    protected int max_players;
-    protected ArrayList<Player> players = new ArrayList<>();
+    int max_players;
+    ArrayList<Player> players = new ArrayList<>();
 
-    public AbstractTeam(int max_players) {
+    AbstractTeam(int max_players) {
         this.max_players = max_players;
     }
 
-    public void addPlayer(Player p) {
-        if(players.contains(p)) return;
-        players.add(p);
+    void addPlayer(Player p) {
+        if (!players.contains(p))
+            players.add(p);
     }
 
-    public void removePlayer(Player p) {
+    void removePlayer(Player p) {
         players.remove(p);
     }
 
@@ -39,4 +43,12 @@ public abstract class AbstractTeam {
         return true;
     }
 
+    private void writeObject(ObjectOutputStream out)throws IOException {
+        out.defaultWriteObject();
+        out.writeObject(players);
+    }
+    private void readObject(ObjectInputStream ois) throws IOException,ClassNotFoundException{
+        ois.defaultReadObject();
+        players = (ArrayList<Player>)ois.readObject();
+    }
 }

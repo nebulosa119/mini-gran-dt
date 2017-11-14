@@ -16,7 +16,6 @@ public class UserTeams implements Serializable{
 
     void addNewTeam(Tournament t) {
         teams.put(t, new UserTeam(t.getMaxPlayers()));
-        System.out.println(teams.get(t) == null);
     }
 
     void removePlayer(Tournament t, Player p) {
@@ -31,15 +30,11 @@ public class UserTeams implements Serializable{
         return teams.containsKey(t);
     }
 
-    public UserTeam getUserTeam(Tournament t) {
-        return teams.get(t);
-    }
-
     public ArrayList<Player> getUserTeamPlayers(Tournament t) {
         return teams.get(t).getPlayers();
     }
 
-    public int getUserPoints(Tournament t) {
+    int getUserPoints(Tournament t) {
         return teams.get(t).getUserPoints();
     }
 

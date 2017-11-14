@@ -21,15 +21,11 @@ public class PhysicalTeam extends AbstractTeam implements Serializable {
         this.name = name;
     }
 
-    public PhysicalTeam(String name, PhysicalTeam team, int maxPlayers) {
+    PhysicalTeam(String name, PhysicalTeam team, int maxPlayers) {
         this(team.getName(),maxPlayers);
         this.name = name;
         players.addAll(team.getPlayers());
     }
-
-    /**public PhysicalTeam() {
-        players = new ArrayList<>();
-    */
 
     public ArrayList<Player> getPlayers() {
         return players;
@@ -40,7 +36,6 @@ public class PhysicalTeam extends AbstractTeam implements Serializable {
     }
 
     public void add(Player p) throws CompleteTeamException{
-        System.out.println(max_players);
         if (players.size() < max_players && !players.contains(p))
             players.add(p);
         else
@@ -48,9 +43,7 @@ public class PhysicalTeam extends AbstractTeam implements Serializable {
     }
 
     void refresh(Map<String, Player.Properties> dataPlayers) {
-        System.out.println(dataPlayers);
         for (Player myPlayer : players) {
-            System.out.println(myPlayer.getName());
             myPlayer.refresh(dataPlayers.get(myPlayer.getName()));
         }
     }
@@ -61,8 +54,7 @@ public class PhysicalTeam extends AbstractTeam implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
 
         PhysicalTeam team = (PhysicalTeam) o;
-        if(!super.equals(o)) return false;
-        return name != null ? name.equals(team.name) : team.name == null;
+        return super.equals(o) && (name != null ? name.equals(team.name) : team.name == null);
     }
 
     @Override

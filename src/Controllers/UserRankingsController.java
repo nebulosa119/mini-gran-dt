@@ -5,11 +5,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
@@ -18,7 +16,6 @@ import java.net.URL;
 import java.util.*;
 
 import static javafx.scene.control.TableColumn.SortType.ASCENDING;
-import static javafx.scene.control.TableColumn.SortType.DESCENDING;
 
 /**
  * Controlador de la de rankings de jugadores en un torneo.
@@ -64,9 +61,7 @@ public class UserRankingsController implements Initializable {
             pointsColumn.setPrefWidth(100);
 
             ObservableList<UserDT> data = FXCollections.observableArrayList();
-            for(UserDT user : users) {
-                data.add(user);
-            }
+            data.addAll(users);
 
             TableView<UserDT> rankingsTableView = new TableView<>();
             rankingsTableView.setItems(data);
