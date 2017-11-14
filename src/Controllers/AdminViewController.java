@@ -3,8 +3,6 @@ package Controllers;
 import Models.*;
 import Models.Exceptions.CompleteTeamException;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -254,12 +252,20 @@ public class AdminViewController implements Initializable{
         playersAnchorPane.getChildren().add(playersTableView);
     }
 
+    /**
+     * Refresca los puntos de cada jugador a AccountsManager
+     */
     private void uploadData(){
         Map<String,Map<String,Map<String, Player.Properties>>> dataTournaments = new HashMap<>();
         dataTournaments.put(actualTournament.getName(), getTournamentData());
         ((Administrator)AccountsManager.getSignedAccount()).refresh(dataTournaments);
     }
 
+    /**
+     * Genera el archivo de equipo que refresca la informacion de los jugadores
+     *
+     * @return Devuelve un mapa, nombre de equipo de key y otro mapa de value
+     */
     private Map<String,Map<String, Player.Properties>> getTournamentData(){
         Map<String,Map<String, Player.Properties>> dataTournament = new HashMap<>();
         dataTournament.put(team.getName(), getTeamData());
@@ -267,6 +273,11 @@ public class AdminViewController implements Initializable{
         return dataTournament;
     }
 
+    /**
+     * Genera el archivo de equipo que refresca la informacion de cada jugador
+     *
+     * @return Devuelve un mapa, nombre de jugador de key y sus propiedades de value
+     */
     private Map<String, Player.Properties> getTeamData() {
         Map<String, Player.Properties> dataTeam = new HashMap<>();
         for (Object item : playersTableView.getItems()) {
@@ -284,6 +295,13 @@ public class AdminViewController implements Initializable{
         return dataTeam;
     }
 
+    /**
+     * Genera una alerta con un mensaje
+     *
+     * @param message Mensaje de la alerta
+     *
+     * @return Alerta con mensaje
+     */
     private Alert createAlert(String message){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.initModality(Modality.APPLICATION_MODAL);
@@ -291,13 +309,25 @@ public class AdminViewController implements Initializable{
         return alert;
     }
 
-    private Alert questionAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, message, ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+    /**
+     * Genera una alerta con una pregunta
+     *
+     * @param question Pregunta de la alerta
+     *
+     * @return Alerta con pregunta
+     */
+    private Alert questionAlert(String question) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, question, ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.initModality(Modality.APPLICATION_MODAL);
-        alert.getDialogPane().setHeaderText(message);
+        alert.getDialogPane().setHeaderText(question);
         return alert;
     }
 
+    /**
+     * Clase que contiene las propiedades de un jugador con el formato para colocarlo en una TableView
+     *
+     * @author emiliobasualdo
+     */
     private static class ViewPlayer {
         private final SimpleStringProperty name;
         private final SimpleStringProperty normal_goals_scored;

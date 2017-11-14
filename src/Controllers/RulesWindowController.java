@@ -4,10 +4,14 @@ import Models.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controlador de las reglas en un torneo.
+ *
+ * @author tdorado
+ */
 public class RulesWindowController implements Initializable {
     @FXML
     private Label scoredGoal, penaltyGoal, goaleeGoal, penaltyCatched, redCard, yellowCard, ownGoal;

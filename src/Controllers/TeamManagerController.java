@@ -10,16 +10,10 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Callback;
-import java.io.IOException;
 
 /**
  * Controlador de la vista del manejo de un equipo para un jugador.
@@ -130,8 +124,10 @@ public class TeamManagerController {
         removePlayerButton.setOnAction(removePlayerHandler);
     }
 
+    /**
+     * Deslogea y abre la ventana de login
+     */
     private EventHandler exitHandler = event -> {
-        /**Guarda y sale*/
         MainApp.setScene("login");
     };
 

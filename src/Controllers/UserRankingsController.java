@@ -23,7 +23,7 @@ import static javafx.scene.control.TableColumn.SortType.DESCENDING;
 /**
  * Controlador de la de rankings de jugadores en un torneo.
  *
- * @author emiliobasualdo
+ * @author tdorado
  */
 public class UserRankingsController implements Initializable {
 
@@ -35,8 +35,11 @@ public class UserRankingsController implements Initializable {
     private static ArrayList<UserDT> users;
     private static String tournamentName;
     private static Tournament tournament;
-    private static Map<UserDT,Integer> usersmap;
+    private static Map<UserDT,Integer> usersMap;
 
+    /**
+     * Coloca a todos los usuarios del torneo en la tabla.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         tournamentLabel.setText(tournamentName);
@@ -78,13 +81,23 @@ public class UserRankingsController implements Initializable {
         }
     }
 
+    /**
+     * Setea la información de un torneo para generar el ranking.
+     *
+     * @param t Torneo a usar
+     */
     static void setInfo(Tournament t){
         tournamentName = t.getName();
         tournament = t;
         users = AccountsManager.getUsersInTournament(t);
-        usersmap = setRanking();
+        usersMap = setRanking();
     }
 
+    /**
+     * Genera un mapa que tiene los puestos de los usuarios.
+     *
+     * @return Mapa con usuarios como key y su puesto como value
+     */
     private static Map<UserDT, Integer> setRanking() {
         Map<UserDT,Integer> map = new HashMap<>();
         for (int i=0; i<users.size(); i++) {
@@ -93,7 +106,14 @@ public class UserRankingsController implements Initializable {
         return map;
     }
 
+    /**
+     * Da el puesto de un usuario.
+     *
+     * @param user Usuario
+     *
+     * @return Puesto del usuario
+     */
     private int getRanking(UserDT user) {
-        return usersmap.get(user);
+        return usersMap.get(user);
     }
 }
