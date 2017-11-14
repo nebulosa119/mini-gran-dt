@@ -44,7 +44,7 @@ public class LoginController{
      */
     @FXML
     private void handleRegister(){
-        MainApp.setScene("registrationScene");
+        MainApp.setScene("registrationView");
     }
 
     /**

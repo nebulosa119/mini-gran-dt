@@ -150,8 +150,8 @@ public class TeamManagerController {
      * Abre la ventana de ranking de los jugadores
      */
     private EventHandler rankingHandler = event -> {
-        PlayerRankingsController.setInfo(tournament);
-        MainApp.setScene("dtRankings");
+        UserRankingsController.setInfo(tournament);
+        MainApp.setScene("userRankings");
     };
 
     /*En cuanto al tema de repetidos: se debería ver desde el model eso. Es decir, en la clase Usuario debería existir un método para verificar si

@@ -13,7 +13,7 @@ import javafx.scene.input.KeyEvent;
  *
  * @author tdorado
  */
-public class RegistrationSceneController {
+public class RegistrationViewController {
 
     @FXML
     private JFXTextField userTextField;

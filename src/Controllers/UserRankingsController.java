@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
  *
  * @author emiliobasualdo
  */
-public class PlayerRankingsController implements Initializable {
+public class UserRankingsController implements Initializable {
 
     @FXML
     private Label tournamentLabel;
