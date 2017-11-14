@@ -15,9 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static javafx.scene.control.TableColumn.SortType.ASCENDING;
 import static javafx.scene.control.TableColumn.SortType.DESCENDING;
@@ -47,7 +45,7 @@ public class UserRankingsController implements Initializable {
             TableColumn<UserDT, String> userColumn = new TableColumn<>("Usuario");
             TableColumn<UserDT, Integer> pointsColumn = new TableColumn<>("Puntos");
 
-            rankingColumn.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getPoints(tournament)).asObject());
+            rankingColumn.setCellValueFactory(param -> new SimpleIntegerProperty(getRanking(param.getValue())).asObject());
             userColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getName()));
             pointsColumn.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getPoints(tournament)).asObject());
 
@@ -87,4 +85,16 @@ public class UserRankingsController implements Initializable {
         users = AccountsManager.getUsersInTournament(t);
     }
 
+    private Map<UserDT, Integer> setRanking() {
+        Map<UserDT,Integer> map = new HashMap<>();
+        for (int i=0; i<users.size(); i++) {
+            map.put(users.get(i),i+1);
+        }
+        return map;
+    }
+
+    private int getRanking(UserDT user) {
+        Map<UserDT,Integer> map = setRanking();
+        return map.get(user);
+    }
 }
