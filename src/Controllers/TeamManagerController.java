@@ -66,11 +66,12 @@ public class TeamManagerController {
 
             /*Defino las columnas de la tabla*/
             TableColumn<Player, String> playerName = new TableColumn<>("Name");
-            TableColumn<Player, Integer> playerRanking = new TableColumn<>("Ranking");
+            TableColumn<Player, Integer> playerPoints = new TableColumn<>("Points");
             TableColumn<Player, Integer> playerPrice = new TableColumn<>("Price");
+            TableColumn<Player, Integer> playerRanking = new TableColumn<>("Ranking");
 
             /*Asocio los datos con las celdas de la tabla*/
-            playerRanking.setCellValueFactory(info -> (new SimpleIntegerProperty(info.getValue().getRanking())).asObject());
+            playerPoints.setCellValueFactory(info -> (new SimpleIntegerProperty(info.getValue().getPoints())).asObject());
             playerPrice.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Player, Integer>, ObservableValue<Integer>>() {
                 @Override
                 public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Player, Integer> param) {
@@ -84,9 +85,15 @@ public class TeamManagerController {
                     return aux;
                 }
             });
+            playerRanking.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Player, Integer>, ObservableValue<Integer>>() {
+                @Override
+                public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Player, Integer> param) {
+                    return (new SimpleIntegerProperty(tournament.getRanking(param.getValue()))).asObject();
+                }
+            });
 
             /*Agrego las columnas a la tabla*/
-            playerTableView.getColumns().addAll(playerName, playerRanking, playerPrice);
+            playerTableView.getColumns().addAll(playerName, playerPoints, playerPrice, playerRanking);
 
             /*Agrego la tabla al tab*/
             tab.setContent(playerTableView);

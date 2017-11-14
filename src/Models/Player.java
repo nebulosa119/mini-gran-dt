@@ -43,7 +43,7 @@ public class Player implements Serializable{
 
     public Properties getProperties() { return properties; }
 
-    public int getRanking() {
+    public int getPoints() {
         return properties.calculateRanking();
     }
 

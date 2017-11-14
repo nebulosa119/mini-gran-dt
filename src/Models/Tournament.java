@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
 
 public class Tournament implements Serializable {
 
@@ -74,6 +72,30 @@ public class Tournament implements Serializable {
             if(dataTeams.get(myTeam.getName()) != null)
                 myTeam.refresh(dataTeams.get(myTeam.getName()));
         }
+    }
+
+    public int getRanking(Player player) {
+        Map<Player,Integer> players = unifyPlayers();
+        return players.get(player);
+    }
+
+    private Map<Player,Integer> unifyPlayers() {
+        ArrayList<Player> players = new ArrayList<>();
+        for (Team team : teams) {
+            for (Player player : team.getPlayers()) {
+                players.add(player);
+            }
+        }
+        Map<Player,Integer> map = new HashMap<>();
+        players.sort(new Comparator<Player>() {
+            @Override
+            public int compare(Player player, Player t1) {
+                return player.getPoints() - t1.getPoints();
+            }
+        });
+        for (int i=0; i<players.size(); i++)
+            map.put(players.get(i),i+1);
+        return map;
     }
 
     @Override
