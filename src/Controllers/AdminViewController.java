@@ -101,6 +101,11 @@ public class AdminViewController implements Initializable{
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
             Team toAddTeam = new Team(result.get(), expandedTournament.getMaxPlayers());
+            if(expandedTournament.hasTeam(toAddTeam)) {
+                Alert alert = createAlert("El equipo " + toAddTeam.getName() + " ya existe.");
+                alert.showAndWait();
+                return;
+            }
             expandedTournament.addTeam(toAddTeam);
             RadioButton aux = new RadioButton();
             aux.setText(toAddTeam.getName());
@@ -195,47 +200,39 @@ public class AdminViewController implements Initializable{
     private void showTeamPlayers(){
 
         TableColumn<ViewPlayer, String> playerNameCol = new TableColumn<>("Jugador");
-        playerNameCol.setMinWidth(110);
         playerNameCol.setCellValueFactory(param -> param.getValue().name);
 
         TableColumn<ViewPlayer, String> normalGoalsScored = new TableColumn<>("Goles anotados");
-        normalGoalsScored.setMinWidth(140);
         normalGoalsScored.setCellValueFactory(param -> param.getValue().normal_goals_scored);
         normalGoalsScored.setCellFactory(TextFieldTableCell.forTableColumn());
         normalGoalsScored.setOnEditCommit(t -> t.getTableView().getItems().get(t.getTablePosition().getRow()).setNormalGoalsScored(t.getNewValue()));
 
         TableColumn<ViewPlayer, String> goalsScoredByPenaltyKick = new TableColumn<>("Goles de penal");
-        goalsScoredByPenaltyKick.setMinWidth(130);
         goalsScoredByPenaltyKick.setCellValueFactory(param -> param.getValue().goals_scored_by_penalty_kick);
         goalsScoredByPenaltyKick.setCellFactory(TextFieldTableCell.forTableColumn());
         goalsScoredByPenaltyKick.setOnEditCommit(t -> t.getTableView().getItems().get(t.getTablePosition().getRow()).setGoalsScoredByPenaltyKick(t.getNewValue()));
 
         TableColumn<ViewPlayer, String> penaltyCatched = new TableColumn<>("Penal atrapado");
-        penaltyCatched.setMinWidth(130);
         penaltyCatched.setCellValueFactory(param -> param.getValue().penalty_catched);
         penaltyCatched.setCellFactory(TextFieldTableCell.forTableColumn());
         penaltyCatched.setOnEditCommit(t -> t.getTableView().getItems().get(t.getTablePosition().getRow()).setPenaltyCatched(t.getNewValue()));
 
         TableColumn<ViewPlayer, String> goalsScoredGoalkeeper = new TableColumn<>("Gol de arquero");
-        goalsScoredGoalkeeper.setMinWidth(140);
         goalsScoredGoalkeeper.setCellValueFactory(param -> param.getValue().goals_scored_goalkeeper);
         goalsScoredGoalkeeper.setCellFactory(TextFieldTableCell.forTableColumn());
         goalsScoredGoalkeeper.setOnEditCommit(t -> t.getTableView().getItems().get(t.getTablePosition().getRow()).setGoalsScoredGoalkeeper(t.getNewValue()));
 
         TableColumn<ViewPlayer, String> yellowCards = new TableColumn<>("Tarjetas amarillas");
-        yellowCards.setMinWidth(140);
         yellowCards.setCellValueFactory(param -> param.getValue().yellow_cards);
         yellowCards.setCellFactory(TextFieldTableCell.forTableColumn());
         yellowCards.setOnEditCommit(t -> t.getTableView().getItems().get(t.getTablePosition().getRow()).setYellowCards(t.getNewValue()));
 
         TableColumn<ViewPlayer, String> redCards = new TableColumn<>("Tarjetas rojas");
-        redCards.setMinWidth(120);
         redCards.setCellValueFactory(param -> param.getValue().red_cards);
         redCards.setCellFactory(TextFieldTableCell.forTableColumn());
         redCards.setOnEditCommit(t -> t.getTableView().getItems().get(t.getTablePosition().getRow()).setRedCards(t.getNewValue()));
 
         TableColumn<ViewPlayer, String> goalsAgainst = new TableColumn<>("Goles en contra");
-        goalsAgainst.setMinWidth(130);
         goalsAgainst.setCellValueFactory(param -> param.getValue().goals_against);
         goalsAgainst.setCellFactory(TextFieldTableCell.forTableColumn());
         goalsAgainst.setOnEditCommit(t -> t.getTableView().getItems().get(t.getTablePosition().getRow()).setGoalsAgainst(t.getNewValue()));
@@ -253,6 +250,7 @@ public class AdminViewController implements Initializable{
 
         playersTableView.getColumns().addAll(playerNameCol,normalGoalsScored,goalsScoredByPenaltyKick,penaltyCatched,goalsScoredGoalkeeper,yellowCards,redCards,goalsAgainst);
         playersTableView.prefHeightProperty().bind(playersAnchorPane.heightProperty());
+        playersTableView.prefWidthProperty().bind(playersAnchorPane.widthProperty());
         playersAnchorPane.getChildren().add(playersTableView);
     }
 
