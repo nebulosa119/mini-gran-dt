@@ -5,7 +5,6 @@ import java.io.Serializable;
 /**
  * Clase que representa a un usuario del programa Mini Gran DT.
  *
- * @author
  */
 public abstract class User implements Serializable {
 

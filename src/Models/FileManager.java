@@ -3,14 +3,21 @@ package Models;
 import java.io.*;
 import java.util.NoSuchElementException;
 
-
+/**
+ * Se ocupa de guardar la inforacion del Juego, es llamada por AccountsManager
+ * cuando está necesita buscar informacion y cuando necesita guardar*/
 class FileManager {
 
+    /**Busca el path al directorio donde están guardados los archivos
+     * @return el path del directorio*/
     private static String getResourcesDirectory() {
         File resourcesDirectory = new File("src/Resources");
         return resourcesDirectory.getAbsoluteFile().toString();
     }
-
+    /**
+     * Guarda un objeto en el archivo
+     * @param obj el objeto a guardar
+     * @param fileName el nombre del archivo donde guardar el objeto*/
     static void writeToFile(Object obj, String fileName){
         String resourceDirectory = getResourcesDirectory();
         ObjectOutputStream outStream = null;
@@ -30,7 +37,9 @@ class FileManager {
             }
         }
     }
-
+    /**
+     * Busca un objeto en el archivo
+     * @param fileName el nombre del archivo donde buscar el objeto*/
     static Object readFromFile(String fileName) throws ClassNotFoundException {
         String resourceDirectory = getResourcesDirectory();
         String filePath = resourceDirectory + "/" + fileName;

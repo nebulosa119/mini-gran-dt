@@ -45,7 +45,7 @@ public class RegistrationViewController {
             boolean wantsAdmin = admin_account_check.isSelected();
             if (wantsAdmin && !AccountsManager.createAdmin(username))
                 error.setVisible(true);
-            else if (!AccountsManager.createUser(username))
+            else if (!AccountsManager.createDT(username))
                 error.setVisible(true);
             else
                 MainApp.setScene("login");

@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Clase que representa el equipo que un usuario haya decidido armar.
+ * Clase que representa el equipo de futbol virtual que un DT haya decidido armar.
  */
 public class DTTeam extends Team implements Serializable{
 

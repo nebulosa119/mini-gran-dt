@@ -39,9 +39,9 @@ public class AdministratorTest {
         DT DT1 = new DT("userName1");
         Administrator admin = new Administrator("adminName");
         admin.addTournament(tour);
-        admin.addUser("tourName", DT1);
+        admin.addDT("tourName", DT1);
 
-        List<DT> set = admin.getOrderedUsers(new PhysicalTournament("tourName"));
+        List<DT> set = admin.getOrderedDTs(new PhysicalTournament("tourName"));
 
         DT DT2 = new DT("userName2");
 

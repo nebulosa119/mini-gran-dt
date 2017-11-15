@@ -31,7 +31,7 @@ public class LoginController{
             error.setVisible(true);
         }else{
             AccountsManager.setUser(username);
-            if (AccountsManager.accountIsUser()) {
+            if (AccountsManager.accountIsDT()) {
                 MainApp.setScene("userView");
             } else {
                 MainApp.setScene("adminView");

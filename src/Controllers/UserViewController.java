@@ -99,7 +99,7 @@ public class UserViewController implements Initializable{
             public void handle(MouseEvent event) {
                 if(selectedButton != null) {
                     ((DT)AccountsManager.getSignedAccount()).signUp(map.get(selectedButton));
-                    map.get(selectedButton).getAdministrator().addUser(map.get(selectedButton).getName(), (DT) AccountsManager.getSignedAccount());
+                    map.get(selectedButton).getAdministrator().addDT(map.get(selectedButton).getName(), (DT) AccountsManager.getSignedAccount());
                     TeamManagerController.setPhysicalTournament(map.get(selectedButton));
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/Resources/Views/teamManager.fxml"));
                     Parent root = null;

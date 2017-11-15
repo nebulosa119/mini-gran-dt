@@ -5,9 +5,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-// los jugadores no tendran una posicion fija, pueden variar a lo largo del tornero
-// por ende a la hora de subir los datos, todos los jugadores seran capaces de recibir
-// cualquier atributo.
+/**
+ * Modela el Jugador de futbol de la vida real, el torneo real, con equipos reales
+ * es administrador por el administrador
+ * Estos juagadores están en un UNICO torneo a la vez*/
 public class PhysicalPlayer implements Serializable{
 
     private final static int INITIAL_AMOUNT = 1000;
@@ -34,19 +35,27 @@ public class PhysicalPlayer implements Serializable{
     public PhysicalPlayer(String name, int price) {
         this(name,price,new Properties());
     }
-
+    /**
+     * @return el nombre del jugador*/
     public String getName() {
         return name;
     }
-
+    /**
+     * @return el precio del jugador en el torneo*/
     public int getPrice() { return price; }
-
+    /**
+     * @return las propiedades*/
     public Properties getProperties() { return properties; }
-
+    /**
+     * @return el los puntos que tiene este juagador en el toreno fisico
+     * este puntaje se calcula con un peso ponderado*/
     public int getPoints() {
         return properties.calculateRanking();
     }
-
+    /**
+     * Se ocupa de hacer un update en las propiedades de juagador
+     * Estas se cambian cuando el adminsitrador del toreno hace un cambio
+     * @param p las nuevas propiedades a ser SUMADAS*/
     public void refresh(Properties p) {
         properties.refresh(p);
         price = properties.calculatePrice();
@@ -86,6 +95,7 @@ public class PhysicalPlayer implements Serializable{
         properties = (Properties) ois.readObject();
     }
 
+    /**Modela las propiedades del jugador, estos son acumulados a lo largo del torneo.*/
     public static class Properties implements Serializable {
 
         private int normal_goals_scored;
@@ -115,11 +125,14 @@ public class PhysicalPlayer implements Serializable{
             this.red_cards = red_cards;
             this.goals_against = goals_against;
         }
-
+        /**
+         * @return un entero con el puntaje de cada juagor. Este es lineal*/
         public int getPoints() {
             return normal_goals_scored+goals_scored_by_penalty_kick+penalty_catched+goals_scored_goalkeeper-yellow_cards-red_cards-goals_against;
         }
-
+        /**Se setea cada propiedad por separado
+         * @param index el indice de la propiedad
+         * @param property el valor de la misma*/
         public void setProperty(int index, int property) {
             switch (index) {
                 case 0: normal_goals_scored = property;
@@ -138,7 +151,9 @@ public class PhysicalPlayer implements Serializable{
                         break;
             }
         }
-
+        /**
+         * @param index el indice de la propiedad a retornar
+         * @return entero con el valor de la misma*/
         public int getProperty(int index) {
             switch (index) {
                 case 0: return normal_goals_scored;
@@ -151,28 +166,34 @@ public class PhysicalPlayer implements Serializable{
             }
             return 0;
         }
-
+        /**
+         * Se calcula el ranking del jugador de manera ponderada
+         * @return entero con el valor*/
         public int calculateRanking() {
             int resp=0;
-            resp += normal_goals_scored             * PropValues.normal_goals_scored.getpValue();
-            resp += goals_scored_by_penalty_kick    * PropValues.goals_scored_by_penalty_kick.getpValue();
-            resp += penalty_catched                 * PropValues.penalty_catched.getpValue();
-            resp += goals_scored_goalkeeper         * PropValues.goals_scored_goalkeeper.getpValue();
-            resp += yellow_cards                    * PropValues.yellow_cards.getpValue();
-            resp += red_cards                       * PropValues.red_cards.getpValue();
-            resp += goals_against                   * PropValues.goals_against.getpValue();
+            resp += normal_goals_scored             * PropValues.normal_goals_scored.getRankingValue();
+            resp += goals_scored_by_penalty_kick    * PropValues.goals_scored_by_penalty_kick.getRankingValue();
+            resp += penalty_catched                 * PropValues.penalty_catched.getRankingValue();
+            resp += goals_scored_goalkeeper         * PropValues.goals_scored_goalkeeper.getRankingValue();
+            resp += yellow_cards                    * PropValues.yellow_cards.getRankingValue();
+            resp += red_cards                       * PropValues.red_cards.getRankingValue();
+            resp += goals_against                   * PropValues.goals_against.getRankingValue();
             return resp;
         }
-
+        /**
+         * Se calcula el precio del jugador de manera ponderada
+         * @return entero con el valor*/
         public int calculatePrice() {
             int resp = 0;
-            resp += normal_goals_scored         * 100 * PropValues.normal_goals_scored.getUPricePerCent();
-            resp += goals_scored_by_penalty_kick* 100 * PropValues.goals_scored_by_penalty_kick.getUPricePerCent();
-            resp += penalty_catched             * 100 * PropValues.penalty_catched.getUPricePerCent();
-            resp += goals_scored_goalkeeper     * 100 * PropValues.goals_scored_goalkeeper.getUPricePerCent();
+            resp += normal_goals_scored         * 100 * PropValues.normal_goals_scored.getPricePerCentValue();
+            resp += goals_scored_by_penalty_kick* 100 * PropValues.goals_scored_by_penalty_kick.getPricePerCentValue();
+            resp += penalty_catched             * 100 * PropValues.penalty_catched.getPricePerCentValue();
+            resp += goals_scored_goalkeeper     * 100 * PropValues.goals_scored_goalkeeper.getPricePerCentValue();
             return resp;
         }
-
+        /**
+         * Se encarga de cambiar los valores que sean necesarios
+         * @param p los nuevos valores*/
         void refresh(Properties p) {
             this.normal_goals_scored            = p.normal_goals_scored;
             this.goals_scored_by_penalty_kick   = p.goals_scored_by_penalty_kick;
@@ -233,6 +254,7 @@ public class PhysicalPlayer implements Serializable{
             out.writeInt(red_cards);
             out.writeInt(goals_against);
         }
+
         public void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException{
             ois.defaultReadObject();
             normal_goals_scored          = ois.readInt();
@@ -243,7 +265,8 @@ public class PhysicalPlayer implements Serializable{
             red_cards                    = ois.readInt();
             goals_against                = ois.readInt();
         }
-
+        /**
+         * Encargado de contener los valores de cada propiedad*/
         public enum PropValues{
             normal_goals_scored(20,0.35),
             goals_scored_by_penalty_kick(10,0.1),
@@ -256,16 +279,18 @@ public class PhysicalPlayer implements Serializable{
             int pValue;
             double uPricePerCent;
 
-            PropValues(int pValue, double uPricePerCent) {
-                this.pValue = pValue;
-                this.uPricePerCent = uPricePerCent;
+            PropValues(int rValue, double PricePerCent) {
+                this.pValue = rValue;
+                this.uPricePerCent = PricePerCent;
             }
-
-            public int getpValue() {
+            /**Es el valor asociado por 1(una) propiedad.
+             * Ej 1 gol normal = 20 puntos */
+            public int getRankingValue() {
                 return pValue;
             }
-
-            public double getUPricePerCent() {
+            /**Es el porcentaje dle precio asociado por 1(una) propiedad.
+             * Ej 1 gol normal = 0.35 de su precio */
+            public double getPricePerCentValue() {
                 return uPricePerCent;
             }
         }

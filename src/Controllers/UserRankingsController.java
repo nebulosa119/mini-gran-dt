@@ -84,7 +84,7 @@ public class UserRankingsController implements Initializable {
     static void setInfo(PhysicalTournament t){
         tournamentName = t.getName();
         physicalTournament = t;
-        users = AccountsManager.getUsersInTournament(t);
+        users = AccountsManager.getDTsInTournament(t);
         usersMap = setRanking();
     }
 

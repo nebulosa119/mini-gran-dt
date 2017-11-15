@@ -55,7 +55,7 @@ public class AccountsManager implements Serializable{
      * Crea un Usuario
      * @param username El nombre del usuario
      */
-    public static boolean createUser(String username) {
+    public static boolean createDT(String username) {
         if(username.equals(""))
             return false;
         users.add(new DT(username));
@@ -90,17 +90,19 @@ public class AccountsManager implements Serializable{
     /**
      * @return Retorna true si al cuenta logeada e User, falso en otro caso
      * */
-    public static boolean accountIsUser() {
+    public static boolean accountIsDT() {
         return user != null && user instanceof DT;
     }
-
-    public static ArrayList<DT> getUsersInTournament(PhysicalTournament physicalTournament) {
+    /**
+     * @return Retorna un array de los DTs en el toreno
+     * */
+    public static ArrayList<DT> getDTsInTournament(PhysicalTournament physicalTournament) {
         ArrayList<DT> users = null;
         for (User user : AccountsManager.users) {
             if (user instanceof Administrator) {
                 Administrator admin = (Administrator) user;
                 if (admin.containsTournament(physicalTournament)) {
-                    users = admin.getOrderedUsers(physicalTournament);
+                    users = admin.getOrderedDTs(physicalTournament);
                     break;
                 }
             }
@@ -136,7 +138,4 @@ public class AccountsManager implements Serializable{
         users = (ArrayList<User>)ois.readObject();
     }
 
-    public void createAdmin(Administrator larana) {
-        users.add(larana);
-    }
 }

@@ -1,5 +1,7 @@
 package Models;
 
+import Models.Exceptions.CompleteTeamException;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -7,7 +9,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
-
+/**
+ * Modela un equipo fisico  de futbol que existe en un toreno fisico manejado por el administrador*/
 public class PhysicalTeam extends Team implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -24,20 +27,32 @@ public class PhysicalTeam extends Team implements Serializable {
         this.name = name;
         physicalPlayers.addAll(team.getPhysicalPlayers());
     }
-
+    /**
+     * @return retorna lso jugadores del equipo
+     * */
     public ArrayList<PhysicalPlayer> getPhysicalPlayers() {
         return physicalPlayers;
     }
-
+    /**
+     * @return el nombre del equipo
+     * */
     public String getName() {
         return name;
     }
-
-    public void add(PhysicalPlayer p){
-        if (!physicalPlayers.contains(p))
+    /**
+     * Agrega un jugador al equipo
+     * @param p el nuevo jugador
+     * */
+    public void add(PhysicalPlayer p) throws CompleteTeamException{
+        if (physicalPlayers.size() < max_players && !physicalPlayers.contains(p))
             physicalPlayers.add(p);
+        else
+            throw new CompleteTeamException();
     }
-
+    /**
+     * Se encarga de pasar la inforacion recivida del admin a los jugadores
+     * @param dataPlayers la informacion nueva
+     * */
     void refresh(Map<String, PhysicalPlayer.Properties> dataPlayers) {
         for (PhysicalPlayer myPhysicalPlayer : physicalPlayers) {
             myPhysicalPlayer.refresh(dataPlayers.get(myPhysicalPlayer.getName()));
@@ -68,6 +83,7 @@ public class PhysicalTeam extends Team implements Serializable {
         out.writeUTF(name);
         out.writeObject(physicalPlayers);
     }
+
     private void readObject(ObjectInputStream ois) throws IOException,ClassNotFoundException{
         ois.defaultReadObject();
         name = ois.readUTF();
