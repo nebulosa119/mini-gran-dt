@@ -8,7 +8,7 @@
 
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="415.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UserRankingsController">
    <children>
-      <Label text="Tabla de Posiciones">
+      <Label text="Tabla de Posiciones:">
          <font>
             <Font size="30.0" />
          </font>

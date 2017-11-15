@@ -66,20 +66,24 @@ public class MainApp extends Application {
             URL fileUrl = MainApp.class.getResource("/Resources/Views/" + windowName + ".fxml");
             page = FXMLLoader.load(fileUrl);
         } catch (Exception e) {
-            MainApp.createAlert("There was an error loading a file. Please try again.").showAndWait();
+            MainApp.createAlert("Error cargando un archivo, por favor intente de nuevo.").showAndWait();
             exit();
         }
         if(page!=null)
             stage.setScene(new Scene(page));
     }
 
+    /**
+     * Crea un stage auxiliar con la scene dada.
+     * @param windowName nombre del archivo fxml de la ventana
+     */
     static void setNewScene(String windowName){
         Parent page = null;
         try {
             URL fileUrl = MainApp.class.getResource("/Resources/Views/" + windowName + ".fxml");
             page = FXMLLoader.load(fileUrl);
         } catch (Exception e) {
-            MainApp.createAlert("There was an error loading a file. Please try again.").showAndWait();
+            MainApp.createAlert("Hubo un error cargando un archivo, por favor intente de nuevo.").showAndWait();
             exit();
         }
         Stage aux = new Stage();
