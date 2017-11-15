@@ -1,7 +1,5 @@
 package Models;
 
-import Models.Exceptions.CompleteTeamException;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -35,11 +33,9 @@ public class PhysicalTeam extends Team implements Serializable {
         return name;
     }
 
-    public void add(PhysicalPlayer p) throws CompleteTeamException{
-        if (physicalPlayers.size() < max_players && !physicalPlayers.contains(p))
+    public void add(PhysicalPlayer p){
+        if (!physicalPlayers.contains(p))
             physicalPlayers.add(p);
-        else
-            throw new CompleteTeamException();
     }
 
     void refresh(Map<String, PhysicalPlayer.Properties> dataPlayers) {
