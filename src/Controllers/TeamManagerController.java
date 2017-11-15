@@ -1,6 +1,7 @@
 package Controllers;
 
 import Models.*;
+import Models.Exceptions.CompleteTeamException;
 import Models.Exceptions.InsufficientFundsException;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -135,16 +136,20 @@ public class TeamManagerController {
             try {
                 for (Tab t : teamsTabPanes.getTabs()) {
                     for (PhysicalPlayer p : (ObservableList<PhysicalPlayer>) ((TableView) t.getContent()).getSelectionModel().getSelectedItems()) {
-                        if(!userPlayerList.getItems().contains(p)) {
-                            DT.buy(physicalTournament, p);
-                            userPlayerList.getItems().add(p);
-                        }
+                        DT.buy(physicalTournament, p);
+                        userPlayerList.getItems().add(p);
                     }
                 }
-                fundsLabel.setText("Fondos disponibles: " + Integer.toString(DT.getExpenses().getAvailableFunds(physicalTournament)));
+            } catch (CompleteTeamException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("El equipo está completo. Venda un jugador si quiere comprar otro");
+                alert.showAndWait();
             } catch (InsufficientFundsException e) {
-                showErrorMessage();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("No tiene suficiente dinero para la compra");
+                alert.showAndWait();
             }
+                fundsLabel.setText("Fondos disponibles: " + Integer.toString(DT.getExpenses().getAvailableFunds(physicalTournament)));
         }
 
     };
