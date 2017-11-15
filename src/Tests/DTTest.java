@@ -1,4 +1,4 @@
-package Tests;
+/**package Tests;
 
 import Models.DT;
 import Models.Exceptions.CompleteTeamException;
@@ -128,4 +128,4 @@ public class DTTest {
         assertEquals(DT, copy);
         assertTrue(((DT)copy).getDTTeamsManager().getUserTeamPlayers(tour).contains(physicalPlayer));
     }
-}
+}*/

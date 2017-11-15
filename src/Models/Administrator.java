@@ -82,8 +82,10 @@ public class Administrator extends User {
      * @param dataTournaments La informacion recibida del front a ser transmitida hacia las demas clases*/
     public void refresh(Map<String, Map<String, Map<String, PhysicalPlayer.Properties>>> dataTournaments) {
         for (PhysicalTournament myTour : tournamentUsers.keySet()) {
-            myTour.refresh(dataTournaments.get(myTour.getName()));
-            refreshDTs(myTour.getName(), dataTournaments.get(myTour.getName()));
+            if(dataTournaments.get(myTour.getName()) != null) {
+                myTour.refresh(dataTournaments.get(myTour.getName()));
+                refreshDTs(myTour.getName(), dataTournaments.get(myTour.getName()));
+            }
         }
     }
     /**

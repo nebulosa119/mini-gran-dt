@@ -38,6 +38,7 @@ public class MainApp extends Application {
         stage = primaryStage;
         stage.setTitle("Mini Gran DT");
         stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/Resources/Media/icon.png")));
+        stage.setResizable(false);
         setScene("login");
         stage.show();
     }
