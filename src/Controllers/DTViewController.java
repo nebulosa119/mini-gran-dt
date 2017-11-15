@@ -49,6 +49,9 @@ public class DTViewController implements Initializable{
         MainApp.setScene("login");
     }
 
+    /**
+     * Inicia toda la configuración de la ventana
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -63,35 +66,20 @@ public class DTViewController implements Initializable{
                 tournamentGroup.getToggles().add(tButton);
                 tournamentBox.getChildren().add(tButton);
             }
-            tournamentGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-                @Override
-                public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
-                    if(tournamentGroup.getSelectedToggle() != null &&
-                            ((DT)AccountsManager.getSignedAccount()).hasSigned(map.get(tournamentGroup.getSelectedToggle()))) {
-                        RadioButton selected = (RadioButton)tournamentGroup.getSelectedToggle();
-                        PhysicalTournament aux = administrator.getTournament(map.get(selected).getName());
-                        TeamManagerController.setPhysicalTournament(aux);
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Resources/Views/teamManager.fxml"));
-                        Parent root = null;
-                        try {
-                            root = loader.load();
-                        } catch (IOException e) {
-                            MainApp.createAlert("Error cargando archivo, intente de nuevo.").showAndWait();
-                            exit();
-                        }
-                        logoutButton.setVisible(false);
-                        userTeamView.getChildren().add(root);
-                    } else {
-                        userTeamView.getChildren().removeAll(userTeamView.getChildren());
-                        userTeamView.getChildren().addAll(signUpLabel, signUpButton);
-                        signUpLabel.setVisible(true);
-                        signUpButton.setVisible(true);
-                        selectedButton = (RadioButton) tournamentGroup.getSelectedToggle();
-                    }
-                }
-            });
+            tournamentGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> selectedAction(tournamentGroup, administrator));
             TitledPane tournamentPane = new TitledPane(administrator.getName(), tournamentBox);
             tournamentAccordion.getPanes().add(tournamentPane);
+            tournamentAccordion.expandedPaneProperty().addListener((ov, b, b1) -> {
+                if(tournamentAccordion.getExpandedPane()!=null){
+                    if(tournamentPane.isExpanded()){
+                        selectedAction(tournamentGroup, administrator);
+                    }
+                }else{
+                    signUpButton.setVisible(false);
+                    signUpLabel.setVisible(false);
+                    logoutButton.setVisible(true);
+                }
+            });
         }
 
         signUpButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -109,6 +97,8 @@ public class DTViewController implements Initializable{
                         MainApp.createAlert("Error cargando archivo, intente de nuevo.").showAndWait();
                         exit();
                     }
+                    signUpButton.setVisible(false);
+                    signUpLabel.setVisible(false);
                     logoutButton.setVisible(false);
                     userTeamView.getChildren().add(root);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -120,6 +110,36 @@ public class DTViewController implements Initializable{
             }
         });
 
+    }
+
+    /**
+     * Configura los botones y su acción.
+     */
+    private void selectedAction(ToggleGroup tournamentGroup, Administrator administrator){
+        if(tournamentGroup.getSelectedToggle() != null && ((DT)AccountsManager.getSignedAccount()).hasSigned(map.get(tournamentGroup.getSelectedToggle()))) {
+            RadioButton selected = (RadioButton)tournamentGroup.getSelectedToggle();
+            PhysicalTournament aux = administrator.getTournament(map.get(selected).getName());
+            TeamManagerController.setPhysicalTournament(aux);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Resources/Views/teamManager.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                MainApp.createAlert("Error cargando archivo, intente de nuevo.").showAndWait();
+                exit();
+            }
+            signUpButton.setVisible(false);
+            signUpLabel.setVisible(false);
+            logoutButton.setVisible(false);
+            userTeamView.getChildren().add(root);
+        } else if(tournamentGroup.getSelectedToggle() != null && !((DT)AccountsManager.getSignedAccount()).hasSigned(map.get(tournamentGroup.getSelectedToggle()))){
+            userTeamView.getChildren().removeAll(userTeamView.getChildren());
+            userTeamView.getChildren().addAll(signUpLabel, signUpButton, logoutButton);
+            signUpLabel.setVisible(true);
+            signUpButton.setVisible(true);
+            logoutButton.setVisible(true);
+            selectedButton = (RadioButton) tournamentGroup.getSelectedToggle();
+        }
     }
 
 }

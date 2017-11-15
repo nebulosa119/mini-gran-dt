@@ -1,4 +1,4 @@
-/**package Tests;
+package Tests;
 
 import Models.DT;
 import Models.Exceptions.CompleteTeamException;
@@ -38,9 +38,7 @@ public class DTTest {
 
         try {
             team.addPlayer(physicalPlayer);
-        } catch (CompleteTeamException ex) {
-            ex.getMessage();
-        } catch (ExistentNameException e) {
+        }catch (Exception e) {
             e.printStackTrace();
         }
         tour.addTeam(team);
@@ -72,9 +70,7 @@ public class DTTest {
 
         try {
             team.addPlayer(physicalPlayer);
-        } catch (CompleteTeamException ex) {
-            ex.getMessage();
-        } catch (ExistentNameException e) {
+        }catch (ExistentNameException e) {
             e.printStackTrace();
         }
         tour.addTeam(team);
@@ -109,9 +105,7 @@ public class DTTest {
 
         try {
             team.addPlayer(physicalPlayer);
-        } catch (CompleteTeamException ex) {
-            ex.getMessage();
-        } catch (ExistentNameException e) {
+        }catch (Exception e) {
             e.printStackTrace();
         }
         tour.addTeam(team);
@@ -128,4 +122,4 @@ public class DTTest {
         assertEquals(DT, copy);
         assertTrue(((DT)copy).getDTTeamsManager().getUserTeamPlayers(tour).contains(physicalPlayer));
     }
-}*/
+}
