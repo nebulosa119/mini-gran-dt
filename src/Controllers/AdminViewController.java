@@ -27,11 +27,11 @@ import java.util.*;
 public class AdminViewController implements Initializable{
 
     private PhysicalTeam team = null;
-    private Tournament actualTournament = null;
-    private Tournament expandedTournament = null;
+    private PhysicalTournament actualPhysicalTournament = null;
+    private PhysicalTournament expandedPhysicalTournament = null;
     private TableView<ViewPlayer> playersTableView;
-    private Map<Tournament, VBox> tournamentVBoxMap = new HashMap<>();
-    private Map<Tournament, ToggleGroup> tournamentToggleGroupMap = new HashMap<>();
+    private Map<PhysicalTournament, VBox> tournamentVBoxMap = new HashMap<>();
+    private Map<PhysicalTournament, ToggleGroup> tournamentToggleGroupMap = new HashMap<>();
 
     @FXML
     private Label tournamentsLoaded;
@@ -62,7 +62,7 @@ public class AdminViewController implements Initializable{
      */
     @FXML
     private void handleRefresh(){
-        if(actualTournament == null || team == null) {
+        if(actualPhysicalTournament == null || team == null) {
             MainApp.createAlert("Error, ningun equipo seleccionado.").showAndWait();
             return;
         }
@@ -87,27 +87,27 @@ public class AdminViewController implements Initializable{
      */
     @FXML
     private void handleAddTeam(){
-        if(expandedTournament==null){
+        if(expandedPhysicalTournament ==null){
             MainApp.createAlert("Ningun torneo seleccionado.").showAndWait();
             return;
         }
         TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Crear equipo en " + expandedTournament.getName());
-        dialog.setHeaderText("Agregar equipo en " + expandedTournament.getName() + ".");
+        dialog.setTitle("Crear equipo en " + expandedPhysicalTournament.getName());
+        dialog.setHeaderText("Agregar equipo en " + expandedPhysicalTournament.getName() + ".");
         dialog.setContentText("Ingrese el nombre:");
 
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
-            PhysicalTeam toAddTeam = new PhysicalTeam(result.get(), expandedTournament.getMaxPlayers());
-            if(expandedTournament.hasTeam(toAddTeam)) {
+            PhysicalTeam toAddTeam = new PhysicalTeam(result.get(), expandedPhysicalTournament.getMaxPlayers());
+            if(expandedPhysicalTournament.hasTeam(toAddTeam)) {
                 MainApp.createAlert("El equipo " + toAddTeam.getName() + " ya existe.").showAndWait();
                 return;
             }
-            expandedTournament.addTeam(toAddTeam);
+            expandedPhysicalTournament.addTeam(toAddTeam);
             RadioButton aux = new RadioButton();
             aux.setText(toAddTeam.getName());
-            tournamentToggleGroupMap.get(expandedTournament).getToggles().add(aux);
-            tournamentVBoxMap.get(expandedTournament).getChildren().add(aux);
+            tournamentToggleGroupMap.get(expandedPhysicalTournament).getToggles().add(aux);
+            tournamentVBoxMap.get(expandedPhysicalTournament).getChildren().add(aux);
         }
     }
 
@@ -125,7 +125,7 @@ public class AdminViewController implements Initializable{
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
             try {
-                team.add(new Player(result.get()));
+                team.add(new PhysicalPlayer(result.get()));
                 playersTableView.getItems().add(new ViewPlayer(result.get()));
             } catch(CompleteTeamException e) {
                 MainApp.createAlert("Equipo Completo.").showAndWait();
@@ -138,15 +138,15 @@ public class AdminViewController implements Initializable{
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Set<Tournament> tournaments = AccountsManager.getTournaments();
+        Set<PhysicalTournament> physicalTournaments = AccountsManager.getTournaments();
 
-        for (Tournament tournament: tournaments) {
+        for (PhysicalTournament physicalTournament : physicalTournaments) {
             ToggleGroup tournamentGroup = new ToggleGroup();
             VBox tournamentBox = new VBox(10);
             tournamentBox.setPadding(new Insets(10));
-            tournamentToggleGroupMap.put(tournament, tournamentGroup);
-            tournamentVBoxMap.put(tournament, tournamentBox);
-            for (PhysicalTeam team : tournament.getTeams()) {
+            tournamentToggleGroupMap.put(physicalTournament, tournamentGroup);
+            tournamentVBoxMap.put(physicalTournament, tournamentBox);
+            for (PhysicalTeam team : physicalTournament.getTeams()) {
                 RadioButton teamButton = new RadioButton(team.getName());
                 tournamentGroup.getToggles().add(teamButton);
                 tournamentBox.getChildren().add(teamButton);
@@ -156,26 +156,26 @@ public class AdminViewController implements Initializable{
                     refreshData.setVisible(true);
                     addPlayer.setVisible(true);
                     RadioButton selected = (RadioButton)tournamentGroup.getSelectedToggle();
-                    actualTournament = tournament;
-                    team = tournament.getTeam(selected.getText());
+                    actualPhysicalTournament = physicalTournament;
+                    team = physicalTournament.getTeam(selected.getText());
                     showTeamPlayers();
                     playersAnchorPane.setVisible(true);
                 }
             });
-            TitledPane tournamentPane = new TitledPane(tournament.getName(), tournamentBox);
+            TitledPane tournamentPane = new TitledPane(physicalTournament.getName(), tournamentBox);
             tournamentsAccordion.getPanes().add(tournamentPane);
             tournamentsAccordion.expandedPaneProperty().addListener((ov, b, b1) -> {
                 if(tournamentsAccordion.getExpandedPane()!=null){
                     if(tournamentPane.isExpanded()){
-                        expandedTournament = tournament;
+                        expandedPhysicalTournament = physicalTournament;
                         addTeam.setVisible(true);
                         if (tournamentGroup.getSelectedToggle() != null) {
                             refreshData.setVisible(true);
                             addPlayer.setVisible(true);
                             playersAnchorPane.setVisible(true);
                             RadioButton selected = (RadioButton)tournamentGroup.getSelectedToggle();
-                            actualTournament = tournament;
-                            team = tournament.getTeam(selected.getText());
+                            actualPhysicalTournament = physicalTournament;
+                            team = physicalTournament.getTeam(selected.getText());
                             showTeamPlayers();
                         }
                     }
@@ -234,8 +234,8 @@ public class AdminViewController implements Initializable{
         goalsAgainst.setOnEditCommit(t -> t.getTableView().getItems().get(t.getTablePosition().getRow()).setGoalsAgainst(t.getNewValue()));
 
         ArrayList<ViewPlayer> newPlayers = new ArrayList<>();
-        for (Player player : team.getPlayers()){
-            newPlayers.add(new ViewPlayer(player.getName(), player.getProperties().getProperty(0), player.getProperties().getProperty(1), player.getProperties().getProperty(2), player.getProperties().getProperty(3), player.getProperties().getProperty(4), player.getProperties().getProperty(5), player.getProperties().getProperty(6)));
+        for (PhysicalPlayer physicalPlayer : team.getPhysicalPlayers()){
+            newPlayers.add(new ViewPlayer(physicalPlayer.getName(), physicalPlayer.getProperties().getProperty(0), physicalPlayer.getProperties().getProperty(1), physicalPlayer.getProperties().getProperty(2), physicalPlayer.getProperties().getProperty(3), physicalPlayer.getProperties().getProperty(4), physicalPlayer.getProperties().getProperty(5), physicalPlayer.getProperties().getProperty(6)));
         }
         ObservableList<ViewPlayer> data = FXCollections.observableArrayList(newPlayers);
 
@@ -254,8 +254,8 @@ public class AdminViewController implements Initializable{
      * Refresca los puntos de cada jugador a AccountsManager
      */
     private void uploadData(){
-        Map<String,Map<String,Map<String, Player.Properties>>> dataTournaments = new HashMap<>();
-        dataTournaments.put(actualTournament.getName(), getTournamentData());
+        Map<String,Map<String,Map<String, PhysicalPlayer.Properties>>> dataTournaments = new HashMap<>();
+        dataTournaments.put(actualPhysicalTournament.getName(), getTournamentData());
         ((Administrator)AccountsManager.getSignedAccount()).refresh(dataTournaments);
     }
 
@@ -264,8 +264,8 @@ public class AdminViewController implements Initializable{
      *
      * @return Devuelve un mapa, nombre de equipo de key y otro mapa de value
      */
-    private Map<String,Map<String, Player.Properties>> getTournamentData(){
-        Map<String,Map<String, Player.Properties>> dataTournament = new HashMap<>();
+    private Map<String,Map<String, PhysicalPlayer.Properties>> getTournamentData(){
+        Map<String,Map<String, PhysicalPlayer.Properties>> dataTournament = new HashMap<>();
         dataTournament.put(team.getName(), getTeamData());
         return dataTournament;
     }
@@ -275,10 +275,10 @@ public class AdminViewController implements Initializable{
      *
      * @return Devuelve un mapa, nombre de jugador de key y sus propiedades de value
      */
-    private Map<String, Player.Properties> getTeamData() {
-        Map<String, Player.Properties> dataTeam = new HashMap<>();
+    private Map<String, PhysicalPlayer.Properties> getTeamData() {
+        Map<String, PhysicalPlayer.Properties> dataTeam = new HashMap<>();
         for (Object item : playersTableView.getItems()) {
-            Player.Properties prop = new Player.Properties();
+            PhysicalPlayer.Properties prop = new PhysicalPlayer.Properties();
             String name = ((ViewPlayer)item).getName();
             prop.setProperty(0, ((ViewPlayer)item).getNormalGoalsScored());
             prop.setProperty(1, ((ViewPlayer)item).getGoalsScoredByPenaltyKick());

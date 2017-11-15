@@ -12,11 +12,11 @@ import java.util.Map;
 /**
  * Clase que maneja las expensas de un usuario.
  */
-public class UserWallet implements Serializable{
+public class DTWallet implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    private Map<Tournament, Integer> funds = new HashMap<>();
+    private Map<PhysicalTournament, Integer> funds = new HashMap<>();
     private static final int INITIAL_AMOUNT = 10000;
 
     /**
@@ -25,7 +25,7 @@ public class UserWallet implements Serializable{
      * @param p
      * @return
      */
-    private boolean hasEnough(Tournament t, Player p) {
+    private boolean hasEnough(PhysicalTournament t, PhysicalPlayer p) {
         return funds.get(t) >= p.getPrice();
     }
 
@@ -33,7 +33,7 @@ public class UserWallet implements Serializable{
      * Método que registra nuevos fondos para un torneo en particular.
      * @param t
      */
-    void addNewFund(Tournament t) {
+    void addNewFund(PhysicalTournament t) {
         funds.put(t, INITIAL_AMOUNT);
     }
 
@@ -42,28 +42,28 @@ public class UserWallet implements Serializable{
      * @param t
      * @return
      */
-    public int getAvailableFunds(Tournament t) {
+    public int getAvailableFunds(PhysicalTournament t) {
         return funds.get(t);
     }
 
     /**
-     * Método para que el usuario venda un jugador que tiene en el UserTeam registrado para un torneo en particular.
+     * Método para que el usuario venda un jugador que tiene en el DTTeam registrado para un torneo en particular.
      * @param t
      * @param p
      */
-    void sell(Tournament t, Player p) {
+    void sell(PhysicalTournament t, PhysicalPlayer p) {
         Integer aux = funds.get(t);
         aux += p.getPrice();
         funds.put(t, aux);
     }
 
     /**
-     * Método para que el usuario compre un jugador para el UserTeam registrado para un torneo en particular.
+     * Método para que el usuario compre un jugador para el DTTeam registrado para un torneo en particular.
      * @param t
      * @param p
      * @throws InsufficientFundsException
      */
-    void buy(Tournament t, Player p) throws InsufficientFundsException{
+    void buy(PhysicalTournament t, PhysicalPlayer p) throws InsufficientFundsException{
         if(!(hasEnough(t, p))) throw new InsufficientFundsException();
         Integer aux = funds.get(t);
         aux -= p.getPrice();
@@ -77,6 +77,6 @@ public class UserWallet implements Serializable{
 
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject();
-        funds = (Map<Tournament, Integer>) ois.readObject();
+        funds = (Map<PhysicalTournament, Integer>) ois.readObject();
     }
 }

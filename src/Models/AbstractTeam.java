@@ -9,23 +9,23 @@ import java.util.ArrayList;
 public abstract class AbstractTeam implements Serializable{
 
     int max_players;
-    ArrayList<Player> players = new ArrayList<>();
+    ArrayList<PhysicalPlayer> physicalPlayers = new ArrayList<>();
 
     AbstractTeam(int max_players) {
         this.max_players = max_players;
     }
 
-    void addPlayer(Player p) {
-        if (!players.contains(p))
-            players.add(p);
+    void addPlayer(PhysicalPlayer p) {
+        if (!physicalPlayers.contains(p))
+            physicalPlayers.add(p);
     }
 
-    void removePlayer(Player p) {
-        players.remove(p);
+    void removePlayer(PhysicalPlayer p) {
+        physicalPlayers.remove(p);
     }
 
-    public ArrayList<Player> getPlayers() {
-        return players;
+    public ArrayList<PhysicalPlayer> getPhysicalPlayers() {
+        return physicalPlayers;
     }
 
     @Override
@@ -35,8 +35,8 @@ public abstract class AbstractTeam implements Serializable{
         AbstractTeam aux = (AbstractTeam) o;
         if(max_players != aux.max_players)
             return false;
-        for(Player p1 : players) {
-            for(Player p2: aux.getPlayers())
+        for(PhysicalPlayer p1 : physicalPlayers) {
+            for(PhysicalPlayer p2: aux.getPhysicalPlayers())
                 if(!p1.equals(p2))
                     return false;
         }
@@ -45,10 +45,10 @@ public abstract class AbstractTeam implements Serializable{
 
     private void writeObject(ObjectOutputStream out)throws IOException {
         out.defaultWriteObject();
-        out.writeObject(players);
+        out.writeObject(physicalPlayers);
     }
     private void readObject(ObjectInputStream ois) throws IOException,ClassNotFoundException{
         ois.defaultReadObject();
-        players = (ArrayList<Player>)ois.readObject();
+        physicalPlayers = (ArrayList<PhysicalPlayer>)ois.readObject();
     }
 }

@@ -23,7 +23,7 @@ public class TeamManagerController {
     @FXML
     private Button exitButton, ruleButton, playerRankingButton, addPlayerButton, removePlayerButton;
     @FXML
-    private ListView<Player> userPlayerList;
+    private ListView<PhysicalPlayer> userPlayerList;
     @FXML
     private TabPane teamsTabPanes;
     @FXML
@@ -31,8 +31,8 @@ public class TeamManagerController {
     @FXML
     private Label pointsLabel, fundsLabel;
 
-    private UserDT userDT;
-    private static Tournament tournament;
+    private DT DTAccount;
+    private static PhysicalTournament physicalTournament;
 
     /**
      * Configura todos los equipos del torneo y jugadores del usuario.
@@ -40,31 +40,31 @@ public class TeamManagerController {
      */
     public void initialize() {
         /*Inicializo variables de instancia*/
-        userDT = (UserDT) AccountsManager.getSignedAccount();
+        DTAccount = (DT) AccountsManager.getSignedAccount();
         /*Configuro los tabs*/
-        for(PhysicalTeam team : tournament.getTeams()) {
+        for(PhysicalTeam team : physicalTournament.getTeams()) {
             Tab tab = new Tab();
             tab.setText(team.getName());
 
             /*Defino la data que va a ir adrento de la tabla*/
-            ObservableList<Player> data = FXCollections.observableArrayList();
-            data.addAll(team.getPlayers());
+            ObservableList<PhysicalPlayer> data = FXCollections.observableArrayList();
+            data.addAll(team.getPhysicalPlayers());
 
             /*Defino la tabla de jugadores que va adentro del tab particular*/
-            TableView<Player> playerTableView = new TableView<>();
+            TableView<PhysicalPlayer> playerTableView = new TableView<>();
             playerTableView.setItems(data);
 
             /*Defino las columnas de la tabla*/
-            TableColumn<Player, String> playerName = new TableColumn<>("Nombre");
-            TableColumn<Player, Integer> playerPoints = new TableColumn<>("Puntos");
-            TableColumn<Player, Integer> playerPrice = new TableColumn<>("Precio");
-            TableColumn<Player, Integer> playerRanking = new TableColumn<>("Ranking");
+            TableColumn<PhysicalPlayer, String> playerName = new TableColumn<>("Nombre");
+            TableColumn<PhysicalPlayer, Integer> playerPoints = new TableColumn<>("Puntos");
+            TableColumn<PhysicalPlayer, Integer> playerPrice = new TableColumn<>("Precio");
+            TableColumn<PhysicalPlayer, Integer> playerRanking = new TableColumn<>("Ranking");
 
             /*Asocio los datos con las celdas de la tabla*/
             playerPoints.setCellValueFactory(info -> (new SimpleIntegerProperty(info.getValue().getPoints())).asObject());
             playerPrice.setCellValueFactory(param -> (new SimpleIntegerProperty(param.getValue().getPrice())).asObject());
             playerName.setCellValueFactory(param -> (new SimpleStringProperty(param.getValue().getName())));
-            playerRanking.setCellValueFactory(param -> (new SimpleIntegerProperty(tournament.getRanking(param.getValue()))).asObject());
+            playerRanking.setCellValueFactory(param -> (new SimpleIntegerProperty(physicalTournament.getRanking(param.getValue()))).asObject());
 
             /*Agrego las columnas a la tabla*/
             playerTableView.getColumns().addAll(playerRanking, playerName, playerPoints, playerPrice);
@@ -75,16 +75,16 @@ public class TeamManagerController {
             /*Agrego la tab*/
             teamsTabPanes.getTabs().add(tab);
 
-            pointsLabel.setText("Puntos actuales: " + Integer.toString(userDT.getPoints(tournament)));
-            fundsLabel.setText("Fondos disponibles: " + Integer.toString(userDT.getExpenses().getAvailableFunds(tournament)));
+            pointsLabel.setText("Puntos actuales: " + Integer.toString(DTAccount.getPoints(physicalTournament)));
+            fundsLabel.setText("Fondos disponibles: " + Integer.toString(DTAccount.getExpenses().getAvailableFunds(physicalTournament)));
         }
         /*Configuro el listView del usuario*/
         /*Lo lleno con los jugadores que tenga*/
-        if(userDT != null && userDT.hasSigned(tournament))
-            userPlayerList.setItems(FXCollections.observableArrayList(userDT.getUserTeams().getUserTeamPlayers(tournament)));
-        userPlayerList.setCellFactory(param -> new ListCell<Player>() {
+        if(DTAccount != null && DTAccount.hasSigned(physicalTournament))
+            userPlayerList.setItems(FXCollections.observableArrayList(DTAccount.getDTTeamsManager().getUserTeamPlayers(physicalTournament)));
+        userPlayerList.setCellFactory(param -> new ListCell<PhysicalPlayer>() {
                 @Override
-                protected void updateItem(Player p, boolean empty) { super.updateItem(p, empty);
+                protected void updateItem(PhysicalPlayer p, boolean empty) { super.updateItem(p, empty);
                 if (empty || p == null || p.getName() == null) {
                     setText(null);
                 } else {
@@ -122,7 +122,7 @@ public class TeamManagerController {
      * Abre la ventana de ranking de los jugadores
      */
     private EventHandler rankingHandler = event -> {
-        UserRankingsController.setInfo(tournament);
+        UserRankingsController.setInfo(physicalTournament);
         MainApp.setNewScene("userRankings");
     };
 
@@ -134,14 +134,14 @@ public class TeamManagerController {
         public void handle(Event event) {
             try {
                 for (Tab t : teamsTabPanes.getTabs()) {
-                    for (Player p : (ObservableList<Player>) ((TableView) t.getContent()).getSelectionModel().getSelectedItems()) {
+                    for (PhysicalPlayer p : (ObservableList<PhysicalPlayer>) ((TableView) t.getContent()).getSelectionModel().getSelectedItems()) {
                         if(!userPlayerList.getItems().contains(p)) {
-                            userDT.buy(tournament, p);
+                            DTAccount.buy(physicalTournament, p);
                             userPlayerList.getItems().add(p);
                         }
                     }
                 }
-                fundsLabel.setText("Fondos disponibles: " + Integer.toString(userDT.getExpenses().getAvailableFunds(tournament)));
+                fundsLabel.setText("Fondos disponibles: " + Integer.toString(DTAccount.getExpenses().getAvailableFunds(physicalTournament)));
             } catch (InsufficientFundsException e) {
                 showErrorMessage();
             }
@@ -156,11 +156,11 @@ public class TeamManagerController {
         @Override
         public void handle(Event event) {
 
-            for(Player p : userPlayerList.getSelectionModel().getSelectedItems()) {
-                userDT.sell(tournament, p);
+            for(PhysicalPlayer p : userPlayerList.getSelectionModel().getSelectedItems()) {
+                DTAccount.sell(physicalTournament, p);
                 userPlayerList.getItems().removeAll(p);
             }
-            fundsLabel.setText("Fondos disponibles: " + Integer.toString(userDT.getExpenses().getAvailableFunds(tournament)));
+            fundsLabel.setText("Fondos disponibles: " + Integer.toString(DTAccount.getExpenses().getAvailableFunds(physicalTournament)));
         }
     };
 
@@ -178,8 +178,8 @@ public class TeamManagerController {
      * Setea un torneo
      * @param t Torneo a setear
      */
-    public static void setTournament(Tournament t) {
-        tournament = t;
+    public static void setPhysicalTournament(PhysicalTournament t) {
+        physicalTournament = t;
     }
 
 }

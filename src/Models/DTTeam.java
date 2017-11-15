@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Clase que representa el equipo que un usuario haya decidido armar.
  */
-public class UserTeam extends AbstractTeam implements Serializable{
+public class DTTeam extends AbstractTeam implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
@@ -19,7 +19,7 @@ public class UserTeam extends AbstractTeam implements Serializable{
      * Constructor
      * @param max_players Representa la cantidad máxima de jugadores que puede tener en este torneo.
      */
-    UserTeam(int max_players) {
+    DTTeam(int max_players) {
         super(max_players);
     }
 
@@ -27,7 +27,7 @@ public class UserTeam extends AbstractTeam implements Serializable{
      * Método para actualizar los puntos del usuario que el mismo recibe en función de este equipo.
      * @param p Las propiedades nuevas
      */
-    void refreshPoints(Player.Properties p) {
+    void refreshPoints(PhysicalPlayer.Properties p) {
         points += p.getPoints();
     }
 
@@ -40,21 +40,21 @@ public class UserTeam extends AbstractTeam implements Serializable{
 
     @Override
     public boolean equals(Object o) {
-        if(!(o instanceof UserTeam))
+        if(!(o instanceof DTTeam))
             return false;
-        UserTeam aux = (UserTeam) o;
+        DTTeam aux = (DTTeam) o;
         return super.equals(aux);
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
         out.writeInt(points);
-        out.writeObject(players);
+        out.writeObject(physicalPlayers);
     }
 
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject();
         points = ois.readInt();
-        players= (ArrayList<Player>) ois.readObject();
+        physicalPlayers = (ArrayList<PhysicalPlayer>) ois.readObject();
     }
 }

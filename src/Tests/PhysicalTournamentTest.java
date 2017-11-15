@@ -1,7 +1,7 @@
 package Tests;
 
 import Models.PhysicalTeam;
-import Models.Tournament;
+import Models.PhysicalTournament;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Test;
 
@@ -11,12 +11,12 @@ import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-public class TournamentTest {
+public class PhysicalTournamentTest {
 
     @Test
     public void createTeamTest() {
-        Tournament tour1 = new Tournament("tourName1",5);
-        Tournament tour2 = new Tournament("tourName2",5);
+        PhysicalTournament tour1 = new PhysicalTournament("tourName1",5);
+        PhysicalTournament tour2 = new PhysicalTournament("tourName2",5);
 
         assertFalse(tour1.equals(tour2));
         assertEquals(5,tour1.getMaxPlayers());
@@ -25,7 +25,7 @@ public class TournamentTest {
 
     @Test
     public void addTeamTest() {
-        Tournament tour = new Tournament("tourName",5);
+        PhysicalTournament tour = new PhysicalTournament("tourName",5);
         PhysicalTeam team1 = new PhysicalTeam("teamName1",tour.getMaxPlayers());
         tour.addTeam(team1);
 
@@ -37,10 +37,10 @@ public class TournamentTest {
 
     @Test
     public void serializationTest() {
-        Serializable original = new Tournament("tourName",5);
+        Serializable original = new PhysicalTournament("tourName",5);
         Serializable copy = SerializationUtils.clone(original);
 
         assertEquals(original, copy);
-        assertEquals(5,((Tournament)copy).getMaxPlayers());
+        assertEquals(5,((PhysicalTournament)copy).getMaxPlayers());
     }
 }

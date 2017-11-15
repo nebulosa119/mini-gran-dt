@@ -29,10 +29,10 @@ public class UserRankingsController implements Initializable {
     @FXML
     private AnchorPane rankingsAnchorPane;
 
-    private static ArrayList<UserDT> users;
+    private static ArrayList<DT> users;
     private static String tournamentName;
-    private static Tournament tournament;
-    private static Map<UserDT,Integer> usersMap;
+    private static PhysicalTournament physicalTournament;
+    private static Map<DT,Integer> usersMap;
 
     /**
      * Coloca a todos los usuarios del torneo en la tabla.
@@ -42,13 +42,13 @@ public class UserRankingsController implements Initializable {
         tournamentLabel.setText(tournamentName);
         if (users != null) {
 
-            TableColumn<UserDT, Integer> rankingColumn = new TableColumn<>("Puesto");
-            TableColumn<UserDT, String> userColumn = new TableColumn<>("Usuario");
-            TableColumn<UserDT, Integer> pointsColumn = new TableColumn<>("Puntos");
+            TableColumn<DT, Integer> rankingColumn = new TableColumn<>("Puesto");
+            TableColumn<DT, String> userColumn = new TableColumn<>("Usuario");
+            TableColumn<DT, Integer> pointsColumn = new TableColumn<>("Puntos");
 
             rankingColumn.setCellValueFactory(param -> new SimpleIntegerProperty(getRanking(param.getValue())).asObject());
             userColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getName()));
-            pointsColumn.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getPoints(tournament)).asObject());
+            pointsColumn.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getPoints(physicalTournament)).asObject());
 
             rankingColumn.setMinWidth(100);
             rankingColumn.setMaxWidth(100);
@@ -60,10 +60,10 @@ public class UserRankingsController implements Initializable {
             pointsColumn.setMaxWidth(100);
             pointsColumn.setPrefWidth(100);
 
-            ObservableList<UserDT> data = FXCollections.observableArrayList();
+            ObservableList<DT> data = FXCollections.observableArrayList();
             data.addAll(users);
 
-            TableView<UserDT> rankingsTableView = new TableView<>();
+            TableView<DT> rankingsTableView = new TableView<>();
             rankingsTableView.setItems(data);
             rankingColumn.setSortType(ASCENDING);
             rankingsTableView.getSortOrder().add(rankingColumn);
@@ -81,9 +81,9 @@ public class UserRankingsController implements Initializable {
      *
      * @param t Torneo a usar
      */
-    static void setInfo(Tournament t){
+    static void setInfo(PhysicalTournament t){
         tournamentName = t.getName();
-        tournament = t;
+        physicalTournament = t;
         users = AccountsManager.getUsersInTournament(t);
         usersMap = setRanking();
     }
@@ -93,8 +93,8 @@ public class UserRankingsController implements Initializable {
      *
      * @return Mapa con usuarios como key y su puesto como value
      */
-    private static Map<UserDT, Integer> setRanking() {
-        Map<UserDT,Integer> map = new HashMap<>();
+    private static Map<DT, Integer> setRanking() {
+        Map<DT,Integer> map = new HashMap<>();
         for (int i=0; i<users.size(); i++) {
             map.put(users.get(i), i+1);
         }
@@ -108,7 +108,7 @@ public class UserRankingsController implements Initializable {
      *
      * @return Puesto del usuario
      */
-    private int getRanking(UserDT user) {
+    private int getRanking(DT user) {
         return usersMap.get(user);
     }
 }

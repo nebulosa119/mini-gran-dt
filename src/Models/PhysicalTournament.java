@@ -6,7 +6,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
 
-public class Tournament implements Serializable {
+public class PhysicalTournament implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -15,17 +15,17 @@ public class Tournament implements Serializable {
     private String name;
     private int maxPlayers;
 
-    public Tournament(String tourName) {
+    public PhysicalTournament(String tourName) {
         this(tourName,0);
     }
 
-    public Tournament(String name, int maxPlayers) {
+    public PhysicalTournament(String name, int maxPlayers) {
         this.name = name;
         this.maxPlayers = maxPlayers;
         teams = new ArrayList<>();
     }
 
-    Tournament(Tournament t) {
+    PhysicalTournament(PhysicalTournament t) {
         this(t.getName(),t.getMaxPlayers());
         teams.addAll(t.getTeams());
     }
@@ -66,32 +66,32 @@ public class Tournament implements Serializable {
         this.administrator = administrator;
     }
 
-    void refresh(Map<String, Map<String, Player.Properties>> dataTeams) {
+    void refresh(Map<String, Map<String, PhysicalPlayer.Properties>> dataTeams) {
         for (PhysicalTeam myTeam : teams) {
             if(dataTeams.get(myTeam.getName()) != null)
                 myTeam.refresh(dataTeams.get(myTeam.getName()));
         }
     }
 
-    public int getRanking(Player player) {
-        Map<Player,Integer> players = unifyPlayers();
-        return players.get(player);
+    public int getRanking(PhysicalPlayer physicalPlayer) {
+        Map<PhysicalPlayer,Integer> players = unifyPlayers();
+        return players.get(physicalPlayer);
     }
 
-    private Map<Player,Integer> unifyPlayers() {
-        ArrayList<Player> players = new ArrayList<>();
+    private Map<PhysicalPlayer,Integer> unifyPlayers() {
+        ArrayList<PhysicalPlayer> physicalPlayers = new ArrayList<>();
         for (PhysicalTeam team : teams) {
-            players.addAll(team.getPlayers());
+            physicalPlayers.addAll(team.getPhysicalPlayers());
         }
-        Map<Player,Integer> map = new HashMap<>();
-        players.sort(new Comparator<Player>() {
+        Map<PhysicalPlayer,Integer> map = new HashMap<>();
+        physicalPlayers.sort(new Comparator<PhysicalPlayer>() {
             @Override
-            public int compare(Player player, Player t1) {
-                return t1.getPoints() - player.getPoints();
+            public int compare(PhysicalPlayer physicalPlayer, PhysicalPlayer t1) {
+                return t1.getPoints() - physicalPlayer.getPoints();
             }
         });
-        for (int i=0; i<players.size(); i++)
-            map.put(players.get(i),i+1);
+        for (int i = 0; i< physicalPlayers.size(); i++)
+            map.put(physicalPlayers.get(i),i+1);
         return map;
     }
 
@@ -99,9 +99,9 @@ public class Tournament implements Serializable {
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null || !(obj instanceof Tournament))
+        if (obj == null || !(obj instanceof PhysicalTournament))
             return false;
-        Tournament tour = (Tournament) obj;
+        PhysicalTournament tour = (PhysicalTournament) obj;
         return name.equals(tour.name);
     }
 

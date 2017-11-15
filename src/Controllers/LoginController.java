@@ -30,7 +30,7 @@ public class LoginController{
         if (!(AccountsManager.contains(username))){
             error.setVisible(true);
         }else{
-            AccountsManager.setAccount(username);
+            AccountsManager.setUser(username);
             if (AccountsManager.accountIsUser()) {
                 MainApp.setScene("userView");
             } else {

@@ -14,40 +14,40 @@ public class AdministratorTest {
 
     @Test
     public void createAccountTest() {
-        Account account1 = new Administrator("adminName1");
-        Account account2 = new Administrator("adminName2");
-        Account account1bis= new Administrator("adminName1");
+        User user1 = new Administrator("adminName1");
+        User user2 = new Administrator("adminName2");
+        User user1Bis = new Administrator("adminName1");
 
-        assertEquals("adminName1",account1.getName());
-        assertFalse(account1.equals(account2));
-        assertTrue(account1.equals(account1bis));
+        assertEquals("adminName1", user1.getName());
+        assertFalse(user1.equals(user2));
+        assertTrue(user1.equals(user1Bis));
     }
 
     @Test
     public void createTournamentTest() {
-        Tournament tour = new Tournament("tourName");
+        PhysicalTournament tour = new PhysicalTournament("tourName");
         Administrator admin = new Administrator("adminName");
         admin.addTournament(tour);
 
-        assertTrue(admin.containsTournament(new Tournament("tourName")));
+        assertTrue(admin.containsTournament(new PhysicalTournament("tourName")));
         assertEquals(tour,admin.getTournament("tourName"));
     }
 
     @Test
     public void addUserTest() {
-        Tournament tour = new Tournament("tourName");
-        UserDT userDT1 = new UserDT("userName1");
+        PhysicalTournament tour = new PhysicalTournament("tourName");
+        DT DTAccount1 = new DT("userName1");
         Administrator admin = new Administrator("adminName");
         admin.addTournament(tour);
-        admin.addUser("tourName", userDT1);
+        admin.addUser("tourName", DTAccount1);
 
-        List<UserDT> set = admin.getOrderedUsers(new Tournament("tourName"));
+        List<DT> set = admin.getOrderedUsers(new PhysicalTournament("tourName"));
 
-        UserDT userDT2 = new UserDT("userName2");
+        DT DTAccount2 = new DT("userName2");
 
         assertFalse(set.isEmpty());
-        assertTrue(set.contains(userDT1));
-        assertFalse(set.contains(userDT2));
+        assertTrue(set.contains(DTAccount1));
+        assertFalse(set.contains(DTAccount2));
     }
 
     @Test
