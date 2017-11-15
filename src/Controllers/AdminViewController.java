@@ -215,8 +215,8 @@ public class AdminViewController implements Initializable{
         penaltyCatched.setOnEditCommit(t -> t.getTableView().getItems().get(t.getTablePosition().getRow()).setPenaltyCatched(t.getNewValue()));
 
         TableColumn<ViewPlayer, Integer> goalsScoredGoalkeeper = new TableColumn<>("Gol de arquero");
-        goalsScoredGoalkeeper.setCellValueFactory(param -> (new SimpleIntegerProperty(param.getValue().getPenaltyCatched())).asObject());
-        goalsScoredByPenaltyKick.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerConverter()));
+        goalsScoredGoalkeeper.setCellValueFactory(param -> (new SimpleIntegerProperty(param.getValue().getGoalsScoredGoalkeeper())).asObject());
+        goalsScoredGoalkeeper.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerConverter()));
         goalsScoredGoalkeeper.setOnEditCommit(t -> t.getTableView().getItems().get(t.getTablePosition().getRow()).setGoalsScoredGoalkeeper(t.getNewValue()));
 
         TableColumn<ViewPlayer, Integer> yellowCards = new TableColumn<>("Tarjetas amarillas");
