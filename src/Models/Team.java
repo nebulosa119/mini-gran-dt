@@ -1,5 +1,7 @@
 package Models;
 
+import Models.Exceptions.CompleteTeamException;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -15,7 +17,8 @@ public abstract class Team implements Serializable{
         this.max_players = max_players;
     }
 
-    void addPlayer(PhysicalPlayer p) {
+    void addPlayer(PhysicalPlayer p) throws CompleteTeamException{
+        if(physicalPlayers.size() == max_players) throw new CompleteTeamException();
         if (!physicalPlayers.contains(p))
             physicalPlayers.add(p);
     }

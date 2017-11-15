@@ -1,5 +1,6 @@
 package Models;
 
+import Models.Exceptions.CompleteTeamException;
 import Models.Exceptions.InsufficientFundsException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -50,7 +51,7 @@ public class DT extends User {
      * @param t Representa el torneo.
      * @param p Representa el jugador que quiere vender.
      */
-    public void buy(PhysicalTournament t, PhysicalPlayer p) throws InsufficientFundsException{
+    public void buy(PhysicalTournament t, PhysicalPlayer p) throws InsufficientFundsException, CompleteTeamException{
         expenses.buy(t, p);
         DTTeamsManager.addPlayer(t, p);
     }
