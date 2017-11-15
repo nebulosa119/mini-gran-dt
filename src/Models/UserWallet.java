@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Clase que maneja las expensas de un usuario
+ * Clase que maneja las expensas de un usuario.
  */
 public class UserWallet implements Serializable{
 
@@ -20,7 +20,7 @@ public class UserWallet implements Serializable{
     private static final int INITIAL_AMOUNT = 10000;
 
     /**
-     * Método que determina si el usuario tiene suficientes fondos para comprar un jugador según los fondos del torneo en particular
+     * Método que determina si el usuario tiene suficientes fondos para comprar un jugador según los fondos del torneo en particular.
      * @param t
      * @param p
      * @return
@@ -30,7 +30,7 @@ public class UserWallet implements Serializable{
     }
 
     /**
-     * Método que registra nuevos fondos para un torneo en particular
+     * Método que registra nuevos fondos para un torneo en particular.
      * @param t
      */
     void addNewFund(Tournament t) {
@@ -38,7 +38,7 @@ public class UserWallet implements Serializable{
     }
 
     /**
-     * Método que devuelve la cantidad de fondos del usuario disponibles en un torneo en particular
+     * Método que devuelve la cantidad de fondos del usuario disponibles en un torneo en particular.
      * @param t
      * @return
      */
@@ -47,7 +47,7 @@ public class UserWallet implements Serializable{
     }
 
     /**
-     * Método para que el usuario venda un jugador que tiene en el UserTeam registrado para un torneo en particular
+     * Método para que el usuario venda un jugador que tiene en el UserTeam registrado para un torneo en particular.
      * @param t
      * @param p
      */
@@ -58,7 +58,7 @@ public class UserWallet implements Serializable{
     }
 
     /**
-     * Método para que el usuario compre un jugador para el UserTeam registrado para un torneo en particular
+     * Método para que el usuario compre un jugador para el UserTeam registrado para un torneo en particular.
      * @param t
      * @param p
      * @throws InsufficientFundsException

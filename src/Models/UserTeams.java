@@ -35,7 +35,7 @@ public class UserTeams implements Serializable{
     }
 
     /**
-     * Método para agregar un jugador de un torneo en particular a un equipo según el torneo
+     * Método para agregar un jugador de un torneo en particular a un equipo según el torneo.
      * @param t
      * @param p
      */
@@ -44,7 +44,7 @@ public class UserTeams implements Serializable{
     }
 
     /**
-     * Método para determinar si el usuario se encuentra participando de un torneo
+     * Método para determinar si el usuario se encuentra participando de un torneo.
      * @param t
      * @return
      */
@@ -53,7 +53,7 @@ public class UserTeams implements Serializable{
     }
 
     /**
-     * Método para conseguir una lista con los integrantes de un equipo UserTeam en un torneo en particular
+     * Método para conseguir una lista con los integrantes de un equipo UserTeam en un torneo en particular.
      * @param t
      * @return
      */
@@ -62,7 +62,7 @@ public class UserTeams implements Serializable{
     }
 
     /**
-     * Método para conseguir los puntos de un usuario en un torneo particular
+     * Método para conseguir los puntos de un usuario en un torneo particular.
      * @param t
      * @return
      */
@@ -81,7 +81,7 @@ public class UserTeams implements Serializable{
     }
 
     /**
-     * Método para actualizar los puntos del usuario en función de los cambios hechos a los jugadores que componen los equipos UserTeam del usuario
+     * Método para actualizar los puntos del usuario en función de los cambios hechos a los jugadores que componen los equipos UserTeam del usuario.
      * @param propertiesMap
      * @param tour
      */

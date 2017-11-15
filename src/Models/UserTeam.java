@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Clase que representa el equipo que un usuario haya decidido armar
+ * Clase que representa el equipo que un usuario haya decidido armar.
  */
 public class UserTeam extends AbstractTeam implements Serializable{
 
@@ -24,7 +24,7 @@ public class UserTeam extends AbstractTeam implements Serializable{
     }
 
     /**
-     * Método para actualizar los puntos del usuario que el mismo recibe en función de este equipo
+     * Método para actualizar los puntos del usuario que el mismo recibe en función de este equipo.
      * @param p Las propiedades nuevas
      */
     void refreshPoints(Player.Properties p) {
@@ -32,7 +32,7 @@ public class UserTeam extends AbstractTeam implements Serializable{
     }
 
     /**
-     * Método para obtener los puntos del usuario que el mismo tiene en función de este equipo
+     * Método para obtener los puntos del usuario que el mismo tiene en función de este equipo.
      */
     int getUserPoints() {
         return points;

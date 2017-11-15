@@ -10,7 +10,7 @@ import java.util.Map;
 // solo hay que recorrer la lista e imprimirlos
 
 /**
- * Clase que representa un usuario que participa vendiendo y comprando jugadores a lo largo de un torneo
+ * Clase que representa un usuario que participa vendiendo y comprando jugadores a lo largo de un torneo.
  */
 public class UserDT extends Account{
 
@@ -29,16 +29,16 @@ public class UserDT extends Account{
 
     /**
      * Método para conseguir los puntos de un jugador en un torneo.
-     * @param t De tipo Tournament, representa el torneo
+     * @param t De tipo Tournament, representa el torneo.
      */
     public int getPoints(Tournament t) {
         return userTeams.getUserPoints(t);
     }
 
     /**
-     * Método para vender un jugador de un torneo en el que el jugador esté inscripto
-     * @param t Representa el torneo
-     * @param p Representa el jugador que quiere vender
+     * Método para vender un jugador de un torneo en el que el jugador esté inscripto.
+     * @param t Representa el torneo.
+     * @param p Representa el jugador que quiere vender.
      */
     public void sell(Tournament t , Player p) {
         expenses.sell(t, p);
@@ -46,9 +46,9 @@ public class UserDT extends Account{
     }
 
     /**
-     * Método para comprar un jugador en un torneo
-     * @param t Representa el torneo
-     * @param p Representa el jugador que quiere vender
+     * Método para comprar un jugador en un torneo.
+     * @param t Representa el torneo.
+     * @param p Representa el jugador que quiere vender.
      */
     public void buy(Tournament t, Player p) throws InsufficientFundsException{
         expenses.buy(t, p);
@@ -56,8 +56,8 @@ public class UserDT extends Account{
     }
 
     /**
-     * Método para inscribirse en un torneo en particular
-     * @param t Representa el torneo en el cual desea inscribirse
+     * Método para inscribirse en un torneo en particular.
+     * @param t Representa el torneo en el cual desea inscribirse.
      */
     public void signUp(Tournament t) {
         expenses.addNewFund(t);
@@ -65,23 +65,23 @@ public class UserDT extends Account{
     }
 
     /**
-     * Método para obtener acceso al UserWallet del usuario
-     * @return Devuelve el UserWallet del usuario
+     * Método para obtener acceso al UserWallet del usuario.
+     * @return Devuelve el UserWallet del usuario.
      */
     public UserWallet getExpenses() {
         return expenses;
     }
 
     /**
-     * Método para saber si el usuario se ha inscripto en un torneo
-     * @param t Representa el torneo
+     * Método para saber si el usuario se ha inscripto en un torneo.
+     * @param t Representa el torneo.
      */
     public boolean hasSigned(Tournament t) {
         return userTeams.isParticipating(t);
     }
 
     /**
-     * Método para obtener la instancia de la clase de manejo de equipos de usuario UserTeams
+     * Método para obtener la instancia de la clase de manejo de equipos de usuario UserTeams.
      */
     public UserTeams getUserTeams() {
         return userTeams;
@@ -89,8 +89,8 @@ public class UserDT extends Account{
 
     /**
      * Método que permite que el administrador de un torneo se comunique con el usuario para pasarle la información sobre los cambios
-     * en las propiedades de los jugadores
-     * @param tour El torneo en cuestión
+     * en las propiedades de los jugadores.
+     * @param tour El torneo en cuestión.
      * @param propertiesMap Mapa de los nombres de los jugadores a las Propiedades.
      */
     public void refreshPoints(Tournament tour, Map<String, Player.Properties> propertiesMap) {
