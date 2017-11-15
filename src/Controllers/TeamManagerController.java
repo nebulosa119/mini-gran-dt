@@ -55,9 +55,9 @@ public class TeamManagerController {
             playerTableView.setItems(data);
 
             /*Defino las columnas de la tabla*/
-            TableColumn<Player, String> playerName = new TableColumn<>("Name");
-            TableColumn<Player, Integer> playerPoints = new TableColumn<>("Points");
-            TableColumn<Player, Integer> playerPrice = new TableColumn<>("Price");
+            TableColumn<Player, String> playerName = new TableColumn<>("Nombre");
+            TableColumn<Player, Integer> playerPoints = new TableColumn<>("Puntos");
+            TableColumn<Player, Integer> playerPrice = new TableColumn<>("Precio");
             TableColumn<Player, Integer> playerRanking = new TableColumn<>("Ranking");
 
             /*Asocio los datos con las celdas de la tabla*/
@@ -75,8 +75,8 @@ public class TeamManagerController {
             /*Agrego la tab*/
             teamsTabPanes.getTabs().add(tab);
 
-            pointsLabel.setText("Current points: " + Integer.toString(userDT.getPoints(tournament)));
-            fundsLabel.setText("Available funds: " + Integer.toString(userDT.getExpenses().getAvailableFunds(tournament)));
+            pointsLabel.setText("Puntos actuales: " + Integer.toString(userDT.getPoints(tournament)));
+            fundsLabel.setText("Fondos disponibles: " + Integer.toString(userDT.getExpenses().getAvailableFunds(tournament)));
         }
         /*Configuro el listView del usuario*/
         /*Lo lleno con los jugadores que tenga*/
@@ -126,8 +126,6 @@ public class TeamManagerController {
         MainApp.setNewScene("userRankings");
     };
 
-    /*En cuanto al tema de repetidos: se debería ver desde el model eso. Es decir, en la clase Usuario debería existir un método para verificar si
-    el jugador que quiere y puede comprar es repetido o no*/
     /**
      * Añade un jugador al equipo y decrementa los fondos
      */
@@ -143,7 +141,7 @@ public class TeamManagerController {
                         }
                     }
                 }
-                fundsLabel.setText("Available funds: " + Integer.toString(userDT.getExpenses().getAvailableFunds(tournament)));
+                fundsLabel.setText("Fondos disponibles: " + Integer.toString(userDT.getExpenses().getAvailableFunds(tournament)));
             } catch (InsufficientFundsException e) {
                 showErrorMessage();
             }
@@ -162,7 +160,7 @@ public class TeamManagerController {
                 userDT.sell(tournament, p);
                 userPlayerList.getItems().removeAll(p);
             }
-            fundsLabel.setText("Available funds: " + Integer.toString(userDT.getExpenses().getAvailableFunds(tournament)));
+            fundsLabel.setText("Fondos disponibles: " + Integer.toString(userDT.getExpenses().getAvailableFunds(tournament)));
         }
     };
 
@@ -172,7 +170,7 @@ public class TeamManagerController {
     private void showErrorMessage() {
         Alert aux = new Alert(Alert.AlertType.ERROR);
         aux.setTitle("ERROR");
-        aux.setHeaderText("INSUFFICIENT FUNDS OR FULL TEAM");
+        aux.setHeaderText("FONDOS INSUFICIENTES O EQUIPO COMPLETO");
         aux.showAndWait();
     }
 

@@ -76,7 +76,7 @@ public class UserViewController implements Initializable{
                         try {
                             root = loader.load();
                         } catch (IOException e) {
-                            MainApp.createAlert("There was an error loading a file. Please try again.").showAndWait();
+                            MainApp.createAlert("Error cargando archivo, intente de nuevo.").showAndWait();
                             exit();
                         }
                         logoutButton.setVisible(false);
@@ -104,7 +104,7 @@ public class UserViewController implements Initializable{
                     try {
                         root = loader.load();
                     } catch (IOException e) {
-                        MainApp.createAlert("There was an error loading a file. Please try again.").showAndWait();
+                        MainApp.createAlert("Error cargando archivo, intente de nuevo.").showAndWait();
                         exit();
                     }
                     logoutButton.setVisible(false);

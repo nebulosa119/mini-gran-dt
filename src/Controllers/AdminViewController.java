@@ -88,8 +88,7 @@ public class AdminViewController implements Initializable{
     @FXML
     private void handleAddTeam(){
         if(expandedTournament==null){
-            Alert alert = MainApp.createAlert("Ningun torneo seleccionado.");
-            alert.showAndWait();
+            MainApp.createAlert("Ningun torneo seleccionado.").showAndWait();
             return;
         }
         TextInputDialog dialog = new TextInputDialog();
@@ -101,8 +100,7 @@ public class AdminViewController implements Initializable{
         if (result.isPresent()) {
             PhysicalTeam toAddTeam = new PhysicalTeam(result.get(), expandedTournament.getMaxPlayers());
             if(expandedTournament.hasTeam(toAddTeam)) {
-                Alert alert = MainApp.createAlert("El equipo " + toAddTeam.getName() + " ya existe.");
-                alert.showAndWait();
+                MainApp.createAlert("El equipo " + toAddTeam.getName() + " ya existe.").showAndWait();
                 return;
             }
             expandedTournament.addTeam(toAddTeam);
@@ -130,8 +128,7 @@ public class AdminViewController implements Initializable{
                 team.add(new Player(result.get()));
                 playersTableView.getItems().add(new ViewPlayer(result.get()));
             } catch(CompleteTeamException e) {
-                Alert alert = MainApp.createAlert("Equipo Completo.");
-                alert.showAndWait();
+                MainApp.createAlert("Equipo Completo.").showAndWait();
             }
         }
     }
@@ -407,14 +404,18 @@ public class AdminViewController implements Initializable{
         }
     }
 
+    /**
+     * Clase que verifica en donde se debe ingresar Integer del TableView sea eso lo ingresado.
+     *
+     * @author tdorado
+     */
     private class IntegerConverter extends IntegerStringConverter{
         @Override
         public Integer fromString(String value) {
             try {
                 return super.fromString(value);
             } catch(NumberFormatException e) {
-                Alert alert = MainApp.createAlert("Solo números permitidos");
-                alert.showAndWait();
+                MainApp.createAlert("Solo números permitidos").showAndWait();
                 return 0;
             }
         }

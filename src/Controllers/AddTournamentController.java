@@ -17,10 +17,8 @@ public class AddTournamentController{
 
     @FXML
     private TextField tournamentTextField;
-
     @FXML
     private TextField playersTextField;
-
     @FXML
     private Label error;
 
