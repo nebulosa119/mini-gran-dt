@@ -1,12 +1,6 @@
 package Controllers;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
-
-import Models.*;
+import Models.AccountsManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,7 +9,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import sun.applet.Main;
+
+import java.io.IOException;
+import java.net.URL;
 
 import static javafx.application.Platform.exit;
 
@@ -95,7 +91,7 @@ public class MainApp extends Application {
         aux.getIcons().add(new Image(MainApp.class.getResourceAsStream("/Resources/Media/icon.png")));
         if(page!=null){
             aux.setScene(new Scene(page));
-            aux.show();
+           aux.show();
         }
     }
 

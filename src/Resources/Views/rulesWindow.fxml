@@ -5,47 +5,46 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane fx:controller="Controllers.RulesWindowController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="264.0" prefWidth="386.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.RulesWindowController">
    <children>
       <VBox prefHeight="270.0" prefWidth="390.0">
          <children>
-            <Label alignment="TOP_CENTER" prefHeight="45.0" prefWidth="393.0" text="Las reglas del torneo son:">
+            <Label alignment="TOP_CENTER" prefHeight="45.0" prefWidth="390.0" style="-fx-background-color: cyan;" text="Las reglas del torneo son:" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
             </Label>
-            <Label fx:id="scoredGoal" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="250.0">
+            <Label fx:id="scoredGoal" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="390.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="penaltyGoal" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="328.0" >
+            <Label fx:id="penaltyGoal" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="390.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="goaleeGoal" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="272.0">
+            <Label fx:id="goaleeGoal" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="390.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="penaltyCatched" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="258.0">
+            <Label fx:id="penaltyCatched" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="390.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="redCard" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="238.0" >
+            <Label fx:id="redCard" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="390.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="yellowCard" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="269.0">
+            <Label fx:id="yellowCard" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="390.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="ownGoal" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="254.0">
+            <Label fx:id="ownGoal" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="390.0">
                <font>
                   <Font size="18.0" />
                </font>
