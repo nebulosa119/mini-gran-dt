@@ -28,7 +28,7 @@ public class UserViewController implements Initializable{
 
     private RadioButton selectedButton = null;
 
-    private Map<RadioButton, Tournament> map = new HashMap<>();
+    private Map<RadioButton, PhysicalTournament> map = new HashMap<>();
 
     @FXML
     private Accordion tournamentAccordion;
@@ -56,10 +56,10 @@ public class UserViewController implements Initializable{
             ToggleGroup tournamentGroup = new ToggleGroup();
             VBox tournamentBox = new VBox(10);
             tournamentBox.setPadding(new Insets(10));
-            for(Tournament tournament : administrator.getTournaments()) {
-                tournament.setAdministrator(administrator);
-                RadioButton tButton = new RadioButton(tournament.getName());
-                map.put(tButton, tournament);
+            for(PhysicalTournament physicalTournament : administrator.getTournaments()) {
+                physicalTournament.setAdministrator(administrator);
+                RadioButton tButton = new RadioButton(physicalTournament.getName());
+                map.put(tButton, physicalTournament);
                 tournamentGroup.getToggles().add(tButton);
                 tournamentBox.getChildren().add(tButton);
             }
@@ -67,10 +67,10 @@ public class UserViewController implements Initializable{
                 @Override
                 public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
                     if(tournamentGroup.getSelectedToggle() != null &&
-                            ((UserDT)AccountsManager.getSignedAccount()).hasSigned(map.get(tournamentGroup.getSelectedToggle()))) {
+                            ((DT)AccountsManager.getSignedAccount()).hasSigned(map.get(tournamentGroup.getSelectedToggle()))) {
                         RadioButton selected = (RadioButton)tournamentGroup.getSelectedToggle();
-                        Tournament aux = administrator.getTournament(map.get(selected).getName());
-                        TeamManagerController.setTournament(aux);
+                        PhysicalTournament aux = administrator.getTournament(map.get(selected).getName());
+                        TeamManagerController.setPhysicalTournament(aux);
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Resources/Views/teamManager.fxml"));
                         Parent root = null;
                         try {
@@ -96,9 +96,9 @@ public class UserViewController implements Initializable{
             @Override
             public void handle(MouseEvent event) {
                 if(selectedButton != null) {
-                    ((UserDT)AccountsManager.getSignedAccount()).signUp(map.get(selectedButton));
-                    map.get(selectedButton).getAdministrator().addUser(map.get(selectedButton).getName(), (UserDT) AccountsManager.getSignedAccount());
-                    TeamManagerController.setTournament(map.get(selectedButton));
+                    ((DT)AccountsManager.getSignedAccount()).signUp(map.get(selectedButton));
+                    map.get(selectedButton).getAdministrator().addUser(map.get(selectedButton).getName(), (DT) AccountsManager.getSignedAccount());
+                    TeamManagerController.setPhysicalTournament(map.get(selectedButton));
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/Resources/Views/teamManager.fxml"));
                     Parent root = null;
                     try {

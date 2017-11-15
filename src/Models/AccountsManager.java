@@ -15,21 +15,21 @@ public class AccountsManager implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    private static ArrayList<Account> accounts;
-    private static Account account;
+    private static ArrayList<User> users;
+    private static User user;
 
     /**
      * Retrona el usuario que está logeado
      */
-    public static Account getSignedAccount() {
-        return account;
+    public static User getSignedAccount() {
+        return user;
     }
     /**
      * Retrona una lista con todos aquellos que sean administradores
      */
     public static ArrayList<Administrator> getAdmins() {
         ArrayList<Administrator> aux = new ArrayList<>();
-        for(Account a : accounts) {
+        for(User a : users) {
             if(a instanceof Administrator)
                 aux.add((Administrator)a);
         }
@@ -38,8 +38,8 @@ public class AccountsManager implements Serializable{
     /**
      * Retrona los torneos del administrador que está logeado
      */
-    public static Set<Tournament> getTournaments() {
-        return ((Administrator)account).getTournaments();
+    public static Set<PhysicalTournament> getTournaments() {
+        return ((Administrator) user).getTournaments();
     }
     /**
      * Crea un administrador
@@ -48,7 +48,7 @@ public class AccountsManager implements Serializable{
     public static boolean createAdmin(String username) {
         if(username.equals(""))
             return false;
-        accounts.add(new Administrator(username));
+        users.add(new Administrator(username));
         return true;
     }
     /**
@@ -58,15 +58,15 @@ public class AccountsManager implements Serializable{
     public static boolean createUser(String username) {
         if(username.equals(""))
             return false;
-        accounts.add(new UserDT(username));
+        users.add(new DT(username));
         return true;
     }
     /**
      * Retorna una cuenta especifica
      * @param accountname El nombre de la cuenta
      */
-    private static Account getAccount(String accountname) {
-        for (Account aux: accounts) {
+    private static User getAccount(String accountname) {
+        for (User aux: users) {
             if (aux.getName().equals(accountname))
                 return aux;
         }
@@ -77,8 +77,8 @@ public class AccountsManager implements Serializable{
      * a sus valores desde varios lugares
      * @param accountName El nombre del usuario
      */
-    public static void setAccount(String accountName) {
-        account = getAccount(accountName);
+    public static void setUser(String accountName) {
+        user = getAccount(accountName);
     }
     /**
      * Busca al usuario pasado como parametro y si lo contiene retorna true
@@ -91,16 +91,16 @@ public class AccountsManager implements Serializable{
      * @return Retorna true si al cuenta logeada e User, falso en otro caso
      * */
     public static boolean accountIsUser() {
-        return account != null && account instanceof UserDT;
+        return user != null && user instanceof DT;
     }
 
-    public static ArrayList<UserDT> getUsersInTournament(Tournament tournament) {
-        ArrayList<UserDT> users = null;
-        for (Account account: accounts) {
-            if (account instanceof Administrator) {
-                Administrator admin = (Administrator) account;
-                if (admin.containsTournament(tournament)) {
-                    users = admin.getOrderedUsers(tournament);
+    public static ArrayList<DT> getUsersInTournament(PhysicalTournament physicalTournament) {
+        ArrayList<DT> users = null;
+        for (User user : AccountsManager.users) {
+            if (user instanceof Administrator) {
+                Administrator admin = (Administrator) user;
+                if (admin.containsTournament(physicalTournament)) {
+                    users = admin.getOrderedUsers(physicalTournament);
                     break;
                 }
             }
@@ -110,30 +110,30 @@ public class AccountsManager implements Serializable{
 
     /** Carga los usuarios existentes al programa */
     public static void loadAccounts() throws IOException, ClassNotFoundException {
-        accounts = (ArrayList<Account>) FileManager.readFromFile("accountsData.temp");
-        if (accounts == null)
-            accounts = new ArrayList<>();
+        users = (ArrayList<User>) FileManager.readFromFile("accountsData.temp");
+        if (users == null)
+            users = new ArrayList<>();
     }
 
     /**
      * Guarda la lista de usuario existente
      * */
     public static void save(){
-        FileManager.writeToFile(accounts,"accountsData.temp");
+        FileManager.writeToFile(users,"accountsData.temp");
     }
     /**
      * Metodo implementeados de la serializacion
      * */
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
-        out.writeObject(accounts);
+        out.writeObject(users);
     }
     /**
      * Metodo implementeados de la serializacion
      * */
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject();
-        accounts = (ArrayList<Account>)ois.readObject();
+        users = (ArrayList<User>)ois.readObject();
     }
 
 }

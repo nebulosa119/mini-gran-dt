@@ -12,27 +12,27 @@ import java.util.Map;
 /**
  * Clase que representa un usuario que participa vendiendo y comprando jugadores a lo largo de un torneo.
  */
-public class UserDT extends Account{
+public class DT extends User {
 
     private static final long serialVersionUID = 1L;
 
-    private UserWallet expenses = new UserWallet();
-    private UserTeams userTeams = new UserTeams();
+    private DTWallet expenses = new DTWallet();
+    private DTTeamsManager DTTeamsManager = new DTTeamsManager();
 
     /**
      * Constructor
      * @param name String que representa el nombre de la cuenta.
      */
-    public UserDT(String name) {
+    public DT(String name) {
         super(name);
     }
 
     /**
      * Método para conseguir los puntos de un jugador en un torneo.
-     * @param t De tipo Tournament, representa el torneo.
+     * @param t De tipo PhysicalTournament, representa el torneo.
      */
-    public int getPoints(Tournament t) {
-        return userTeams.getUserPoints(t);
+    public int getPoints(PhysicalTournament t) {
+        return DTTeamsManager.getUserPoints(t);
     }
 
     /**
@@ -40,9 +40,9 @@ public class UserDT extends Account{
      * @param t Representa el torneo.
      * @param p Representa el jugador que quiere vender.
      */
-    public void sell(Tournament t , Player p) {
+    public void sell(PhysicalTournament t , PhysicalPlayer p) {
         expenses.sell(t, p);
-        userTeams.removePlayer(t, p);
+        DTTeamsManager.removePlayer(t, p);
     }
 
     /**
@@ -50,25 +50,25 @@ public class UserDT extends Account{
      * @param t Representa el torneo.
      * @param p Representa el jugador que quiere vender.
      */
-    public void buy(Tournament t, Player p) throws InsufficientFundsException{
+    public void buy(PhysicalTournament t, PhysicalPlayer p) throws InsufficientFundsException{
         expenses.buy(t, p);
-        userTeams.addPlayer(t, p);
+        DTTeamsManager.addPlayer(t, p);
     }
 
     /**
      * Método para inscribirse en un torneo en particular.
      * @param t Representa el torneo en el cual desea inscribirse.
      */
-    public void signUp(Tournament t) {
+    public void signUp(PhysicalTournament t) {
         expenses.addNewFund(t);
-        userTeams.addNewTeam(t);
+        DTTeamsManager.addNewTeam(t);
     }
 
     /**
-     * Método para obtener acceso al UserWallet del usuario.
-     * @return Devuelve el UserWallet del usuario.
+     * Método para obtener acceso al DTWallet del usuario.
+     * @return Devuelve el DTWallet del usuario.
      */
-    public UserWallet getExpenses() {
+    public DTWallet getExpenses() {
         return expenses;
     }
 
@@ -76,15 +76,15 @@ public class UserDT extends Account{
      * Método para saber si el usuario se ha inscripto en un torneo.
      * @param t Representa el torneo.
      */
-    public boolean hasSigned(Tournament t) {
-        return userTeams.isParticipating(t);
+    public boolean hasSigned(PhysicalTournament t) {
+        return DTTeamsManager.isParticipating(t);
     }
 
     /**
-     * Método para obtener la instancia de la clase de manejo de equipos de usuario UserTeams.
+     * Método para obtener la instancia de la clase de manejo de equipos de usuario DTTeamsManager.
      */
-    public UserTeams getUserTeams() {
-        return userTeams;
+    public DTTeamsManager getDTTeamsManager() {
+        return DTTeamsManager;
     }
 
     /**
@@ -93,13 +93,13 @@ public class UserDT extends Account{
      * @param tour El torneo en cuestión.
      * @param propertiesMap Mapa de los nombres de los jugadores a las Propiedades.
      */
-    public void refreshPoints(Tournament tour, Map<String, Player.Properties> propertiesMap) {
-        userTeams.refreshPoints(propertiesMap, tour);
+    public void refreshPoints(PhysicalTournament tour, Map<String, PhysicalPlayer.Properties> propertiesMap) {
+        DTTeamsManager.refreshPoints(propertiesMap, tour);
     }
 
     @Override
     public boolean equals(Object o) {
-        return this == o || o instanceof UserDT && super.equals(o);
+        return this == o || o instanceof DT && super.equals(o);
     }
 
     @Override
@@ -118,13 +118,13 @@ public class UserDT extends Account{
         out.defaultWriteObject();
         out.writeUTF(name);
         out.writeObject(expenses);
-        out.writeObject(userTeams);
+        out.writeObject(DTTeamsManager);
     }
 
     private void readObject(ObjectInputStream ois) throws IOException,ClassNotFoundException{
         ois.defaultReadObject();
         name = ois.readUTF();
-        expenses = (UserWallet)ois.readObject();
-        userTeams = (UserTeams)ois.readObject();
+        expenses = (DTWallet)ois.readObject();
+        DTTeamsManager = (DTTeamsManager)ois.readObject();
     }
 }

@@ -7,7 +7,7 @@ import java.io.Serializable;
  *
  * @author
  */
-public abstract class Account implements Serializable {
+public abstract class User implements Serializable {
 
     String name;
 
@@ -16,7 +16,7 @@ public abstract class Account implements Serializable {
      *
      * @param name Nombre del usuario
      */
-    public Account(String name) {
+    public User(String name) {
         this.name = name;
     }
 
@@ -32,9 +32,9 @@ public abstract class Account implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Account account = (Account) o;
+        User user = (User) o;
 
-        return name != null ? name.equals(account.name) : account.name == null;
+        return name != null ? name.equals(user.name) : user.name == null;
     }
 
     @Override

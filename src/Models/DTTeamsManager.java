@@ -11,26 +11,26 @@ import java.util.Map;
 /**
  * Clase de administración de equipos de usuarios.
  */
-public class UserTeams implements Serializable{
+public class DTTeamsManager implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    private Map<Tournament, UserTeam> teams = new HashMap<>();
+    private Map<PhysicalTournament, DTTeam> teams = new HashMap<>();
 
     /**
-     * Método para registrar la creación y uso de un equipo UserTeam en un torneo particular.
+     * Método para registrar la creación y uso de un equipo DTTeam en un torneo particular.
      * @param t
      */
-    void addNewTeam(Tournament t) {
-        teams.put(t, new UserTeam(t.getMaxPlayers()));
+    void addNewTeam(PhysicalTournament t) {
+        teams.put(t, new DTTeam(t.getMaxPlayers()));
     }
 
     /**
-     * Método para remover un jugador comprado de un equipo UserTeam en un torneo en particular.
+     * Método para remover un jugador comprado de un equipo DTTeam en un torneo en particular.
      * @param t
      * @param p
      */
-    void removePlayer(Tournament t, Player p) {
+    void removePlayer(PhysicalTournament t, PhysicalPlayer p) {
         teams.get(t).removePlayer(p);
     }
 
@@ -39,7 +39,7 @@ public class UserTeams implements Serializable{
      * @param t
      * @param p
      */
-    void addPlayer(Tournament t, Player p) {
+    void addPlayer(PhysicalTournament t, PhysicalPlayer p) {
         teams.get(t).addPlayer(p);
     }
 
@@ -48,17 +48,17 @@ public class UserTeams implements Serializable{
      * @param t
      * @return
      */
-    boolean isParticipating(Tournament t) {
+    boolean isParticipating(PhysicalTournament t) {
         return teams.containsKey(t);
     }
 
     /**
-     * Método para conseguir una lista con los integrantes de un equipo UserTeam en un torneo en particular.
+     * Método para conseguir una lista con los integrantes de un equipo DTTeam en un torneo en particular.
      * @param t
      * @return
      */
-    public ArrayList<Player> getUserTeamPlayers(Tournament t) {
-        return teams.get(t).getPlayers();
+    public ArrayList<PhysicalPlayer> getUserTeamPlayers(PhysicalTournament t) {
+        return teams.get(t).getPhysicalPlayers();
     }
 
     /**
@@ -66,7 +66,7 @@ public class UserTeams implements Serializable{
      * @param t
      * @return
      */
-    int getUserPoints(Tournament t) {
+    int getUserPoints(PhysicalTournament t) {
         return teams.get(t).getUserPoints();
     }
 
@@ -77,17 +77,17 @@ public class UserTeams implements Serializable{
 
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject();
-        teams = (Map<Tournament, UserTeam>) ois.readObject();
+        teams = (Map<PhysicalTournament, DTTeam>) ois.readObject();
     }
 
     /**
-     * Método para actualizar los puntos del usuario en función de los cambios hechos a los jugadores que componen los equipos UserTeam del usuario.
+     * Método para actualizar los puntos del usuario en función de los cambios hechos a los jugadores que componen los equipos DTTeam del usuario.
      * @param propertiesMap
      * @param tour
      */
-    void refreshPoints(Map<String, Player.Properties> propertiesMap, Tournament tour) {
-        UserTeam t = teams.get(tour);
-        for(Player p : t.getPlayers()) {
+    void refreshPoints(Map<String, PhysicalPlayer.Properties> propertiesMap, PhysicalTournament tour) {
+        DTTeam t = teams.get(tour);
+        for(PhysicalPlayer p : t.getPhysicalPlayers()) {
             for(String name : propertiesMap.keySet()) {
                 if(p.getName().equals(name)) {
                     t.refreshPoints(propertiesMap.get(p.getName()));

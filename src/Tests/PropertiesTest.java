@@ -1,6 +1,6 @@
 package Tests;
 
-import Models.Player;
+import Models.PhysicalPlayer;
 import org.junit.Test;
 import org.apache.commons.lang3.SerializationUtils;
 import java.io.Serializable;
@@ -12,9 +12,9 @@ public class PropertiesTest {
 
     @Test
     public void createPropertiesTest() {
-        Player.Properties props1 = new Player.Properties(1,2,3,4,5,6,7);
-        Player.Properties props2 = new Player.Properties(1,2,3,4,5,6,7);
-        Player.Properties props3 = new Player.Properties(1,1,1,1,1,1,1);
+        PhysicalPlayer.Properties props1 = new PhysicalPlayer.Properties(1,2,3,4,5,6,7);
+        PhysicalPlayer.Properties props2 = new PhysicalPlayer.Properties(1,2,3,4,5,6,7);
+        PhysicalPlayer.Properties props3 = new PhysicalPlayer.Properties(1,1,1,1,1,1,1);
 
         assertTrue(props1.equals(props2));
         assertFalse(props1.equals(props3));
@@ -23,7 +23,7 @@ public class PropertiesTest {
 
     @Test
     public void calculationsTest() {
-        Player.Properties props = new Player.Properties(1,2,3,4,5,6,7);
+        PhysicalPlayer.Properties props = new PhysicalPlayer.Properties(1,2,3,4,5,6,7);
         int price = props.calculatePrice();
         int ranking = props.calculateRanking();
 
@@ -33,7 +33,7 @@ public class PropertiesTest {
 
     @Test
     public void serializationTest() {
-        Player.Properties props = new Player.Properties(1,2,3,4,5,6,7);
+        PhysicalPlayer.Properties props = new PhysicalPlayer.Properties(1,2,3,4,5,6,7);
 
         Serializable copy = SerializationUtils.clone((Serializable) props);
         assertEquals(props, copy);

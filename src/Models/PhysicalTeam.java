@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
-public class PhysicalTeam extends AbstractTeam implements Serializable {
+public class PhysicalTeam extends Team implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,27 +24,27 @@ public class PhysicalTeam extends AbstractTeam implements Serializable {
     PhysicalTeam(String name, PhysicalTeam team, int maxPlayers) {
         this(team.getName(),maxPlayers);
         this.name = name;
-        players.addAll(team.getPlayers());
+        physicalPlayers.addAll(team.getPhysicalPlayers());
     }
 
-    public ArrayList<Player> getPlayers() {
-        return players;
+    public ArrayList<PhysicalPlayer> getPhysicalPlayers() {
+        return physicalPlayers;
     }
 
     public String getName() {
         return name;
     }
 
-    public void add(Player p) throws CompleteTeamException{
-        if (players.size() < max_players && !players.contains(p))
-            players.add(p);
+    public void add(PhysicalPlayer p) throws CompleteTeamException{
+        if (physicalPlayers.size() < max_players && !physicalPlayers.contains(p))
+            physicalPlayers.add(p);
         else
             throw new CompleteTeamException();
     }
 
-    void refresh(Map<String, Player.Properties> dataPlayers) {
-        for (Player myPlayer : players) {
-            myPlayer.refresh(dataPlayers.get(myPlayer.getName()));
+    void refresh(Map<String, PhysicalPlayer.Properties> dataPlayers) {
+        for (PhysicalPlayer myPhysicalPlayer : physicalPlayers) {
+            myPhysicalPlayer.refresh(dataPlayers.get(myPhysicalPlayer.getName()));
         }
     }
 
@@ -64,18 +64,18 @@ public class PhysicalTeam extends AbstractTeam implements Serializable {
 
     @Override
     public String toString() {
-        return name+"{"+Arrays.toString(players.toArray())+'}';
+        return name+"{"+Arrays.toString(physicalPlayers.toArray())+'}';
     }
 
     private void writeObject(ObjectOutputStream out)throws IOException{
         out.defaultWriteObject();
         out.writeUTF(name);
-        out.writeObject(players);
+        out.writeObject(physicalPlayers);
     }
     private void readObject(ObjectInputStream ois) throws IOException,ClassNotFoundException{
         ois.defaultReadObject();
         name = ois.readUTF();
-        players = (ArrayList<Player>)ois.readObject();
+        physicalPlayers = (ArrayList<PhysicalPlayer>)ois.readObject();
     }
 }
 

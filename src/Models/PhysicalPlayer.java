@@ -8,7 +8,7 @@ import java.io.Serializable;
 // los jugadores no tendran una posicion fija, pueden variar a lo largo del tornero
 // por ende a la hora de subir los datos, todos los jugadores seran capaces de recibir
 // cualquier atributo.
-public class Player implements Serializable{
+public class PhysicalPlayer implements Serializable{
 
     private final static int INITIAL_AMOUNT = 1000;
     private static final long serialVersionUID = 1L;
@@ -17,21 +17,21 @@ public class Player implements Serializable{
     private int price;
     private Properties properties;
 
-    public Player(String name, int price, Properties properties) {
+    public PhysicalPlayer(String name, int price, Properties properties) {
         this.name = name;
         this.price = price;
         this.properties = properties;
     }
 
-    public Player(String name, Properties properties) {
+    public PhysicalPlayer(String name, Properties properties) {
         this(name,INITIAL_AMOUNT,properties);
     }
 
-    public Player(String name) {
+    public PhysicalPlayer(String name) {
         this(name,new Properties());
     }
 
-    public Player(String name, int price) {
+    public PhysicalPlayer(String name, int price) {
         this(name,price,new Properties());
     }
 
@@ -57,9 +57,9 @@ public class Player implements Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Player player = (Player) o;
+        PhysicalPlayer physicalPlayer = (PhysicalPlayer) o;
 
-        return name != null ? name.equals(player.name) : player.name == null;
+        return name != null ? name.equals(physicalPlayer.name) : physicalPlayer.name == null;
     }
 
     @Override
