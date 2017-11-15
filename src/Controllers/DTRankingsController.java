@@ -22,7 +22,7 @@ import static javafx.scene.control.TableColumn.SortType.ASCENDING;
  *
  * @author tdorado
  */
-public class UserRankingsController implements Initializable {
+public class DTRankingsController implements Initializable {
 
     @FXML
     private Label tournamentLabel;
@@ -43,7 +43,7 @@ public class UserRankingsController implements Initializable {
         if (users != null) {
 
             TableColumn<DT, Integer> rankingColumn = new TableColumn<>("Puesto");
-            TableColumn<DT, String> userColumn = new TableColumn<>("Usuario");
+            TableColumn<DT, String> userColumn = new TableColumn<>("DT");
             TableColumn<DT, Integer> pointsColumn = new TableColumn<>("Puntos");
 
             rankingColumn.setCellValueFactory(param -> new SimpleIntegerProperty(getRanking(param.getValue())).asObject());

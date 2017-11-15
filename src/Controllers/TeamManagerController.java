@@ -124,8 +124,8 @@ public class TeamManagerController {
      * Abre la ventana de ranking de los jugadores
      */
     private EventHandler rankingHandler = event -> {
-        UserRankingsController.setInfo(physicalTournament);
-        MainApp.setNewScene("userRankings");
+        DTRankingsController.setInfo(physicalTournament);
+        MainApp.setNewScene("dtRankings");
     };
 
     /**

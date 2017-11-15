@@ -24,7 +24,7 @@ import static javafx.application.Platform.exit;
  *
  * @author pmommeso
  */
-public class UserViewController implements Initializable{
+public class DTViewController implements Initializable{
 
     private RadioButton selectedButton = null;
 

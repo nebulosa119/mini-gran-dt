@@ -32,7 +32,7 @@ public class LoginController{
         }else{
             AccountsManager.setUser(username);
             if (AccountsManager.accountIsDT()) {
-                MainApp.setScene("userView");
+                MainApp.setScene("dtView");
             } else {
                 MainApp.setScene("adminView");
             }

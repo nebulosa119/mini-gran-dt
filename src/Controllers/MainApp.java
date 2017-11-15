@@ -66,6 +66,7 @@ public class MainApp extends Application {
             URL fileUrl = MainApp.class.getResource("/Resources/Views/" + windowName + ".fxml");
             page = FXMLLoader.load(fileUrl);
         } catch (Exception e) {
+            System.out.println(e.getStackTrace());
             MainApp.createAlert("Error cargando un archivo, por favor intente de nuevo.").showAndWait();
             exit();
         }
