@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.*;
 import Models.Exceptions.CompleteTeamException;
+import Models.Exceptions.ExistentNameException;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -125,10 +126,10 @@ public class AdminViewController implements Initializable{
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
             try {
-                team.add(new PhysicalPlayer(result.get()));
+                team.addPlayer(new PhysicalPlayer(result.get()));
                 playersTableView.getItems().add(new ViewPlayer(result.get()));
-            } catch(CompleteTeamException e) {
-                MainApp.createAlert("Equipo Completo.").showAndWait();
+            } catch(ExistentNameException e){
+                MainApp.createAlert("Jugador ya existente.").showAndWait();
             }
         }
     }

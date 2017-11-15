@@ -1,6 +1,7 @@
 package Models;
 
 import Models.Exceptions.CompleteTeamException;
+import Models.Exceptions.ExistentNameException;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -20,10 +21,12 @@ public abstract class Team implements Serializable{
     /**
      * Agrega un jugador al equipo
      * @param p  el nuevo jugador*/
-    void addPlayer(PhysicalPlayer p) throws CompleteTeamException {
-        if(physicalPlayers.size() == max_players) throw new CompleteTeamException();
-        if (!physicalPlayers.contains(p))
-            physicalPlayers.add(p);
+    void addPlayer(PhysicalPlayer p) throws CompleteTeamException, ExistentNameException {
+        if(physicalPlayers.size() == max_players)
+            throw new CompleteTeamException();
+        if (physicalPlayers.contains(p))
+            throw new ExistentNameException();
+        physicalPlayers.add(p);
     }
     /**
      * REmueve un jugador del equipo

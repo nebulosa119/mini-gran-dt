@@ -1,6 +1,7 @@
 package Models;
 
 import Models.Exceptions.CompleteTeamException;
+import Models.Exceptions.ExistentNameException;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -39,15 +40,16 @@ public class PhysicalTeam extends Team implements Serializable {
     public String getName() {
         return name;
     }
+
     /**
      * Agrega un jugador al equipo
      * @param p el nuevo jugador
      * */
-    public void add(PhysicalPlayer p) throws CompleteTeamException{
-        if (physicalPlayers.size() < max_players && !physicalPlayers.contains(p))
-            physicalPlayers.add(p);
-        else
-            throw new CompleteTeamException();
+    @Override
+    public void addPlayer(PhysicalPlayer p) throws ExistentNameException{
+        if (physicalPlayers.contains(p))
+            throw new ExistentNameException();
+        physicalPlayers.add(p);
     }
     /**
      * Se encarga de pasar la inforacion recivida del admin a los jugadores

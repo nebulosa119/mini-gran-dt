@@ -1,6 +1,7 @@
 package Tests;
 
 import Models.Exceptions.CompleteTeamException;
+import Models.Exceptions.ExistentNameException;
 import Models.PhysicalTeam;
 import Models.PhysicalPlayer;
 import org.apache.commons.lang3.SerializationUtils;
@@ -38,20 +39,20 @@ public class PhysicalTeamTest {
         boolean thrown = false;
 
         try {
-            team.add(p1);
-            team.add(p2);
-            team.add(p3);
-            team.add(p4);
-            team.add(p5);
-        } catch (CompleteTeamException ex) {
+            team.addPlayer(p1);
+            team.addPlayer(p2);
+            team.addPlayer(p3);
+            team.addPlayer(p4);
+            team.addPlayer(p5);
+        } catch (Exception e) {
             thrown = true;
         }
 
         assertEquals(false,thrown);
 
         try {
-            team.add(p6);
-        } catch (CompleteTeamException ex) {
+            team.addPlayer(p6);
+        } catch (Exception e) {
             thrown = true;
         }
 
@@ -63,9 +64,9 @@ public class PhysicalTeamTest {
         PhysicalTeam team = new PhysicalTeam("teamName",5);
         PhysicalPlayer physicalPlayer = new PhysicalPlayer("playerName");
         try {
-            team.add(physicalPlayer);
-        } catch (CompleteTeamException ex) {
-            ex.getMessage();
+            team.addPlayer(physicalPlayer);
+        } catch (Exception e) {
+            e.getMessage();
         }
 
         Serializable copy = SerializationUtils.clone((Serializable) team);

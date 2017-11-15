@@ -2,6 +2,7 @@ package Tests;
 
 import Models.DT;
 import Models.Exceptions.CompleteTeamException;
+import Models.Exceptions.ExistentNameException;
 import Models.Exceptions.InsufficientFundsException;
 import Models.PhysicalTeam;
 import Models.PhysicalTournament;
@@ -36,9 +37,11 @@ public class DTTest {
         PhysicalPlayer physicalPlayer = new PhysicalPlayer("playerName");
 
         try {
-            team.add(physicalPlayer);
+            team.addPlayer(physicalPlayer);
         } catch (CompleteTeamException ex) {
             ex.getMessage();
+        } catch (ExistentNameException e) {
+            e.printStackTrace();
         }
         tour.addTeam(team);
         DT.signUp(tour);
@@ -46,9 +49,7 @@ public class DTTest {
         boolean thrown = false;
         try {
             DT.buy(tour, physicalPlayer);
-        } catch (InsufficientFundsException ex) {
-            thrown = true;
-        } catch (CompleteTeamException ex) {
+        } catch (Exception e) {
             thrown = true;
         }
 
@@ -70,18 +71,18 @@ public class DTTest {
         PhysicalPlayer physicalPlayer = new PhysicalPlayer("playerName");
 
         try {
-            team.add(physicalPlayer);
+            team.addPlayer(physicalPlayer);
         } catch (CompleteTeamException ex) {
             ex.getMessage();
+        } catch (ExistentNameException e) {
+            e.printStackTrace();
         }
         tour.addTeam(team);
 
         DT.signUp(tour);
         try {
             DT.buy(tour, physicalPlayer);
-        } catch (CompleteTeamException ex) {
-            ex.printStackTrace();
-        } catch (InsufficientFundsException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 
@@ -107,18 +108,18 @@ public class DTTest {
         PhysicalPlayer physicalPlayer = new PhysicalPlayer("playerName");
 
         try {
-            team.add(physicalPlayer);
+            team.addPlayer(physicalPlayer);
         } catch (CompleteTeamException ex) {
             ex.getMessage();
+        } catch (ExistentNameException e) {
+            e.printStackTrace();
         }
         tour.addTeam(team);
 
         DT.signUp(tour);
         try {
             DT.buy(tour, physicalPlayer);
-        } catch (CompleteTeamException ex) {
-            ex.printStackTrace();
-        } catch (InsufficientFundsException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 
