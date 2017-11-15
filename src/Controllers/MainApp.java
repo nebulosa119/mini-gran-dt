@@ -52,7 +52,7 @@ public class MainApp extends Application {
             AccountsManager.save();
             super.stop();
         } catch (Exception e) {
-            MainApp.createAlert("Error while saving data. Please try again.").showAndWait();
+            MainApp.createAlert("Error al guardar en archivo, intente de nuevo.").showAndWait();
             exit();
         }
     }
