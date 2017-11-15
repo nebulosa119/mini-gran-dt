@@ -1,5 +1,7 @@
 package Models;
 
+import Models.Exceptions.CompleteTeamException;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -40,7 +42,7 @@ public class DTTeamsManager implements Serializable{
      * @param t
      * @param p
      */
-    void addPlayer(PhysicalTournament t, PhysicalPlayer p) {
+    void addPlayer(PhysicalTournament t, PhysicalPlayer p) throws CompleteTeamException {
         teams.get(t).addPlayer(p);
     }
 

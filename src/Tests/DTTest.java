@@ -48,6 +48,8 @@ public class DTTest {
             DT.buy(tour, physicalPlayer);
         } catch (InsufficientFundsException ex) {
             thrown = true;
+        } catch (CompleteTeamException ex) {
+            thrown = true;
         }
 
         assertFalse(thrown);
@@ -73,8 +75,19 @@ public class DTTest {
             ex.getMessage();
         }
         tour.addTeam(team);
+<<<<<<< Updated upstream
         DT.signUp(tour);
         DT.buy(tour, physicalPlayer);
+=======
+        DTAccount.signUp(tour);
+        try {
+            DTAccount.buy(tour, physicalPlayer);
+        } catch (CompleteTeamException ex) {
+            ex.printStackTrace();
+        } catch (InsufficientFundsException ex) {
+            ex.printStackTrace();
+        }
+>>>>>>> Stashed changes
 
         assertEquals(0, DT.getPoints(tour));
 
@@ -102,8 +115,19 @@ public class DTTest {
             ex.getMessage();
         }
         tour.addTeam(team);
+<<<<<<< Updated upstream
         DT.signUp(tour);
         DT.buy(tour, physicalPlayer);
+=======
+        DTAccount.signUp(tour);
+        try {
+            DTAccount.buy(tour, physicalPlayer);
+        } catch (CompleteTeamException ex) {
+            ex.printStackTrace();
+        } catch (InsufficientFundsException ex) {
+            ex.printStackTrace();
+        }
+>>>>>>> Stashed changes
 
         Serializable copy = SerializationUtils.clone((Serializable) DT);
         assertEquals(DT, copy);

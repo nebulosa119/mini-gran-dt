@@ -82,6 +82,8 @@ public class UserViewController implements Initializable{
                         logoutButton.setVisible(false);
                         userTeamView.getChildren().add(root);
                     } else {
+                        userTeamView.getChildren().removeAll(userTeamView.getChildren());
+                        userTeamView.getChildren().addAll(signUpLabel, signUpButton);
                         signUpLabel.setVisible(true);
                         signUpButton.setVisible(true);
                         selectedButton = (RadioButton) tournamentGroup.getSelectedToggle();
