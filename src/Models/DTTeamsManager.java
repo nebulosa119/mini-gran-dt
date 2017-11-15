@@ -9,7 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Clase de administración de equipos de usuarios.
+ * Clase de administración de equipos del DT.
+ * Cada DT tiene un equipo por torneo.
  */
 public class DTTeamsManager implements Serializable{
 

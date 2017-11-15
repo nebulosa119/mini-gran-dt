@@ -136,4 +136,7 @@ public class AccountsManager implements Serializable{
         users = (ArrayList<User>)ois.readObject();
     }
 
+    public void createAdmin(Administrator larana) {
+        users.add(larana);
+    }
 }
