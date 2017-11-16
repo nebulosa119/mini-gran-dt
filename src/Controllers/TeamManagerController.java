@@ -35,6 +35,7 @@ public class TeamManagerController {
 
     private DT DT;
     private static PhysicalTournament physicalTournament;
+    private Tab tabbedTeam;
 
     /**
      * Configura todos los equipos del torneo y jugadores del usuario.
@@ -74,8 +75,16 @@ public class TeamManagerController {
             /*Agrego la tabla al tab*/
             tab.setContent(playerTableView);
 
+            /*Si se selecciona la tab guardo que team es*/
+            tab.setOnSelectionChanged(t -> {
+                if (tab.isSelected()) {
+                    tabbedTeam = tab;
+                }
+            });
+
             /*Agrego la tab*/
             teamsTabPanes.getTabs().add(tab);
+
 
             pointsLabel.setText("Puntos actuales: " + Integer.toString(DT.getPoints(physicalTournament)));
             fundsLabel.setText("Fondos disponibles: " + Integer.toString(DT.getExpenses().getAvailableFunds(physicalTournament)));
@@ -135,8 +144,8 @@ public class TeamManagerController {
         @Override
         public void handle(Event event) {
             try {
-                for (Tab t : teamsTabPanes.getTabs()) {
-                    for (PhysicalPlayer p : (ObservableList<PhysicalPlayer>) ((TableView) t.getContent()).getSelectionModel().getSelectedItems()) {
+                if(tabbedTeam!=null){
+                    for (PhysicalPlayer p : (ObservableList<PhysicalPlayer>) ((TableView) tabbedTeam.getContent()).getSelectionModel().getSelectedItems()) {
                         DT.buy(physicalTournament, p);
                         userPlayerList.getItems().add(p);
                     }
@@ -173,16 +182,6 @@ public class TeamManagerController {
             fundsLabel.setText("Fondos disponibles: " + Integer.toString(DT.getExpenses().getAvailableFunds(physicalTournament)));
         }
     };
-
-    /**
-     * Muestra mensaje de fondos insuficientes
-     */
-    private void showErrorMessage() {
-        Alert aux = new Alert(Alert.AlertType.ERROR);
-        aux.setTitle("ERROR");
-        aux.setHeaderText("FONDOS INSUFICIENTES O EQUIPO COMPLETO");
-        aux.showAndWait();
-    }
 
     /**
      * Setea un torneo
