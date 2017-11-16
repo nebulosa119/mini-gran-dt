@@ -71,6 +71,8 @@ public class DTTeamsManager implements Serializable{
      * @return
      */
     int getUserPoints(PhysicalTournament t) {
+        if (teams.get(t)==null)
+            return 0;
         return teams.get(t).getUserPoints();
     }
 

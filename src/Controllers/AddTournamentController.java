@@ -38,7 +38,7 @@ public class AddTournamentController{
     private void handleCreateTournament(){
         String tournamentName = tournamentTextField.getText();
         int maxPlayers = parseInt(playersTextField.getText());
-        if(!((Administrator)AccountsManager.getSignedAccount()).containsTournament(new PhysicalTournament(tournamentName))) {
+        if(!((Administrator)AccountsManager.getSignedAccount()).containsTournament(new PhysicalTournament(tournamentName,maxPlayers))) {
             if(((Administrator) AccountsManager.getSignedAccount()).createTournament(tournamentName, maxPlayers))
                 MainApp.setScene("adminView");
             else

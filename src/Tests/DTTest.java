@@ -33,7 +33,7 @@ public class DTTest {
     @Test
     public void expensesTest() {
         DT DT = new DT("userName");
-        PhysicalTournament tour = new PhysicalTournament("tourName");
+        PhysicalTournament tour = new PhysicalTournament("tourName",5);
         PhysicalTeam team = new PhysicalTeam("teamName",5);
         PhysicalPlayer physicalPlayer = new PhysicalPlayer("playerName");
 
@@ -52,7 +52,7 @@ public class DTTest {
             thrown = true;
         }
 
-        assertTrue(thrown);
+        assertFalse(thrown);
         // DT has a initial amount of funds of 20000
         assertEquals(20000- physicalPlayer.getPrice(), DT.getExpenses().getAvailableFunds(tour));
         assertTrue(DT.getDTTeamsManager().getUserTeamPlayers(tour).contains(physicalPlayer));
@@ -65,7 +65,7 @@ public class DTTest {
     @Test
     public void refreshPointsTest() {
         DT DT = new DT("userName");
-        PhysicalTournament tour = new PhysicalTournament("tourName");
+        PhysicalTournament tour = new PhysicalTournament("tourName",5);
         PhysicalTeam team = new PhysicalTeam("teamName",5);
         PhysicalPlayer physicalPlayer = new PhysicalPlayer("playerName");
 
@@ -100,7 +100,7 @@ public class DTTest {
     @Test
     public void serializationTest() {
         DT DT = new DT("userName");
-        PhysicalTournament tour = new PhysicalTournament("tourName");
+        PhysicalTournament tour = new PhysicalTournament("tourName",5);
         PhysicalTeam team = new PhysicalTeam("teamName",5);
         PhysicalPlayer physicalPlayer = new PhysicalPlayer("playerName");
 

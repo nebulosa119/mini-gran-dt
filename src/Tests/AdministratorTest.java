@@ -25,23 +25,23 @@ public class AdministratorTest {
 
     @Test
     public void createTournamentTest() {
-        PhysicalTournament tour = new PhysicalTournament("tourName");
+        PhysicalTournament tour = new PhysicalTournament("tourName",5);
         Administrator admin = new Administrator("adminName");
         admin.addTournament(tour);
 
-        assertTrue(admin.containsTournament(new PhysicalTournament("tourName")));
+        assertTrue(admin.containsTournament(new PhysicalTournament("tourName",5)));
         assertEquals(tour,admin.getTournament("tourName"));
     }
 
     @Test
     public void addUserTest() {
-        PhysicalTournament tour = new PhysicalTournament("tourName");
+        PhysicalTournament tour = new PhysicalTournament("tourName",5);
         DT DT1 = new DT("userName1");
         Administrator admin = new Administrator("adminName");
         admin.addTournament(tour);
         admin.addDT("tourName", DT1);
 
-        List<DT> set = admin.getOrderedDTs(new PhysicalTournament("tourName"));
+        List<DT> set = admin.getOrderedDTs(new PhysicalTournament("tourName",5));
 
         DT DT2 = new DT("userName2");
 

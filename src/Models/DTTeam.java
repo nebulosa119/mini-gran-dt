@@ -49,12 +49,10 @@ public class DTTeam extends Team implements Serializable{
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
         out.writeInt(points);
-        out.writeObject(physicalPlayers);
     }
 
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject();
         points = ois.readInt();
-        physicalPlayers = (ArrayList<PhysicalPlayer>) ois.readObject();
     }
 }

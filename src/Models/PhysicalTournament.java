@@ -19,10 +19,6 @@ public class PhysicalTournament implements Serializable {
     private String name;
     private int maxPlayers;
 
-    public PhysicalTournament(String tourName) {
-        this(tourName,0);
-    }
-
     public PhysicalTournament(String name, int maxPlayers) {
         this.name = name;
         this.maxPlayers = maxPlayers;
