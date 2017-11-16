@@ -11,7 +11,7 @@ import java.io.Serializable;
  * Estos juagadores están en un UNICO torneo a la vez*/
 public class PhysicalPlayer implements Serializable{
 
-    private final static int INITIAL_AMOUNT = 1000;
+    private final static int MIN_PRICE = 1000;
     private static final long serialVersionUID = 1L;
 
     private String name;
@@ -25,7 +25,7 @@ public class PhysicalPlayer implements Serializable{
     }
 
     public PhysicalPlayer(String name, Properties properties) {
-        this(name,INITIAL_AMOUNT,properties);
+        this(name,MIN_PRICE,properties);
     }
 
     public PhysicalPlayer(String name) {
@@ -184,7 +184,7 @@ public class PhysicalPlayer implements Serializable{
          * Se calcula el precio del jugador de manera ponderada
          * @return entero con el valor*/
         public int calculatePrice() {
-            int resp = 0;
+            int resp = MIN_PRICE;
             resp += normal_goals_scored         * 100 * PropValues.normal_goals_scored.getPricePerCentValue();
             resp += goals_scored_by_penalty_kick* 100 * PropValues.goals_scored_by_penalty_kick.getPricePerCentValue();
             resp += penalty_catched             * 100 * PropValues.penalty_catched.getPricePerCentValue();
