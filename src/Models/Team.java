@@ -2,14 +2,15 @@ package Models;
 
 import Models.Exceptions.CompleteTeamException;
 import Models.Exceptions.ExistentNameException;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+
 /**
- * Modela un equipo de futbol genérico, puede ser fisico o virtual*/
+ * Modela un equipo de futbol genérico, puede ser fisico o virtual
+ */
 public abstract class Team implements Serializable{
 
     int max_players;

@@ -5,9 +5,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
+
 /**
  * Modela un toreno fisico, con equipos reales y jugadores reales, es administrador
- * por el administrador*/
+ * por el administrador
+ */
 public class PhysicalTournament implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -90,6 +92,8 @@ public class PhysicalTournament implements Serializable {
         }
     }
     /**
+     * @return Ranking de un determinado jugador fisico.
+     * @param physicalPlayer Jugador fisico.
      * */
     public int getRanking(PhysicalPlayer physicalPlayer) {
         Map<PhysicalPlayer,Integer> players = unifyPlayers();

@@ -1,12 +1,9 @@
 package Tests;
 
-import Models.DT;
+import Models.*;
 import Models.Exceptions.CompleteTeamException;
 import Models.Exceptions.ExistentNameException;
 import Models.Exceptions.InsufficientFundsException;
-import Models.PhysicalTeam;
-import Models.PhysicalTournament;
-import Models.PhysicalPlayer;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Test;
 
@@ -24,9 +21,13 @@ public class DTTest {
     public void createUserTest() {
         DT DT1 = new DT("userName1");
         DT DT2 = new DT("userName2");
+        PhysicalTournament t = new PhysicalTournament("tourName", 5);
+        Administrator admin = new Administrator("admin");
+        admin.addTournament(t);
+        admin.addDT("tourName", DT1);
 
         assertFalse(DT1.equals(DT2));
-        assertEquals(0, DT1.getPoints(new PhysicalTournament("tourName")));
+        assertEquals(0, DT1.getPoints(t));
     }
 
     @Test
@@ -51,14 +52,14 @@ public class DTTest {
             thrown = true;
         }
 
-        assertFalse(thrown);
-        // DT has a initial amount of funds of 10000
-        assertEquals(10000- physicalPlayer.getPrice(), DT.getExpenses().getAvailableFunds(tour));
+        assertTrue(thrown);
+        // DT has a initial amount of funds of 20000
+        assertEquals(20000- physicalPlayer.getPrice(), DT.getExpenses().getAvailableFunds(tour));
         assertTrue(DT.getDTTeamsManager().getUserTeamPlayers(tour).contains(physicalPlayer));
 
         DT.sell(tour, physicalPlayer);
 
-        assertEquals(10000, DT.getExpenses().getAvailableFunds(tour));
+        assertEquals(20000, DT.getExpenses().getAvailableFunds(tour));
     }
 
     @Test
@@ -70,7 +71,7 @@ public class DTTest {
 
         try {
             team.addPlayer(physicalPlayer);
-        }catch (ExistentNameException e) {
+        }catch (Exception e) {
             e.printStackTrace();
         }
         tour.addTeam(team);

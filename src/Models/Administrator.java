@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.*;
+
     /**
      * Modela al Administrador de cada club de Futbol.
      * Este se ocupa de subir los datos del torneo
