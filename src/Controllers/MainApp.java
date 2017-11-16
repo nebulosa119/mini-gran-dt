@@ -1,6 +1,7 @@
 package Controllers;
 
-import Models.AccountsManager;
+import Models.*;
+import Models.Exceptions.ExistentNameException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +11,10 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
+import java.util.Set;
 
 import static javafx.application.Platform.exit;
 
@@ -37,6 +42,7 @@ public class MainApp extends Application {
         configureStage(stage);
         setScene("login");
         stage.show();
+        //simulate();
     }
 
     /**
@@ -126,6 +132,40 @@ public class MainApp extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+
+    private static void simulate(){
+        String[] teamNames = new String[]{"Sonido Caracol", "Lincoln", "Matambre Reloaded", "C.A. Hay Combate", "Tu Marido", "Cerezas Inocentes", "Piraña", "La Vieja Señora", "Asfalten Kayen", "Ultimo Momento", "El Equipo de Carama", "FC Ronvodwhisky", "Tenedor Libre", "Herederos del Ñoqui", "Savio F.C.", "Pato Criollo", "Extra Brutt", "El Mago y su Jauria", "Colectivo San Juan", "El Nono Michelin", "Submarino Amarilo", "Jamaica Bajo Cero", "Los Borbotones", "No Manzana", "Corta el Pasto", "Furia FC", "La Vino Tinto", "Lineo B", "Te lo Juro por las Nenas", "La Nave Fulbo Clu", "Argentinos Juniors  Buenos Aires", "Belgrano  Córdoba", "Boca Juniors  Buenos Aires", "Chacarita Juniors  Villa Maipú", "Colón  Santa Fe", "Estudiantes  La Plata", "Ferro Carril Oeste  Buenos Aires", "Gimnasia y Esgrima  Jujuy", "Gimnasia y Esgrima  La Plata", "Independiente  Avellaneda", "Instituto  Córdoba", "Lanús  Lanús", "Newell's Old Boys  Rosario", "Racing Club  Avellaneda", "River Plate  Buenos Aires", "Rosario Central  Rosario", "San Lorenzo  Buenos Aires", "Talleres  Córdoba", "Unión  Santa Fe", "Vélez Sarsfield  Buenos Aires"};
+        String[] menNames = new String[]{"Agustin", "Alejo", "Bruno", "Santino", "Daniel", "Pablo", "Mateo ", "Manuel", "Leo", "Martin ", "Pedro", "Juan", "Martin", "Antonio"};
+        String[] surnames = new String[]{"Ponce", "Ledesma", "Castillo", "Vega", "Villalba", "Arias", "Navarro", "Barrios", "Soria", "Alvarado", "Lozano", "James", "Basualdo", "Vedoya", "Momesso", "Osimani", "Dorado", "Gomez", "Noni"};
+
+        ArrayList<String> men = new ArrayList<>();
+        for (int i = 0; i < 14; i++) {
+            for (int j = 0; j < 18; j++) {
+                men.add(menNames[i]+" "+surnames[j]);
+            }
+        }
+        Collections.shuffle(men);
+        int i = 0;
+        ArrayList<Administrator> admins = AccountsManager.getAdmins();
+        for (Administrator admin:admins) {
+            Set<PhysicalTournament> tours = admin.getTournaments();
+            for (PhysicalTournament tour:tours) {
+                ArrayList<PhysicalTeam> teams = tour.getTeams();
+                for (PhysicalTeam team:teams) {
+                    try {
+                        team.addPlayer(new PhysicalPlayer(men.get(i++)));
+                        team.addPlayer(new PhysicalPlayer(men.get(i++)));
+                        team.addPlayer(new PhysicalPlayer(men.get(i++)));
+                        team.addPlayer(new PhysicalPlayer(men.get(i++)));
+                        team.addPlayer(new PhysicalPlayer(men.get(i++)));
+                    } catch (ExistentNameException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
     }
 
 }
