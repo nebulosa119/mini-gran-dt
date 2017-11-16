@@ -8,9 +8,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Map;
 
-// implementa comparable con respecto a los puntos para ordenarlos en cada tournament y cuando se muestra la lista de puntajes
-// solo hay que recorrer la lista e imprimirlos
-
 /**
  * Clase que representa un usuario que participa vendiendo y comprando jugadores a lo largo de un torneo.
  */

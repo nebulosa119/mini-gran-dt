@@ -56,7 +56,7 @@ public class PhysicalTeamTest {
             thrown = true;
         }
 
-        assertTrue(thrown);
+        assertFalse(thrown);
     }
 
     @Test

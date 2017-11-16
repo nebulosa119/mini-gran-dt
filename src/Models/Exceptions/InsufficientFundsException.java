@@ -1,8 +1,10 @@
 package Models.Exceptions;
 
+/**
+ * Excepción usada cuando un DT no tiene fondos para agregar un jugador.
+ */
 public class InsufficientFundsException extends Exception{
-    private static final String MESSAGE = "Insufficient Funds";
     public InsufficientFundsException() {
-        super(MESSAGE);
+        super("Fondos insuficientes.");
     }
 }

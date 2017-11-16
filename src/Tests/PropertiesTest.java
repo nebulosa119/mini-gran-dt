@@ -27,7 +27,7 @@ public class PropertiesTest {
         int price = props.calculatePrice();
         int ranking = props.calculateRanking();
 
-        assertEquals(255,price);
+        assertEquals(1255,price);
         assertEquals(115,ranking);
     }
 

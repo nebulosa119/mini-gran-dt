@@ -17,7 +17,7 @@ public class DTWallet implements Serializable{
     private static final long serialVersionUID = 1L;
 
     private Map<PhysicalTournament, Integer> funds = new HashMap<>();
-    private static final int INITIAL_AMOUNT = 10000;
+    private static final int INITIAL_AMOUNT = 20000;
 
     /**
      * Método que determina si el usuario tiene suficientes fondos para comprar un jugador según los fondos del torneo en particular.
