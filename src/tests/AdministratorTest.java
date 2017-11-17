@@ -3,7 +3,6 @@ package tests;
 import model.*;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Test;
-
 import java.io.Serializable;
 import java.util.List;
 import static org.junit.Assert.assertEquals;

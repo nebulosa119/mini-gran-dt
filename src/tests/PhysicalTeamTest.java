@@ -4,9 +4,7 @@ import model.PhysicalTeam;
 import model.PhysicalPlayer;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Test;
-
 import java.io.Serializable;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

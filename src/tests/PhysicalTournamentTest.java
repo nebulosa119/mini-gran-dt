@@ -4,10 +4,8 @@ import model.PhysicalTeam;
 import model.PhysicalTournament;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Test;
-
 import java.io.Serializable;
-
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
