@@ -92,7 +92,7 @@ public class DTViewController implements Initializable{
                     try {
                         root = loader.load();
                     } catch (IOException e) {
-                        MainApp.createAlert("Error cargando archivo, intente de nuevo.").showAndWait();
+                        MainApp.createAlert("Error cargando archivo, intente de nuevo.\n" + e.getMessage()).showAndWait();
                         exit();
                     }
                     signUpButton.setVisible(false);
@@ -123,7 +123,7 @@ public class DTViewController implements Initializable{
             try {
                 root = loader.load();
             } catch (IOException e) {
-                MainApp.createAlert("Error cargando archivo, intente de nuevo.").showAndWait();
+                MainApp.createAlert("Error cargando archivo, intente de nuevo.\n" + e.getMessage()).showAndWait();
                 exit();
             }
             signUpButton.setVisible(false);

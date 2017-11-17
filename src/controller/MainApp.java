@@ -34,7 +34,7 @@ public class MainApp extends Application {
         try {
             AccountsManager.loadAccounts();
         } catch (Exception e) {
-            MainApp.createAlert("Error al cargar, Mini Gran DT se va a cerrar.").showAndWait();
+            MainApp.createAlert("Error al cargar, Mini Gran DT se va a cerrar.\n" + e.getMessage()).showAndWait();
             exit();
         }
         stage = primaryStage;
@@ -53,7 +53,7 @@ public class MainApp extends Application {
             AccountsManager.save();
             super.stop();
         } catch (Exception e) {
-            MainApp.createAlert("Error al guardar en archivo, Mini Gran DT se va a cerrar.").showAndWait();
+            MainApp.createAlert("Error al guardar en archivo, Mini Gran DT se va a cerrar.\n" + e.getMessage()).showAndWait();
             exit();
         }
     }
@@ -109,7 +109,7 @@ public class MainApp extends Application {
             URL fileUrl = MainApp.class.getResource("/resources/view/" + windowName + ".fxml");
             page = FXMLLoader.load(fileUrl);
         } catch (Exception e) {
-            MainApp.createAlert("Error al cargar, Mini Gran DT se va a cerrar.").showAndWait();
+            MainApp.createAlert("Error al cargar, Mini Gran DT se va a cerrar.\n" + e.getMessage()).showAndWait();
             exit();
         }
         return page;
