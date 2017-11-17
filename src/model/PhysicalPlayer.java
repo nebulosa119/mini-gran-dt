@@ -61,6 +61,14 @@ public class PhysicalPlayer implements Serializable{
         price = properties.calculatePrice();
     }
 
+    /**
+     * Metodo para el simulador.
+     * Carga el precio del jugador
+     * */
+    public void refreshPrice(){
+        this.price = properties.calculatePrice();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
