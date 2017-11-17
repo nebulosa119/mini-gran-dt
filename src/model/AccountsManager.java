@@ -120,7 +120,7 @@ public class AccountsManager implements Serializable{
     /**
      * Guarda la lista de usuario existente
      * */
-    public static void save(){
+    public static void save() throws IOException, ClassNotFoundException {
         FileManager.writeToFile(users,"accountsData.temp");
     }
     /**
