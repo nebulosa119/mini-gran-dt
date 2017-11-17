@@ -3,11 +3,9 @@ package tests;
 import model.*;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Test;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
