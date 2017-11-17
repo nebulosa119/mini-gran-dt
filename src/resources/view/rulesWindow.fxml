@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front.controller.RulesWindowController">
+   <children>
+      <VBox prefHeight="270.0" prefWidth="390.0">
+         <children>
+            <Label alignment="TOP_CENTER" prefHeight="45.0" prefWidth="390.0" style="-fx-background-color: cyan;" text="Las reglas del torneo son:" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Label>
+            <Label fx:id="scoredGoal" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="390.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="penaltyGoal" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="390.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="goaleeGoal" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="390.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="penaltyCatched" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="390.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="redCard" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="390.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="yellowCard" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="390.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="ownGoal" alignment="TOP_CENTER" prefHeight="27.0" prefWidth="390.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

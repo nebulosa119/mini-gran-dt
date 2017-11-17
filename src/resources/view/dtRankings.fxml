@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="415.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front.controller.DTRankingsController">
+   <children>
+      <Label text="Tabla de Posiciones:">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="tournamentLabel">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <ScrollPane prefHeight="561.0" prefWidth="415.0">
+        <content>
+          <AnchorPane fx:id="rankingsAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="559.0" prefWidth="417.0" />
+        </content>
+      </ScrollPane>
+   </children>
+</VBox>
