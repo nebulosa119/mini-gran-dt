@@ -39,7 +39,7 @@ public class MainApp extends Application {
         configureStage(stage);
         setScene("login");
         stage.show();
-        simulate();
+        //simulate();
     }
 
     /**
